@@ -2,7 +2,7 @@
 //  Answers.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/5/11.
+//  Created by  on 15/5/11.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 

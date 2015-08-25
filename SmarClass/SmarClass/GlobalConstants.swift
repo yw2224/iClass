@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 struct GlobalConstants {
     static var DarkRed = UIColor(red: 238.0 / 255.0, green: 37.0 / 255.0, blue: 44.0 / 255.0, alpha: 1.0)
     static var RefreshControlColor = UIColor(red: 247.0 / 255.0, green: 115.0 / 255.0, blue: 114.0 / 255.0, alpha: 1.0)
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
+    static var SplashPagesBackgroundColor = [
+        GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatSand(), FlatRed()]),
+        GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatPowderBlue(), FlatWhite()]),
+        GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatOrange(), FlatSand()]),
+        GradientColor(.LeftToRight, UIScreen.mainScreen().bounds, [FlatWatermelon(), FlatPowderBlue()])
+    ]
 }

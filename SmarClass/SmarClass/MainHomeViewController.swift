@@ -26,8 +26,6 @@ class MainHomeViewController: UIViewController {
     
     @IBOutlet weak var courseTableView: UITableView! {
         didSet {
-            courseTableView.dataSource = self
-            courseTableView.delegate = self
             courseTableView.tableFooterView = UIView(frame: CGRectZero)
         }
     }
@@ -50,7 +48,7 @@ class MainHomeViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        editButton.startGlow(UIColor.yellowColor())
+//        editButton.startGlow(UIColor.yellowColor())
     }
     
     override func didReceiveMemoryWarning() {

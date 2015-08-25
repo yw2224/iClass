@@ -2,7 +2,7 @@
 //  ChangePasswdViewController.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/5/21.
+//  Created by PengZhao on 15/5/21.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 

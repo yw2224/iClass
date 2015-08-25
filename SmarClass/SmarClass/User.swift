@@ -2,7 +2,7 @@
 //  User.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/5/20.
+//  Created by PengZhao on 15/5/20.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 

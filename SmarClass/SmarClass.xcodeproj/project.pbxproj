@@ -7,8 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FBDB559A5007EE8286F7CEE /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8D7C69E175F931120099A0 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */; };
+		F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */; };
+		F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */; };
+		F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
 		F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */; };
+		F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */; };
 		F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */; };
 		F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1301B576D69004733B3 /* FileManager.swift */; };
 		F8F3A1341B577B04004733B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1331B577B04004733B3 /* NetworkManager.swift */; };
@@ -18,13 +24,11 @@
 		F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE131B56479C004FA01C /* Images.xcassets */; };
 		F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE151B56479C004FA01C /* LaunchScreen.xib */; };
 		F8FEFE231B56479D004FA01C /* SmarClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE221B56479C004FA01C /* SmarClassTests.swift */; };
-		F8FEFE3E1B5647F8004FA01C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2C1B5647F8004FA01C /* RegisterViewController.swift */; };
 		F8FEFE3F1B5647F8004FA01C /* ChangePasswdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */; };
 		F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */; };
 		F8FEFE411B5647F8004FA01C /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */; };
 		F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE301B5647F8004FA01C /* LoginContainerViewController.swift */; };
 		F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE311B5647F8004FA01C /* SplashViewController.swift */; };
-		F8FEFE441B5647F8004FA01C /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE321B5647F8004FA01C /* LoginPanelViewController.swift */; };
 		F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE331B5647F8004FA01C /* LoginViewController.swift */; };
 		F8FEFE461B5647F8004FA01C /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE341B5647F8004FA01C /* IndexViewController.swift */; };
 		F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE361B5647F8004FA01C /* MainHomeViewController.swift */; };
@@ -66,8 +70,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21CC47E7EEDFDC02E2E65D68 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		30A37B1A1C4ECD09D8342507 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7B8D7C69E175F931120099A0 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash0ViewController.swift; sourceTree = "<group>"; };
+		F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash1ViewController.swift; sourceTree = "<group>"; };
+		F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash2ViewController.swift; sourceTree = "<group>"; };
+		F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash3ViewController.swift; sourceTree = "<group>"; };
 		F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveSegue.swift; sourceTree = "<group>"; };
 		F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDisappearSegue.swift; sourceTree = "<group>"; };
+		F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPanelViewController.swift; sourceTree = "<group>"; };
 		F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = SmarClass/GlobalConstants.swift; sourceTree = "<group>"; };
 		F8F3A1301B576D69004733B3 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = SmarClass/FileManager.swift; sourceTree = "<group>"; };
 		F8F3A1331B577B04004733B3 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = SmarClass/NetworkManager.swift; sourceTree = "<group>"; };
@@ -81,13 +93,11 @@
 		F8FEFE1C1B56479C004FA01C /* SmarClassTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmarClassTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FEFE211B56479C004FA01C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FEFE221B56479C004FA01C /* SmarClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmarClassTests.swift; sourceTree = "<group>"; };
-		F8FEFE2C1B5647F8004FA01C /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswdViewController.swift; sourceTree = "<group>"; };
 		F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoTableViewController.swift; sourceTree = "<group>"; };
 		F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		F8FEFE301B5647F8004FA01C /* LoginContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginContainerViewController.swift; sourceTree = "<group>"; };
 		F8FEFE311B5647F8004FA01C /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		F8FEFE321B5647F8004FA01C /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPanelViewController.swift; sourceTree = "<group>"; };
 		F8FEFE331B5647F8004FA01C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F8FEFE341B5647F8004FA01C /* IndexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		F8FEFE361B5647F8004FA01C /* MainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHomeViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FBDB559A5007EE8286F7CEE /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,13 +147,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0330D73B7E842E7D6E2AF93B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				30A37B1A1C4ECD09D8342507 /* Pods.debug.xcconfig */,
+				21CC47E7EEDFDC02E2E65D68 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8AA589056875C8B3240E164F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B8D7C69E175F931120099A0 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F80CEF9E1B88776F00B9EF74 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */,
+				F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */,
+				F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */,
+				F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */,
+			);
+			name = Splash;
+			sourceTree = "<group>";
+		};
 		F89C108E1B5F2B3D00A233C8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */,
 				F8FEFE301B5647F8004FA01C /* LoginContainerViewController.swift */,
-				F8FEFE311B5647F8004FA01C /* SplashViewController.swift */,
-				F8FEFE321B5647F8004FA01C /* LoginPanelViewController.swift */,
 				F8FEFE331B5647F8004FA01C /* LoginViewController.swift */,
+				F80CEF9E1B88776F00B9EF74 /* Splash */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -190,6 +229,8 @@
 				F8FEFE071B56479C004FA01C /* Supporting Files */,
 				F8FEFE1F1B56479C004FA01C /* SmarClassTests */,
 				F8FEFE051B56479C004FA01C /* Products */,
+				0330D73B7E842E7D6E2AF93B /* Pods */,
+				8AA589056875C8B3240E164F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -210,7 +251,6 @@
 				F8FEFE761B564F30004FA01C /* Homepage */,
 				F8B7CDF71B5E88ED00F2B8EB /* Course */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
-				F8FEFE2C1B5647F8004FA01C /* RegisterViewController.swift */,
 				F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */,
 				F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */,
 				F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */,
@@ -293,6 +333,7 @@
 		F8FEFE771B565818004FA01C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F8FEFE311B5647F8004FA01C /* SplashViewController.swift */,
 				F8FEFE341B5647F8004FA01C /* IndexViewController.swift */,
 				F8FEFE631B5649DB004FA01C /* NavigationController.swift */,
 				F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */,
@@ -307,9 +348,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8FEFE261B56479D004FA01C /* Build configuration list for PBXNativeTarget "SmarClass" */;
 			buildPhases = (
+				8A21CDFBB6390504F6FF678E /* Check Pods Manifest.lock */,
 				F8FEFE001B56479C004FA01C /* Sources */,
 				F8FEFE011B56479C004FA01C /* Frameworks */,
 				F8FEFE021B56479C004FA01C /* Resources */,
+				C2BDAC6EFC10C43A9F55B711 /* Embed Pods Frameworks */,
+				F58473ED6B66CA6209AEA1AC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -396,6 +440,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8A21CDFBB6390504F6FF678E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C2BDAC6EFC10C43A9F55B711 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F58473ED6B66CA6209AEA1AC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F8FEFE001B56479C004FA01C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -418,6 +510,7 @@
 				F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */,
 				F8FEFE611B56495B004FA01C /* Test.swift in Sources */,
 				F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */,
+				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
 				F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */,
 				F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */,
 				F8FEFE461B5647F8004FA01C /* IndexViewController.swift in Sources */,
@@ -427,16 +520,18 @@
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
 				F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */,
 				F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */,
+				F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */,
 				F8FEFE4D1B5647F8004FA01C /* TestDetailViewController.swift in Sources */,
-				F8FEFE441B5647F8004FA01C /* LoginPanelViewController.swift in Sources */,
+				F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */,
 				F8FEFE4A1B5647F8004FA01C /* ContainerViewController.swift in Sources */,
 				F8FEFE4B1B5647F8004FA01C /* SidePanelViewController.swift in Sources */,
 				F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */,
 				F8FEFE411B5647F8004FA01C /* PersonalInfoViewController.swift in Sources */,
+				F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */,
 				F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */,
 				F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */,
 				F8FEFE3F1B5647F8004FA01C /* ChangePasswdViewController.swift in Sources */,
-				F8FEFE3E1B5647F8004FA01C /* RegisterViewController.swift in Sources */,
+				F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */,
 				F8FEFE4C1B5647F8004FA01C /* TestViewController.swift in Sources */,
 				F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */,
 				F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */,
@@ -561,6 +656,7 @@
 		};
 		F8FEFE271B56479D004FA01C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30A37B1A1C4ECD09D8342507 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -572,6 +668,7 @@
 		};
 		F8FEFE281B56479D004FA01C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21CC47E7EEDFDC02E2E65D68 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

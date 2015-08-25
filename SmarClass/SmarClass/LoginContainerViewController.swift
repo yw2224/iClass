@@ -11,14 +11,18 @@ import UIKit
 class LoginContainerViewController: UIViewController {
     
     var splashPageViewController: UIPageViewController!
-    
-	var loginPanelViewController :LoginPanelViewController!
 
     private struct Constants {
         static let NumOfPages = 4
         static let SplashViewControllerIdentifier = "Splash View Controller"
     }
     
+    @IBOutlet weak var pageControl: UIPageControl! {
+        didSet {
+            pageControl.numberOfPages = Constants.NumOfPages
+            pageControl.currentPage = 0
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up page view controller
@@ -38,6 +42,15 @@ class LoginContainerViewController: UIViewController {
         addChildViewController(splashPageViewController)
         view.insertSubview(splashPageViewController.view, atIndex: 0)
         splashPageViewController.didMoveToParentViewController(self)
+        
+        // This is the hackery method to disable bounce effect in UIPageViewControllers.
+        // It's no longer effective in iOS8
+//        for subView in splashPageViewController.view.subviews {
+//            if let theSubView = subView as? UIScrollView {
+//                theSubView.bounces = false
+//                break
+//            }
+//        }
     }
     
     func splashChildViewControllerAtIndex(index: Int) -> SplashViewController? {
@@ -46,15 +59,15 @@ class LoginContainerViewController: UIViewController {
         }
         
         return {
-            let svc = UIStoryboard.initViewControllerWithIdentifier(Constants.SplashViewControllerIdentifier) as! SplashViewController
+            let svc = UIStoryboard.initViewControllerWithIdentifier("\(Constants.SplashViewControllerIdentifier) \(index)") as! SplashViewController
             svc.index = index
             return svc
         }()
     }
     
-    
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
     }
 }
 
@@ -75,5 +88,13 @@ extension LoginContainerViewController: UIPageViewControllerDataSource {
 }
 
 extension LoginContainerViewController: UIPageViewControllerDelegate {
-    
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+        if completed {
+            if let current = pageViewController.viewControllers[0] as? SplashViewController {
+                if current.index >= 0 && current.index < Constants.NumOfPages {
+                    pageControl.currentPage = current.index
+                }
+            }
+        }
+    }
 }

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        navigationBar.barTintColor = GlobalConstants.BarTintColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,6 +25,14 @@ class NavigationController: UINavigationController {
     override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
         let controller = topViewController
         return topViewController.segueForUnwindingToViewController(toViewController, fromViewController: fromViewController, identifier: identifier)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        if let navBarTintColor = navigationBar.barTintColor {
+            return StatusBarContrastColorOf(navBarTintColor)
+        } else {
+            return .Default
+        }
     }
     
     /*

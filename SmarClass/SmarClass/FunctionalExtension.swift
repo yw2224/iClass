@@ -39,15 +39,16 @@ extension UIView {
     func startGlow(shadowColor: UIColor) {
         var transfrom = CGAffineTransformMakeScale(1.1, 1.1)
         let circle = CGPathCreateWithEllipseInRect(bounds, &transfrom)
+        let shadowLayer = CALayer(layer: layer)
         layer.shadowColor = shadowColor.CGColor
-        layer.shadowRadius = 10
-        layer.shadowOpacity = 0.6
+        layer.shadowRadius = 1.0
+        layer.shadowOpacity = 0.3
         layer.shadowPath = circle
         
         // Create an animation that slowly fades the glow view in and out forever.
         let animation = CABasicAnimation(keyPath: "opacity")
-        animation.fromValue = 0.6;
-        animation.toValue = 1.0;
+        animation.fromValue = 1.0;
+        animation.toValue = 0.85;
         animation.repeatCount = Constants.HUGE_VAL
         animation.duration = 1.0;
         animation.autoreverses = true;

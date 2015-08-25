@@ -2,7 +2,7 @@
 //  Group.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/5/29.
+//  Created by PengZhao on 15/5/29.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 

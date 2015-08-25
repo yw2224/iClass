@@ -2,7 +2,7 @@
 //  ChoiceView.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/5/8.
+//  Created by PengZhao on 15/5/8.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 

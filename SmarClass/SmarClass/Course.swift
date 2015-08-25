@@ -2,7 +2,7 @@
 //  Course.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/5/23.
+//  Created by PengZhao on 15/5/23.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 

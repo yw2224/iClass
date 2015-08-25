@@ -2,7 +2,7 @@
 //  Test.swift
 //  SmartClass
 //
-//  Created by  ChenYang on 15/4/28.
+//  Created by PengZhao on 15/4/28.
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
