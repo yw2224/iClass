@@ -7,89 +7,53 @@
 //
 
 import UIKit
+import AVFoundation
 
 class Splash3ViewController: SplashViewController {
+    
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var laugh: UIImageView!
     @IBOutlet weak var cry: UIImageView!
+    
+    @IBOutlet weak var laughTopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var laughLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var cryTopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var cryLeftToLeading: NSLayoutConstraint!
     @IBOutlet weak var laughWidth: NSLayoutConstraint!
     @IBOutlet weak var cryWidth: NSLayoutConstraint!
-    
-    var laughTopToTLG: NSLayoutConstraint!
-    var laughLeftToLeading: NSLayoutConstraint!
-    var cryTopToTLG: NSLayoutConstraint!
-    var cryLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     
     private struct Constants {
-        static let laughTopRatio: CGFloat   = 206.0 / 736.0
-        static let laughLeftRatio: CGFloat  = 25.0 / 414.0
+        static let laughTopRatio: CGFloat   = 204.0 / 716.0
+        static let laughLeftRatio: CGFloat  = 24.0 / 414.0
         static let laughWidthRatio: CGFloat = 67.0 / 414.0
-        static let cryTopRatio: CGFloat     = 178.0 / 736.0
-        static let cryLeftRatio: CGFloat    = 347.0 / 414.0
+        static let cryTopRatio: CGFloat     = 175.0 / 716.0
+        static let cryLeftRatio: CGFloat    = 345.0 / 414.0
         static let cryWidthRatio: CGFloat   = 61.0 / 414.0
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        imageView.image = UIImage(named: "Splash3")
-        let width  = CGRectGetWidth(view.frame)
-        let height = CGRectGetHeight(view.frame)
-        laughTopToTLG = NSLayoutConstraint(
-            item: laugh,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.laughTopRatio * height)
-        laughLeftToLeading = NSLayoutConstraint(
-            item: laugh,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.laughLeftRatio * width)
-        cryTopToTLG = NSLayoutConstraint(
-            item: cry,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.cryTopRatio * height)
-        cryLeftToLeading = NSLayoutConstraint(
-            item: cry,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.cryLeftRatio * width)
-        
-        laughWidth.constant = Constants.laughWidthRatio * width
-        cryWidth.constant   = Constants.cryWidthRatio * width
-        
-        laugh.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cry.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.addConstraints([laughTopToTLG, laughLeftToLeading, cryTopToTLG, cryLeftToLeading])
-        
-        view.bringSubviewToFront(laugh)
-        view.bringSubviewToFront(cry)
+        appendTopSpaceLayoutConstraint(imageViewTop)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let height = CGRectGetHeight(view.frame)
-        if topLayoutGuide.length == 0 {
-            // Lengthen the autolayout constraint to where we know the
-            // top layout guide will be when the transition completes
-            laughTopToTLG.constant = Constants.laughTopRatio * height + parentTLGlength
-            cryTopToTLG.constant   = Constants.cryTopRatio * height + parentTLGlength
-        } else {
-            laughTopToTLG.constant = Constants.laughTopRatio * height
-            cryTopToTLG.constant   = Constants.cryTopRatio * height
-        }
+        
+        let imageSize      = imageView.image!.size
+        let imageViewFrame = CGRectMake(0, parentTLGlength, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame) - parentTLGlength)
+        let imageBounds    = AVMakeRectWithAspectRatioInsideRect(imageSize, imageViewFrame)
+        let width          = imageBounds.width
+        let height         = imageBounds.height
+        
+        laughTopToTLG.constant      = Constants.laughTopRatio * height
+        laughLeftToLeading.constant = Constants.laughLeftRatio * width + imageBounds.origin.x
+        cryTopToTLG.constant        = Constants.cryTopRatio * height
+        cryLeftToLeading.constant   = Constants.cryLeftRatio * width + imageBounds.origin.x
+        
+        laughWidth.constant = Constants.laughWidthRatio * width
+        cryWidth.constant   = Constants.cryWidthRatio * width
     }
 
     override func didReceiveMemoryWarning() {

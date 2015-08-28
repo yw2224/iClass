@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class Splash2ViewController: SplashViewController {
+    
+    
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var confirm: UIImageView!
     @IBOutlet weak var note1: UIImageView!
     @IBOutlet weak var note2: UIImageView!
@@ -16,21 +20,22 @@ class Splash2ViewController: SplashViewController {
     @IBOutlet weak var note1Width: NSLayoutConstraint!
     @IBOutlet weak var note2Width: NSLayoutConstraint!
     
-    var confirmTopToTLG: NSLayoutConstraint!
-    var confirmLeftToLeading: NSLayoutConstraint!
-    var note1TopToTLG: NSLayoutConstraint!
-    var note1LeftToLeading: NSLayoutConstraint!
-    var note2TopToTLG: NSLayoutConstraint!
-    var note2LeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var confirmTopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var confirmLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var note1TopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var note1LeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var note2TopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var note2LeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     
     private struct Constants {
-        static let confirmTopRatio: CGFloat   = 601.0 / 736.0
+        static let confirmTopRatio: CGFloat   = 601.0 / 716.0
         static let confirmLeftRatio: CGFloat  = 122.0 / 414.0
         static let confirmWidthRatio: CGFloat = 71.0 / 414.0
-        static let note1TopRatio: CGFloat     = 511.0 / 736.0
+        static let note1TopRatio: CGFloat     = 471.0 / 716.0
         static let note1LeftRatio: CGFloat    = 39.0 / 414.0
         static let note1WidthRatio: CGFloat   = 31.0 / 414.0
-        static let note2TopRatio: CGFloat     = 570.0 / 736.0
+        static let note2TopRatio: CGFloat     = 550.0 / 716.0
         static let note2LeftRatio: CGFloat    = 20.0 / 414.0
         static let note2WidthRatio: CGFloat   = 56.0 / 414.0
     }
@@ -38,83 +43,28 @@ class Splash2ViewController: SplashViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        imageView.image = UIImage(named: "Splash2")
-        
-        let width  = CGRectGetWidth(view.frame)
-        let height = CGRectGetHeight(view.frame)
-        confirmTopToTLG = NSLayoutConstraint(
-            item: confirm,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.confirmTopRatio * height)
-        confirmLeftToLeading = NSLayoutConstraint(
-            item: confirm,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.confirmLeftRatio * width)
-        note1TopToTLG = NSLayoutConstraint(
-            item: note1,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.note1TopRatio * height)
-        note1LeftToLeading = NSLayoutConstraint(
-            item: note1,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.note1LeftRatio * width)
-        note2TopToTLG = NSLayoutConstraint(
-            item: note2,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.note2TopRatio * height)
-        note2LeftToLeading = NSLayoutConstraint(
-            item: note2,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.note2LeftRatio * width)
-        
-        confirmWidth.constant = Constants.confirmWidthRatio * width
-        note1Width.constant   = Constants.note1WidthRatio * width
-        note2Width.constant   = Constants.note2WidthRatio * width
-        
-        confirm.setTranslatesAutoresizingMaskIntoConstraints(false)
-        note1.setTranslatesAutoresizingMaskIntoConstraints(false)
-        note2.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.addConstraints([confirmTopToTLG, confirmLeftToLeading, note1TopToTLG, note1LeftToLeading, note2TopToTLG, note2LeftToLeading])
+        appendTopSpaceLayoutConstraint(imageViewTop)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let height = CGRectGetHeight(view.frame)
-        if topLayoutGuide.length == 0 {
-            // Lengthen the autolayout constraint to where we know the
-            // top layout guide will be when the transition completes
-            confirmTopToTLG.constant = Constants.confirmTopRatio * height + parentTLGlength
-            note1TopToTLG.constant   = Constants.note1TopRatio * height + parentTLGlength
-            note2TopToTLG.constant   = Constants.note2TopRatio * height + parentTLGlength
-        } else {
-            confirmTopToTLG.constant = Constants.confirmTopRatio * height
-            note1TopToTLG.constant   = Constants.note1TopRatio * height
-            note2TopToTLG.constant   = Constants.note2TopRatio * height
-        }
+        
+        let imageSize      = imageView.image!.size
+        let imageViewFrame = CGRectMake(0, parentTLGlength, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame) - parentTLGlength)
+        let imageBounds    = AVMakeRectWithAspectRatioInsideRect(imageSize, imageViewFrame)
+        let width          = imageBounds.width
+        let height         = imageBounds.height
+
+        confirmTopToTLG.constant      = Constants.confirmTopRatio * height
+        confirmLeftToLeading.constant = Constants.confirmLeftRatio * width + imageBounds.origin.x
+        note1TopToTLG.constant        = Constants.note1TopRatio * height
+        note1LeftToLeading.constant   = Constants.note1LeftRatio * width + imageBounds.origin.x
+        note2TopToTLG.constant        = Constants.note2TopRatio * height
+        note2LeftToLeading.constant   = Constants.note2LeftRatio * width + imageBounds.origin.x
+
+        confirmWidth.constant = Constants.confirmWidthRatio * width
+        note1Width.constant   = Constants.note1WidthRatio * width
+        note2Width.constant   = Constants.note2WidthRatio * width
     }
 
     override func didReceiveMemoryWarning() {

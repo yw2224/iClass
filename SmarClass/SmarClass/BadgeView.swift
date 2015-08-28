@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class BadgeView: UIView {
     
@@ -45,7 +46,7 @@ class BadgeView: UIView {
         
         layer.masksToBounds = true
         layer.cornerRadius = (CGRectGetWidth(frame) - Constants.CornerRadiusOffset) / 2.0
-        layer.backgroundColor = GlobalConstants.DarkRed.CGColor
+        layer.backgroundColor = GlobalConstants.FlatDarkRed.CGColor
         
         addSubview(textLabel)
     }

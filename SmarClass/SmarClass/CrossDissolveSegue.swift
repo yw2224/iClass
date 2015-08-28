@@ -24,7 +24,7 @@ class CrossDissolveSegue: UIStoryboardSegue {
         // Transformation start scale
         blankView.transform = CGAffineTransformMakeScale(0.15, 0.15);
         
-        UIView.animateWithDuration(1.2,
+        UIView.animateWithDuration(0.5,
             delay: 0,
             options: .CurveEaseInOut,
             animations: { () -> Void in

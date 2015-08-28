@@ -11,6 +11,7 @@ import ChameleonFramework
 
 struct GlobalConstants {
     static var DarkRed = UIColor(red: 238.0 / 255.0, green: 37.0 / 255.0, blue: 44.0 / 255.0, alpha: 1.0)
+    static var FlatDarkRed = UIColor(flatVersionOf: GlobalConstants.DarkRed)
     static var RefreshControlColor = UIColor(red: 247.0 / 255.0, green: 115.0 / 255.0, blue: 114.0 / 255.0, alpha: 1.0)
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
     static var SplashPagesBackgroundColor = [

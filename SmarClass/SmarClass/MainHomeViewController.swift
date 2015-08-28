@@ -7,12 +7,11 @@
 //
 
 import UIKit
-//import CocoaLumberjack
 
-class MainHomeViewController: UIViewController {
+class MainHomeViewController: CloudAnimateTableViewController {
 
     private struct Constants {
-        static let CellIdentifier = "CourseCell"
+        static let CellIdentifier = "Course Cell"
         static let CourseCellHeight : CGFloat = 88.0
     }
     
@@ -21,34 +20,12 @@ class MainHomeViewController: UIViewController {
     
     var delegate: CenteralViewDelegate?
     
-    var editButton: UIButton!
-    var refreshControl = UIRefreshControl()
-    
-    @IBOutlet weak var courseTableView: UITableView! {
-        didSet {
-            courseTableView.tableFooterView = UIView(frame: CGRectZero)
-        }
-    }
-    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-		courseTableView.addSubview(refreshControl)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
         
-		refreshControl.tintColor = GlobalConstants.RefreshControlColor
-		refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: .ValueChanged)
-        
-        editButton = UIButton(frame: CGRectZero)
-        editButton.setBackgroundImage(UIImage(named: "AddOrRemove"), forState: .Normal)
-        editButton.sizeToFit()
-        editButton.addTarget(self, action: "addOrRemoveCourse:", forControlEvents: .TouchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: editButton)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-//        editButton.startGlow(UIColor.yellowColor())
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,30 +72,47 @@ class MainHomeViewController: UIViewController {
         })
     }
     
-    func addOrRemoveCourse(sender: UIButton) {
-        delegate?.collapseLeftPanel()
+    @IBAction func addOrRemoveCourse(sender: UIBarButtonItem) {
+        println("add or remove course")
     }
     
     // MARK: Assistant functions
     func disableTableView() {
-        courseTableView.userInteractionEnabled = false
+        tableView.userInteractionEnabled = false
     }
     
     func enableTableView() {
-        courseTableView.userInteractionEnabled = true
+        tableView.userInteractionEnabled = true
+    }
+}
+
+extension MainHomeViewController: RefreshControlHook {
+    override func animationDidStart() {
+        super.animationDidStart()
+        
+        let delayInSeconds = 2.0
+        let delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW,
+            Int64(delayInSeconds * Double(NSEC_PER_SEC)))
+        dispatch_after(delayInNanoSeconds, dispatch_get_main_queue(), {
+            self.animationDidEnd()
+        })
+    }
+    
+    override func animationDidEnd() {
+        super.animationDidEnd()
     }
 }
 
 extension MainHomeViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 50
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! UITableViewCell
         if let courseCell = cell as? CourseTableViewCell {
             courseCell.setupUIWithImage(
@@ -133,7 +127,7 @@ extension MainHomeViewController: UITableViewDataSource {
 }
 
 extension MainHomeViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return Constants.CourseCellHeight
     }
 }
@@ -162,7 +156,7 @@ class CourseTableViewCell : UITableViewCell {
     }
 }
 
-// MARK: WHY THESE CODE IN VIEW CONTROLLERS???
+// MARK: WHY THESE CODE ARE IN VIEW CONTROLLERS???
 //func getCourseTeacherList(){
 //    if courseList?.count > 0 {
 //        for course in courseList!{

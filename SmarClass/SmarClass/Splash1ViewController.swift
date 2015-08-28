@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class Splash1ViewController: SplashViewController {
 
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var smileLeft: UIImageView!
     @IBOutlet weak var smileRight: UIImageView!
     @IBOutlet weak var bulb: UIImageView!
@@ -17,113 +19,57 @@ class Splash1ViewController: SplashViewController {
     @IBOutlet weak var bulbWidth: NSLayoutConstraint!
     @IBOutlet weak var smileLeftWidth: NSLayoutConstraint!
     @IBOutlet weak var smileRightWidth: NSLayoutConstraint!
-    var bulbTopToTLG: NSLayoutConstraint!
-    var bulbLeftToLeading: NSLayoutConstraint!
-    var smileLeftTopToTLG: NSLayoutConstraint!
-    var smileLeftLeftToLeading: NSLayoutConstraint!
-    var smileRightTopToTLG: NSLayoutConstraint!
-    var smileRightLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var bulbTopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var bulbLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var smileLeftTopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var smileLeftLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var smileRightTopToTLG: NSLayoutConstraint!
+    @IBOutlet weak var smileRightLeftToLeading: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTop: NSLayoutConstraint!
 
     private struct Constants {
-        static let bulbTopRatio: CGFloat         = 185.0 / 736.0
+        static let bulbTopRatio: CGFloat         = 182.0 / 716.0
         static let bulbLeftRatio: CGFloat        = 207.0 / 414.0
         static let bulbWidthRatio: CGFloat       = 25.0 / 414.0
-        static let smileLeftTopRatio: CGFloat    = 466.0 / 736.0
+        static let smileLeftTopRatio: CGFloat    = 467.0 / 716.0
         static let smileLeftLeftRatio: CGFloat   = 193.0 / 414.0
         static let smileLeftWidthRatio: CGFloat  = 12.0 / 414.0
-        static let smileRightTopRatio: CGFloat   = 460.0 / 736.0
-        static let smileRightLeftRatio: CGFloat  = 239.0 / 414.0
+        static let smileRightTopRatio: CGFloat   = 460.0 / 716.0
+        static let smileRightLeftRatio: CGFloat  = 237.0 / 414.0
         static let smileRightWidthRatio: CGFloat = 12.0 / 414.0
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
-        let width  = CGRectGetWidth(view.frame)
-        let height = CGRectGetHeight(view.frame)
-        imageView.image = UIImage(named: "Splash1")
-        bulbTopToTLG = NSLayoutConstraint(
-            item: bulb,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.bulbTopRatio * height)
-        bulbLeftToLeading = NSLayoutConstraint(
-            item: bulb,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.bulbLeftRatio * width)
-        smileLeftTopToTLG = NSLayoutConstraint(
-            item: smileLeft,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.smileLeftTopRatio * height)
-        smileLeftLeftToLeading = NSLayoutConstraint(
-            item: smileLeft,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.smileLeftLeftRatio * width)
-        smileRightTopToTLG = NSLayoutConstraint(
-            item: smileRight,
-            attribute: .Top,
-            relatedBy: .Equal,
-            toItem: topLayoutGuide,
-            attribute: .Bottom,
-            multiplier: 1.0,
-            constant: Constants.smileRightTopRatio * height)
-        smileRightLeftToLeading = NSLayoutConstraint(
-            item: smileRight,
-            attribute: .Left,
-            relatedBy: .Equal,
-            toItem: view,
-            attribute: .Left,
-            multiplier: 1.0,
-            constant: Constants.smileRightLeftRatio * width)
-        
-        bulbWidth.constant       = Constants.bulbWidthRatio * width
-        smileLeftWidth.constant  = Constants.smileLeftWidthRatio * width
-        smileRightWidth.constant = Constants.smileRightWidthRatio * width
-        
-        bulb.setTranslatesAutoresizingMaskIntoConstraints(false)
-        smileLeft.setTranslatesAutoresizingMaskIntoConstraints(false)
-        smileRight.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.addConstraints([bulbTopToTLG, bulbLeftToLeading, smileLeftTopToTLG, smileLeftLeftToLeading, smileRightTopToTLG, smileRightLeftToLeading])
-        
-        view.bringSubviewToFront(bulb)
-        view.bringSubviewToFront(smileLeft)
-        view.bringSubviewToFront(smileRight)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        appendTopSpaceLayoutConstraint(imageViewTop)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let height = CGRectGetHeight(view.frame)
-        if topLayoutGuide.length == 0 {
-            // Lengthen the autolayout constraint to where we know the
-            // top layout guide will be when the transition completes
-            bulbTopToTLG.constant       = Constants.bulbTopRatio * height + parentTLGlength
-            smileLeftTopToTLG.constant  = Constants.smileLeftTopRatio * height + parentTLGlength
-            smileRightTopToTLG.constant = Constants.smileRightTopRatio * height + parentTLGlength
-        } else {
-            bulbTopToTLG.constant       = Constants.bulbTopRatio * height
-            smileLeftTopToTLG.constant  = Constants.smileLeftTopRatio * height
-            smileRightTopToTLG.constant = Constants.smileRightTopRatio * height
-        }
+        
+        let imageSize = imageView.image!.size
+        let imageViewFrame = CGRectMake(0, parentTLGlength, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame) - parentTLGlength)
+        let imageBounds = AVMakeRectWithAspectRatioInsideRect(imageSize, imageViewFrame)
+        let width = imageBounds.width
+        let height = imageBounds.height
+        
+        bulbTopToTLG.constant = Constants.bulbTopRatio * height
+        bulbLeftToLeading.constant = Constants.bulbLeftRatio * width + imageBounds.origin.x
+        smileLeftTopToTLG.constant = Constants.smileLeftTopRatio * height
+        smileLeftLeftToLeading.constant = Constants.smileLeftLeftRatio * width + imageBounds.origin.x
+        smileRightTopToTLG.constant = Constants.smileRightTopRatio * height
+        smileRightLeftToLeading.constant = Constants.smileRightLeftRatio * width + imageBounds.origin.x
+        
+        bulbWidth.constant       = Constants.bulbWidthRatio * width
+        smileLeftWidth.constant  = Constants.smileLeftWidthRatio * width
+        smileRightWidth.constant = Constants.smileRightWidthRatio * width
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
     /*

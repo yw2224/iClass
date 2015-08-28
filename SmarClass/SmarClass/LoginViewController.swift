@@ -51,14 +51,14 @@ class LoginViewController: UIViewController {
             "password": NSIndexPath(forRow: 2, inSection: 0)
         ],
         LoginStatus.Login: [
-            "name": NSIndexPath(index: 1),
+            "name": NSIndexPath(forRow: 1, inSection: 0),
             "password": NSIndexPath(forRow: 2, inSection: 0)
         ]
     ]
     let SNSCollectionIdentifiers = [("QQ", "QQ"), ("Wechat", "微信"), ("Weibo", "微博")]
     
     private struct Constants {
-//        static let LoginToHomePageSegueIdentifier = "LoginToHomePageSegue"
+        static let LoginToMainHomeSegueIdentifier = "Login To MainHome Segue"
         static let HeaderHeight: CGFloat = 100.0
         static let FooterHeight: CGFloat = 72.0
         static let MarginForRegisterRatio: CGFloat = 0.3
@@ -78,6 +78,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         setupButton()
     }
@@ -98,7 +99,7 @@ class LoginViewController: UIViewController {
     
     func setupButton() {
         loginButton?.setTitle(status == LoginStatus.Register ? "注册" : "登陆", forState: .Normal)
-        toggleButton?.setTitle(status == LoginStatus.Register ? "课堂助手账号注册" : "课堂助手账号登陆", forState: .Normal)
+        toggleButton?.setTitle(status == LoginStatus.Register ? "课堂助手账号登陆" : "课堂助手账号注册", forState: .Normal)
     }
     
     func scrollUpTableView() {
@@ -110,17 +111,73 @@ class LoginViewController: UIViewController {
     }
     
     func checkInput() -> (Bool, String, String, String) {
-        if status == LoginStatus.Register {
-            
-        } else {
-            
+        let indexes = cellIndexes[status]
+        let someDigitsRegex = NSRegularExpression(pattern: "\\d+", options: .allZeros, error: nil)!
+        var name = "", realName = "", password: String = ""
+        func trimWhiteSpace(text: String) -> String {
+            return text.stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
         }
-        return (false, "", "", "")
+        
+        if status == LoginStatus.Register {
+            (name, realName, password) = {
+                return (trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($0) as! LoginTableViewCell).textFieldContent()),
+                        trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($1) as! LoginTableViewCell).textFieldContent()),
+                        trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($2) as! LoginTableViewCell).textFieldContent()))
+            } (indexes!["name"]!, indexes!["realName"]!, indexes!["password"]!)
+            
+            if count(name) == 0 || count(realName) == 0 || count(password) == 0 {
+                return (false, name, realName, password)
+            }
+            let regexResult = someDigitsRegex.matchesInString(name, options: .allZeros, range: NSMakeRange(0, count(name)))
+            if count(regexResult) != 1 {
+                return (false, name, realName, password)
+            }
+            return (true, name, realName, password)
+        } else {
+            (name, password) = {
+                return (trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($0) as! LoginTableViewCell).textFieldContent()),
+                    trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($1) as! LoginTableViewCell).textFieldContent()))
+                } (indexes!["name"]!, indexes!["password"]!)
+            
+            if count(name) == 0 || count(password) == 0 {
+                return (false, name, realName, password)
+            }
+            let regexResult = someDigitsRegex.matchesInString(name, options: .allZeros, range: NSMakeRange(0, count(name)))
+            if count(regexResult) != 1 {
+                return (false, name, realName, password)
+            }
+            return (true, name, realName, password)
+        }
     }
     
 	@IBAction func loginAction(sender: UIButton) {
+        let input = checkInput()
+        var title = loginButton.currentTitle
+        if !input.0 {
+            //  Show a HUD or somewhat
+            println("Showing HUD")
+            return
+        }
+        
+        // Nice tips: Resign first responder for its all subviews.
+        // Stackoverflow: http://stackoverflow.com/questions/6906246/how-do-i-dismiss-the-ios-keyboard
+        view.endEditing(false)
         
         loginIndicator.startAnimating()
+        loginButton.enabled = false
+        loginButton.setTitle("", forState: .Normal)
+        
+        // MARK: network stuff
+        
+        loginIndicator.stopAnimating()
+        loginButton.enabled = true
+        loginButton.setTitle(title, forState: .Normal)
+        // success, set global constants? content manager, keychains stuff
+        performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
+        
+        // failed
+        println("Showing HUD failed or somewhat")
+        
 //        jumpToMainHome()
 //		let username = usernameTextField.text
 //		let password = passwordTextField.text
@@ -179,6 +236,11 @@ class LoginViewController: UIViewController {
         }
     }
     
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        SNSCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -188,8 +250,18 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
+
+// Protrait View Controller
+//extension LoginViewController {
+//    override func shouldAutorotate() -> Bool {
+//        return false
+//    }
+//    
+//    override func supportedInterfaceOrientations() -> Int {
+//        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
+//    }
+//}
 
 // MARK: tableview datasource & delegate
 extension LoginViewController: UITableViewDataSource {
@@ -279,6 +351,18 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegat
     }
 }
 
+extension LoginTableViewCell: UITextFieldDelegate {
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
 class LoginTableViewCell: UITableViewCell {
     @IBOutlet weak var textField: UITextField!
     func configureCellWithPlaceHolder(text: String) {
@@ -299,32 +383,18 @@ class LoginTableViewCell: UITableViewCell {
         textField.delegate = self
     }
     
-    
     func textFieldContent() -> String {
         return textField.text
     }
 }
 
-extension LoginTableViewCell: UITextFieldDelegate {
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
-
 class SNSCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var SNSButton: UIButton!
+    @IBOutlet weak var SNSImage: UIImageView!
     @IBOutlet weak var SNSName: UILabel!
     func configureCellWithImage(imageName: String, name: String) {
-        SNSButton.backgroundColor = UIColor.whiteColor()
+        SNSImage.backgroundColor = UIColor.whiteColor()
         if let image = UIImage(named: imageName) {
-            SNSButton.setImage(image, forState: .Normal)
+            SNSImage.image = image
         }
         SNSName.text = name
     }

@@ -42,7 +42,7 @@ class TestDetailViewController: UIViewController{
 	private struct Constants {
 		static let EmbeddedSegue = "Embedded Segue"
 	}
-	@IBOutlet weak var popoverSlider: PopoverSlider! 
+//	@IBOutlet weak var popoverSlider: PopoverSlider! 
     @IBOutlet weak var progressLabel: UILabel!
 	var popSliderValue :Int = 0 {
 		didSet {
@@ -66,9 +66,9 @@ class TestDetailViewController: UIViewController{
 		if let total = testQuestionList?.count.description{
 			progressLabel.text = "1 / " + total
 		}
-		popoverSlider.addTarget(self, action: "handleSliderValueChange:", forControlEvents: UIControlEvents.ValueChanged)
-		popoverSlider.continuous = true
-		popoverSlider.maximumValue = Float(total)
+//		popoverSlider.addTarget(self, action: "handleSliderValueChange:", forControlEvents: UIControlEvents.ValueChanged)
+//		popoverSlider.continuous = true
+//		popoverSlider.maximumValue = Float(total)
     }
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -145,19 +145,19 @@ class TestDetailViewController: UIViewController{
 			showSaveAlertView()
 		}
 	}
-	func handleSliderValueChange(sender : PopoverSlider){
-		let value = sender.value
-		let popvalue = sender.popoverView.value
-//		DDLogWarn("self.popSliderValue:\(self.popSliderValue) popvalue : \(popvalue)")
-		
-		if popvalue != self.popSliderValue {
-			tdcvc?.jumpToSelectPage(selectIndex: popvalue)
-			self.popSliderValue = popvalue
-			if let total = testQuestionList?.count.description {
-				self.progressLabel.text = self.popSliderValue.description + " / " + total
-			}
-		}
-	}
+//	func handleSliderValueChange(sender : PopoverSlider){
+//		let value = sender.value
+//		let popvalue = sender.popoverView.value
+////		DDLogWarn("self.popSliderValue:\(self.popSliderValue) popvalue : \(popvalue)")
+//		
+//		if popvalue != self.popSliderValue {
+//			tdcvc?.jumpToSelectPage(selectIndex: popvalue)
+//			self.popSliderValue = popvalue
+//			if let total = testQuestionList?.count.description {
+//				self.progressLabel.text = self.popSliderValue.description + " / " + total
+//			}
+//		}
+//	}
 	func getAnswerEntities(){
 		if let test = self.test {
 			let testId = test.id.integerValue
@@ -200,13 +200,13 @@ class TestDetailViewController: UIViewController{
 extension TestDetailViewController : UIPageViewControllerPageChangeDelegate {
 	func pageChangeToIndex(pageViewController: UIPageViewController, pageIndex: Int) {
 		let pvc = pageViewController
-		if pageIndex > 0 && pageIndex <= self.total{
-			if self.popSliderValue != pageIndex {
-				self.popoverSlider.value = Float(pageIndex)
-				self.popSliderValue = pageIndex
-				self.popoverSlider.setNeedsDisplay()
-			}
+//		if pageIndex > 0 && pageIndex <= self.total{
+//			if self.popSliderValue != pageIndex {
+//				self.popoverSlider.value = Float(pageIndex)
+//				self.popSliderValue = pageIndex
+//				self.popoverSlider.setNeedsDisplay()
+//			}
 			
-		}
+//		}
 	}
 }
