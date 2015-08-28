@@ -22,6 +22,7 @@
 		F8F3A1341B577B04004733B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1331B577B04004733B3 /* NetworkManager.swift */; };
 		F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1351B577B1B004733B3 /* ContentManager.swift */; };
 		F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3D5FC1B8F1A32001ADDCE /* RefreshContents.swift */; };
+		F8F3D5FF1B903772001ADDCE /* BadgeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8F3D5FE1B903772001ADDCE /* BadgeView.xib */; };
 		F8FEFE0A1B56479C004FA01C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE091B56479C004FA01C /* AppDelegate.swift */; };
 		F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE0B1B56479C004FA01C /* SmarClass.xcdatamodeld */; };
 		F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE131B56479C004FA01C /* Images.xcassets */; };
@@ -88,6 +89,7 @@
 		F8F3A1331B577B04004733B3 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = SmarClass/NetworkManager.swift; sourceTree = "<group>"; };
 		F8F3A1351B577B1B004733B3 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = SmarClass/ContentManager.swift; sourceTree = "<group>"; };
 		F8F3D5FC1B8F1A32001ADDCE /* RefreshContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshContents.swift; sourceTree = "<group>"; };
+		F8F3D5FE1B903772001ADDCE /* BadgeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BadgeView.xib; sourceTree = "<group>"; };
 		F8FEFE041B56479C004FA01C /* SmarClass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmarClass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FEFE081B56479C004FA01C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FEFE091B56479C004FA01C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +243,15 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		F8F3D6001B90377D001ADDCE /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				F8FEFE651B5649DB004FA01C /* BadgeView.swift */,
+				F8F3D5FE1B903772001ADDCE /* BadgeView.xib */,
+			);
+			name = Badge;
+			sourceTree = "<group>";
+		};
 		F8FEFDFB1B56479C004FA01C = {
 			isa = PBXGroup;
 			children = (
@@ -329,7 +340,7 @@
 		F8FEFE731B564B0B004FA01C /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				F8FEFE651B5649DB004FA01C /* BadgeView.swift */,
+				F8F3D6001B90377D001ADDCE /* Badge */,
 				F8FEFE661B5649DB004FA01C /* CircleView.swift */,
 				F8FEFE671B5649DB004FA01C /* ChoiceView.swift */,
 				F8FEFE6A1B5649DB004FA01C /* CircleShortcutForPinyin.swift */,
@@ -444,6 +455,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8F3D5FF1B903772001ADDCE /* BadgeView.xib in Resources */,
 				F8FEFE511B564815004FA01C /* Main.storyboard in Resources */,
 				F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */,
 				F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */,

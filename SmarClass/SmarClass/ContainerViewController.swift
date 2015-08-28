@@ -26,11 +26,12 @@ class ContainerViewController: UIViewController {
         static let SidePanelOffsetRatio: CGFloat = 0.46
         static let PortraitScaleRatio: CGFloat = 0.90
         static let LandscapeScaleRatio: CGFloat = 0.85
-        static let OriginAlpha: CGFloat = 0.40
-        static let OriginBackgroundColor: CGFloat = 0.60
+        static let OriginAlpha: CGFloat = 0.20
+        static let OriginBackgroundColor: CGFloat = 0.40
     }
     
     var targetPosition: CGFloat!
+    var isAnimating = false
     var scaleRatio: CGFloat {
         get {
             return UIDevice.currentDevice().orientation.isPortrait.boolValue ?
@@ -79,6 +80,17 @@ class ContainerViewController: UIViewController {
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         collapseLeftPanel()
     }
+    
+    override func shouldAutorotate() -> Bool {
+        return !isAnimating
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        if isAnimating {
+            return Int(UIInterfaceOrientationMask.Portrait.rawValue)
+        }
+        return Int(UIInterfaceOrientationMask.All.rawValue)
+    }
 }
 
 // MARK: MainHomeViewController delegate
@@ -125,20 +137,30 @@ extension ContainerViewController: CenteralViewDelegate {
     }
     
     func animateLeftPanel(#shouldExpand: Bool, animate: Bool) {
+        isAnimating = true
+        gestureDisabled = true
         if (shouldExpand) {
             currentState = .LeftPanelExpanded
-            animateCenterPanelXPosition(ratio: 1.0, animate: animate)
+            animateCenterPanelXPosition(ratio: 1.0, animate: animate) {
+                [weak self] in
+                if $0 {
+                    self?.isAnimating = false
+                    self?.gestureDisabled = false
+                }
+            }
         } else {
-            animateCenterPanelXPosition(ratio: 0, animate: animate) { [weak self]
-                finished in
-                if finished {
-                    self!.currentState = .BothCollapsed
+            animateCenterPanelXPosition(ratio: 0, animate: animate) {
+                [weak self] in
+                if $0 {
+                    self?.currentState = .BothCollapsed
+                    self?.isAnimating = false
+                    self?.gestureDisabled = false
                 }
             }
         }
     }
     
-    func animateCenterPanelXPosition(#ratio: CGFloat, animate: Bool, completion: ((Bool) -> Void)! = nil) {
+    func animateCenterPanelXPosition(#ratio: CGFloat, animate: Bool, completion: ((Bool) -> Void)) {
         if animate {
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
                 self.partialAnimation(ratio)
@@ -158,8 +180,8 @@ extension ContainerViewController: CenteralViewDelegate {
     }
     
     func partialAnimation(ratio: CGFloat) {
-        let theScaleRatio = 1 + (scaleRatio - 1) * ratio
-        var scaleTransform = CGAffineTransformMakeScale(theScaleRatio, theScaleRatio)
+        let viewScaleRatio = 1 + (scaleRatio - 1) * ratio
+        var scaleTransform = CGAffineTransformMakeScale(viewScaleRatio, viewScaleRatio)
         let translationTransform = CGAffineTransformMakeTranslation(targetPosition * ratio, 0)
         centerNavigationController.view.transform = CGAffineTransformConcat(translationTransform, scaleTransform)
         userSidebarViewController.view.alpha = Constants.OriginAlpha + (1 - Constants.OriginAlpha) * ratio
@@ -192,6 +214,7 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
         
         switch recognizer.state {
         case .Began:
+            isAnimating = true
             if currentState == .BothCollapsed && left2Right {
                 addLeftPanelViewController()
                 showShadowForMainHomeViewController(true)
@@ -223,19 +246,21 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
         if currentState == .BothCollapsed {
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
                 self.partialAnimation(1.0)
-                }) { [weak self] finished in
-                    if finished {
-                        self!.currentState = .LeftPanelExpanded
-                        self!.gestureDisabled = false
+                }) { [weak self] in
+                    if $0 {
+                        self?.currentState = .LeftPanelExpanded
+                        self?.gestureDisabled = false
+                        self?.isAnimating = false
                     }
             }
         } else {
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
                 self.partialAnimation(0)
-                }) { [weak self] finished in
-                    if finished {
-                        self!.currentState = .BothCollapsed
-                        self!.gestureDisabled = false
+                }) { [weak self] in
+                    if $0 {
+                        self?.currentState = .BothCollapsed
+                        self?.gestureDisabled = false
+                        self?.isAnimating = false
                     }
             }
         }
@@ -246,19 +271,21 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
         if currentState == .BothCollapsed {
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
                 self.partialAnimation(0)
-            }) { [weak self] finished in
-                if finished {
-                    self!.currentState = .BothCollapsed
-                    self!.gestureDisabled = false
+            }) { [weak self] in
+                if $0 {
+                    self?.currentState = .BothCollapsed
+                    self?.gestureDisabled = false
+                    self?.isAnimating = false
                 }
             }
         } else {
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8,initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
                 self.partialAnimation(1.0)
-            }) { [weak self] finished in
-                if finished {
-                    self!.currentState = .LeftPanelExpanded
-                    self!.gestureDisabled = false
+            }) { [weak self] in
+                if $0 {
+                    self?.currentState = .LeftPanelExpanded
+                    self?.gestureDisabled = false
+                    self?.isAnimating = false
                 }
             }
         }

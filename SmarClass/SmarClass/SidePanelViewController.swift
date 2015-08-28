@@ -36,8 +36,6 @@ class SidePanelViewController: UIViewController {
     
     @IBOutlet weak var personalSettingsTableView: UITableView! {
         didSet {
-            personalSettingsTableView.dataSource = self
-            personalSettingsTableView.delegate = self
             personalSettingsTableView.tableFooterView = UIView(frame: CGRectZero)
         }
     }
@@ -50,24 +48,25 @@ class SidePanelViewController: UIViewController {
 		
 	}
 	
-	func jumpToLoginPage()
-	{
-		if let myStoryBoard = self.storyboard{
-			if let loginContainerView: LoginContainerViewController = myStoryBoard.instantiateViewControllerWithIdentifier(Constants.LoginStoryBoardIdentifier) as? LoginContainerViewController {
-				self.presentViewController(loginContainerView, animated: true, completion: nil)
-			}
-		}
-		
-	}
-	
-	func jumpToPersonalInfoPage()
-	{
-		if let myStoryBoard = self.storyboard {
-			if let personalInfoView : PersonalInfoTableViewController = myStoryBoard.instantiateViewControllerWithIdentifier(Constants.PersonalInfoStoryBoardIdentifier) as? PersonalInfoTableViewController {
-				self.presentViewController(personalInfoView, animated: true, completion: nil)
-			}
-		}
-	}
+//	func jumpToLoginPage()
+//	{
+//		if let myStoryBoard = self.storyboard{
+//			if let loginContainerView: LoginContainerViewController = myStoryBoard.instantiateViewControllerWithIdentifier(Constants.LoginStoryBoardIdentifier) as? LoginContainerViewController {
+//				self.presentViewController(loginContainerView, animated: true, completion: nil)
+//			}
+//		}
+//		
+//	}
+//	
+//	func jumpToPersonalInfoPage()
+//	{
+//		if let myStoryBoard = self.storyboard {
+//			if let personalInfoView : PersonalInfoTableViewController = myStoryBoard.instantiateViewControllerWithIdentifier(Constants.PersonalInfoStoryBoardIdentifier) as? PersonalInfoTableViewController {
+//				self.presentViewController(personalInfoView, animated: true, completion: nil)
+//			}
+//		}
+//	}
+    
 }
 
 extension SidePanelViewController: UITableViewDataSource {
@@ -106,12 +105,12 @@ extension SidePanelViewController: UITableViewDelegate {
     
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("row selected: \(indexPath.section) \(indexPath.row)")
-		if indexPath.section == 2 && indexPath.row == 2 {
-			jumpToLoginPage()
-		}else if indexPath.section == 0 && indexPath.row == 0{
-//			jumpToPersonalInfoPage()
-			performSegueWithIdentifier(Constants.PersonalInfoSegue, sender: self)
-		}
+//		if indexPath.section == 2 && indexPath.row == 2 {
+//			jumpToLoginPage()
+//		}else if indexPath.section == 0 && indexPath.row == 0{
+////			jumpToPersonalInfoPage()
+//			performSegueWithIdentifier(Constants.PersonalInfoSegue, sender: self)
+//		}
 		
 	}
 }

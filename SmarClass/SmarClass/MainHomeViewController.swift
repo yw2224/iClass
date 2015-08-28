@@ -24,8 +24,6 @@ class MainHomeViewController: CloudAnimateTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        tableView.tableFooterView = UIView(frame: CGRectZero)
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,20 +61,10 @@ class MainHomeViewController: CloudAnimateTableViewController {
         delegate?.toggleLeftPanel(true)
     }
     
-    func handleRefresh(sender: UIRefreshControl) {
-        let delayInSeconds = 2.0
-        let delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW,
-            Int64(delayInSeconds * Double(NSEC_PER_SEC)))
-        dispatch_after(delayInNanoSeconds, dispatch_get_main_queue(), {
-            sender.endRefreshing()
-        })
-    }
-    
     @IBAction func addOrRemoveCourse(sender: UIBarButtonItem) {
         println("add or remove course")
     }
     
-    // MARK: Assistant functions
     func disableTableView() {
         tableView.userInteractionEnabled = false
     }
@@ -90,6 +78,7 @@ extension MainHomeViewController: RefreshControlHook {
     override func animationDidStart() {
         super.animationDidStart()
         
+        // network stuff
         let delayInSeconds = 2.0
         let delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW,
             Int64(delayInSeconds * Double(NSEC_PER_SEC)))
@@ -100,6 +89,8 @@ extension MainHomeViewController: RefreshControlHook {
     
     override func animationDidEnd() {
         super.animationDidEnd()
+        
+        // cleanup
     }
 }
 
@@ -113,15 +104,12 @@ extension MainHomeViewController: UITableViewDataSource {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! UITableViewCell
-        if let courseCell = cell as? CourseTableViewCell {
-            courseCell.setupUIWithImage(
-                UIImage(named: "Computer Networks"),
-                courseTitle: "计算机网络概论",
-                teacherName: "严伟", badgeNum: 10000
-            )
-            return courseCell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! CourseTableViewCell
+        cell.setupUIWithImage(
+            imageName: "Computer Networks",
+            courseTitle: "计算机网络概论",
+            teacherName: "严伟", badgeNum: 10000
+        )
         return cell
     }
 }
@@ -139,8 +127,8 @@ class CourseTableViewCell : UITableViewCell {
     @IBOutlet weak var courseName: UILabel!
     @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var badgeView: BadgeView!
-    func setupUIWithImage(image: UIImage?, courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
-        if let theImage = image {
+    func setupUIWithImage(imageName: String = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
+        if let image = UIImage(named: imageName) {
             bookCover.image = image
         } else {
             bookCover.image = UIImage(named: "DefaultBookCover")
@@ -148,7 +136,6 @@ class CourseTableViewCell : UITableViewCell {
         courseName.text = course
         teacherLabel.text = teacher
         badgeView.badgeNum = badge
-        accessoryType = .DisclosureIndicator
     }
     
     func setBadgeNum(badgeNum: Int) {

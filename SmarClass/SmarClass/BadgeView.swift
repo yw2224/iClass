@@ -7,16 +7,11 @@
 //
 
 import UIKit
-import ChameleonFramework
+
 
 class BadgeView: UIView {
     
-    private struct Constants {
-        static let MaxBadgeNum = 99
-        static let BadgeFontSize: CGFloat = 12.0
-        static let CornerRadiusOffset: CGFloat = 4.0
-    }
-    
+    var view: UIView!
     var badgeNum: Int = 0 {
         didSet {
             if badgeNum == 0 {
@@ -29,30 +24,67 @@ class BadgeView: UIView {
             hidden = false
             textLabel.text = String(min(badgeNum, Constants.MaxBadgeNum))
             textLabel.sizeToFit()
-            let x = max(0, (CGRectGetWidth(frame) - CGRectGetWidth(textLabel.frame)) / 2.0)
-            let y = max(0, (CGRectGetHeight(frame) - CGRectGetHeight(textLabel.frame)) / 2.0)
-            textLabel.frame.origin = CGPointMake(x ,y)
             setNeedsDisplay()
         }
     }
-    private var textLabel: UILabel!
+    @IBOutlet weak var textLabel: UILabel!
+
+    private struct Constants {
+        static let MaxBadgeNum = 99
+        static let CornerRadiusOffset: CGFloat = 3.0
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        xibSetup()
+        setupTextLabel()
+    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        textLabel = UILabel(frame: CGRectZero)
-        textLabel.textColor = UIColor.whiteColor()
-        textLabel.font = UIFont.boldSystemFontOfSize(Constants.BadgeFontSize)
+        
+        xibSetup()
+        setupTextLabel()
+    }
+    
+    func setupTextLabel() {
         textLabel.hidden = true
         
         layer.masksToBounds = true
         layer.cornerRadius = (CGRectGetWidth(frame) - Constants.CornerRadiusOffset) / 2.0
-        layer.backgroundColor = GlobalConstants.FlatDarkRed.CGColor
-        
-        addSubview(textLabel)
     }
     
-    deinit {
-        textLabel.removeFromSuperview()
-        textLabel = nil
+    func xibSetup() {
+        view = loadViewFromNib()
+        
+        // use bounds not frame or it'll be offset
+        view.frame = bounds
+        
+        // Make the view stretch with containing view
+        //        view.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        
+        // Adding custom subview on top of our view (over any custom drawing > see note below)
+        addSubview(view)
     }
+    
+    func loadViewFromNib() -> UIView {
+        let bundle = NSBundle.mainBundle()
+        let nib = UINib(nibName: "BadgeView", bundle: bundle)
+        
+        // Assumes UIView is top level and only object in CustomView.xib file
+        let view = nib.instantiateWithOwner(self, options: nil).first as! UIView
+        return view
+    }
+    
+    /*
+    // Only override drawRect: if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func drawRect(rect: CGRect) {
+    
+    // If you add custom drawing, it'll be behind any view loaded from XIB
+    
+    
+    }
+    */
 }
