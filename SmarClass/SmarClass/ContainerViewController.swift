@@ -81,6 +81,8 @@ class ContainerViewController: UIViewController {
         collapseLeftPanel()
     }
     
+    // Fix gesture recognition & autorotation bug.
+    // See git commit message for more details.
     override func shouldAutorotate() -> Bool {
         return !isAnimating
     }
@@ -181,7 +183,7 @@ extension ContainerViewController: CenteralViewDelegate {
     
     func partialAnimation(ratio: CGFloat) {
         let viewScaleRatio = 1 + (scaleRatio - 1) * ratio
-        var scaleTransform = CGAffineTransformMakeScale(viewScaleRatio, viewScaleRatio)
+        let scaleTransform = CGAffineTransformMakeScale(viewScaleRatio, viewScaleRatio)
         let translationTransform = CGAffineTransformMakeTranslation(targetPosition * ratio, 0)
         centerNavigationController.view.transform = CGAffineTransformConcat(translationTransform, scaleTransform)
         userSidebarViewController.view.alpha = Constants.OriginAlpha + (1 - Constants.OriginAlpha) * ratio

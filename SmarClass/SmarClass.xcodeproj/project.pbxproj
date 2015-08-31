@@ -12,6 +12,9 @@
 		F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */; };
 		F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */; };
 		F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */; };
+		F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */; };
+		F84AF9E51B90986D00CF4A99 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E41B90986D00CF4A99 /* Avatar.swift */; };
+		F84AF9E71B90986E00CF4A99 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E61B90986E00CF4A99 /* User.swift */; };
 		F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */; };
 		F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85C83701B8ED56E00701C73 /* RefreshContents.xib */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
@@ -23,6 +26,7 @@
 		F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1351B577B1B004733B3 /* ContentManager.swift */; };
 		F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3D5FC1B8F1A32001ADDCE /* RefreshContents.swift */; };
 		F8F3D5FF1B903772001ADDCE /* BadgeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8F3D5FE1B903772001ADDCE /* BadgeView.xib */; };
+		F8F3D6021B90478C001ADDCE /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3D6011B90478C001ADDCE /* Log.swift */; };
 		F8FEFE0A1B56479C004FA01C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE091B56479C004FA01C /* AppDelegate.swift */; };
 		F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE0B1B56479C004FA01C /* SmarClass.xcdatamodeld */; };
 		F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE131B56479C004FA01C /* Images.xcassets */; };
@@ -47,7 +51,6 @@
 		F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE521B56495B004FA01C /* Group.swift */; };
 		F8FEFE5B1B56495B004FA01C /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE531B56495B004FA01C /* Course.swift */; };
 		F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */; };
-		F8FEFE5D1B56495B004FA01C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE551B56495B004FA01C /* User.swift */; };
 		F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE561B56495B004FA01C /* Answers.swift */; };
 		F8FEFE5F1B56495B004FA01C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE571B56495B004FA01C /* Project.swift */; };
 		F8FEFE601B56495B004FA01C /* TestQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE581B56495B004FA01C /* TestQuestion.swift */; };
@@ -74,11 +77,15 @@
 /* Begin PBXFileReference section */
 		21CC47E7EEDFDC02E2E65D68 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		30A37B1A1C4ECD09D8342507 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6BAE29B09F03FADB483809E0 /* SuggestedColors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SuggestedColors.plist; path = ../SuggestedColors.plist; sourceTree = "<group>"; };
 		7B8D7C69E175F931120099A0 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash0ViewController.swift; sourceTree = "<group>"; };
 		F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash1ViewController.swift; sourceTree = "<group>"; };
 		F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash2ViewController.swift; sourceTree = "<group>"; };
 		F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash3ViewController.swift; sourceTree = "<group>"; };
+		F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = SmarClass/CoreDataManager.swift; sourceTree = "<group>"; };
+		F84AF9E41B90986D00CF4A99 /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		F84AF9E61B90986E00CF4A99 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAnimateTableViewController.swift; sourceTree = "<group>"; };
 		F85C83701B8ED56E00701C73 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
 		F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveSegue.swift; sourceTree = "<group>"; };
@@ -90,6 +97,8 @@
 		F8F3A1351B577B1B004733B3 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentManager.swift; path = SmarClass/ContentManager.swift; sourceTree = "<group>"; };
 		F8F3D5FC1B8F1A32001ADDCE /* RefreshContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshContents.swift; sourceTree = "<group>"; };
 		F8F3D5FE1B903772001ADDCE /* BadgeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BadgeView.xib; sourceTree = "<group>"; };
+		F8F3D6011B90478C001ADDCE /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = SmarClass/Log.swift; sourceTree = "<group>"; };
+		F8F3D6031B904BA3001ADDCE /* SmarClass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmarClass-Bridging-Header.h"; sourceTree = "<group>"; };
 		F8FEFE041B56479C004FA01C /* SmarClass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmarClass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FEFE081B56479C004FA01C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FEFE091B56479C004FA01C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +127,6 @@
 		F8FEFE521B56495B004FA01C /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		F8FEFE531B56495B004FA01C /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectQuestion.swift; sourceTree = "<group>"; };
-		F8FEFE551B56495B004FA01C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F8FEFE561B56495B004FA01C /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
 		F8FEFE571B56495B004FA01C /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F8FEFE581B56495B004FA01C /* TestQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuestion.swift; sourceTree = "<group>"; };
@@ -179,20 +187,19 @@
 			name = Splash;
 			sourceTree = "<group>";
 		};
-		F81FEE471B8D847200363501 /* Person Info */ = {
+		F81FEE471B8D847200363501 /* Personal Info */ = {
 			isa = PBXGroup;
 			children = (
 				F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */,
 				F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */,
 				F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */,
 			);
-			name = "Person Info";
+			name = "Personal Info";
 			sourceTree = "<group>";
 		};
 		F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */ = {
 			isa = PBXGroup;
 			children = (
-				F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */,
 				F85C83701B8ED56E00701C73 /* RefreshContents.xib */,
 				F8F3D5FC1B8F1A32001ADDCE /* RefreshContents.swift */,
 			);
@@ -238,7 +245,9 @@
 				F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */,
 				F8F3A1331B577B04004733B3 /* NetworkManager.swift */,
 				F8F3A1301B576D69004733B3 /* FileManager.swift */,
+				F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */,
 				F8F3A1351B577B1B004733B3 /* ContentManager.swift */,
+				F8F3D6011B90478C001ADDCE /* Log.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -284,7 +293,7 @@
 				F8FEFE761B564F30004FA01C /* Homepage */,
 				F8B7CDF71B5E88ED00F2B8EB /* Course */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
-				F81FEE471B8D847200363501 /* Person Info */,
+				F81FEE471B8D847200363501 /* Personal Info */,
 			);
 			name = "View Controllers";
 			path = SmarClass;
@@ -293,12 +302,14 @@
 		F8FEFE071B56479C004FA01C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6BAE29B09F03FADB483809E0 /* SuggestedColors.plist */,
 				F8FEFE091B56479C004FA01C /* AppDelegate.swift */,
 				F8FEFE501B564815004FA01C /* Main.storyboard */,
 				F8FEFE131B56479C004FA01C /* Images.xcassets */,
 				F8FEFE151B56479C004FA01C /* LaunchScreen.xib */,
 				F8FEFE0B1B56479C004FA01C /* SmarClass.xcdatamodeld */,
 				F8FEFE081B56479C004FA01C /* Info.plist */,
+				F8F3D6031B904BA3001ADDCE /* SmarClass-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			path = SmarClass;
@@ -324,10 +335,11 @@
 		F8FEFE621B564960004FA01C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F84AF9E61B90986E00CF4A99 /* User.swift */,
+				F84AF9E41B90986D00CF4A99 /* Avatar.swift */,
 				F8FEFE521B56495B004FA01C /* Group.swift */,
 				F8FEFE531B56495B004FA01C /* Course.swift */,
 				F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */,
-				F8FEFE551B56495B004FA01C /* User.swift */,
 				F8FEFE561B56495B004FA01C /* Answers.swift */,
 				F8FEFE571B56495B004FA01C /* Project.swift */,
 				F8FEFE581B56495B004FA01C /* TestQuestion.swift */,
@@ -341,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				F8F3D6001B90377D001ADDCE /* Badge */,
+				F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */,
 				F8FEFE661B5649DB004FA01C /* CircleView.swift */,
 				F8FEFE671B5649DB004FA01C /* ChoiceView.swift */,
 				F8FEFE6A1B5649DB004FA01C /* CircleShortcutForPinyin.swift */,
@@ -362,7 +375,7 @@
 		F8FEFE771B565818004FA01C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */,
+				F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */,
 				F8FEFE311B5647F8004FA01C /* SplashViewController.swift */,
 				F8FEFE341B5647F8004FA01C /* IndexViewController.swift */,
 				F8FEFE631B5649DB004FA01C /* NavigationController.swift */,
@@ -532,7 +545,6 @@
 				F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */,
 				F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */,
 				F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */,
-				F8FEFE5D1B56495B004FA01C /* User.swift in Sources */,
 				F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */,
 				F8FEFE6E1B5649DB004FA01C /* CircleView.swift in Sources */,
 				F8FEFE6B1B5649DB004FA01C /* NavigationController.swift in Sources */,
@@ -541,14 +553,18 @@
 				F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */,
 				F8FEFE611B56495B004FA01C /* Test.swift in Sources */,
 				F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */,
+				F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
 				F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */,
+				F84AF9E51B90986D00CF4A99 /* Avatar.swift in Sources */,
 				F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */,
+				F84AF9E71B90986E00CF4A99 /* User.swift in Sources */,
 				F8FEFE461B5647F8004FA01C /* IndexViewController.swift in Sources */,
 				F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */,
 				F8FEFE0A1B56479C004FA01C /* AppDelegate.swift in Sources */,
 				F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */,
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
+				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
 				F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */,
 				F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */,
 				F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */,
@@ -691,10 +707,13 @@
 			baseConfigurationReference = 30A37B1A1C4ECD09D8342507 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SmarClass/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmarClass/SmarClass-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -703,10 +722,12 @@
 			baseConfigurationReference = 21CC47E7EEDFDC02E2E65D68 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SmarClass/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmarClass/SmarClass-Bridging-Header.h";
 			};
 			name = Release;
 		};

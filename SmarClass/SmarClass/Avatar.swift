@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Avatar.swift
 //  SmarClass
 //
 //  Created by PengZhao on 15/8/28.
@@ -9,11 +9,8 @@
 import Foundation
 import CoreData
 
-class User: NSManagedObject {
+class Avatar: NSManagedObject {
 
     @NSManaged var name: String
-    @NSManaged var email: String
-    @NSManaged var phone: String
-    @NSManaged var realName: String
-    @NSManaged var avatars: NSSet
+
 }

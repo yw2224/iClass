@@ -8,6 +8,12 @@
 
 import Foundation
 
-class ContentManager: NSObject {
-   
+protocol ContentRetrieveActions {
+    func login(name: String, password: String) -> Bool
+}
+
+class ContentManager: NSObject, ContentRetrieveActions {
+    func login(name: String, password: String) -> Bool {
+        return true
+    }
 }

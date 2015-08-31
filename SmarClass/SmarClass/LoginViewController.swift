@@ -374,7 +374,8 @@ class LoginTableViewCell: UITableViewCell {
         textField.clearsOnBeginEditing = false
         textField.clearButtonMode = .Never
         if text == "学号" {
-            textField.keyboardType = .NumberPad
+            textField.keyboardType = .Default
+//            textField.keyboardType = .NumberPad
         } else if text == "密码" {
             textField.secureTextEntry = true
             textField.clearsOnBeginEditing = true

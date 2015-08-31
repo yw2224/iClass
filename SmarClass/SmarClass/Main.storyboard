@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="k0h-JB-EmQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="R7n-ue-xzJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -764,7 +764,7 @@
         <scene sceneID="TpV-zI-dUF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZPv-eI-CBn" customClass="NavigationController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="课程" image="Test" id="xOf-bL-vnK"/>
+                    <tabBarItem key="tabBarItem" title="课程" image="Course2" id="xOf-bL-vnK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xNj-Ab-dBb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -788,7 +788,7 @@
         <scene sceneID="jJ3-vw-Dxn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ukZ-Mu-vYH" customClass="NavigationController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="测验" image="Feedback" id="2Xt-bx-UA0"/>
+                    <tabBarItem key="tabBarItem" title="测验" image="Test2" id="2Xt-bx-UA0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="teV-h4-vVm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1398,7 +1398,7 @@
                         <outlet property="loginIndicator" destination="vyb-T1-9Dz" id="9sy-cO-qtZ"/>
                         <outlet property="loginTableView" destination="SYd-IW-XAh" id="1iE-zJ-IuZ"/>
                         <outlet property="toggleButton" destination="qvW-35-7GP" id="2or-nA-Vfo"/>
-                        <segue destination="k0h-JB-EmQ" kind="presentation" identifier="Login To MainHome Segue" modalTransitionStyle="coverVertical" id="N4P-Tw-xsn"/>
+                        <segue destination="k0h-JB-EmQ" kind="presentation" identifier="Login To MainHome Segue" modalTransitionStyle="crossDissolve" id="N4P-Tw-xsn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AXr-LS-ZSO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1501,9 +1501,9 @@
         <image name="Bulb" width="35" height="37"/>
         <image name="Clock" width="109" height="116"/>
         <image name="Confirm" width="71" height="29"/>
+        <image name="Course2" width="21" height="21"/>
         <image name="Cry" width="61" height="60"/>
         <image name="Exam" width="22" height="22"/>
-        <image name="Feedback" width="22" height="22"/>
         <image name="Laugh" width="67" height="66"/>
         <image name="Note1" width="31" height="39"/>
         <image name="Note2" width="56" height="43"/>
@@ -1520,6 +1520,7 @@
         <image name="Splash2" width="414" height="736"/>
         <image name="Splash3" width="414" height="736"/>
         <image name="Test" width="22" height="22"/>
+        <image name="Test2" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="K7J-db-Aod"/>

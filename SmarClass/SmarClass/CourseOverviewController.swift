@@ -205,17 +205,17 @@ extension CourseOverviewController: UITableViewDataSource {
         case Constants.Header.0:
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Header.1) as! HeaderTableViewCell
 //            cell.setupWithImage("Computer Networks", title: "Computer Networks", detailedText: "PKU Fall 2015", description: "Wei Yan")
-			if let course = self.course {
-				if let teacher = self.teacher {
-					var desc = teacher.username
-					if count( teacher.firstname ) > 0 {
-						desc = teacher.firstname
-					}
-					cell.setupWithImage("Computer Networks", title: course.name , detailedText: course.term, description: desc)
-				}else{
-					cell.setupWithImage("Computer Networks", title: course.name , detailedText: course.term, description: course.teacher.stringValue)
-				}
-			}
+//			if let course = self.course {
+//				if let teacher = self.teacher {
+//					var desc = teacher.username
+//					if count( teacher.firstname ) > 0 {
+//						desc = teacher.firstname
+//					}
+//					cell.setupWithImage("Computer Networks", title: course.name , detailedText: course.term, description: desc)
+//				}else{
+//					cell.setupWithImage("Computer Networks", title: course.name , detailedText: course.term, description: course.teacher.stringValue)
+//				}
+//			}
             return cell
         case Constants.SignIn.0:
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.SignIn.1) as! SignInTableViewCell
