@@ -8,7 +8,6 @@
 
 import Foundation
 import CocoaLumberjack
-import ChameleonFramework
 
 class Log: NSObject {
     static func config() {
@@ -28,12 +27,11 @@ class Log: NSObject {
         DDLog.addLogger(fileLogger)
     }
     
-    static func debogLog(message:String, filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
-        let fileName = filePath.lastPathComponent
-        DDLogDebug("\(fileName) \(functionName) [Line \(line)]: \(message)")
-    }
-    
-    static func debogLog(filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
+//    static func debugLog(message: String, filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
+//        DDLogDebug(message)
+//    }
+//    
+    static func debugLog(filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
         let fileName = filePath.lastPathComponent
         DDLogDebug("\(fileName) \(functionName) [Line \(line)]")
     }

@@ -34,8 +34,6 @@ class CloudAnimateTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        tableView.tableFooterView = UIView(frame: CGRectZero)
-        
         setupRefreshControl()
     }
     
@@ -136,7 +134,8 @@ class CloudAnimateTableViewController: UITableViewController {
         cloudRefresh.refreshingImageView.image = UIImage(named: "Refresh")
         UIView.animateWithDuration(0.3, animations: {
             self.alpha = 1.0
-            }) { [weak self] in
+            }) {
+                [weak self] in
                 if $0 {
                     self?.animationDidStart()
                 }
@@ -144,17 +143,14 @@ class CloudAnimateTableViewController: UITableViewController {
     }
     
     func animateRefreshStep2() {
-        if !isAnimating {
-            return
-        }
-        
         cloudRefresh.background.image = UIImage(named: "Tick")
         UIView.animateWithDuration(0.6, animations: {
             self.cloudRefresh.background.alpha = 1.0
-            }) {[weak self] in
+            }) {
+                [weak self] in
                 if $0 {
                     self?.resetAnimiation()
-                }
+            }
         }
     }
     
@@ -203,13 +199,17 @@ extension CloudAnimateTableViewController: UIScrollViewDelegate, RefreshControlH
     }
     
     func animationDidEnd() {
-        UIView.animateWithDuration(0.1, animations: {
+        if !isAnimating {
+            return
+        }
+        UIView.animateWithDuration(0.1, delay: 0.3, options: .CurveLinear, animations: {
             self.cloudRefresh.background.alpha = 0
             self.cloudRefresh.refreshingImageView.alpha = 0
-        }) { [weak self] in
-            if $0 {
-                self?.animateRefreshStep2()
+            }) { [weak self] in
+                if $0 {
+                    self?.animateRefreshStep2()
             }
         }
+
     }
 }

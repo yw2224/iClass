@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+import SwiftyJSON
 
 extension UIStoryboard {
     class func initViewControllerWithIdentifier(identifier: String!) -> UIViewController? {
@@ -38,7 +40,6 @@ extension UIView {
     
     func startGlow(shadowColor: UIColor) {
         var transfrom = CGAffineTransformMakeScale(1.1, 1.1)
-//        let circle = CGPathCreateWithEllipseInRect(bounds, &transfrom)
         let shadowLayer = CALayer(layer: layer)
         layer.shadowColor = shadowColor.CGColor
         layer.shadowRadius = 1.0
@@ -61,4 +62,9 @@ extension UIView {
         layer.shadowOpacity = 0.0
         layer.removeAnimationForKey(Constants.AnimationKeyName)
     }
+}
+
+protocol JSON2ObjectConvert: class {
+    static func objectFromJSONObject(json: JSON) -> NSManagedObject?
+    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject]
 }

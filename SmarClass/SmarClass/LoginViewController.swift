@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 enum LoginStatus {
     case Register
@@ -61,8 +62,8 @@ class LoginViewController: UIViewController {
         static let LoginToMainHomeSegueIdentifier = "Login To MainHome Segue"
         static let HeaderHeight: CGFloat = 100.0
         static let FooterHeight: CGFloat = 72.0
-        static let MarginForRegisterRatio: CGFloat = 0.3
-        static let MarginForLoginrRatio: CGFloat = 0.24
+        static let RegisterCollectionViewMarginRatio: CGFloat = 0.3
+        static let LoginCollectionViewMarginRatio: CGFloat = 0.24
         static let CollectionViewCellIdentifier = "SNS Cell"
         static let CollectionViewHeaderIdentifier = "SNS Header"
         static let CollectionCellWidth: CGFloat = 50.0
@@ -98,8 +99,8 @@ class LoginViewController: UIViewController {
     }
     
     func setupButton() {
-        loginButton?.setTitle(status == LoginStatus.Register ? "注册" : "登陆", forState: .Normal)
-        toggleButton?.setTitle(status == LoginStatus.Register ? "课堂助手账号登陆" : "课堂助手账号注册", forState: .Normal)
+        loginButton?.setTitle(status == LoginStatus.Register ? "注册" : "登录", forState: .Normal)
+        toggleButton?.setTitle(status == LoginStatus.Register ? "课堂助手账号登录" : "课堂助手账号注册", forState: .Normal)
     }
     
     func scrollUpTableView() {
@@ -113,13 +114,12 @@ class LoginViewController: UIViewController {
     func checkInput() -> (Bool, String, String, String) {
         let indexes = cellIndexes[status]
         let someDigitsRegex = NSRegularExpression(pattern: "\\d+", options: .allZeros, error: nil)!
-        var name = "", realName = "", password: String = ""
         func trimWhiteSpace(text: String) -> String {
             return text.stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
         }
         
         if status == LoginStatus.Register {
-            (name, realName, password) = {
+            let (name: String, realName: String, password: String) = {
                 return (trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($0) as! LoginTableViewCell).textFieldContent()),
                         trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($1) as! LoginTableViewCell).textFieldContent()),
                         trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($2) as! LoginTableViewCell).textFieldContent()))
@@ -134,19 +134,19 @@ class LoginViewController: UIViewController {
             }
             return (true, name, realName, password)
         } else {
-            (name, password) = {
+            let (name: String, password: String) = {
                 return (trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($0) as! LoginTableViewCell).textFieldContent()),
                     trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($1) as! LoginTableViewCell).textFieldContent()))
                 } (indexes!["name"]!, indexes!["password"]!)
             
             if count(name) == 0 || count(password) == 0 {
-                return (false, name, realName, password)
+                return (false, name, "", password)
             }
             let regexResult = someDigitsRegex.matchesInString(name, options: .allZeros, range: NSMakeRange(0, count(name)))
             if count(regexResult) != 1 {
-                return (false, name, realName, password)
+                return (false, name, "", password)
             }
-            return (true, name, realName, password)
+            return (true, name, "", password)
         }
     }
     
@@ -163,69 +163,35 @@ class LoginViewController: UIViewController {
         // Stackoverflow: http://stackoverflow.com/questions/6906246/how-do-i-dismiss-the-ios-keyboard
         view.endEditing(false)
         
-        loginIndicator.startAnimating()
-        loginButton.enabled = false
-        loginButton.setTitle("", forState: .Normal)
-        
-        // MARK: network stuff
-        
-        loginIndicator.stopAnimating()
-        loginButton.enabled = true
-        loginButton.setTitle(title, forState: .Normal)
-        // success, set global constants? content manager, keychains stuff
-        performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
-        
-        // failed
-        println("Showing HUD failed or somewhat")
-        
-//        jumpToMainHome()
-//		let username = usernameTextField.text
-//		let password = passwordTextField.text
-//		let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//		hud.mode = MBProgressHUDMode.Text
-//		if (username != nil) && (password != nil){
-//			SCRequest.loginByPassword(username, password: password)
-//				{ (_, _, JSON, _) -> Void in
-//					if JSON?.valueForKey("result") as? Bool == true {
-//						hud.labelText = "登录成功"
-//						
-//					}else {
-//						hud.labelText = "用户名或密码错误!"
-//					}
-//
-//				
-//				hud.showAnimated(true,
-//					whileExecutingBlock:
-//					{ () -> Void in
-//						NSThread.sleepForTimeInterval(1)
-//					})
-//					{ () -> Void in
-//					//segue to home page
-//						
-//							if JSON?.valueForKey("result") as? Bool == true {
-//								if let userlist = JsonUtil.MJ_Json2Model(JSON: (JSON as? NSDictionary)!, Type: ModelType.User) as? [User] {
-//									if userlist.count > 0 {
-//										 let user = userlist[0]
-//										println(user)
-//	//									NSUserDefaults.standardUserDefaults().setValue(user, forKey: "user")
-//											NSUserDefaults.standardUserDefaults().setValue(user.firstname, forKey: "realname")
-//											
-//									}
-//									
-//								}
-//								println(JSON)
-//								NSUserDefaults.standardUserDefaults().setValue(username, forKey: "username")
-//								NSUserDefaults.standardUserDefaults().setValue(password, forKey: "password")
-//								//jumpToHomePageView
-//								self.jumpToMainHome()
-////								self.performSegueWithIdentifier(InnerConstants.LoginToHomePageSegueIdentifier, sender: self)
-//							}
-//						}
-//
-//						
-//					}
-//		}
+        disableLoginButton()
+    
+        if status == LoginStatus.Register {
+            ContentManager.sharedInstance.register(input.1, realName: input.2, password: input.3) {
+                [weak self] (success, message) in
+                
+                self?.enableLoginButton()
 
+                if success {
+                    self?.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: Constants.LoginCollectionViewMarginRatio)
+                } else {
+                    println("Showing HUD failed or somewhat")
+                    println(message)
+                }
+            }
+        } else {
+            ContentManager.sharedInstance.login("S1", password: "SS1") {
+                [weak self] (success, message) in
+                
+                self?.enableLoginButton()
+
+                if success {
+                    self?.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
+                } else {
+                    println("Showing HUD failed or somewhat")
+                    println(message)
+                }
+            }
+        }
 	}
     
     @IBAction func toggleTableView(sender: UIButton) {
@@ -250,6 +216,18 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func enableLoginButton() {
+        loginIndicator.stopAnimating()
+        loginButton.enabled = true
+        loginButton.setTitle(status == LoginStatus.Register ? "注册" : "登录", forState: .Normal)
+    }
+    
+    func disableLoginButton() {
+        loginIndicator.startAnimating()
+        loginButton.enabled = false
+        loginButton.setTitle("", forState: .Normal)
+    }
 }
 
 // Protrait View Controller
@@ -315,7 +293,7 @@ extension LoginViewController: UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: Constants.CollectionViewHeaderIdentifier, forIndexPath: indexPath) as! SNSCollectionViewHeader
-        header.configureHeader(status == LoginStatus.Register ? "社交网络注册" : "社交网络登陆")
+        header.configureHeader(status == LoginStatus.Register ? "社交网络注册" : "社交网络登录")
         return header
     }
 }
@@ -324,10 +302,10 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegat
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         var inset = UIEdgeInsetsZero
         if status == LoginStatus.Register {
-            inset.left = CGRectGetWidth(collectionView.frame) * Constants.MarginForRegisterRatio
+            inset.left = CGRectGetWidth(collectionView.frame) * Constants.RegisterCollectionViewMarginRatio
             inset.right = inset.left
         } else {
-            inset.left = CGRectGetWidth(collectionView.frame) * Constants.MarginForLoginrRatio
+            inset.left = CGRectGetWidth(collectionView.frame) * Constants.LoginCollectionViewMarginRatio
             inset.right = inset.left
         }
         return inset
@@ -336,10 +314,10 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegat
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         var interSpacing: CGFloat = 0
         if status == LoginStatus.Register {
-            interSpacing = CGRectGetWidth(collectionView.frame) * (1 - 2 * Constants.MarginForRegisterRatio)
+            interSpacing = CGRectGetWidth(collectionView.frame) * (1 - 2 * Constants.RegisterCollectionViewMarginRatio)
             interSpacing -= 2 * Constants.CollectionCellWidth
         } else {
-            interSpacing = CGRectGetWidth(collectionView.frame) * (1 - 2 * Constants.MarginForLoginrRatio)
+            interSpacing = CGRectGetWidth(collectionView.frame) * (1 - 2 * Constants.LoginCollectionViewMarginRatio)
             interSpacing -= 3 * Constants.CollectionCellWidth
             interSpacing /= 2
         }

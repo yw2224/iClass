@@ -225,7 +225,7 @@ extension CourseOverviewController: UITableViewDataSource {
         case Constants.Overview.0:
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Overview.1) as! OverviewTableViewCell
 			if let course = self.course {
-				cell.setupWithText(course.describe)
+				cell.setupWithText("123123123123123")
 			}
             return cell
         case Constants.Examination.0:
@@ -233,12 +233,11 @@ extension CourseOverviewController: UITableViewDataSource {
 			if let course = self.course{
 				
 					println(course)
-					let midtermString :NSString = course.midTerm
-					let finaltermString :NSString = course.finalTerm
+					let midtermString :NSString = "123123"
+					let finaltermString :NSString = "123123123"
 					let midterm = NSDate(timeIntervalSince1970: midtermString.doubleValue)
 					let finalterm = NSDate(timeIntervalSince1970: finaltermString.doubleValue)
 					cell.configureCell(midterm, finalterm: finalterm)
-				
 			
 			}
             return cell

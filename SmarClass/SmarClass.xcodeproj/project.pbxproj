@@ -13,12 +13,16 @@
 		F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */; };
 		F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */; };
 		F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */; };
-		F84AF9E51B90986D00CF4A99 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E41B90986D00CF4A99 /* Avatar.swift */; };
-		F84AF9E71B90986E00CF4A99 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E61B90986E00CF4A99 /* User.swift */; };
 		F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */; };
 		F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85C83701B8ED56E00701C73 /* RefreshContents.xib */; };
+		F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F86537E11B96EB6600BFCF6D /* AvatarView.xib */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
 		F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */; };
+		F8D4DAED1B9695A5000B771A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEC1B9695A5000B771A /* User.swift */; };
+		F8D4DAEF1B9695A6000B771A /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEE1B9695A6000B771A /* Avatar.swift */; };
+		F8D4DAF11B9695A6000B771A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF01B9695A6000B771A /* Course.swift */; };
+		F8D4DAF31B9695A6000B771A /* LectureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF21B9695A6000B771A /* LectureTime.swift */; };
+		F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF41B9695A6000B771A /* TeacherNames.swift */; };
 		F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */; };
 		F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */; };
 		F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1301B576D69004733B3 /* FileManager.swift */; };
@@ -49,7 +53,6 @@
 		F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */; };
 		F8FEFE511B564815004FA01C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE501B564815004FA01C /* Main.storyboard */; };
 		F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE521B56495B004FA01C /* Group.swift */; };
-		F8FEFE5B1B56495B004FA01C /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE531B56495B004FA01C /* Course.swift */; };
 		F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */; };
 		F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE561B56495B004FA01C /* Answers.swift */; };
 		F8FEFE5F1B56495B004FA01C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE571B56495B004FA01C /* Project.swift */; };
@@ -60,7 +63,7 @@
 		F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE651B5649DB004FA01C /* BadgeView.swift */; };
 		F8FEFE6E1B5649DB004FA01C /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE661B5649DB004FA01C /* CircleView.swift */; };
 		F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE671B5649DB004FA01C /* ChoiceView.swift */; };
-		F8FEFE721B5649DB004FA01C /* CircleShortcutForPinyin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE6A1B5649DB004FA01C /* CircleShortcutForPinyin.swift */; };
+		F8FEFE721B5649DB004FA01C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE6A1B5649DB004FA01C /* AvatarView.swift */; };
 		F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE741B564C1E004FA01C /* CourseOverviewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,12 +87,17 @@
 		F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash2ViewController.swift; sourceTree = "<group>"; };
 		F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash3ViewController.swift; sourceTree = "<group>"; };
 		F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = SmarClass/CoreDataManager.swift; sourceTree = "<group>"; };
-		F84AF9E41B90986D00CF4A99 /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
-		F84AF9E61B90986E00CF4A99 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAnimateTableViewController.swift; sourceTree = "<group>"; };
 		F85C83701B8ED56E00701C73 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
+		F86537E11B96EB6600BFCF6D /* AvatarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvatarView.xib; sourceTree = "<group>"; };
 		F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveSegue.swift; sourceTree = "<group>"; };
 		F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDisappearSegue.swift; sourceTree = "<group>"; };
+		F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SmarClass.entitlements; sourceTree = "<group>"; };
+		F8D4DAEC1B9695A5000B771A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F8D4DAEE1B9695A6000B771A /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		F8D4DAF01B9695A6000B771A /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		F8D4DAF21B9695A6000B771A /* LectureTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LectureTime.swift; sourceTree = "<group>"; };
+		F8D4DAF41B9695A6000B771A /* TeacherNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherNames.swift; sourceTree = "<group>"; };
 		F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPanelViewController.swift; sourceTree = "<group>"; };
 		F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = SmarClass/GlobalConstants.swift; sourceTree = "<group>"; };
 		F8F3A1301B576D69004733B3 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = SmarClass/FileManager.swift; sourceTree = "<group>"; };
@@ -125,7 +133,6 @@
 		F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		F8FEFE501B564815004FA01C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F8FEFE521B56495B004FA01C /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		F8FEFE531B56495B004FA01C /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectQuestion.swift; sourceTree = "<group>"; };
 		F8FEFE561B56495B004FA01C /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
 		F8FEFE571B56495B004FA01C /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -136,7 +143,7 @@
 		F8FEFE651B5649DB004FA01C /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		F8FEFE661B5649DB004FA01C /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		F8FEFE671B5649DB004FA01C /* ChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceView.swift; sourceTree = "<group>"; };
-		F8FEFE6A1B5649DB004FA01C /* CircleShortcutForPinyin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleShortcutForPinyin.swift; sourceTree = "<group>"; };
+		F8FEFE6A1B5649DB004FA01C /* AvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		F8FEFE741B564C1E004FA01C /* CourseOverviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseOverviewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,10 +207,49 @@
 		F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */ = {
 			isa = PBXGroup;
 			children = (
-				F85C83701B8ED56E00701C73 /* RefreshContents.xib */,
 				F8F3D5FC1B8F1A32001ADDCE /* RefreshContents.swift */,
+				F85C83701B8ED56E00701C73 /* RefreshContents.xib */,
 			);
 			name = "Cloud Animation Refresh Control";
+			sourceTree = "<group>";
+		};
+		F86537DE1B96BD2000BFCF6D /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				F8D4DAF41B9695A6000B771A /* TeacherNames.swift */,
+				F8D4DAF21B9695A6000B771A /* LectureTime.swift */,
+				F8D4DAF01B9695A6000B771A /* Course.swift */,
+			);
+			name = Course;
+			sourceTree = "<group>";
+		};
+		F86537DF1B96BF4200BFCF6D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				F8D4DAEE1B9695A6000B771A /* Avatar.swift */,
+				F8D4DAEC1B9695A5000B771A /* User.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		F86537E01B96E85600BFCF6D /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				F8FEFE3A1B5647F8004FA01C /* TestViewController.swift */,
+				F8FEFE3C1B5647F8004FA01C /* TestDetailContainerViewController.swift */,
+				F8FEFE3B1B5647F8004FA01C /* TestDetailViewController.swift */,
+				F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */,
+			);
+			name = Quiz;
+			sourceTree = "<group>";
+		};
+		F86537E31B96EB6D00BFCF6D /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				F8FEFE6A1B5649DB004FA01C /* AvatarView.swift */,
+				F86537E11B96EB6600BFCF6D /* AvatarView.xib */,
+			);
+			name = Avatar;
 			sourceTree = "<group>";
 		};
 		F89C108E1B5F2B3D00A233C8 /* Login */ = {
@@ -229,25 +275,28 @@
 		F8B7CDF71B5E88ED00F2B8EB /* Course */ = {
 			isa = PBXGroup;
 			children = (
-				F8FEFE371B5647F8004FA01C /* TabBarController.swift */,
 				F8FEFE741B564C1E004FA01C /* CourseOverviewController.swift */,
-				F8FEFE3A1B5647F8004FA01C /* TestViewController.swift */,
-				F8FEFE3C1B5647F8004FA01C /* TestDetailContainerViewController.swift */,
-				F8FEFE3B1B5647F8004FA01C /* TestDetailViewController.swift */,
-				F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */,
 			);
 			name = Course;
+			sourceTree = "<group>";
+		};
+		F8D4DAE51B9564E6000B771A /* Content Retrieve Manager */ = {
+			isa = PBXGroup;
+			children = (
+				F8F3A1331B577B04004733B3 /* NetworkManager.swift */,
+				F8F3A1301B576D69004733B3 /* FileManager.swift */,
+				F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */,
+				F8F3A1351B577B1B004733B3 /* ContentManager.swift */,
+			);
+			name = "Content Retrieve Manager";
 			sourceTree = "<group>";
 		};
 		F8F3A1321B5775AC004733B3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */,
-				F8F3A1331B577B04004733B3 /* NetworkManager.swift */,
-				F8F3A1301B576D69004733B3 /* FileManager.swift */,
-				F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */,
-				F8F3A1351B577B1B004733B3 /* ContentManager.swift */,
 				F8F3D6011B90478C001ADDCE /* Log.swift */,
+				F8D4DAE51B9564E6000B771A /* Content Retrieve Manager */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -294,6 +343,7 @@
 				F8B7CDF71B5E88ED00F2B8EB /* Course */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
 				F81FEE471B8D847200363501 /* Personal Info */,
+				F86537E01B96E85600BFCF6D /* Quiz */,
 			);
 			name = "View Controllers";
 			path = SmarClass;
@@ -302,6 +352,7 @@
 		F8FEFE071B56479C004FA01C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */,
 				6BAE29B09F03FADB483809E0 /* SuggestedColors.plist */,
 				F8FEFE091B56479C004FA01C /* AppDelegate.swift */,
 				F8FEFE501B564815004FA01C /* Main.storyboard */,
@@ -335,10 +386,9 @@
 		F8FEFE621B564960004FA01C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F84AF9E61B90986E00CF4A99 /* User.swift */,
-				F84AF9E41B90986D00CF4A99 /* Avatar.swift */,
+				F86537DE1B96BD2000BFCF6D /* Course */,
+				F86537DF1B96BF4200BFCF6D /* User */,
 				F8FEFE521B56495B004FA01C /* Group.swift */,
-				F8FEFE531B56495B004FA01C /* Course.swift */,
 				F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */,
 				F8FEFE561B56495B004FA01C /* Answers.swift */,
 				F8FEFE571B56495B004FA01C /* Project.swift */,
@@ -354,9 +404,9 @@
 			children = (
 				F8F3D6001B90377D001ADDCE /* Badge */,
 				F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */,
+				F86537E31B96EB6D00BFCF6D /* Avatar */,
 				F8FEFE661B5649DB004FA01C /* CircleView.swift */,
 				F8FEFE671B5649DB004FA01C /* ChoiceView.swift */,
-				F8FEFE6A1B5649DB004FA01C /* CircleShortcutForPinyin.swift */,
 			);
 			name = "Custom Views";
 			path = SmarClass;
@@ -379,6 +429,7 @@
 				F8FEFE311B5647F8004FA01C /* SplashViewController.swift */,
 				F8FEFE341B5647F8004FA01C /* IndexViewController.swift */,
 				F8FEFE631B5649DB004FA01C /* NavigationController.swift */,
+				F8FEFE371B5647F8004FA01C /* TabBarController.swift */,
 				F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */,
 			);
 			name = Helpers;
@@ -437,6 +488,17 @@
 					F8FEFE031B56479C004FA01C = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 2ZC6KG8JJ9;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					F8FEFE1B1B56479C004FA01C = {
 						CreatedOnToolsVersion = 6.4;
@@ -471,6 +533,7 @@
 				F8F3D5FF1B903772001ADDCE /* BadgeView.xib in Resources */,
 				F8FEFE511B564815004FA01C /* Main.storyboard in Resources */,
 				F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */,
+				F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */,
 				F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */,
 				F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */,
 			);
@@ -538,7 +601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8FEFE721B5649DB004FA01C /* CircleShortcutForPinyin.swift in Sources */,
+				F8FEFE721B5649DB004FA01C /* AvatarView.swift in Sources */,
 				F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */,
 				F8FEFE491B5647F8004FA01C /* TabBarController.swift in Sources */,
 				F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */,
@@ -556,12 +619,13 @@
 				F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
 				F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */,
-				F84AF9E51B90986D00CF4A99 /* Avatar.swift in Sources */,
+				F8D4DAEF1B9695A6000B771A /* Avatar.swift in Sources */,
 				F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */,
-				F84AF9E71B90986E00CF4A99 /* User.swift in Sources */,
 				F8FEFE461B5647F8004FA01C /* IndexViewController.swift in Sources */,
 				F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */,
 				F8FEFE0A1B56479C004FA01C /* AppDelegate.swift in Sources */,
+				F8D4DAED1B9695A5000B771A /* User.swift in Sources */,
+				F8D4DAF11B9695A6000B771A /* Course.swift in Sources */,
 				F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */,
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
@@ -572,8 +636,10 @@
 				F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */,
 				F8FEFE4A1B5647F8004FA01C /* ContainerViewController.swift in Sources */,
 				F8FEFE4B1B5647F8004FA01C /* SidePanelViewController.swift in Sources */,
+				F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */,
 				F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */,
 				F8FEFE411B5647F8004FA01C /* PersonalInfoViewController.swift in Sources */,
+				F8D4DAF31B9695A6000B771A /* LectureTime.swift in Sources */,
 				F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */,
 				F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */,
 				F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */,
@@ -584,7 +650,6 @@
 				F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */,
 				F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */,
 				F8FEFE601B56495B004FA01C /* TestQuestion.swift in Sources */,
-				F8FEFE5B1B56495B004FA01C /* Course.swift in Sources */,
 				F8FEFE5F1B56495B004FA01C /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -708,10 +773,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SmarClass/SmarClass.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SmarClass/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmarClass/SmarClass-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -723,10 +791,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SmarClass/SmarClass.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SmarClass/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmarClass/SmarClass-Bridging-Header.h";
 			};
 			name = Release;

@@ -36,8 +36,7 @@ class LoginContainerViewController: UIViewController {
         splashPageViewController.delegate = self
         splashPageViewController.view.frame = view.frame
         
-        let firshSplashViewController = splashChildViewControllerAtIndex(0);
-        splashPageViewController.setViewControllers([firshSplashViewController!], direction: .Forward, animated: true, completion: nil)
+        splashPageViewController.setViewControllers([splashChildViewControllerAtIndex(0)!], direction: .Forward, animated: true, completion: nil)
         
         addChildViewController(splashPageViewController)
         view.insertSubview(splashPageViewController.view, atIndex: 0)

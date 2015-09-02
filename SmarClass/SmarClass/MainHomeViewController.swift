@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
 class MainHomeViewController: CloudAnimateTableViewController {
 
@@ -15,20 +16,34 @@ class MainHomeViewController: CloudAnimateTableViewController {
         static let CourseCellHeight : CGFloat = 88.0
     }
     
-	var courseList = [Course]()
-	var teacherList = [User]()
+    var courseList = [Course]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     var delegate: CenteralViewDelegate?
     
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = Constants.CourseCellHeight
+        
+        retrieveCourseList()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        CoreDataManager.sharedInstance.saveInBackground()
     }
     
     // MARK: Navigations
@@ -42,18 +57,18 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let dest = segue.destinationViewController as? TabBarController
-		{
-			dest.delegate = dest
-			if let covc = dest.contentViewController(0) as? CourseOverviewController {
+//        if let dest = segue.destinationViewController as? TabBarController
+//		{
+//			dest.delegate = dest
+//			if let covc = dest.contentViewController(0) as? CourseOverviewController {
 //				let indexPath = self.courseTableView.indexPathForSelectedRow()
 //				if let course = courseList?[indexPath!.section] {
 //					covc.course = course
 //					dest.course = course
 //				}
-			}
-			
-		}
+//			}
+//			
+//		}
 	}
     
     // MARK: Actions
@@ -72,25 +87,27 @@ class MainHomeViewController: CloudAnimateTableViewController {
     func enableTableView() {
         tableView.userInteractionEnabled = true
     }
+    
+    func retrieveCourseList() {
+        ContentManager.sharedInstance.courseList {
+            [weak self] (success, courseList, message) in
+            DDLogDebug("\(success) \(message)")
+            self?.courseList = courseList
+            self?.animationDidEnd()
+        }
+    }
 }
 
 extension MainHomeViewController: RefreshControlHook {
     override func animationDidStart() {
         super.animationDidStart()
-        
-        // network stuff
-        let delayInSeconds = 2.0
-        let delayInNanoSeconds = dispatch_time(DISPATCH_TIME_NOW,
-            Int64(delayInSeconds * Double(NSEC_PER_SEC)))
-        dispatch_after(delayInNanoSeconds, dispatch_get_main_queue(), {
-            self.animationDidEnd()
-        })
+
+        // Remember to call 'animationDidEnd' in the following code
+        retrieveCourseList()
     }
     
     override func animationDidEnd() {
         super.animationDidEnd()
-        
-        // cleanup
     }
 }
 
@@ -100,24 +117,41 @@ extension MainHomeViewController: UITableViewDataSource {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return courseList.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! CourseTableViewCell
+        let course = courseList[indexPath.row]
+        let teacherNameString: String = {
+            var ret = ""
+            var teacherNameArray: [String] = {
+                var array = [String]()
+                for teacherName in course.teacherNames.allObjects {
+                    array.append(teacherName.name)
+                }
+                array.sort() {
+                    return $0 < $1
+                }
+                return array
+            }()
+            for teacherName in teacherNameArray {
+                ret += "\(teacherName)\t"
+            }
+            return ret
+        }()
         cell.setupUIWithImage(
             imageName: "Computer Networks",
-            courseTitle: "计算机网络概论",
-            teacherName: "严伟", badgeNum: 10000
+            courseTitle: course.name,
+            teacherName: teacherNameString,
+            badgeNum: 0
         )
         return cell
     }
 }
 
 extension MainHomeViewController: UITableViewDelegate {
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return Constants.CourseCellHeight
-    }
+    
 }
 
 

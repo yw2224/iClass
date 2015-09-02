@@ -18,6 +18,6 @@ struct GlobalConstants {
         GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatSand(), FlatRed()]),
         GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatPowderBlue(), FlatWhite()]),
         GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatOrange(), FlatSand()]),
-        GradientColor(.LeftToRight, UIScreen.mainScreen().bounds, [FlatWatermelon(), FlatPowderBlue()])
+        GradientColor(.LeftToRight, UIScreen.mainScreen().bounds, [FlatWatermelon(), FlatPowderBlue()]),
     ]
 }

@@ -8,23 +8,33 @@
 
 import Foundation
 import CocoaLumberjack
+import CoreData
 import MagicalRecord
 
 class CoreDataManager: NSObject {
+    
+    static let sharedInstance = CoreDataManager()
     
     static func config() {
         MagicalRecord.setupCoreDataStackWithAutoMigratingSqliteStoreNamed("SmartClass")
     }
     
-    
-    func a() {
-        let test = User.findAll() as! [User]
-    }
-    // save background
-    // didSet print whether it's on main thread
-    
     static func cleanup() {
         MagicalRecord.cleanUp()
     }
     
+    func saveInBackground() {
+        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
+            (success, error) in
+            DDLogInfo("save in background: \(success) \(error)")
+        }
+    }
+    
+    func saveInForeground() {
+        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+    }
+    
+    func courseList() -> [Course] {
+        return Course.MR_findAllSortedBy("name", ascending: true) as! [Course]
+    }
 }
