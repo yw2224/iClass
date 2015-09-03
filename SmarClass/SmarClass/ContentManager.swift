@@ -28,7 +28,7 @@ class ContentManager: NSObject {
             return keychain.get("_id")
         }
         set {
-            if let user_id = User_id {
+            if let user_id = newValue {
                 setKeyChainItem(user_id, forKey: "_id")
             }
         }
@@ -39,7 +39,7 @@ class ContentManager: NSObject {
             return keychain.get("token")
         }
         set {
-            if let token = Token {
+            if let token = newValue {
                 setKeyChainItem(token, forKey: "token")
             }
         }
@@ -50,7 +50,7 @@ class ContentManager: NSObject {
             return keychain.get("password")
         }
         set {
-            if let password = Password {
+            if let password = newValue {
                 setKeyChainItem(password, forKey: "password")
             }
         }
@@ -109,7 +109,8 @@ class ContentManager: NSObject {
     }
     
     func courseList(block: ((success: Bool, courseList: [Course], message: String) -> Void)?) {
-        NetworkManager.sharedInstance.courseList(ContentManager.User_id, token: ContentManager.Token) { (success, data, message) in
+        NetworkManager.sharedInstance.courseList(ContentManager.User_id, token: ContentManager.Token) {
+            (success, data, message) in
             Log.debugLog()
             
             if success { // network success

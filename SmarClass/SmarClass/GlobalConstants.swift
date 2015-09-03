@@ -20,4 +20,5 @@ struct GlobalConstants {
         GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatOrange(), FlatSand()]),
         GradientColor(.LeftToRight, UIScreen.mainScreen().bounds, [FlatWatermelon(), FlatPowderBlue()]),
     ]
+    static var EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
 }

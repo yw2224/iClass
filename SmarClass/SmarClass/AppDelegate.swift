@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.config()
         CoreDataManager.config()
         
+        Course.MR_truncateAll()
+        
         return true
     }
 

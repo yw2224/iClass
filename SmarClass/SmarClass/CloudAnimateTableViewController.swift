@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 protocol RefreshControlHook: class {
     func animationDidStart()
@@ -24,6 +25,11 @@ class CloudAnimateTableViewController: UITableViewController {
             cloudRefresh.spot.alpha = 1.0 - alpha
         }
     }
+    var emptyTitle: String {
+        get {
+            return "网络错误，请下拉以刷新！"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +41,8 @@ class CloudAnimateTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         setupRefreshControl()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -211,5 +219,29 @@ extension CloudAnimateTableViewController: UIScrollViewDelegate, RefreshControlH
             }
         }
 
+    }
+}
+
+extension CloudAnimateTableViewController: DZNEmptyDataSetSource {
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "EmptyDataSetBackground")!
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let attributes = [
+            NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+            NSForegroundColorAttributeName: GlobalConstants.EmptyTitleTintColor
+        ]
+        return NSAttributedString(string: emptyTitle, attributes: attributes)
+    }
+}
+
+extension CloudAnimateTableViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return false
     }
 }

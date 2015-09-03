@@ -23,6 +23,11 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
     
     var delegate: CenteralViewDelegate?
+    override var emptyTitle: String {
+        get {
+            return "课程库为空，请添加课程/下拉刷新重试！"
+        }
+    }
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -57,18 +62,16 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if let dest = segue.destinationViewController as? TabBarController
-//		{
-//			dest.delegate = dest
-//			if let covc = dest.contentViewController(0) as? CourseOverviewController {
-//				let indexPath = self.courseTableView.indexPathForSelectedRow()
-//				if let course = courseList?[indexPath!.section] {
-//					covc.course = course
-//					dest.course = course
-//				}
-//			}
-//			
-//		}
+        if let dest = segue.destinationViewController as? TabBarController {
+			dest.delegate = dest
+            let indexPath = tableView.indexPathForSelectedRow()
+            let course = courseList[indexPath!.row]
+            
+            dest.course = course
+            if let covc = dest.contentViewController(0) as? CourseOverviewController {
+                covc.course = course
+            }
+		}
 	}
     
     // MARK: Actions
@@ -123,37 +126,15 @@ extension MainHomeViewController: UITableViewDataSource {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! CourseTableViewCell
         let course = courseList[indexPath.row]
-        let teacherNameString: String = {
-            var ret = ""
-            var teacherNameArray: [String] = {
-                var array = [String]()
-                for teacherName in course.teacherNames.allObjects {
-                    array.append(teacherName.name)
-                }
-                array.sort() {
-                    return $0 < $1
-                }
-                return array
-            }()
-            for teacherName in teacherNameArray {
-                ret += "\(teacherName)\t"
-            }
-            return ret
-        }()
         cell.setupUIWithImage(
             imageName: "Computer Networks",
             courseTitle: course.name,
-            teacherName: teacherNameString,
+            teacherName: course.teacherNameString,
             badgeNum: 0
         )
         return cell
     }
 }
-
-extension MainHomeViewController: UITableViewDelegate {
-    
-}
-
 
 class CourseTableViewCell : UITableViewCell {
     
@@ -161,12 +142,8 @@ class CourseTableViewCell : UITableViewCell {
     @IBOutlet weak var courseName: UILabel!
     @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var badgeView: BadgeView!
-    func setupUIWithImage(imageName: String = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
-        if let image = UIImage(named: imageName) {
-            bookCover.image = image
-        } else {
-            bookCover.image = UIImage(named: "DefaultBookCover")
-        }
+    func setupUIWithImage(imageName: String? = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
+        bookCover.image = UIImage(named: imageName ?? "DefaultBookCover") ?? UIImage(named: "DefaultBookCover")
         courseName.text = course
         teacherLabel.text = teacher
         badgeView.badgeNum = badge
@@ -176,33 +153,3 @@ class CourseTableViewCell : UITableViewCell {
         badgeView.badgeNum = badgeNum
     }
 }
-
-// MARK: WHY THESE CODE ARE IN VIEW CONTROLLERS???
-//func getCourseTeacherList(){
-//    if courseList?.count > 0 {
-//        for course in courseList!{
-//            let courseId = course.id.integerValue
-//            let teacherId = course.teacher.integerValue
-//            //				SCRequest.courseTeacher(teacherId)
-//            //					{ (_, _, JSON, _) -> Void in
-//            //						if JSON?.valueForKey("result") as? Bool == true{
-//            //							let teacherList = JsonUtil.MJ_Json2Model(JSON: (JSON as? NSDictionary)!, Type: ModelType.User) as? [User]
-//            //							if teacherList?.count > 0 {
-//            //								self.teacherList?.append(teacherList![0])
-//            //								self.courseTableView.reloadData()
-//            //							}
-//            //						}
-//            //				}
-//        }
-//    }
-//}
-//
-//func getTeacherNameById(teacherId:Int)->String?{
-//    //		if let teacher = ModelCRUD.teacherById(teacherId) {
-//    //			if count(teacher.firstname) > 0 {
-//    //				return teacher.firstname
-//    //			}
-//    //			return teacher.username
-//    //		}
-//    return nil
-//}

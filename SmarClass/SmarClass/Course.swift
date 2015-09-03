@@ -25,6 +25,26 @@ class Course: NSManagedObject {
     @NSManaged var endDate: NSDate
     @NSManaged var lectureTime: NSSet
     @NSManaged var teacherNames: NSSet
+    
+    var teacherNameString: String {
+        get {
+            var str = ""
+            var teacherNameArray: [String] = {
+                var array = [String]()
+                for teacherName in self.teacherNames.allObjects {
+                    array.append(teacherName.name)
+                }
+                array.sort() {
+                    return $0 < $1
+                }
+                return array
+            }()
+            for teacherName in teacherNameArray {
+                str += "\(teacherName)\t"
+            }
+            return str
+        }
+    }
 }
 
 extension Course: JSON2ObjectConvert {

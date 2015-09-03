@@ -9,11 +9,19 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-
+    var course: Course!
 }
 
-//extension TabBarController: UITabBarControllerDelegate {
-//    
-//	func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-//	}
-//}
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if let dest = viewController as? NavigationController {
+            
+//            if let testVC = dest.childViewControllers[0] as? TestViewController {
+//                testVC.course = course
+//            }
+            if let covc = dest.childViewControllers[0] as? CourseOverviewController{
+                covc.course = course
+            }
+        }
+    }
+}
