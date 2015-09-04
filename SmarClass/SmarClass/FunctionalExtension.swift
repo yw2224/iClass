@@ -64,7 +64,7 @@ extension UIView {
     }
 }
 
-protocol JSON2ObjectConvert: class {
+protocol JSONConvertible: class {
     static func objectFromJSONObject(json: JSON) -> NSManagedObject?
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject]
 }

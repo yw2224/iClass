@@ -13,7 +13,7 @@ import UIKit
 
 class TestDetailContainerViewController: UIViewController {
 	
-    var test:Test?
+//    var test:Test?
 //		didSet {
 //			if let test = self.test {
 //				SCData.testQuestion(self.test!.id.integerValue, testQuestionList: &self.testQuestionList){

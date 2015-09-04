@@ -16,7 +16,7 @@ protocol TestDetailViewControllerAskForAnswersDataSource {
 class TestDetailViewController: UIViewController{
 	
 	//data
-	var test : Test?
+//	var test : Test?
 	var answers : Dictionary<Int,String> = Dictionary<Int,String>()
 	var answerEntities : [Answers]?{
 		didSet {
@@ -159,11 +159,11 @@ class TestDetailViewController: UIViewController{
 //		}
 //	}
 	func getAnswerEntities(){
-		if let test = self.test {
-			let testId = test.id.integerValue
-			let predicate = NSPredicate(format: "testId == \(testId)")
-//			self.answerEntities =  Answers.MR_findAllWithPredicate(predicate) as? [Answers]
-		}
+//		if let test = self.test {
+//			let testId = test.id.integerValue
+//			let predicate = NSPredicate(format: "testId == \(testId)")
+////			self.answerEntities =  Answers.MR_findAllWithPredicate(predicate) as? [Answers]
+//		}
 	}
 	func saveAnswers(sender :UIBarButtonItem) {
 		//save answers  and go back to TestViewController
@@ -175,14 +175,14 @@ class TestDetailViewController: UIViewController{
 		}
 	}
 	func setQuestionList(){
-		if self.test != nil{
+//		if self.test != nil{
 //			SCData.testQuestion(test!.id.integerValue, testQuestionList: &self.testQuestionList){
 //				(_,_,JSON,_) in
 //				if JSON?.valueForKey("result") as? Bool == true {
 //						self.testQuestionList = JsonUtil.MJ_Json2Model(JSON: (JSON as? NSDictionary)!, Type: ModelType.TestQuestion) as? [TestQuestion]
 //				}
 //			}
-		}
+//		}
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

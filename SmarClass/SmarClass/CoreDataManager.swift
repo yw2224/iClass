@@ -35,6 +35,10 @@ class CoreDataManager: NSObject {
     }
     
     func courseList() -> [Course] {
-        return Course.MR_findAllSortedBy("name", ascending: true) as! [Course]
+        return Course.MR_findAllSortedBy("course_id", ascending: true) as! [Course]
+    }
+    
+    func quizList() -> [Quiz] {
+        return Quiz.MR_findAllSortedBy("quiz_id", ascending: true) as! [Quiz]
     }
 }

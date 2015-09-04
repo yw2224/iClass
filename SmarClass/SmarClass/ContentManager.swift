@@ -137,6 +137,35 @@ class ContentManager: NSObject {
         }
     }
     
+    func quizList(course_id: String, block: ((success: Bool, quizList: [Quiz], message: String) -> Void)?) {
+        NetworkManager.sharedInstance.quizList(ContentManager.User_id, token: ContentManager.Token, course_id: course_id) {
+            (success, data, message) in
+            Log.debugLog()
+            
+            if success { // network success
+                dispatch_async(dispatch_get_main_queue()) {
+                    let json = JSON(data!)
+                    let successValue = json["success"].boolValue
+                    var quizList: [Quiz] = {
+                        if successValue {
+                            DDLogInfo("Querying quiz list")
+                            Quiz.MR_truncateAll()
+                            return Quiz.objectFromJSONArray(json["quizzes"].arrayValue) as! [Quiz]
+                        }
+                        return []
+                    }()
+                    block?(success: successValue, quizList: quizList, message: successValue ? "Querying quiz list success" : json["message"].stringValue)
+                }
+            } else {
+                // MARK: Retrieve from core data, network error
+                dispatch_async(dispatch_get_main_queue()) {
+                    let quizList = CoreDataManager.sharedInstance.quizList()
+                    block?(success: true, quizList: quizList, message: "Cahced quiz list")
+                }
+            }
+        }
+    }
+    
     private func saveConfidential(user_id: String, token: String, password: String) {
         if let _id = ContentManager.User_id {
             if _id != user_id {

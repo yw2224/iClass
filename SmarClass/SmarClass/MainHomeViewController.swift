@@ -22,10 +22,10 @@ class MainHomeViewController: CloudAnimateTableViewController {
         }
     }
     
-    var delegate: CenteralViewDelegate?
+    weak var delegate: CenteralViewDelegate?
     override var emptyTitle: String {
         get {
-            return "课程库为空，请添加课程/下拉刷新重试！"
+            return "课程库为空。\n请添加课程/下拉刷新重试！"
         }
     }
     
@@ -63,13 +63,18 @@ class MainHomeViewController: CloudAnimateTableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let dest = segue.destinationViewController as? TabBarController {
-			dest.delegate = dest
-            let indexPath = tableView.indexPathForSelectedRow()
-            let course = courseList[indexPath!.row]
+            let indexPath = tableView.indexPathForSelectedRow()!
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! CourseTableViewCell
+            let course = courseList[indexPath.row]
             
-            dest.course = course
+            dest.delegate = dest
+            dest.course_id = course.course_id
+            
             if let covc = dest.contentViewController(0) as? CourseOverviewController {
                 covc.course = course
+            }
+            if let segue = segue as? CrossDissolveSegue {
+                segue.image = cell.bookCover.image
             }
 		}
 	}

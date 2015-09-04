@@ -15,10 +15,6 @@ class TeacherNames: NSManagedObject {
 
     @NSManaged var name: String
 
-}
-
-
-extension TeacherNames {
     static func objectFromJSONArray(jsonArray: [JSON]) -> [TeacherNames] {
         return {
             var ret = [TeacherNames]()

@@ -17,6 +17,10 @@
 		F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85C83701B8ED56E00701C73 /* RefreshContents.xib */; };
 		F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F86537E11B96EB6600BFCF6D /* AvatarView.xib */; };
 		F86734091B972B7F002A69F8 /* CourseDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86734081B972B7E002A69F8 /* CourseDescriptionViewController.swift */; };
+		F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */; };
+		F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */; };
+		F8AAE9671B99A60B00A9D971 /* PercentageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8AAE9661B99A60B00A9D971 /* PercentageView.xib */; };
+		F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9691B99C67000A9D971 /* Quiz.swift */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
 		F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */; };
 		F8D4DAED1B9695A5000B771A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEC1B9695A5000B771A /* User.swift */; };
@@ -48,7 +52,7 @@
 		F8FEFE491B5647F8004FA01C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE371B5647F8004FA01C /* TabBarController.swift */; };
 		F8FEFE4A1B5647F8004FA01C /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE381B5647F8004FA01C /* ContainerViewController.swift */; };
 		F8FEFE4B1B5647F8004FA01C /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE391B5647F8004FA01C /* SidePanelViewController.swift */; };
-		F8FEFE4C1B5647F8004FA01C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3A1B5647F8004FA01C /* TestViewController.swift */; };
+		F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */; };
 		F8FEFE4D1B5647F8004FA01C /* TestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3B1B5647F8004FA01C /* TestDetailViewController.swift */; };
 		F8FEFE4E1B5647F8004FA01C /* TestDetailContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3C1B5647F8004FA01C /* TestDetailContainerViewController.swift */; };
 		F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */; };
@@ -58,11 +62,10 @@
 		F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE561B56495B004FA01C /* Answers.swift */; };
 		F8FEFE5F1B56495B004FA01C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE571B56495B004FA01C /* Project.swift */; };
 		F8FEFE601B56495B004FA01C /* TestQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE581B56495B004FA01C /* TestQuestion.swift */; };
-		F8FEFE611B56495B004FA01C /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE591B56495B004FA01C /* Test.swift */; };
 		F8FEFE6B1B5649DB004FA01C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE631B5649DB004FA01C /* NavigationController.swift */; };
 		F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */; };
 		F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE651B5649DB004FA01C /* BadgeView.swift */; };
-		F8FEFE6E1B5649DB004FA01C /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE661B5649DB004FA01C /* CircleView.swift */; };
+		F8FEFE6E1B5649DB004FA01C /* PercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE661B5649DB004FA01C /* PercentageView.swift */; };
 		F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE671B5649DB004FA01C /* ChoiceView.swift */; };
 		F8FEFE721B5649DB004FA01C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE6A1B5649DB004FA01C /* AvatarView.swift */; };
 		F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE741B564C1E004FA01C /* CourseOverviewController.swift */; };
@@ -92,6 +95,10 @@
 		F85C83701B8ED56E00701C73 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
 		F86537E11B96EB6600BFCF6D /* AvatarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvatarView.xib; sourceTree = "<group>"; };
 		F86734081B972B7E002A69F8 /* CourseDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDescriptionViewController.swift; sourceTree = "<group>"; };
+		F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarViewController.swift; sourceTree = "<group>"; };
+		F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarContainerViewController.swift; sourceTree = "<group>"; };
+		F8AAE9661B99A60B00A9D971 /* PercentageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PercentageView.xib; sourceTree = "<group>"; };
+		F8AAE9691B99C67000A9D971 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveSegue.swift; sourceTree = "<group>"; };
 		F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDisappearSegue.swift; sourceTree = "<group>"; };
 		F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SmarClass.entitlements; sourceTree = "<group>"; };
@@ -129,7 +136,7 @@
 		F8FEFE371B5647F8004FA01C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		F8FEFE381B5647F8004FA01C /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F8FEFE391B5647F8004FA01C /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
-		F8FEFE3A1B5647F8004FA01C /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		F8FEFE3B1B5647F8004FA01C /* TestDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDetailViewController.swift; sourceTree = "<group>"; };
 		F8FEFE3C1B5647F8004FA01C /* TestDetailContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDetailContainerViewController.swift; sourceTree = "<group>"; };
 		F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
@@ -139,11 +146,10 @@
 		F8FEFE561B56495B004FA01C /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
 		F8FEFE571B56495B004FA01C /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F8FEFE581B56495B004FA01C /* TestQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuestion.swift; sourceTree = "<group>"; };
-		F8FEFE591B56495B004FA01C /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		F8FEFE631B5649DB004FA01C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalExtension.swift; sourceTree = "<group>"; };
 		F8FEFE651B5649DB004FA01C /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
-		F8FEFE661B5649DB004FA01C /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		F8FEFE661B5649DB004FA01C /* PercentageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentageView.swift; sourceTree = "<group>"; };
 		F8FEFE671B5649DB004FA01C /* ChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceView.swift; sourceTree = "<group>"; };
 		F8FEFE6A1B5649DB004FA01C /* AvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		F8FEFE741B564C1E004FA01C /* CourseOverviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseOverviewController.swift; sourceTree = "<group>"; };
@@ -237,7 +243,7 @@
 		F86537E01B96E85600BFCF6D /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
-				F8FEFE3A1B5647F8004FA01C /* TestViewController.swift */,
+				F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */,
 				F8FEFE3C1B5647F8004FA01C /* TestDetailContainerViewController.swift */,
 				F8FEFE3B1B5647F8004FA01C /* TestDetailViewController.swift */,
 				F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */,
@@ -265,6 +271,23 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		F8AAE9681B99A61F00A9D971 /* Percentage */ = {
+			isa = PBXGroup;
+			children = (
+				F8FEFE661B5649DB004FA01C /* PercentageView.swift */,
+				F8AAE9661B99A60B00A9D971 /* PercentageView.xib */,
+			);
+			name = Percentage;
+			sourceTree = "<group>";
+		};
+		F8AAE96B1B99C8B800A9D971 /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				F8AAE9691B99C67000A9D971 /* Quiz.swift */,
+			);
+			name = Quiz;
+			sourceTree = "<group>";
+		};
 		F8B7CDF21B5E6EFC00F2B8EB /* Segue */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +302,8 @@
 			children = (
 				F8FEFE741B564C1E004FA01C /* CourseOverviewController.swift */,
 				F86734081B972B7E002A69F8 /* CourseDescriptionViewController.swift */,
+				F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */,
+				F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */,
 			);
 			name = Course;
 			sourceTree = "<group>";
@@ -344,9 +369,9 @@
 				F8FEFE771B565818004FA01C /* Helpers */,
 				F8FEFE761B564F30004FA01C /* Homepage */,
 				F8B7CDF71B5E88ED00F2B8EB /* Course */,
+				F86537E01B96E85600BFCF6D /* Quiz */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
 				F81FEE471B8D847200363501 /* Personal Info */,
-				F86537E01B96E85600BFCF6D /* Quiz */,
 			);
 			name = "View Controllers";
 			path = SmarClass;
@@ -391,12 +416,12 @@
 			children = (
 				F86537DE1B96BD2000BFCF6D /* Course */,
 				F86537DF1B96BF4200BFCF6D /* User */,
+				F8AAE96B1B99C8B800A9D971 /* Quiz */,
 				F8FEFE521B56495B004FA01C /* Group.swift */,
 				F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */,
 				F8FEFE561B56495B004FA01C /* Answers.swift */,
 				F8FEFE571B56495B004FA01C /* Project.swift */,
 				F8FEFE581B56495B004FA01C /* TestQuestion.swift */,
-				F8FEFE591B56495B004FA01C /* Test.swift */,
 			);
 			name = Models;
 			path = SmarClass;
@@ -408,7 +433,7 @@
 				F8F3D6001B90377D001ADDCE /* Badge */,
 				F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */,
 				F86537E31B96EB6D00BFCF6D /* Avatar */,
-				F8FEFE661B5649DB004FA01C /* CircleView.swift */,
+				F8AAE9681B99A61F00A9D971 /* Percentage */,
 				F8FEFE671B5649DB004FA01C /* ChoiceView.swift */,
 			);
 			name = "Custom Views";
@@ -535,6 +560,7 @@
 			files = (
 				F8F3D5FF1B903772001ADDCE /* BadgeView.xib in Resources */,
 				F8FEFE511B564815004FA01C /* Main.storyboard in Resources */,
+				F8AAE9671B99A60B00A9D971 /* PercentageView.xib in Resources */,
 				F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */,
 				F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */,
 				F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */,
@@ -606,18 +632,19 @@
 			files = (
 				F8FEFE721B5649DB004FA01C /* AvatarView.swift in Sources */,
 				F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */,
+				F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */,
 				F8FEFE491B5647F8004FA01C /* TabBarController.swift in Sources */,
 				F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */,
 				F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */,
+				F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */,
 				F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */,
 				F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */,
 				F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */,
-				F8FEFE6E1B5649DB004FA01C /* CircleView.swift in Sources */,
+				F8FEFE6E1B5649DB004FA01C /* PercentageView.swift in Sources */,
 				F8FEFE6B1B5649DB004FA01C /* NavigationController.swift in Sources */,
 				F8FEFE4E1B5647F8004FA01C /* TestDetailContainerViewController.swift in Sources */,
 				F8F3A1341B577B04004733B3 /* NetworkManager.swift in Sources */,
 				F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */,
-				F8FEFE611B56495B004FA01C /* Test.swift in Sources */,
 				F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */,
 				F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
@@ -635,6 +662,7 @@
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
 				F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */,
 				F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */,
+				F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */,
 				F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */,
 				F8FEFE4D1B5647F8004FA01C /* TestDetailViewController.swift in Sources */,
 				F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */,
@@ -650,7 +678,7 @@
 				F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */,
 				F8FEFE3F1B5647F8004FA01C /* ChangePasswdViewController.swift in Sources */,
 				F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */,
-				F8FEFE4C1B5647F8004FA01C /* TestViewController.swift in Sources */,
+				F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */,
 				F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */,
 				F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */,
 				F8FEFE601B56495B004FA01C /* TestQuestion.swift in Sources */,

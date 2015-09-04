@@ -55,14 +55,16 @@ extension NetworkManager {
         static let LoginKey = "Login"
         static let RegisterKey = "Register"
         static let UserCourseKey = "User's Course"
+        static let QuizListKey = "Quiz List"
     }
     
     private enum Router: URLRequestConvertible {
-        static let baseURLString = "http://localhost:3000/api"
+        static let baseURLString = "http://192.168.1.102:3000/api"
         
         case Login(String, String)
         case Register(String, String, String)
         case UserCourse(String, String)
+        case QuizList(String, String, String)
         
         var URLRequest: NSURLRequest {
             var (path: String, method: Alamofire.Method, parameters: [String: AnyObject]) = {
@@ -76,6 +78,9 @@ extension NetworkManager {
                 case .UserCourse(let _id, let token):
                     let params = ["_id": _id, "token": token]
                     return ("/user/courses", Method.GET, params)
+                case .QuizList(let _id, let token, let course_id):
+                    let params = ["_id": _id, "token": token, "course_id": course_id]
+                    return ("/quiz/list", Method.GET, params)
                 }
             }()
             
@@ -83,8 +88,11 @@ extension NetworkManager {
             let URLRequest: NSURLRequest = {
                 (inout parameters: [String: AnyObject]) in
                 let request = NSMutableURLRequest(URL: URL!.URLByAppendingPathComponent(path))
+                // MARK: version number
+                let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
                 request.HTTPMethod = method.rawValue
                 request.setValue(parameters["token"] as! String?, forHTTPHeaderField: "x-access-token")
+                request.setValue("iOS \(version)", forHTTPHeaderField: "x-build-version")
                 parameters.removeValueForKey("token")
                 return request
             }(&parameters)
@@ -101,7 +109,7 @@ extension NetworkManager {
             return
         }
         
-        let request = Alamofire.request(Router.Login(name, password))
+        let request = NetworkManager.Manager.request(Router.Login(name, password))
         NetworkManager.insertRequestWithKey(Constants.LoginKey, request: request)
         
         request.validate().responseJSON(options: .allZeros) {
@@ -116,7 +124,7 @@ extension NetworkManager {
             return
         }
         
-        let request = Alamofire.request(Router.Register(name, realName, password))
+        let request = NetworkManager.Manager.request(Router.Register(name, realName, password))
         NetworkManager.insertRequestWithKey(Constants.LoginKey, request: request)
         
         request.validate().responseJSON(options: .allZeros) {
@@ -131,13 +139,29 @@ extension NetworkManager {
             return
         }
         
-        let request = Alamofire.request(Router.UserCourse(user_id ?? "", token ?? ""))
+        let request = NetworkManager.Manager.request(Router.UserCourse(user_id ?? "", token ?? ""))
         NetworkManager.insertRequestWithKey(Constants.UserCourseKey, request: request)
         
         request.validate().responseJSON(options: .allZeros) {
             (_, res, data, error) in
             NetworkManager.removeRequestWithKey(Constants.UserCourseKey)
             NetworkManager.callback(Constants.UserCourseKey, res, data, error, callback)
+        }
+        
+    }
+    
+    func quizList(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
+        if NetworkManager.isPendingRequestWithKey(Constants.QuizListKey) {
+            return
+        }
+        
+        let request = NetworkManager.Manager.request(Router.QuizList(user_id ?? "", token ?? "", course_id ?? ""))
+        NetworkManager.insertRequestWithKey(Constants.QuizListKey, request: request)
+        
+        request.validate().responseJSON(options: .allZeros) {
+            (_, res, data, error) in
+            NetworkManager.removeRequestWithKey(Constants.QuizListKey)
+            NetworkManager.callback(Constants.QuizListKey, res, data, error, callback)
         }
         
     }

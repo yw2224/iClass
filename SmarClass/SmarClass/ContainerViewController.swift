@@ -13,7 +13,7 @@ enum SlideOutState {
     case LeftPanelExpanded
 }
 
-protocol CenteralViewDelegate {
+protocol CenteralViewDelegate: class {
     func toggleLeftPanel(animate: Bool)
     func collapseLeftPanel()
 }

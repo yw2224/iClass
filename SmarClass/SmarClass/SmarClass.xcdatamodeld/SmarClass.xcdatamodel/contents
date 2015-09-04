@@ -22,6 +22,14 @@
         <attribute name="startTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="weekday" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="Quiz" representedClassName="Quiz" syncable="YES">
+        <attribute name="course_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="from" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="to" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="total" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="TeacherNames" representedClassName="TeacherNames" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -33,10 +41,11 @@
         <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Avatar" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Avatar" positionX="-54" positionY="27" width="128" height="60"/>
+        <element name="Avatar" positionX="-108" positionY="18" width="128" height="60"/>
         <element name="Course" positionX="-297" positionY="120" width="128" height="225"/>
-        <element name="LectureTime" positionX="-72" positionY="153" width="128" height="90"/>
-        <element name="TeacherNames" positionX="9" positionY="324" width="128" height="60"/>
-        <element name="User" positionX="-270" positionY="-63" width="128" height="120"/>
+        <element name="LectureTime" positionX="-110" positionY="99" width="128" height="90"/>
+        <element name="Quiz" positionX="-297" positionY="369" width="128" height="135"/>
+        <element name="TeacherNames" positionX="43" positionY="225" width="128" height="60"/>
+        <element name="User" positionX="-297" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

@@ -34,7 +34,7 @@ class CourseOverviewController: UIViewController {
         static let Header = (0, "HeaderCell")
         static let SignIn = (1, "SignInCell")
         static let Overview = (2, "OverviewCell")
-        static let Examination = (3, "ExaminationCell")
+        static let ImportantDate = (3, "ExaminationCell")
         static let Error = (-1, "ErrorCell")
         static let CellHeights: [CGFloat] = [100, 42, 88, 88]
         static let SpaceInterval = 40.0
@@ -125,6 +125,12 @@ class CourseOverviewController: UIViewController {
         let dest = segue.destinationViewController as! UIViewController
         if let cdvc = dest as? CourseDescriptionViewController {
             cdvc.text = course.introduction
+        } else if let cccvc = dest as? CourseCalendarContainerViewController {
+            cccvc.startDate = course.startDate
+            cccvc.endDate = course.endDate
+            cccvc.midTerm = course.midterm
+            cccvc.finalExam = course.finalExam
+            cccvc.lectureTime = course.lectureTime.allObjects as! [LectureTime]
         }
     }
 }
@@ -157,8 +163,8 @@ extension CourseOverviewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Overview.1) as! OverviewTableViewCell
             cell.setupWithText(course.introduction)
             return cell
-        case Constants.Examination.0:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Examination.1) as! ExaminationTableViewCell
+        case Constants.ImportantDate.0:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ImportantDate.1) as! ExaminationTableViewCell
             cell.setupCell(course.midterm, finalExam: course.finalExam)
             return cell
         default:
@@ -188,7 +194,11 @@ extension CourseOverviewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        performSegueWithIdentifier(Constants.CourseDescriptionSegueIdentifier, sender: cell)
+        if indexPath.row == Constants.Overview.0 {
+            performSegueWithIdentifier(Constants.CourseDescriptionSegueIdentifier, sender: cell)
+        } else if indexPath.row == Constants.ImportantDate.0 {
+            performSegueWithIdentifier(Constants.ImportantDateSegueIdentifier, sender: cell)
+        }
     }
 }
 
@@ -294,9 +304,12 @@ class ExaminationTableViewCell: UITableViewCell {
     @IBOutlet weak var finalExamLabel: UILabel!
     
 	func setupCell(midterm: NSDate, finalExam: NSDate){
-		let timeFormatter = NSDateFormatter()
-		timeFormatter.locale = NSLocale(localeIdentifier: "zh_CN")
-		timeFormatter.dateFormat = "yyyy-MM-dd"
+        let timeFormatter: NSDateFormatter = {
+            let f = NSDateFormatter()
+            f.locale = NSLocale(localeIdentifier: "zh_CN")
+            f.dateFormat = "yyyy-MM-dd"
+            return f
+        }()
 
 		midTermLabel.text = "期中考试： " + timeFormatter.stringFromDate(midterm)
 		finalExamLabel.text = "期末考试： " + timeFormatter.stringFromDate(finalExam)

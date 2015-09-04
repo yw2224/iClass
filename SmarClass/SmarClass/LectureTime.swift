@@ -19,12 +19,12 @@ class LectureTime: NSManagedObject {
 
 }
 
-extension LectureTime: JSON2ObjectConvert {
+extension LectureTime: JSONConvertible {
     static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let lectureTime = LectureTime.MR_createEntity()
+        let lectureTime       = LectureTime.MR_createEntity()
         lectureTime.startTime = json["startTime"].int ?? 0
-        lectureTime.endTime = json["endTime"].int ?? 0
-        lectureTime.weekday = json["weekday"].int ?? 0
+        lectureTime.endTime   = json["endTime"].int ?? 0
+        lectureTime.weekday   = json["weekday"].int ?? 0
         return lectureTime
     }
     

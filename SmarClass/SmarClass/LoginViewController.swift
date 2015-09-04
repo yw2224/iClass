@@ -87,14 +87,14 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "scrollUpTableView", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "scrollDownTableView", name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "scrollUpTableView", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "scrollDownTableView", name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
@@ -159,7 +159,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        // Nice tips: Resign first responder for its all subviews.
+        // Nice tip: Resign first responder for its all subviews.
         // Stackoverflow: http://stackoverflow.com/questions/6906246/how-do-i-dismiss-the-ios-keyboard
         view.endEditing(false)
         
@@ -252,8 +252,7 @@ extension LoginViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cellId = "", text = ""
-        (cellId, text) = {
+        var (cellId: String, text: String) = {
             if let content = self.rowIdentifiers[self.status]?[indexPath.row] {
                 return (content == "Empty" ? content : "Text", content)
             }
