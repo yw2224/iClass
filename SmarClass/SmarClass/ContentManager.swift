@@ -131,13 +131,13 @@ class ContentManager: NSObject {
                 // MARK: Retrieve from core data, network error
                 dispatch_async(dispatch_get_main_queue()) {
                     let courseList = CoreDataManager.sharedInstance.courseList()
-                    block?(success: true, courseList: courseList, message: "Cahced course list")
+                    block?(success: false, courseList: courseList, message: "Cahced course list")
                 }
             }
         }
     }
     
-    func quizList(course_id: String, block: ((success: Bool, quizList: [Quiz], message: String) -> Void)?) {
+    func quizList(course_id: String, block: ((success: Bool, quizList: [Quiz], message: String) -> Void)?) {        
         NetworkManager.sharedInstance.quizList(ContentManager.User_id, token: ContentManager.Token, course_id: course_id) {
             (success, data, message) in
             Log.debugLog()
@@ -154,13 +154,22 @@ class ContentManager: NSObject {
                         }
                         return []
                     }()
+                    for answer in json["answers"].arrayValue {
+                        var quiz_id = answer["quiz_id"].stringValue
+                        var correct = answer["total"].intValue
+                        for quiz in quizList {
+                            if quiz.quiz_id == quiz_id {
+                                quiz.correct = NSNumber(integer: correct)
+                            }
+                        }
+                    }
                     block?(success: successValue, quizList: quizList, message: successValue ? "Querying quiz list success" : json["message"].stringValue)
                 }
             } else {
                 // MARK: Retrieve from core data, network error
                 dispatch_async(dispatch_get_main_queue()) {
                     let quizList = CoreDataManager.sharedInstance.quizList()
-                    block?(success: true, quizList: quizList, message: "Cahced quiz list")
+                    block?(success: false, quizList: quizList, message: "Cahced quiz list")
                 }
             }
         }

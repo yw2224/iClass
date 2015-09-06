@@ -14,27 +14,22 @@ class PercentageView: UIView {
         static let Pending: CGFloat = -1.0
     }
     
-    var view: UIView!
     var arc1: CAShapeLayer!
     var arc2: CAShapeLayer!
+    var percentageLabel: UILabel!
     var percentage: CGFloat = Constants.Pending {
         didSet {
-            if percentage == Constants.Pending {
-                arc1.hidden = true
-                arc2.hidden = true
-                percentageLabel.hidden = true
-                activity.startAnimating()
-            } else {
+            if percentage != Constants.Pending {
                 arc1.hidden = false
                 arc2.hidden = false
                 percentageLabel.hidden = false
-                percentageLabel.text = "\(min(max(percentage, 0), 100))%"
+                let text = String(format: "%.0f", min(max(floor(percentage * 100), 0), 100))
+                percentageLabel.text = "\(text)%"
                 setNeedsDisplay()
             }
         }
     }
-    @IBOutlet weak var percentageLabel: UILabel!
-    @IBOutlet weak var activity: UIActivityIndicatorView!
+
     override init(frame: CGRect) {
         // 1. setup any properties here
         
@@ -42,7 +37,7 @@ class PercentageView: UIView {
         super.init(frame: frame)
         
         // 3. Setup view from .xib file
-        xibSetup()
+        labelSetup()
         layerSetup()
     }
     
@@ -53,79 +48,81 @@ class PercentageView: UIView {
         super.init(coder: aDecoder)
         
         // 3. Setup view from .xib file
-        xibSetup()
+        labelSetup()
         layerSetup()
     }
     
-    func xibSetup() {
-        view = loadViewFromNib()
+    func labelSetup() {
+        percentageLabel = UILabel(frame: CGRectZero)
+        percentageLabel.textAlignment = .Center
+        percentageLabel.font = UIFont.systemFontOfSize(14.0)
         
-        // use bounds not frame or it'll be offset
-        view.frame = bounds
-        
-        // Make the view stretch with containing view
-        view.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-        
-        // Adding custom subview on top of our view (over any custom drawing > see note below)
-        addSubview(view)
+        percentageLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        addSubview(percentageLabel)
+        let centerX = NSLayoutConstraint(item: percentageLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
+        let centerY = NSLayoutConstraint(item: percentageLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0)
+        addConstraints([centerX, centerY])
     }
     
     func layerSetup() {
-        arc1 = CAShapeLayer()
-        arc2 = CAShapeLayer()
+        arc1?.removeFromSuperlayer()
+        arc2?.removeFromSuperlayer()
+
+        let radius     = min(CGRectGetWidth(frame), CGRectGetHeight(frame)) / 2.0
+        let center     = CGPointMake(radius, radius)
+        var startAngle = -CGFloat(M_PI_2)
+        let endAngle   = CGFloat(2.0 * M_PI) * percentage + startAngle
+        var path       = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        arc1             = CAShapeLayer()
+        arc1.path        = path.CGPath
+        arc1.fillColor   = UIColor.clearColor().CGColor
+        arc1.strokeColor = circleColor(percentage).CGColor
+        arc1.lineWidth   = 4
+        
+        if fabs(endAngle - startAngle) <= 1e-9 {
+            startAngle += CGFloat(2 * M_PI)
+        }
+        path = UIBezierPath(arcCenter: center, radius: radius, startAngle: endAngle, endAngle: startAngle, clockwise: true)
+        arc2             = CAShapeLayer()
+        arc2.path        = path.CGPath
+        arc2.fillColor   = UIColor.clearColor().CGColor
+        arc2.strokeColor = UIColor.flatWhiteColorDark().CGColor
+        arc2.lineWidth   = 4
+        
+        arc1.hidden            = percentage == Constants.Pending
+        arc2.hidden            = percentage == Constants.Pending
+        percentageLabel.hidden = percentage == Constants.Pending
         
         layer.addSublayer(arc1)
         layer.addSublayer(arc2)
-    }
-    
-    func loadViewFromNib() -> UIView {
-        let bundle = NSBundle.mainBundle()
-        let nib = UINib(nibName: "PercentageView", bundle: bundle)
         
-        // Assumes UIView is top level and only object in CustomView.xib file
-        let view = nib.instantiateWithOwner(self, options: nil).first as! UIView
-        return view
+        //        layer.cornerRadius = frame.width / 2.0
+        //        layer.backgroundColor = UIColor.clearColor().CGColor
+        //        layer.shadowOpacity = 0.7
+        //        layer.shadowColor = UIColor.blackColor().CGColor
+        //        layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        //        layer.shadowRadius = 2.0
+        layer.shouldRasterize = true;
+        layer.rasterizationScale = UIScreen.mainScreen().scale;
     }
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        println("redraw")
-        arc1?.removeFromSuperlayer()
-        arc2?.removeFromSuperlayer()
-        
-        var startAngle = -CGFloat(M_PI_2)
-        let endAngle = CGFloat(2.0 * M_PI) * percentage / 100.0 + startAngle
-        var path = UIBezierPath(arcCenter: center, radius: frame.width / 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        arc1 = CAShapeLayer()
-        arc1.path = path.CGPath
-        arc1.fillColor = UIColor.clearColor().CGColor
-        arc1.strokeColor = UIColor(red: 20.0 / 255.0, green: 154.0 / 255.0, blue: 160.0 / 255.0, alpha: 1.0).CGColor
-        arc1.lineWidth = 6
-        
-        if fabs(endAngle - startAngle) <= 1e-9 {
-            startAngle += CGFloat(2 * M_PI)
-        }
-        path = UIBezierPath(arcCenter: center, radius: frame.width / 2.0, startAngle: endAngle, endAngle: startAngle, clockwise: true)
-        arc2 = CAShapeLayer()
-        arc2.path = path.CGPath
-        arc2.fillColor = UIColor.clearColor().CGColor
-        arc2.strokeColor = UIColor(red: 203.0 / 255.0, green: 213.0 / 255.0, blue: 209.0 / 255.0, alpha: 1.0).CGColor
-        arc2.lineWidth = 6
-        
-        layer.addSublayer(arc1)
-        layer.addSublayer(arc2)
-        
-//        MARK: shadow settings
-//        layer.cornerRadius = frame.width / 2.0
-//        layer.backgroundColor = UIColor.clearColor().CGColor
-//        layer.shadowOpacity = 0.7
-//        layer.shadowColor = UIColor.blackColor().CGColor
-//        layer.shadowOffset = CGSizeMake(0.0, 2.0)
-//        layer.shadowRadius = 2.0
-//        
-        layer.shouldRasterize = true;
-        layer.rasterizationScale = UIScreen.mainScreen().scale;
+        println(NSDate())
+        layerSetup()
     }
-
+    
+    func circleColor(percentage: CGFloat) -> UIColor {
+        switch percentage {
+        case 0 ..< 0.60:
+            return UIColor.flatRedColor()
+        case 0.60 ..< 0.85:
+            return UIColor.flatSandColor()
+        case 0.85 ... 1:
+            return UIColor.flatLimeColor()
+        default:
+            return UIColor.flatWhiteColorDark()
+        }
+    }
 }

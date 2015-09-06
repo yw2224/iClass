@@ -59,7 +59,7 @@ extension NetworkManager {
     }
     
     private enum Router: URLRequestConvertible {
-        static let baseURLString = "http://192.168.1.102:3000/api"
+        static let baseURLString = "http://162.105.146.224:3000/api"
         
         case Login(String, String)
         case Register(String, String, String)

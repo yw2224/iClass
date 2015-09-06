@@ -30,7 +30,7 @@ class Splash2ViewController: SplashViewController {
     
     private struct Constants {
         static let confirmTopRatio: CGFloat   = 601.0 / 716.0
-        static let confirmLeftRatio: CGFloat  = 122.0 / 414.0
+        static let confirmLeftRatio: CGFloat  = 120.0 / 414.0
         static let confirmWidthRatio: CGFloat = 71.0 / 414.0
         static let note1TopRatio: CGFloat     = 471.0 / 716.0
         static let note1LeftRatio: CGFloat    = 39.0 / 414.0

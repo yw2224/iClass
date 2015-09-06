@@ -18,6 +18,7 @@ class Quiz: NSManagedObject {
     @NSManaged var name: String
     @NSManaged var from: NSDate
     @NSManaged var to: NSDate
+    @NSManaged var correct: NSNumber
     @NSManaged var total: NSNumber
 
 }

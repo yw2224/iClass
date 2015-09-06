@@ -97,7 +97,15 @@ extension QuizViewController: UITableViewDataSource {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! QuizTableViewCell
         let quiz = quizList[indexPath.row]
-        cell.setupWithTestName(quiz.name, deadline: quiz.to)
+        let percentage: CGFloat = {
+            (quiz: Quiz) -> CGFloat in
+            let correct = CGFloat(quiz.correct.integerValue)
+            let total = CGFloat(quiz.total.integerValue)
+            return correct == -1 ? -1 : correct * 1.0 / total // -1 means this quiz is not finished
+        }(quiz)
+        cell.setupWithTestName(quiz.name,
+            deadline: quiz.to,
+            percentage: percentage)
         return cell
     }
 }
@@ -115,7 +123,7 @@ class QuizTableViewCell: UITableViewCell {
     @IBOutlet weak var deadlineLabel: UILabel!
     @IBOutlet weak var percentageView: PercentageView!
     
-    func setupWithTestName(name: String, deadline: NSDate, percentage: CGFloat = -1) {
+    func setupWithTestName(name: String, deadline: NSDate, percentage: CGFloat) {
         testNameLabel.text = name
         
         let timeFormatter: NSDateFormatter = {

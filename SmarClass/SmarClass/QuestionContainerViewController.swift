@@ -7,16 +7,10 @@
 //
 
 import UIKit
-//import CocoaLumberjack
-//import MBProgressHUD
 
-protocol TestDetailViewControllerAskForAnswersDataSource {
-	func testDetailGatherAnswers(viewCOntroller : UIViewController,indexForQuestion index : Int) -> String
-}
-class TestDetailViewController: UIViewController{
+class QuestionContainerViewController: UIViewController{
 	
 	//data
-//	var test : Test?
 	var answers : Dictionary<Int,String> = Dictionary<Int,String>()
 	var answerEntities : [Answers]?{
 		didSet {
