@@ -12,16 +12,23 @@
 		F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */; };
 		F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */; };
 		F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */; };
+		F824B22B1B9E6BB90003827B /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F824B22A1B9E6BB80003827B /* Choice.swift */; };
+		F824B22D1B9E86D00003827B /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F824B22C1B9E86D00003827B /* Answer.swift */; };
 		F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */; };
 		F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */; };
 		F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85C83701B8ED56E00701C73 /* RefreshContents.xib */; };
 		F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F86537E11B96EB6600BFCF6D /* AvatarView.xib */; };
 		F86734091B972B7F002A69F8 /* CourseDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86734081B972B7E002A69F8 /* CourseDescriptionViewController.swift */; };
+		F87957AB1B9C2A7A001B06E4 /* ChoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F87957AA1B9C2A7A001B06E4 /* ChoiceView.xib */; };
+		F87957B21B9D5E09001B06E4 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B11B9D5E09001B06E4 /* Question.swift */; };
+		F87957B41B9D5E09001B06E4 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B31B9D5E09001B06E4 /* Option.swift */; };
+		F87957B61B9DA2FE001B06E4 /* QuestionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */; };
 		F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */; };
 		F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */; };
 		F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9691B99C67000A9D971 /* Quiz.swift */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
 		F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */; };
+		F8C5D2C81B9EFCCD00E9EA02 /* tos_beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = F8C5D2C71B9EFCCD00E9EA02 /* tos_beep.caf */; };
 		F8D4DAED1B9695A5000B771A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEC1B9695A5000B771A /* User.swift */; };
 		F8D4DAEF1B9695A6000B771A /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEE1B9695A6000B771A /* Avatar.swift */; };
 		F8D4DAF11B9695A6000B771A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF01B9695A6000B771A /* Course.swift */; };
@@ -55,11 +62,6 @@
 		F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */; };
 		F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */; };
 		F8FEFE511B564815004FA01C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE501B564815004FA01C /* Main.storyboard */; };
-		F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE521B56495B004FA01C /* Group.swift */; };
-		F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */; };
-		F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE561B56495B004FA01C /* Answers.swift */; };
-		F8FEFE5F1B56495B004FA01C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE571B56495B004FA01C /* Project.swift */; };
-		F8FEFE601B56495B004FA01C /* TestQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE581B56495B004FA01C /* TestQuestion.swift */; };
 		F8FEFE6B1B5649DB004FA01C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE631B5649DB004FA01C /* NavigationController.swift */; };
 		F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */; };
 		F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE651B5649DB004FA01C /* BadgeView.swift */; };
@@ -88,16 +90,23 @@
 		F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash1ViewController.swift; sourceTree = "<group>"; };
 		F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash2ViewController.swift; sourceTree = "<group>"; };
 		F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash3ViewController.swift; sourceTree = "<group>"; };
+		F824B22A1B9E6BB80003827B /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choice.swift; sourceTree = "<group>"; };
+		F824B22C1B9E86D00003827B /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = SmarClass/CoreDataManager.swift; sourceTree = "<group>"; };
 		F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAnimateTableViewController.swift; sourceTree = "<group>"; };
 		F85C83701B8ED56E00701C73 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
 		F86537E11B96EB6600BFCF6D /* AvatarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvatarView.xib; sourceTree = "<group>"; };
 		F86734081B972B7E002A69F8 /* CourseDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDescriptionViewController.swift; sourceTree = "<group>"; };
+		F87957AA1B9C2A7A001B06E4 /* ChoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChoiceView.xib; sourceTree = "<group>"; };
+		F87957B11B9D5E09001B06E4 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		F87957B31B9D5E09001B06E4 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionPageViewController.swift; sourceTree = "<group>"; };
 		F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarViewController.swift; sourceTree = "<group>"; };
 		F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarContainerViewController.swift; sourceTree = "<group>"; };
 		F8AAE9691B99C67000A9D971 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveSegue.swift; sourceTree = "<group>"; };
 		F8B7CDF51B5E75B000F2B8EB /* CrossDisappearSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDisappearSegue.swift; sourceTree = "<group>"; };
+		F8C5D2C71B9EFCCD00E9EA02 /* tos_beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tos_beep.caf; sourceTree = "<group>"; };
 		F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SmarClass.entitlements; sourceTree = "<group>"; };
 		F8D4DAEC1B9695A5000B771A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F8D4DAEE1B9695A6000B771A /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
@@ -137,11 +146,6 @@
 		F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		F8FEFE501B564815004FA01C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		F8FEFE521B56495B004FA01C /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectQuestion.swift; sourceTree = "<group>"; };
-		F8FEFE561B56495B004FA01C /* Answers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answers.swift; sourceTree = "<group>"; };
-		F8FEFE571B56495B004FA01C /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		F8FEFE581B56495B004FA01C /* TestQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuestion.swift; sourceTree = "<group>"; };
 		F8FEFE631B5649DB004FA01C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalExtension.swift; sourceTree = "<group>"; };
 		F8FEFE651B5649DB004FA01C /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 			children = (
 				F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */,
 				F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */,
+				F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */,
 				F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */,
 			);
 			name = Quiz;
@@ -253,6 +258,15 @@
 				F86537E11B96EB6600BFCF6D /* AvatarView.xib */,
 			);
 			name = Avatar;
+			sourceTree = "<group>";
+		};
+		F87957AC1B9C2A7F001B06E4 /* Choice */ = {
+			isa = PBXGroup;
+			children = (
+				F8FEFE671B5649DB004FA01C /* ChoiceView.swift */,
+				F87957AA1B9C2A7A001B06E4 /* ChoiceView.xib */,
+			);
+			name = Choice;
 			sourceTree = "<group>";
 		};
 		F89C108E1B5F2B3D00A233C8 /* Login */ = {
@@ -277,7 +291,11 @@
 		F8AAE96B1B99C8B800A9D971 /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
+				F824B22C1B9E86D00003827B /* Answer.swift */,
 				F8AAE9691B99C67000A9D971 /* Quiz.swift */,
+				F87957B31B9D5E09001B06E4 /* Option.swift */,
+				F87957B11B9D5E09001B06E4 /* Question.swift */,
+				F824B22A1B9E6BB80003827B /* Choice.swift */,
 			);
 			name = Quiz;
 			sourceTree = "<group>";
@@ -374,6 +392,7 @@
 		F8FEFE071B56479C004FA01C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F8C5D2C71B9EFCCD00E9EA02 /* tos_beep.caf */,
 				F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */,
 				6BAE29B09F03FADB483809E0 /* SuggestedColors.plist */,
 				F8FEFE091B56479C004FA01C /* AppDelegate.swift */,
@@ -411,11 +430,6 @@
 				F86537DE1B96BD2000BFCF6D /* Course */,
 				F86537DF1B96BF4200BFCF6D /* User */,
 				F8AAE96B1B99C8B800A9D971 /* Quiz */,
-				F8FEFE521B56495B004FA01C /* Group.swift */,
-				F8FEFE541B56495B004FA01C /* ProjectQuestion.swift */,
-				F8FEFE561B56495B004FA01C /* Answers.swift */,
-				F8FEFE571B56495B004FA01C /* Project.swift */,
-				F8FEFE581B56495B004FA01C /* TestQuestion.swift */,
 			);
 			name = Models;
 			path = SmarClass;
@@ -428,7 +442,7 @@
 				F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */,
 				F86537E31B96EB6D00BFCF6D /* Avatar */,
 				F8AAE9681B99A61F00A9D971 /* Percentage */,
-				F8FEFE671B5649DB004FA01C /* ChoiceView.swift */,
+				F87957AC1B9C2A7F001B06E4 /* Choice */,
 			);
 			name = "Custom Views";
 			path = SmarClass;
@@ -557,6 +571,8 @@
 				F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */,
 				F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */,
 				F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */,
+				F8C5D2C81B9EFCCD00E9EA02 /* tos_beep.caf in Resources */,
+				F87957AB1B9C2A7A001B06E4 /* ChoiceView.xib in Resources */,
 				F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,9 +644,10 @@
 				F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */,
 				F8FEFE491B5647F8004FA01C /* TabBarController.swift in Sources */,
 				F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */,
-				F8FEFE5E1B56495B004FA01C /* Answers.swift in Sources */,
 				F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */,
 				F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */,
+				F824B22D1B9E86D00003827B /* Answer.swift in Sources */,
+				F87957B61B9DA2FE001B06E4 /* QuestionPageViewController.swift in Sources */,
 				F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */,
 				F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */,
 				F8FEFE6E1B5649DB004FA01C /* PercentageView.swift in Sources */,
@@ -639,10 +656,12 @@
 				F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */,
 				F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */,
 				F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */,
+				F87957B41B9D5E09001B06E4 /* Option.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
 				F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */,
 				F8D4DAEF1B9695A6000B771A /* Avatar.swift in Sources */,
-				F8FEFE5C1B56495B004FA01C /* ProjectQuestion.swift in Sources */,
+				F824B22B1B9E6BB90003827B /* Choice.swift in Sources */,
+				F87957B21B9D5E09001B06E4 /* Question.swift in Sources */,
 				F8FEFE461B5647F8004FA01C /* IndexViewController.swift in Sources */,
 				F86734091B972B7F002A69F8 /* CourseDescriptionViewController.swift in Sources */,
 				F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */,
@@ -654,7 +673,6 @@
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
 				F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */,
-				F8FEFE5A1B56495B004FA01C /* Group.swift in Sources */,
 				F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */,
 				F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */,
 				F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */,
@@ -673,8 +691,6 @@
 				F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */,
 				F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */,
 				F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */,
-				F8FEFE601B56495B004FA01C /* TestQuestion.swift in Sources */,
-				F8FEFE5F1B56495B004FA01C /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

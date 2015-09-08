@@ -10,43 +10,105 @@ import UIKit
 
 class ChoiceView: UIView {
 
-	var isSelected : Bool = false
-	var path :UIBezierPath = UIBezierPath()
+    var view: UIView!
+    var selected: Bool = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    var numberIndex: Int! {
+        didSet {
+            letterLabel.text = convertToTitle(max(min(numberIndex, 25), 0))
+        }
+    }
+    var circleLayer: CAShapeLayer!
+
+    @IBOutlet weak var letterLabel: UILabel!
+    
+    override init(frame: CGRect) {
+        // 1. setup any properties here
+        
+        // 2. call super.init(frame:)
+        super.init(frame: frame)
+        
+        // 3. Setup view from .xib file
+        xibSetup()
+        layerSetup()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        // 1. setup any properties here
+        
+        // 2. call super.init(coder:)
+        super.init(coder: aDecoder)
+        
+        // 3. Setup view from .xib file
+        xibSetup()
+        layerSetup()
+    }
+    
+    func xibSetup() {
+        view = loadViewFromNib()
+        
+        // use bounds not frame or it'll be offset
+        view.frame = bounds
+        
+        // Make the view stretch with containing view
+        view.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        
+        // Adding custom subview on top of our view (over any custom drawing > see note below)
+        addSubview(view)
+        backgroundColor = UIColor.clearColor()
+    }
+    
+    func loadViewFromNib() -> UIView {
+        let bundle = NSBundle.mainBundle()
+        let nib = UINib(nibName: "ChoiceView", bundle: bundle)
+        
+        // Assumes UIView is top level and only object in CustomView.xib file
+        let view = nib.instantiateWithOwner(self, options: nil).first as! UIView
+        return view
+    }
+    
+    func layerSetup() {
+        circleLayer?.removeFromSuperlayer()
+        
+        circleLayer = CAShapeLayer()
+        circleLayer.strokeColor = UIColor.flatWatermelonColor().CGColor
+        circleLayer.lineWidth = 2.0
+        circleLayer.fillColor = UIColor.clearColor().CGColor
+        layer.addSublayer(circleLayer)
+        
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
+    }
+    
+    /**
+    Convert string into title, e.g., 1 -> A, 1 -> B ... 27 -> AA
+    :param: n n int
+    :returns: converted string
+    */
+    func convertToTitle(var number: Int) -> String {
+        var ret = ""
+        do {
+            let A = ("A" as Character).unicodeScalarCodePoint() + (--number) % 26
+            let c = Character(UnicodeScalar(UInt32(A)))
+            ret = String(c) + ret
+            number /= 26
+        } while (number != 0)
+        return ret
+    }
+
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        let width = rect.size.width
-		let height = rect.size.height
-		let margin : CGFloat = 2.0
-		let origin  = CGPoint(x: rect.origin.x + margin, y: rect.origin.y + margin)
-		let size = CGSize(width: width - margin*2, height: height - margin*2)
-		let pathRect = CGRect(origin: origin, size: size)
-		let path = UIBezierPath(ovalInRect: pathRect)
-		UIColor.blackColor().setStroke()
-		let context = UIGraphicsGetCurrentContext()
-		path.lineWidth = 2.0
-		path.stroke()
-//		CGContextStrokePath(context)
-		path.stroke()
-		if isSelected {
-			UIColor.greenColor().setFill()
-//			CGContextFillPath(context)
-			path.fill()
-		}else {
-			UIColor.clearColor().setFill()
-//			CGContextFillPath(context)
-			path.fill()
-		}
-		self.path = path
+        letterLabel.textColor = selected ? UIColor.whiteColor() : UIColor.flatWatermelonColor()
+        circleLayer.path = UIBezierPath(ovalInRect: bounds).CGPath
+        circleLayer.fillColor = [
+            false: UIColor.clearColor().CGColor,
+            true: UIColor.flatWatermelonColor().CGColor,
+        ][selected]
+        bringSubviewToFront(view)
     }
-
-	func setSelected(){
-		isSelected = true
-		setNeedsDisplay()
-	}
-	func setUnSelected(){
-		isSelected = false
-		setNeedsDisplay()
-	}
 
 }

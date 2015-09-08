@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 @objc protocol AnimationControl {
+    
     optional func setupAnimation()
     optional func removeAnimation()
 }
@@ -50,6 +51,7 @@ class SplashViewController: IndexViewController {
 }
 
 extension SplashViewController: AnimationControl {
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         

@@ -48,6 +48,7 @@ class Course: NSManagedObject {
 }
 
 extension Course: JSONConvertible {
+    
     static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
         let course               = Course.MR_createEntity()
         course.course_id         = json["course_id"].string ?? ""

@@ -9,26 +9,20 @@
 import UIKit
 
 enum SlideOutState {
+    
     case BothCollapsed
     case LeftPanelExpanded
+    
 }
 
 protocol CenteralViewDelegate: class {
+    
     func toggleLeftPanel(animate: Bool)
     func collapseLeftPanel()
+    
 }
 
 class ContainerViewController: UIViewController {
-    
-    private struct Constants {
-        static let NavigationControllerIdentifier = "Course Navigation View Controller"
-        static let SidebarViewControllerIdentifier = "User Siddebar View Controller"
-        static let SidePanelOffsetRatio: CGFloat = 0.46
-        static let PortraitScaleRatio: CGFloat = 0.90
-        static let LandscapeScaleRatio: CGFloat = 0.85
-        static let OriginAlpha: CGFloat = 0.20
-        static let OriginBackgroundColor: CGFloat = 0.40
-    }
     
     var targetPosition: CGFloat!
     var isAnimating = false
@@ -56,6 +50,16 @@ class ContainerViewController: UIViewController {
     
     var panGestureRecognizer: UIPanGestureRecognizer!
     var gestureDisabled = false
+    
+    private struct Constants {
+        static let NavigationControllerIdentifier = "Course Navigation View Controller"
+        static let SidebarViewControllerIdentifier = "User Siddebar View Controller"
+        static let SidePanelOffsetRatio: CGFloat = 0.46
+        static let PortraitScaleRatio: CGFloat = 0.90
+        static let LandscapeScaleRatio: CGFloat = 0.85
+        static let OriginAlpha: CGFloat = 0.20
+        static let OriginBackgroundColor: CGFloat = 0.40
+    }
     
     // MARK: Life cycle
     override func viewDidLoad() {

@@ -11,6 +11,7 @@ import CoreData
 import SwiftyJSON
 
 extension UIStoryboard {
+    
     class func initViewControllerWithIdentifier(identifier: String!) -> UIViewController? {
         if let theIdentifier = identifier {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -18,9 +19,11 @@ extension UIStoryboard {
         }
         return nil
     }
+    
 }
 
 extension UIViewController {
+    
     func contentViewController(index: Int?) -> UIViewController {
         if self is UINavigationController {
             return (self as! UINavigationController).visibleViewController
@@ -30,9 +33,11 @@ extension UIViewController {
         }
         return self
     }
+    
 }
 
 extension UIView {
+    
     private struct Constants {
         static let HUGE_VAL: Float = 1e7
         static let AnimationKeyName = "pulse"
@@ -64,7 +69,19 @@ extension UIView {
     }
 }
 
+extension Character {
+    
+    func unicodeScalarCodePoint() -> Int {
+        let characterString = String(self)
+        let scalars = characterString.unicodeScalars
+        return Int(scalars[scalars.startIndex].value)
+    }
+    
+}
+
 protocol JSONConvertible: class {
+    
     static func objectFromJSONObject(json: JSON) -> NSManagedObject?
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject]
+    
 }

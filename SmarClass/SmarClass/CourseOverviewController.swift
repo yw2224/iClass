@@ -6,23 +6,20 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
+import CocoaLumberjack
 import CoreBluetooth
 import CoreLocation
 import UIKit
 
 class CourseOverviewController: UIViewController {
     
-	var locationManager: CLLocationManager!
-	let uuid = NSUUID(UUIDString: "BCEAD00F-F457-4E69-B32E-681251AC2048")
-	let identifier = "com.pku.cocoa.AirLocate"
+    let beaconIdentifier = "edu.pku.netlab.SmartClass-Teacher"
+    var locationManager: CLLocationManager!
+    var uuidString: String! // "BCEAD00F-F457-4E69-B32E-681251AC2048"
+    var signin_id: String!
+    var isBeaconFound = false
 
 	var course: Course!
-    
-	var courseSignId :Int? {
-		didSet{
-			println("courseSignId did set")
-		}
-	}
     
     @IBOutlet weak var courseOverviewTableview: UITableView! {
         didSet {
@@ -46,79 +43,12 @@ class CourseOverviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-		locationManager = CLLocationManager()
-		locationManager.delegate = self
-		locationManager.requestAlwaysAuthorization()
-		let region = CLBeaconRegion(proximityUUID: uuid, identifier: identifier)
-		locationManager.startRangingBeaconsInRegion(region)
+        ContentManager.sharedInstance.signinInfo(course.course_id) {
+            (success, uuid, enable, total, user, signin_id, message) in
+            println("\(success) \(uuid) \(enable) \(total) \(user) \(signin_id) \(message)")
+//            setupLocationManager()
+        }
     }
-    
-	func getCourseSignId(){
-//		if let course = self.course {
-//			SCRequest.courseSignId(course.id.integerValue)
-//				{ (_, _, JSON, _) -> Void in
-//					if JSON?.valueForKey("result") as? Bool == true {
-//						if let signId = JSON?.valueForKey("signId") as? Int{
-//							self.courseSignId = signId
-//						}
-//				}
-//			}
-//		}
-	}
-    
-	func signInToServer(cell:SignInTableViewCell){
-//		if let signId = self.courseSignId {
-//			SCRequest.signToServer(signId)
-//				{ (_, _, JSON, _) -> Void in
-//					println(JSON)
-//					if JSON?.valueForKey("result") as? Bool == true
-//					{
-//						println(JSON)
-//						self.showSignInSuccess()
-//						///显示签到时间
-//						let now = NSDate()
-//						let timeformatter = NSDateFormatter()
-//						timeformatter.locale = NSLocale(localeIdentifier: "zh_CN")
-//						timeformatter.dateFormat = "MM-dd HH:mm"
-//						
-//						cell.signInLabel.text = "已签到：" + timeformatter.stringFromDate(now)
-//					}//end if
-//					else {
-//						let code = JSON?.valueForKey("code") as? Int
-////						self.showSignInFailed(code)
-//					}
-//			}
-//		}
-	}
-    
-	func showSignInSuccess(){
-//		let hud = MBProgressHUD()
-//		hud.mode = MBProgressHUDMode.Text
-//		hud.labelText = "签到成功"
-//		hud.showAnimated(true,
-//			whileExecutingBlock: { () -> Void in
-//			NSThread.sleepForTimeInterval(1.0)
-//		}) { () -> Void in
-//			//do nothing
-//		}
-	}
-    
-	func showSignInFailed(code:Int){
-//		switch code {
-//			case
-//		}
-	}
-    
-	func createLocationManager(startImmediately: Bool){
-		let locationManager: CLLocationManager? = CLLocationManager()
-		if let manager = locationManager{
-			println("Successfully created the location manager")
-			manager.delegate = self
-			if startImmediately {
-				manager.startUpdatingLocation()
-			}
-		}
-	}
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -136,6 +66,7 @@ class CourseOverviewController: UIViewController {
 }
 
 extension CourseOverviewController: UITableViewDataSource {
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -172,9 +103,11 @@ extension CourseOverviewController: UITableViewDataSource {
             return cell
         }
     }
+    
 }
 
 extension CourseOverviewController: UITableViewDelegate {
+    
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         var cellFrame = cell.frame
         let spaceX = Double(CGRectGetWidth(cellFrame)) + Double(indexPath.row) * Constants.SpaceInterval
@@ -200,57 +133,77 @@ extension CourseOverviewController: UITableViewDelegate {
             performSegueWithIdentifier(Constants.ImportantDateSegueIdentifier, sender: cell)
         }
     }
+    
 }
 
-//MARK:ibeacon delegate
-extension CourseOverviewController : CLLocationManagerDelegate{
-	func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
-		if beacons.count > 0 {
-			
-			print("Found a beacon with the proximity of = ")
-		}
-		
-		for beacon in beacons as! [CLBeacon] {
-			switch beacon.proximity {
-			case .Far:
-				println("Far")
-			case .Immediate:
-				println("Immediate")
-			case .Near:
-				println("Near")
-			default:
-				println("Unknown")
-			}
-		}
-		
-		
-	}
-	
-	func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
-		println(region.identifier)
-		let controller = UIAlertController(title: "Enter", message: "ibeacon find", preferredStyle: .Alert)
-		controller.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-		presentViewController(controller, animated: true, completion: nil)
-	}
-	
-	func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-		println(region.identifier)
-		let controller = UIAlertController(title: "Exit", message: "ibeacon lost", preferredStyle: .Alert)
-		controller.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-		presentViewController(controller, animated: true, completion: nil)
-	}
-
+extension CourseOverviewController : CLLocationManagerDelegate {
+    
+    func setupLocationManager() {
+        let beaconUUID   = NSUUID(UUIDString: uuidString!)!
+        let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
+            identifier: beaconIdentifier)
+        
+        locationManager = CLLocationManager()
+        
+        if(locationManager.respondsToSelector("requestAlwaysAuthorization")) {
+            locationManager.requestAlwaysAuthorization()
+        }
+        locationManager.delegate = self
+        locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startRangingBeaconsInRegion(beaconRegion)
+        locationManager.startUpdatingLocation()
+    }
+    
+    func sendLocalNotificationWithMessage(message: String, playSound: Bool) {
+        let notification:UILocalNotification = UILocalNotification()
+        notification.alertBody = message
+        
+        if(playSound) {
+            // classic star trek communicator beep
+            //	http://www.trekcore.com/audio/
+            //
+            // note: convert mp3 and wav formats into caf using:
+            //	"afconvert -f caff -d LEI16@44100 -c 1 in.wav out.caf"
+            // http://stackoverflow.com/a/10388263
+            
+            notification.soundName = "tos_beep.caf";
+        }
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    }
+        
+    func locationManager(manager: CLLocationManager!,
+            didRangeBeacons beacons: [AnyObject]!,
+            inRegion region: CLBeaconRegion!) {
+                if beacons.count > 0 {
+                    let nearestBeacon = beacons[0] as! CLBeacon
+                    if nearestBeacon.proximity == .Unknown {
+                        return
+                    }
+                    DDLogInfo("Ranging beacons")
+                    isBeaconFound = true
+                    manager.stopRangingBeaconsInRegion(region)
+                    manager.stopUpdatingLocation()
+                }
+    }
+        
+    func locationManager(manager: CLLocationManager!,
+        didEnterRegion region: CLRegion!) {
+            DDLogInfo("Enter region")
+            manager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
+            manager.startUpdatingLocation()
+            sendLocalNotificationWithMessage("发现iBeacon，快打开App签到吧~", playSound: true)
+    }
+        
+    func locationManager(manager: CLLocationManager!,
+            didExitRegion region: CLRegion!) {
+            DDLogInfo("Exit region")
+            manager.stopRangingBeaconsInRegion(region as! CLBeaconRegion)
+            manager.stopUpdatingLocation()
+    }
 }
-
-//MARK:sign in to server delegate
-//extension CourseOverviewController : SignInDelegate{
-//	func signInClicked(cell: SignInTableViewCell) {
-//		println("signIn clicled")
-//		self.signInToServer(cell)
-//	}
-//}
 
 class HeaderTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var bookCover: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var teacherNameLabel: UILabel!
@@ -265,22 +218,20 @@ class HeaderTableViewCell: UITableViewCell {
         teacherNameLabel.text = teacherNames
         termLabel.text = term
     }
-    
 }
 
 class SignInTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var signInLabel: UILabel!
     @IBOutlet weak var signInButton: UIButton!
-//	var delegate : SignInDelegate?
     func setup() {
-        // Get SignIn times from the server
         signInLabel.text = "已签到： 0 / 0"
         signInButton.addTarget(self, action: "signIn:", forControlEvents: .TouchUpInside)
+        activityIndicator.startAnimating()
     }
     
     func signIn(sender: UIButton) {
-//		delegate?.signInClicked(self)
         activityIndicator.startAnimating()
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
@@ -300,6 +251,7 @@ class OverviewTableViewCell: UITableViewCell {
 }
 
 class ExaminationTableViewCell: UITableViewCell {
+    
 	@IBOutlet weak var midTermLabel: UILabel!
     @IBOutlet weak var finalExamLabel: UILabel!
     

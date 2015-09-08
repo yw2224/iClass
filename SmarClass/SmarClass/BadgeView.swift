@@ -27,6 +27,7 @@ class BadgeView: UIView {
             setNeedsDisplay()
         }
     }
+    
     @IBOutlet weak var textLabel: UILabel!
 
     private struct Constants {

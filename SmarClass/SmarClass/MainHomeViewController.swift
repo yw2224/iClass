@@ -10,23 +10,22 @@ import UIKit
 import CocoaLumberjack
 
 class MainHomeViewController: CloudAnimateTableViewController {
-
-    private struct Constants {
-        static let CellIdentifier = "Course Cell"
-        static let CourseCellHeight : CGFloat = 88.0
-    }
     
     var courseList = [Course]() {
         didSet {
             tableView.reloadData()
         }
     }
-    
     weak var delegate: CenteralViewDelegate?
     override var emptyTitle: String {
         get {
             return "课程库为空。\n请添加课程/下拉刷新重试！"
         }
+    }
+    
+    private struct Constants {
+        static let CellIdentifier = "Course Cell"
+        static let CourseCellHeight : CGFloat = 88.0
     }
     
     // MARK: Life cycle
@@ -41,14 +40,14 @@ class MainHomeViewController: CloudAnimateTableViewController {
         retrieveCourseList()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         CoreDataManager.sharedInstance.saveInBackground()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     // MARK: Navigations
@@ -107,6 +106,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
 }
 
 extension MainHomeViewController: RefreshControlHook {
+    
     override func animationDidStart() {
         super.animationDidStart()
 
@@ -117,9 +117,11 @@ extension MainHomeViewController: RefreshControlHook {
     override func animationDidEnd() {
         super.animationDidEnd()
     }
+    
 }
 
 extension MainHomeViewController: UITableViewDataSource {
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -139,6 +141,7 @@ extension MainHomeViewController: UITableViewDataSource {
         )
         return cell
     }
+    
 }
 
 class CourseTableViewCell : UITableViewCell {
@@ -147,6 +150,7 @@ class CourseTableViewCell : UITableViewCell {
     @IBOutlet weak var courseName: UILabel!
     @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var badgeView: BadgeView!
+    
     func setupUIWithImage(imageName: String? = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
         bookCover.image = UIImage(named: imageName ?? "DefaultBookCover") ?? UIImage(named: "DefaultBookCover")
         courseName.text = course

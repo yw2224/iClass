@@ -15,6 +15,7 @@ typealias NetworkBlock = (Bool, AnyObject?, (message: String, statusCode: Int)) 
 
 
 class ContentManager: NSObject {
+    
     static let sharedInstance = ContentManager()
     
     private static let keychain: Keychain = {
@@ -173,6 +174,78 @@ class ContentManager: NSObject {
                 }
             }
         }
+    }
+    
+    func quizContent(quiz_id: String, block: ((success: Bool, quizContent: [Question], message: String) -> Void)?) {
+        NetworkManager.sharedInstance.quizContent(ContentManager.User_id, token: ContentManager.Token, quiz_id: quiz_id) {
+            (success, data, message) in
+            Log.debugLog()
+            
+            if success { // network success
+                dispatch_async(dispatch_get_main_queue()) {
+                    let json = JSON(data!)
+                    let successValue = json["success"].boolValue
+                    var quizContent: [Question] = {
+                        if successValue {
+                            DDLogInfo("Querying question list")
+                            CoreDataManager.sharedInstance.deleteQuestions(quiz_id)
+                            let quizContent = Question.objectFromJSONArray(json["questions"].arrayValue) as! [Question]
+                            for question in quizContent {
+                                question.quiz_id = quiz_id
+                            }
+                            return quizContent
+                        }
+                        return []
+                    }()
+                    block?(success: successValue, quizContent: quizContent, message: successValue ? "Querying question list success" : json["message"].stringValue)
+                }
+            } else {
+                // MARK: Retrieve from core data, network error
+                dispatch_async(dispatch_get_main_queue()) {
+                    let quizContent = CoreDataManager.sharedInstance.quizContent(quiz_id)
+                    block?(success: false, quizContent: quizContent, message: "Cahced question list")
+                }
+            }
+        }
+    }
+    
+    func signinInfo(course_id: String, block: ((success: Bool,
+        uuid: String,
+        enable: Bool,
+        total: Int,
+        user: Int,
+        signin_id: String,
+        message: String) -> Void)?) {
+            NetworkManager.sharedInstance.signinInfo(ContentManager.User_id, token: ContentManager.Token, course_id: course_id) {
+                (success, data, message) in
+                Log.debugLog()
+                
+                if success { // network success
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let json = JSON(data!)
+                        let successValue = json["success"].boolValue
+                        block?(success: successValue,
+                            uuid: json["uuid"].string ?? "",
+                            enable: json["enable"].bool ?? false,
+                            total: json["total"].int ?? 0,
+                            user: json["user"].int ?? 0,
+                            signin_id: json["signin_id"].string ?? "",
+                            message: successValue ? "Querying signin info success" : json["message"].stringValue)
+
+                    }
+                } else {
+                    // MARK: Network error
+                    dispatch_async(dispatch_get_main_queue()) {
+                        block?(success: false,
+                            uuid: "",
+                            enable: false,
+                            total: 0,
+                            user: 0,
+                            signin_id: "",
+                            message: "Network error")
+                    }
+                }
+            }
     }
     
     private func saveConfidential(user_id: String, token: String, password: String) {

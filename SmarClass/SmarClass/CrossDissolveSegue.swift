@@ -13,6 +13,7 @@ class CrossDissolveSegue: UIStoryboardSegue {
     var image: UIImage?
     
     override func perform() {
+        
         let svc = sourceViewController as! UIViewController
         let dvc = destinationViewController as! UIViewController
         

@@ -15,7 +15,9 @@ class CourseDescriptionViewController: UIViewController {
             textView?.text = text
         }
     }
+    
     @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

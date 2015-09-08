@@ -7,200 +7,106 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
-class QuestionContainerViewController: UIViewController{
-	
-	//data
-	var answers : Dictionary<Int,String> = Dictionary<Int,String>()
-	var answerEntities : [Answers]?{
-		didSet {
-			println("answerentities did set")
-		}
-	}
-	var testQuestionList: [TestQuestion]? {
-		didSet {
-			tdcvc?.testQuestionList = self.testQuestionList
-			if let cnt = self.testQuestionList?.count {
-				self.total = cnt
-			}
-		}
-	}
+enum EditType {
+    
+    case Edit
+    case Inspect
+    
+}
 
-	var total : Int = 0{
-		didSet{
-			self.popSliderValue = 1
-			self.progressLabel.setNeedsDisplay()
-		}
-	}
-	var tdcvc : TestDetailContainerViewController?
-	private struct Constants {
-		static let EmbeddedSegue = "Embedded Segue"
-	}
-//	@IBOutlet weak var popoverSlider: PopoverSlider! 
-    @IBOutlet weak var progressLabel: UILabel!
-	var popSliderValue :Int = 0 {
-		didSet {
-			self.progressLabel.text = self.popSliderValue.description + " / " + total.description
-			self.progressLabel.setNeedsDisplay()
-		}
-	}
-	
-	//deleate and datasource
-	var askForAnswersDataSource :TestDetailViewControllerAskForAnswersDataSource?
+protocol QuestionRetrieveDataSource: class {
+    
+    var Type: EditType {get set}
+    var QuizId: String {get}
+    var AnswerDictionary: NSMutableDictionary {get set}
+    
+}
+
+class QuestionContainerViewController: UIViewController {
+    
+    var answerDict = NSMutableDictionary()
+    // MARK: Init these variables in the presenting view controller's prepareForSegue
+    var editType: EditType = .Inspect
+    var quiz_id: String!
+    
+    private struct Constants {
+        static var NumOfPages = 0
+        static let QuestionViewControllerIdentifier = "Question View Controller"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		
-		
-		let saveBtn = UIBarButtonItem(title: "提交", style: UIBarButtonItemStyle.Plain, target: self, action: "handleSaveBtn:")
-		self.navigationItem.rightBarButtonItem = saveBtn
-		
-		setQuestionList()
+        
         // Do any additional setup after loading the view.
-		if let total = testQuestionList?.count.description{
-			progressLabel.text = "1 / " + total
-		}
-//		popoverSlider.addTarget(self, action: "handleSliderValueChange:", forControlEvents: UIControlEvents.ValueChanged)
-//		popoverSlider.continuous = true
-//		popoverSlider.maximumValue = Float(total)
+        if editType == .Edit {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAnswers")
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "submitAnswers")
+            let answerArray = CoreDataManager.sharedInstance.cachedAnswerForQuiz(QuizId)
+            for answer in answerArray {
+                answerDict[answer.question_id] = answer
+            }
+        }
     }
-	
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
-		saveAnswersIntoEntity()
-	}
-	func saveAnswersIntoEntity(){
-		//gather answers
-		
-	}
-	func submitAnswersToServer(){
-//		if let testId = test?.id.integerValue{
-//			let answers = ModelCRUD.answersByTestId(testId)
-//			for answer in answers {
-//				SCRequest.submitTestAnswerByTestQuestionId(testId, testQuestionId: answer.0, answer: answer.1)
-//					{ (_, _, JSON, _) -> Void in
-//						println(JSON)
-//				}
-//			}
-//			SCRequest.submitTestQuestionAnswers(testId, answers: answers)
-//				{ (_, _, JSON, _) -> Void in
-//				//do nothing
-//					NSLog("data submitted : \(JSON)")
-//			}
-//		}
-		
-	}
-	func showSaveAlertView(){
-		//get answers from coreData
-		getAnswerEntities()
-		var answerString :String = ""
-		if answerEntities?.count > 0 {
-			for answer in answerEntities!{
-				answerString += answer.testQuestionId.stringValue + "." + answer.answer + "\n"
-				answers[answer.testQuestionId.integerValue] = answer.answer
-			}
-		}
-		let message = "你的答案是 :\n " + answerString
-		var alert = UIAlertController(
-			title: "提交答案",
-			message: message,
-			preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addAction(UIAlertAction(
-			title: "确认",
-			style: UIAlertActionStyle.Default)
-			{ (action :UIAlertAction!) -> Void in
-				//do something
-				self.showSavingView()
-			})
-		alert.addAction(UIAlertAction(
-			title: "取消",
-			style: UIAlertActionStyle.Cancel)
-			{ (action :UIAlertAction!) -> Void in
-				//do nothing
-			}
-		)
-		self.presentViewController(alert, animated: true, completion: nil)
-	}
-	
-	func showSavingView(){
-//		let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//		hud.mode = MBProgressHUDMode.Text
-//		hud.labelText = "提交成功"
-//		hud.showAnimated(true, whileExecutingBlock: { () -> Void in
-//			self.submitAnswersToServer()
-//			sleep(2)
-//		}) { () -> Void in
-//			hud.removeFromSuperview()
-//		}
-	}
-	func handleSaveBtn(sender:UIBarButtonItem){
-		if sender.title == "提交"{
-			//alert view
-			showSaveAlertView()
-		}
-	}
-//	func handleSliderValueChange(sender : PopoverSlider){
-//		let value = sender.value
-//		let popvalue = sender.popoverView.value
-////		DDLogWarn("self.popSliderValue:\(self.popSliderValue) popvalue : \(popvalue)")
-//		
-//		if popvalue != self.popSliderValue {
-//			tdcvc?.jumpToSelectPage(selectIndex: popvalue)
-//			self.popSliderValue = popvalue
-//			if let total = testQuestionList?.count.description {
-//				self.progressLabel.text = self.popSliderValue.description + " / " + total
-//			}
-//		}
-//	}
-	func getAnswerEntities(){
-//		if let test = self.test {
-//			let testId = test.id.integerValue
-//			let predicate = NSPredicate(format: "testId == \(testId)")
-////			self.answerEntities =  Answers.MR_findAllWithPredicate(predicate) as? [Answers]
-//		}
-	}
-	func saveAnswers(sender :UIBarButtonItem) {
-		//save answers  and go back to TestViewController
-		if let datasource = self.askForAnswersDataSource {
-			for index in 1...total{
-				 answers[index] = datasource.testDetailGatherAnswers(self, indexForQuestion: index)
-			}
-			
-		}
-	}
-	func setQuestionList(){
-//		if self.test != nil{
-//			SCData.testQuestion(test!.id.integerValue, testQuestionList: &self.testQuestionList){
-//				(_,_,JSON,_) in
-//				if JSON?.valueForKey("result") as? Bool == true {
-//						self.testQuestionList = JsonUtil.MJ_Json2Model(JSON: (JSON as? NSDictionary)!, Type: ModelType.TestQuestion) as? [TestQuestion]
-//				}
-//			}
-//		}
-	}
-	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == Constants.EmbeddedSegue {
-			if let mvc  = segue.destinationViewController as? TestDetailContainerViewController {
-				tdcvc = mvc
-				tdcvc?.pageChangeDelegate = self
-			}
-		}
-	}
-	
-
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        CoreDataManager.sharedInstance.saveInBackground()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let dest = segue.destinationViewController as? QuestionPageViewController {
+            dest.quizDelegate = self
+        }
+    }
+    
+    func cancelAnswers() {
+        let alertController = UIAlertController(title: "确定退出测验？", message: "未提交的测验将被保存", preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "确认", style: .Destructive) {
+            (alertAction) in
+            CoreDataManager.sharedInstance.saveInForeground()
+            self.navigationController?.popViewControllerAnimated(true)
+        })
+        alertController.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func submitAnswers() {
+        println("answer")
+    }
 }
 
-extension TestDetailViewController : UIPageViewControllerPageChangeDelegate {
-	func pageChangeToIndex(pageViewController: UIPageViewController, pageIndex: Int) {
-		let pvc = pageViewController
-//		if pageIndex > 0 && pageIndex <= self.total{
-//			if self.popSliderValue != pageIndex {
-//				self.popoverSlider.value = Float(pageIndex)
-//				self.popSliderValue = pageIndex
-//				self.popoverSlider.setNeedsDisplay()
-//			}
-			
-//		}
-	}
+extension QuestionContainerViewController: QuestionRetrieveDataSource {
+    
+    var Type: EditType {
+        get {
+            return editType
+        }
+        set {
+            editType = Type
+        }
+    }
+    
+    var QuizId: String {
+        get {
+            return quiz_id
+        }
+    }
+    
+    var AnswerDictionary: NSMutableDictionary {
+        get {
+            return answerDict
+        }
+        set {
+            answerDict = AnswerDictionary
+        }
+    }
 }
+

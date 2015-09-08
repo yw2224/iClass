@@ -9,5 +9,7 @@
 import UIKit
 
 class IndexViewController: UIViewController {
+    
     var index: Int!
+    
 }

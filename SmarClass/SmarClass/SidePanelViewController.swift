@@ -8,13 +8,21 @@
 
 import UIKit
 
-@objc protocol SidePanelDelegate {
+@objc protocol SidePanelDelegate: class {
+    
     optional func sidePanelTappedAtRow(row: Int)
+    
 }
 
 class SidePanelViewController: UIViewController {
     
-    var delegate: SidePanelDelegate?
+    weak var delegate: SidePanelDelegate?
+    
+    @IBOutlet weak var personalSettingsTableView: UITableView! {
+        didSet {
+            personalSettingsTableView.tableFooterView = UIView(frame: CGRectZero)
+        }
+    }
     
     private struct Constants {
         static let settingsTableViewText = [
@@ -32,12 +40,6 @@ class SidePanelViewController: UIViewController {
 		static let LoginStoryBoardIdentifier = "LoginContainerView"
 		static let PersonalInfoStoryBoardIdentifier = "PersonalInfoTableView"
 		static let PersonalInfoSegue = "PersonalInfoSegue"
-    }
-    
-    @IBOutlet weak var personalSettingsTableView: UITableView! {
-        didSet {
-            personalSettingsTableView.tableFooterView = UIView(frame: CGRectZero)
-        }
     }
     
     override func viewDidLoad() {
@@ -70,6 +72,7 @@ class SidePanelViewController: UIViewController {
 }
 
 extension SidePanelViewController: UITableViewDataSource {
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return Constants.settingsTableViewText.count
     }
@@ -87,6 +90,7 @@ extension SidePanelViewController: UITableViewDataSource {
         cell.configureWithImage(Constants.settingsTableViewIcon[indexPath.section]![indexPath.row], settingLabelText: Constants.settingsTableViewText[indexPath.section]![indexPath.row])
         return cell
     }
+    
 }
 
 extension SidePanelViewController: UITableViewDelegate {

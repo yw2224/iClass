@@ -11,11 +11,6 @@ import UIKit
 class LoginContainerViewController: UIViewController {
     
     var splashPageViewController: UIPageViewController!
-
-    private struct Constants {
-        static let NumOfPages = 4
-        static let SplashViewControllerIdentifier = "Splash View Controller"
-    }
     
     @IBOutlet weak var pageControl: UIPageControl! {
         didSet {
@@ -23,8 +18,15 @@ class LoginContainerViewController: UIViewController {
             pageControl.currentPage = 0
         }
     }
+    
+    private struct Constants {
+        static let NumOfPages = 4
+        static let SplashViewControllerIdentifier = "Splash View Controller"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Set up page view controller
         setupSplashViewController()
     }
@@ -71,6 +73,7 @@ class LoginContainerViewController: UIViewController {
 }
 
 extension LoginContainerViewController: UIPageViewControllerDataSource {
+    
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         if let svc = viewController as? SplashViewController {
             return splashChildViewControllerAtIndex(svc.index - 1)
@@ -87,6 +90,7 @@ extension LoginContainerViewController: UIPageViewControllerDataSource {
 }
 
 extension LoginContainerViewController: UIPageViewControllerDelegate {
+    
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
         if completed,
             let current = pageViewController.viewControllers[0] as? SplashViewController {

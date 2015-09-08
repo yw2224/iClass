@@ -31,7 +31,7 @@ class CoreDataManager: NSObject {
     }
     
     func saveInForeground() {
-        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreAndWait()
+        NSManagedObjectContext.MR_defaultContext().MR_saveOnlySelfAndWait()
     }
     
     func courseList() -> [Course] {
@@ -40,5 +40,19 @@ class CoreDataManager: NSObject {
     
     func quizList() -> [Quiz] {
         return Quiz.MR_findAllSortedBy("to", ascending: false) as! [Quiz]
+    }
+    
+    func quizContent(quiz_id: String) -> [Question] {
+        return Question.MR_findByAttribute("quiz_id", withValue: quiz_id, andOrderBy: "no", ascending: true) as! [Question]
+    }
+    
+    func deleteQuestions(quiz_id: String) {
+        for question in quizContent(quiz_id) {
+            question.MR_deleteEntity()
+        }
+    }
+    
+    func cachedAnswerForQuiz(quiz_id: String) -> [Answer] {
+        return Answer.MR_findByAttribute("quiz_id", withValue: quiz_id) as! [Answer]
     }
 }

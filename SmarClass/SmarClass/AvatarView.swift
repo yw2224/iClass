@@ -10,11 +10,13 @@
 import UIKit
 
 class AvatarView: UIView {
+    
     enum ShowingStatus {
         case Text
         case Image
     }
     
+    var view: UIView!
     var status = ShowingStatus.Text {
         didSet {
             if status == .Text {
@@ -50,7 +52,6 @@ class AvatarView: UIView {
     
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    var view: UIView!
     
     override init(frame: CGRect) {
         // 1. setup any properties here

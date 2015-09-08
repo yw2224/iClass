@@ -9,10 +9,13 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    
     var course_id: String!
+    
 }
 
 extension TabBarController: UITabBarControllerDelegate {
+    
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         if let dest = viewController as? NavigationController {
             if let qvc = dest.childViewControllers.first as? QuizViewController {
@@ -20,4 +23,5 @@ extension TabBarController: UITabBarControllerDelegate {
             }
         }
     }
+    
 }

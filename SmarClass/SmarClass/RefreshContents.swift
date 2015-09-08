@@ -9,10 +9,12 @@
 import UIKit
 
 class RefreshContents: UIView {
+    
+    var view: UIView!
+    
     @IBOutlet weak var spot: UIImageView!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var refreshingImageView: UIImageView!
-    var view: UIView!
     
     override init(frame: CGRect) {
         // 1. setup any properties here

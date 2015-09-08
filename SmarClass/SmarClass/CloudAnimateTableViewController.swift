@@ -223,6 +223,7 @@ extension CloudAnimateTableViewController: UIScrollViewDelegate, RefreshControlH
 }
 
 extension CloudAnimateTableViewController: DZNEmptyDataSetSource {
+    
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
         return UIImage(named: "EmptyDataSetBackground")!
     }
@@ -237,6 +238,7 @@ extension CloudAnimateTableViewController: DZNEmptyDataSetSource {
 }
 
 extension CloudAnimateTableViewController: DZNEmptyDataSetDelegate {
+    
     func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
         return true
     }

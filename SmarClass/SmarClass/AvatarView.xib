@@ -23,7 +23,6 @@
                     </userDefinedRuntimeAttributes>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="WMb-iY-Qup" secondAttribute="centerY" constant="0.5" id="Pg6-6n-B2Z"/>
                 <constraint firstAttribute="trailing" secondItem="pWv-q3-I2S" secondAttribute="trailing" id="QAm-40-wzb"/>

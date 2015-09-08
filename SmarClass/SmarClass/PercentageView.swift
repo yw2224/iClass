@@ -10,10 +10,6 @@ import UIKit
 
 class PercentageView: UIView {
     
-    private struct Constants {
-        static let Pending: CGFloat = -1.0
-    }
-    
     var arc1: CAShapeLayer!
     var arc2: CAShapeLayer!
     var percentageLabel: UILabel!
@@ -28,6 +24,10 @@ class PercentageView: UIView {
                 setNeedsDisplay()
             }
         }
+    }
+    
+    private struct Constants {
+        static let Pending: CGFloat = -1.0
     }
 
     override init(frame: CGRect) {
@@ -102,14 +102,13 @@ class PercentageView: UIView {
         //        layer.shadowColor = UIColor.blackColor().CGColor
         //        layer.shadowOffset = CGSizeMake(0.0, 2.0)
         //        layer.shadowRadius = 2.0
-        layer.shouldRasterize = true;
-        layer.rasterizationScale = UIScreen.mainScreen().scale;
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
     }
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        println(NSDate())
         layerSetup()
     }
     

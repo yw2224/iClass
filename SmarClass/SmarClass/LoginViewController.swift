@@ -16,6 +16,23 @@ enum LoginStatus {
 
 class LoginViewController: UIViewController {
     
+    let rowIdentifiers = [
+        LoginStatus.Register: ["学号", "姓名", "密码"],
+        LoginStatus.Login: ["Empty", "学号", "密码"]
+    ]
+    let cellIndexes = [
+        LoginStatus.Register: [
+            "name": NSIndexPath(forRow: 0, inSection: 0),
+            "realName": NSIndexPath(forRow: 1, inSection: 0),
+            "password": NSIndexPath(forRow: 2, inSection: 0)
+        ],
+        LoginStatus.Login: [
+            "name": NSIndexPath(forRow: 1, inSection: 0),
+            "password": NSIndexPath(forRow: 2, inSection: 0)
+        ]
+    ]
+    let SNSCollectionIdentifiers = [("QQ", "QQ"), ("Wechat", "微信"), ("Weibo", "微博")]
+    
     var animationLeft = true
     var keyboardAppeared = false {
         didSet {
@@ -41,22 +58,11 @@ class LoginViewController: UIViewController {
         }
     }
     
-    let rowIdentifiers = [
-        LoginStatus.Register: ["学号", "姓名", "密码"],
-        LoginStatus.Login: ["Empty", "学号", "密码"]
-    ]
-    let cellIndexes = [
-        LoginStatus.Register: [
-            "name": NSIndexPath(forRow: 0, inSection: 0),
-            "realName": NSIndexPath(forRow: 1, inSection: 0),
-            "password": NSIndexPath(forRow: 2, inSection: 0)
-        ],
-        LoginStatus.Login: [
-            "name": NSIndexPath(forRow: 1, inSection: 0),
-            "password": NSIndexPath(forRow: 2, inSection: 0)
-        ]
-    ]
-    let SNSCollectionIdentifiers = [("QQ", "QQ"), ("Wechat", "微信"), ("Weibo", "微博")]
+    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var toggleButton: UIButton!
+    @IBOutlet weak var loginTableView: UITableView!
+    @IBOutlet weak var SNSCollectionView: UICollectionView!
     
     private struct Constants {
         static let LoginToMainHomeSegueIdentifier = "Login To MainHome Segue"
@@ -70,13 +76,6 @@ class LoginViewController: UIViewController {
         static let CollectionCellHeight: CGFloat = 80.0
     }
     
-    @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var toggleButton: UIButton!
-    @IBOutlet weak var loginTableView: UITableView!
-    @IBOutlet weak var SNSCollectionView: UICollectionView!
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,6 +95,10 @@ class LoginViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        SNSCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     func setupButton() {
@@ -202,11 +205,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        SNSCollectionView.collectionViewLayout.invalidateLayout()
-    }
-    
     /*
     // MARK: - Navigation
 
@@ -243,6 +241,7 @@ class LoginViewController: UIViewController {
 
 // MARK: tableview datasource & delegate
 extension LoginViewController: UITableViewDataSource {
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -267,6 +266,7 @@ extension LoginViewController: UITableViewDataSource {
 }
 
 extension LoginViewController: UITableViewDelegate {
+    
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
@@ -274,6 +274,7 @@ extension LoginViewController: UITableViewDelegate {
 
 // MARK: collection datasource & delegate
 extension LoginViewController: UICollectionViewDataSource {
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -298,6 +299,7 @@ extension LoginViewController: UICollectionViewDataSource {
 }
 
 extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         var inset = UIEdgeInsetsZero
         if status == LoginStatus.Register {
@@ -320,7 +322,7 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegat
             interSpacing -= 3 * Constants.CollectionCellWidth
             interSpacing /= 2
         }
-        return max(interSpacing, 0)
+        return max(floor(interSpacing), 0)
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -329,6 +331,7 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegat
 }
 
 extension LoginTableViewCell: UITextFieldDelegate {
+    
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -341,7 +344,9 @@ extension LoginTableViewCell: UITextFieldDelegate {
 }
 
 class LoginTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var textField: UITextField!
+    
     func configureCellWithPlaceHolder(text: String) {
         textField.text = ""
         textField.placeholder = text
@@ -351,8 +356,7 @@ class LoginTableViewCell: UITableViewCell {
         textField.clearsOnBeginEditing = false
         textField.clearButtonMode = .Never
         if text == "学号" {
-            textField.keyboardType = .Default
-//            textField.keyboardType = .NumberPad
+            textField.keyboardType = .NumberPad
         } else if text == "密码" {
             textField.secureTextEntry = true
             textField.clearsOnBeginEditing = true
@@ -367,8 +371,10 @@ class LoginTableViewCell: UITableViewCell {
 }
 
 class SNSCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var SNSImage: UIImageView!
     @IBOutlet weak var SNSName: UILabel!
+    
     func configureCellWithImage(imageName: String, name: String) {
         SNSImage.backgroundColor = UIColor.whiteColor()
         if let image = UIImage(named: imageName) {
@@ -379,7 +385,9 @@ class SNSCollectionViewCell: UICollectionViewCell {
 }
 
 class SNSCollectionViewHeader: UICollectionReusableView {
+    
     @IBOutlet weak var label: UILabel!
+    
     func configureHeader(text: String) {
         label.text = text
     }

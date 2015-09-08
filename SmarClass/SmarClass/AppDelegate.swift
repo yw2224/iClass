@@ -20,12 +20,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.config()
         CoreDataManager.config()
         
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+        Answer.MR_truncateAll()
+        Option.MR_truncateAll()
+        Choice.MR_truncateAll()
+        
+        if(application.respondsToSelector("registerUserNotificationSettings:")) {
+            application.registerUserNotificationSettings(
+                UIUserNotificationSettings(
+                    forTypes: .Alert | .Sound,
+                    categories: nil
+                )
+            )
+        }
+        
         return true
     }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        CoreDataManager.sharedInstance.saveInBackground()
     }
 
     func applicationDidEnterBackground(application: UIApplication) {

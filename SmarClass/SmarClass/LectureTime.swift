@@ -20,6 +20,7 @@ class LectureTime: NSManagedObject {
 }
 
 extension LectureTime: JSONConvertible {
+    
     static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
         let lectureTime       = LectureTime.MR_createEntity()
         lectureTime.startTime = json["startTime"].int ?? 0

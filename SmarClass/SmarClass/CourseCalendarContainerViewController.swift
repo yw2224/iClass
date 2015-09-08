@@ -21,6 +21,7 @@ class CourseCalendarContainerViewController: UIViewController {
     var endDate: NSDate!
     var midTerm: NSDate?
     var finalExam: NSDate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

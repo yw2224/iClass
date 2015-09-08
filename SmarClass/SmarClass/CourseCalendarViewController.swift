@@ -10,6 +10,13 @@ import UIKit
 import PDTSimpleCalendar
 
 class CourseCalendarViewController: PDTSimpleCalendarViewController {
+    
+    enum DateType {
+        case MidTerm
+        case FinalExam
+        case Today
+        case Lecture
+    }
 
     var lectureTime = [LectureTime]()
     var startDate = NSDate() {
@@ -31,13 +38,6 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
         f.dateFormat = "yyyy-MM-dd"
         return f
     }()
-    
-    enum DateType {
-        case MidTerm
-        case FinalExam
-        case Today
-        case Lecture
-    }
     
     private struct Constants {
         static let Sunday = 7
@@ -114,6 +114,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
 }
 
 extension CourseCalendarViewController: PDTSimpleCalendarViewDelegate {
+    
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, shouldUseCustomColorsForDate date: NSDate!) -> Bool {
         if let type = importantDate[formatter.stringFromDate(date)] {
             return true
@@ -141,12 +142,15 @@ extension CourseCalendarViewController: PDTSimpleCalendarViewDelegate {
         }
         return UIColor.flatGrayColorDark()
     }
+    
 }
 
 // Since PDTSimpleCalendarViewController adopts a collection view to be the inside calendar,
 // we can disable the item selection.
 extension CourseCalendarViewController: UICollectionViewDelegate {
+    
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
     }
+    
 }
