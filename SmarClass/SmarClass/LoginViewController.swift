@@ -182,7 +182,7 @@ class LoginViewController: UIViewController {
                 }
             }
         } else {
-            ContentManager.sharedInstance.login("S1", password: "SS1") {
+            ContentManager.sharedInstance.login(input.1, password: input.3) {
                 (success, message) in
                 
                 self.enableLoginButton()

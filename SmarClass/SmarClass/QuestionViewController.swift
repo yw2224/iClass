@@ -171,19 +171,17 @@ extension QuestionViewController: UITableViewDataSource {
     
     func setupCellCorrectAnswer(cell: UITableViewCell, indexPath: NSIndexPath) {
         let index = indexPath.row
-        if let answer = quizDelegate.AnswerDictionary[question.question_id] as? Answer {
-            if let cell = cell as? ChoiceTableViewCell {
-                question.correctAnswer.enumerateObjectsUsingBlock{ (choice, stop) in
-                    let choice = choice as! Choice
-                    if choice.content == "\(indexPath.row - 1)" {
-                        cell.setChoiceViewCorrected(true)
-                        stop.memory = true
-                    }
+        if let cell = cell as? ChoiceTableViewCell {
+            question.correctAnswer.enumerateObjectsUsingBlock{ (choice, stop) in
+                let choice = choice as! Choice
+                if choice.content == "\(indexPath.row - 1)" {
+                    cell.setChoiceViewCorrected(true)
+                    stop.memory = true
                 }
-            } else if let cell = cell as? TextTableViewCell {
-                if let choice = question.correctAnswer.allObjects.first as? Choice {
-                    cell.setTextFieldCorrectText(choice.content)
-                }
+            }
+        } else if let cell = cell as? TextTableViewCell {
+            if let choice = question.correctAnswer.allObjects.first as? Choice {
+                cell.setTextFieldCorrectText(choice.content)
             }
         }
     }

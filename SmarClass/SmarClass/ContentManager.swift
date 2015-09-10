@@ -248,8 +248,8 @@ class ContentManager: NSObject {
             }
     }
     
-    func originAnswer(quiz_id: String, block: ((success: Bool, answerList: [Answer], message: String) -> Void)?) {
-        NetworkManager.sharedInstance.originAnswer(ContentManager.User_id, token: ContentManager.Token, quiz_id: quiz_id) {
+    func originAnswer(course_id: String, quiz_id: String, block: ((success: Bool, answerList: [Answer], message: String) -> Void)?) {
+        NetworkManager.sharedInstance.originAnswer(ContentManager.User_id, token: ContentManager.Token, course_id: course_id, quiz_id: quiz_id) {
             (success, data, response) in
             Log.debugLog()
             
@@ -275,6 +275,65 @@ class ContentManager: NSObject {
                 dispatch_async(dispatch_get_main_queue()) {
                     let answerList = CoreDataManager.sharedInstance.answerList(quiz_id)
                     block?(success: false, answerList: answerList, message: "Cahced answer list")
+                }
+            }
+        }
+    }
+    
+    func submitAnswer(course_id: String, quiz_id: String, status: [AnswerJSON], block: ((success: Bool, answerList: [Answer], message: String) -> Void)?) {
+        var array = [String]()
+        for answerJSON in status {
+            var element = JSON([
+                "question_id": answerJSON.question_id,
+                "originAnswer": JSON(answerJSON.originAnswer).description
+            ])
+            array.append(element.description)
+        }
+        
+        NetworkManager.sharedInstance.submitAnswer(ContentManager.User_id, token: ContentManager.Token, course_id: course_id, quiz_id: quiz_id, status: JSON(array).description) {
+            (success, data, response) in
+            Log.debugLog()
+            
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let json = JSON(data!)
+                    let successValue = json["success"].boolValue
+                    var answerList: [Answer] = {
+                        if successValue {
+                            DDLogInfo("Querying answer list")
+                            CoreDataManager.sharedInstance.deleteAnswers(quiz_id)
+                            let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
+                            for answer in answerList {
+                                answer.quiz_id = quiz_id
+                            }
+                            return answerList
+                        }
+                        return []
+                    }()
+                    block?(success: successValue, answerList: answerList, message: successValue ? "Submit answer success" : response.message)
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let answerList = CoreDataManager.sharedInstance.answerList(quiz_id)
+                    block?(success: false, answerList: answerList, message: "Cahced submitted answer list")
+                }
+            }
+        }
+    }
+    
+    func submitSignIn(course_id: String, signin_id: String, uuidString: String, deviceId: String, block: ((success: Bool, message: String) -> Void)?) {
+        NetworkManager.sharedInstance.submitSignIn(ContentManager.User_id, token: ContentManager.Token, course_id: course_id, signin_id: signin_id, uuidString: uuidString, deviceId: deviceId) {
+            (success, data, response) in
+            
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let json = JSON(data!)
+                    let successValue = json["success"].boolValue
+                    block?(success: successValue, message: successValue ? "Submit sign-in success" : response.message)
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    block?(success: false, message: "Submit sign-in failed")
                 }
             }
         }

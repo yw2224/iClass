@@ -88,6 +88,18 @@ class CourseOverviewController: UIViewController {
         }
     }
     
+    func submitSigninInfo() {
+        ContentManager.sharedInstance.submitSignIn(course.course_id, signin_id: signin_id!, uuidString: uuidString!, deviceId: deviceId) {
+            (success, message) in
+            println("\(success) \(message)")
+            if success {
+                self.retrieveSigninInfo()
+            } else {
+                // present HUD
+            }
+        }
+    }
+    
     @IBAction func signIn(sender: UIButton) {
         if let cell = courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell {
             cell.activityIndicator.startAnimating()
@@ -95,10 +107,9 @@ class CourseOverviewController: UIViewController {
             
             if cell.tag == Constants.RefreshTag {
                 retrieveSigninInfo()
-                return
+            } else {
+                submitSigninInfo()
             }
-            // uuidString, deviceId, signin_id
-            // submit signin
         }
     }
 }

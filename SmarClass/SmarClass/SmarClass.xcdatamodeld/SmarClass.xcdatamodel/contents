@@ -4,7 +4,7 @@
         <attribute name="question_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="originAnswer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" syncable="YES"/>
+        <relationship name="originAnswer" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" syncable="YES"/>
     </entity>
     <entity name="Avatar" representedClassName="Avatar" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,8 +23,8 @@
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="students" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="term" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="lectureTime" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LectureTime" syncable="YES"/>
-        <relationship name="teacherNames" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeacherNames" syncable="YES"/>
+        <relationship name="lectureTime" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LectureTime" syncable="YES"/>
+        <relationship name="teacherNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TeacherNames" syncable="YES"/>
     </entity>
     <entity name="LectureTime" representedClassName="LectureTime" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -41,8 +41,8 @@
         <attribute name="question_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="correctAnswer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" syncable="YES"/>
-        <relationship name="options" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Option" syncable="YES"/>
+        <relationship name="correctAnswer" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" syncable="YES"/>
+        <relationship name="options" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Option" syncable="YES"/>
     </entity>
     <entity name="Quiz" representedClassName="Quiz" syncable="YES">
         <attribute name="correct" optional="YES" attributeType="Integer 32" defaultValueString="-1" syncable="YES"/>
@@ -62,10 +62,10 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="realName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Avatar" syncable="YES"/>
+        <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Avatar" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Answer" positionX="18" positionY="621" width="128" height="103"/>
+        <element name="Answer" positionX="18" positionY="621" width="128" height="105"/>
         <element name="Avatar" positionX="16" positionY="30" width="128" height="60"/>
         <element name="Choice" positionX="16" positionY="522" width="128" height="60"/>
         <element name="Course" positionX="-297" positionY="120" width="128" height="225"/>

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import UIKit
 import CocoaLumberjack
+import UIKit
 
 class QuestionPageViewController: UIPageViewController {
     
@@ -49,7 +49,7 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveOriginAnswers() {
-        ContentManager.sharedInstance.originAnswer(quizDelegate.QuizId) {
+        ContentManager.sharedInstance.originAnswer(quizDelegate.CourseId, quiz_id: quizDelegate.QuizId) {
             (success, answerList, message) in
             // MARK: if failed, present HUD
             DDLogDebug("\(success) \(message)")

@@ -20,6 +20,7 @@ protocol QuestionRetrieveDataSource: class {
     var Type: EditType {get set}
     var QuizId: String {get}
     var QuizName: String {get}
+    var CourseId: String {get}
     var AnswerDictionary: NSMutableDictionary {get set}
 }
 
@@ -79,7 +80,23 @@ class QuestionContainerViewController: UIViewController {
     }
     
     func submitAnswers() {
-        println("answer")
+        // present HUD
+        var status = [AnswerJSON]()
+        for (key, value) in answerDict {
+            let answer = value as! Answer
+            var originAnswer = [String]()
+            for choice in answer.originAnswer.allObjects {
+                originAnswer.append((choice as! Choice).content)
+            }
+            status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))
+        }
+        ContentManager.sharedInstance.submitAnswer(quiz.course_id, quiz_id: quiz.quiz_id, status: status) { (success, answerList, message) in
+            DDLogDebug("\(success) \(answerList)")
+            
+            if success {
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+        }
     }
 }
 
@@ -103,6 +120,12 @@ extension QuestionContainerViewController: QuestionRetrieveDataSource {
     var QuizName: String {
         get {
             return quiz.name
+        }
+    }
+    
+    var CourseId: String {
+        get {
+            return quiz.course_id
         }
     }
     

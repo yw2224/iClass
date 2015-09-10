@@ -59,6 +59,8 @@ extension NetworkManager {
         static let QuizContentKey  = "Quiz Content"
         static let SigninInfoKey   = "Signin Info"
         static let OriginAnswerKey = "Original Answer"
+        static let SubmitAnswerKey = "Submit Answer"
+        static let SubmitSignInKey = "Submit SignIn"
     }
     
     private enum Router: URLRequestConvertible {
@@ -70,7 +72,9 @@ extension NetworkManager {
         case QuizList(String, String, String)
         case QuizContent(String, String, String)
         case SigninInfo(String, String, String)
-        case OriginAnswer(String, String, String)
+        case OriginAnswer(String, String, String, String)
+        case SubmitAnswer(String, String, String, String, String)
+        case SubmitSignIn(String, String, String, String, String, String)
         
         var URLRequest: NSURLRequest {
             var (path: String, method: Alamofire.Method, parameters: [String: AnyObject]) = {
@@ -93,9 +97,15 @@ extension NetworkManager {
                 case .SigninInfo(let _id, let token, let course_id):
                     let params = ["_id": _id, "token": token, "course_id": course_id]
                     return ("/signin/info", Method.GET, params)
-                case .OriginAnswer(let _id, let token, let quiz_id):
-                    let params = ["_id": _id, "token": token, "quiz_id": quiz_id]
+                case .OriginAnswer(let _id, let token, let course_id, let quiz_id):
+                    let params = ["_id": _id, "token": token, "course_id": course_id, "quiz_id": quiz_id]
                     return ("/answer/quiz/info", Method.GET, params)
+                case .SubmitAnswer(let _id, let token, let course_id, let quiz_id, let status):
+                    let params = ["_id": _id, "token": token, "course_id": course_id, "quiz_id": quiz_id, "status": status]
+                    return ("/answer/submit", Method.POST, params)
+                case .SubmitSignIn(let _id, let token, let course_id, let signin_id, let uuidString, let deviceId):
+                    let params = ["_id": _id, "token": token, "course_id": course_id, "signin_id": signin_id, "uuid": uuidString, "device_id": deviceId]
+                    return ("/signin/submit", Method.POST, params)
                 }
             }()
             
@@ -135,12 +145,12 @@ extension NetworkManager {
     }
     
     func register(name: String, realName: String, password: String, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.LoginKey) {
+        if NetworkManager.isPendingRequestWithKey(Constants.RegisterKey) {
             return
         }
         
         let request = NetworkManager.Manager.request(Router.Register(name, realName, password))
-        NetworkManager.insertRequestWithKey(Constants.LoginKey, request: request)
+        NetworkManager.insertRequestWithKey(Constants.RegisterKey, request: request)
         
         request.validate().responseJSON(options: .allZeros) {
             (_, res, data, error) in
@@ -211,18 +221,50 @@ extension NetworkManager {
 
     }
     
-    func originAnswer(user_id: String?, token: String?, quiz_id: String?, callback: NetworkBlock) {
+    func originAnswer(user_id: String?, token: String?, course_id: String?, quiz_id: String?, callback: NetworkBlock) {
         if NetworkManager.isPendingRequestWithKey(Constants.OriginAnswerKey) {
             return
         }
         
-        let request = NetworkManager.Manager.request(Router.OriginAnswer(user_id ?? "", token ?? "", quiz_id ?? ""))
+        let request = NetworkManager.Manager.request(Router.OriginAnswer(user_id ?? "", token ?? "", course_id ?? "", quiz_id ?? ""))
         NetworkManager.insertRequestWithKey(Constants.OriginAnswerKey, request: request)
         
         request.validate().responseJSON(options: .allZeros) {
             (_, res, data, error) in
             NetworkManager.removeRequestWithKey(Constants.OriginAnswerKey)
             NetworkManager.callback(Constants.OriginAnswerKey, res, data, error, callback)
+        }
+    }
+    
+    func submitAnswer(user_id: String?, token: String?, course_id: String?, quiz_id: String?, status: String?, callback: NetworkBlock) {
+        if NetworkManager.isPendingRequestWithKey(Constants.SubmitAnswerKey) {
+            return
+        }
+        
+        let request = NetworkManager.Manager.request(Router.SubmitAnswer(user_id ?? "", token ?? "", course_id ?? "", quiz_id ?? "", status ?? ""))
+        NetworkManager.insertRequestWithKey(Constants.SubmitAnswerKey, request: request)
+        
+        
+        request.validate().responseJSON(options: .allZeros) {
+            (_, res, data, error) in
+            NetworkManager.removeRequestWithKey(Constants.SubmitAnswerKey)
+            NetworkManager.callback(Constants.SubmitAnswerKey, res, data, error, callback)
+        }
+    }
+    
+    func submitSignIn(user_id: String?, token: String?, course_id: String?, signin_id: String?, uuidString: String?, deviceId: String?, callback: NetworkBlock) {
+        if NetworkManager.isPendingRequestWithKey(Constants.SubmitSignInKey) {
+            return
+        }
+        
+        let request = NetworkManager.Manager.request(Router.SubmitSignIn(user_id ?? "", token ?? "", course_id ?? "", signin_id ?? "", uuidString ?? "", deviceId ?? ""))
+        NetworkManager.insertRequestWithKey(Constants.SubmitSignInKey, request: request)
+        
+        
+        request.validate().responseJSON(options: .allZeros) {
+            (_, res, data, error) in
+            NetworkManager.removeRequestWithKey(Constants.SubmitSignInKey)
+            NetworkManager.callback(Constants.SubmitSignInKey, res, data, error, callback)
         }
     }
 }

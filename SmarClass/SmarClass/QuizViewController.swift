@@ -35,6 +35,11 @@ class QuizViewController: CloudAnimateTableViewController {
         
         // Do any additional setup after loading the view.
         tableView.tableFooterView = UIView(frame: CGRectZero)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
         retrieveQuizList()
     }
     
