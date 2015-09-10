@@ -16,6 +16,13 @@ class ChoiceView: UIView {
             setNeedsDisplay()
         }
     }
+    var correct: Bool = false {
+        didSet {
+            if correct {
+                setNeedsDisplay()
+            }
+        }
+    }
     var numberIndex: Int! {
         didSet {
             letterLabel.text = convertToTitle(max(min(numberIndex, 25), 0))
@@ -74,8 +81,8 @@ class ChoiceView: UIView {
         circleLayer?.removeFromSuperlayer()
         
         circleLayer = CAShapeLayer()
-        circleLayer.strokeColor = UIColor.flatWatermelonColor().CGColor
         circleLayer.lineWidth = 2.0
+        circleLayer.strokeColor = UIColor.flatWatermelonColor().CGColor
         circleLayer.fillColor = UIColor.clearColor().CGColor
         layer.addSublayer(circleLayer)
         
@@ -102,12 +109,18 @@ class ChoiceView: UIView {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        letterLabel.textColor = selected ? UIColor.whiteColor() : UIColor.flatWatermelonColor()
+        letterLabel.textColor = selected || correct ? UIColor.whiteColor() : UIColor.flatWatermelonColor()
         circleLayer.path = UIBezierPath(ovalInRect: bounds).CGPath
-        circleLayer.fillColor = [
-            false: UIColor.clearColor().CGColor,
-            true: UIColor.flatWatermelonColor().CGColor,
-        ][selected]
+        if correct {
+            circleLayer.strokeColor = UIColor.flatLimeColor().CGColor
+            circleLayer.fillColor = UIColor.flatLimeColor().CGColor
+        } else {
+            circleLayer.strokeColor = UIColor.flatWatermelonColor().CGColor
+            circleLayer.fillColor = [
+                false: UIColor.clearColor().CGColor,
+                true: UIColor.flatWatermelonColor().CGColor,
+            ][selected]
+        }
         bringSubviewToFront(view)
     }
 

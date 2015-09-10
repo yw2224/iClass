@@ -52,7 +52,7 @@ class QuestionViewController: IndexViewController {
         
         indexLabel.text = "\(index + 1)"
         totalLabel.text = "\(total)"
-        nameLabel.text  = question.content
+        nameLabel.text  = quizDelegate.QuizName
         
         if quizDelegate.Type == .Inspect {
             tableView.backgroundColor = UIColor.flatWhiteColor()
@@ -88,45 +88,26 @@ extension QuestionViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let index = indexPath.row
+        var cell: UITableViewCell!
         if index == 0 {
-            return headerCell()
+            cell = headerCell()
         } else if let type = QuestionType(rawValue: question.type) {
-            var cell: UITableViewCell!
             switch type {
             case .TrueFalse, .SingleChoice, .MultipleChoice:
-                cell = choiceCell()
-                let text: String = {
-                    (index) in
-                    var ret = ""
-                    self.question.options.enumerateObjectsUsingBlock {
-                        (option, stop) in
-                        if let opt = option as? Option {
-                            if opt.no.integerValue == (index - 1) {
-                                ret = opt.content
-                                stop.memory = true
-                            }
-                        }
-                    }
-                    return ret
-                }(index)
-                (cell as! ChoiceTableViewCell).setupWithNumber(index, text: text)
+                cell = choiceCell(indexPath)
             case .BlankFilling, .ShortAnswer:
-                cell = textCell()
-                (cell as! TextTableViewCell).setupWithText("", indexPath: indexPath)
-                (cell as! TextTableViewCell).textField.delegate = self
+                cell = textCell(indexPath)
             }
-            
-            if quizDelegate.Type == .Inspect {
-//                        cell.accessoryView right answer
-            }
-            setupCellAnswer(cell, indexPath: indexPath)
-            return cell
         }
-        return UITableViewCell()
+        setupCellAnswer(cell, indexPath: indexPath)
+        if quizDelegate.Type == .Inspect {
+            setupCellCorrectAnswer(cell, indexPath: indexPath)
+        }
+        return cell
     }
     
     func headerCell() -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.QuestionHeaderCell) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.QuestionHeaderCell) as! QuestionHeaderTableViewCell
         let typeText: String = {
             if let type = self.questionType {
                 return [
@@ -138,23 +119,42 @@ extension QuestionViewController: UITableViewDataSource {
             }
             return ""
         }()
-        (cell as! QuestionHeaderTableViewCell).setupWithText(question.content + "\t\(typeText)")
+        cell.setupWithText(question.content + "\t\(typeText)")
         return cell
     }
     
-    func choiceCell() -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.QuestionChoiceCell) as! UITableViewCell
+    func choiceCell(indexPath: NSIndexPath) -> UITableViewCell {
+        let index = indexPath.row
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.QuestionChoiceCell) as! ChoiceTableViewCell
+        let text: String = {
+            (index) in
+            var ret = ""
+            self.question.options.enumerateObjectsUsingBlock {
+                (option, stop) in
+                if let opt = option as? Option {
+                    if opt.no.integerValue == (index - 1) {
+                        ret = opt.content
+                        stop.memory = true
+                    }
+                }
+            }
+            return ret
+            }(index)
+        cell.setupWithNumber(index, text: text)
         return cell
     }
     
-    func textCell() -> UITableViewCell {
-        return tableView.dequeueReusableCellWithIdentifier(Constants.QuestionTextCell) as! UITableViewCell
+    func textCell(indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.QuestionTextCell) as! TextTableViewCell
+        cell.setupWithText("", indexPath: indexPath)
+        cell.textField.delegate = self
+        return cell
     }
     
     func setupCellAnswer(cell: UITableViewCell, indexPath: NSIndexPath) {
         if let answer = quizDelegate.AnswerDictionary[question.question_id] as? Answer {
             if let cell = cell as? ChoiceTableViewCell {
-                answer.originAnswer.enumerateObjectsUsingBlock{ (choice, stop) -> Void in
+                answer.originAnswer.enumerateObjectsUsingBlock{ (choice, stop) in
                     let choice = choice as! Choice
                     if choice.content == "\(indexPath.row - 1)" {
                         cell.setChoiceViewSelected(true)
@@ -168,12 +168,43 @@ extension QuestionViewController: UITableViewDataSource {
             }
         }
     }
+    
+    func setupCellCorrectAnswer(cell: UITableViewCell, indexPath: NSIndexPath) {
+        let index = indexPath.row
+        if let answer = quizDelegate.AnswerDictionary[question.question_id] as? Answer {
+            if let cell = cell as? ChoiceTableViewCell {
+                question.correctAnswer.enumerateObjectsUsingBlock{ (choice, stop) in
+                    let choice = choice as! Choice
+                    if choice.content == "\(indexPath.row - 1)" {
+                        cell.setChoiceViewCorrected(true)
+                        stop.memory = true
+                    }
+                }
+            } else if let cell = cell as? TextTableViewCell {
+                if let choice = question.correctAnswer.allObjects.first as? Choice {
+                    cell.setTextFieldCorrectText(choice.content)
+                }
+            }
+        }
+    }
 }
 
 extension QuestionViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return Constants.QuestionCellHeight
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if quizDelegate.Type == .Inspect {
+            if let score = (quizDelegate.AnswerDictionary[question.question_id] as? Answer)?.score {
+                let status = score.integerValue > 0
+                tableView.tableHeaderView?.backgroundColor = status ?
+                    UIColor(red: 228.0 / 255.0, green: 250.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0) :
+                    UIColor(red: 246.0 / 255.0, green: 225.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
+            }
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -292,6 +323,7 @@ class QuestionHeaderTableViewCell: UITableViewCell {
     func setupWithText(text: String) {
         headerLabel.text = text
     }
+    
 }
 
 class ChoiceTableViewCell: UITableViewCell {
@@ -301,6 +333,7 @@ class ChoiceTableViewCell: UITableViewCell {
     
     func setupWithNumber(number: Int, text: String) {
         choiceView.numberIndex = number
+        choiceView.correct = false
         choiceLabel.text = text
     }
     
@@ -310,6 +343,12 @@ class ChoiceTableViewCell: UITableViewCell {
     
     func setChoiceViewSelected(selected: Bool) {
         choiceView.selected = selected
+    }
+    
+    func setChoiceViewCorrected(correct: Bool) {
+        if correct {
+            choiceView.correct = true
+        }
     }
 }
 
@@ -322,6 +361,12 @@ class TextTableViewCell: UITableViewCell {
         indexPath = IndexPath
         textField.text = text
         textField.placeholder = "请输入答案…"
+    }
+    
+    func setTextFieldCorrectText(text: String) {
+        let attributeText = NSMutableAttributedString(string: textField.text + "\t\(text)")
+        attributeText.addAttribute(NSStrikethroughStyleAttributeName, value: NSNumber(integer: 2), range: NSMakeRange(0, count(textField.text)))
+        textField.attributedText = attributeText
     }
 }
 

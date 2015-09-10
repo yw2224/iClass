@@ -58,17 +58,17 @@ class QuizViewController: CloudAnimateTableViewController {
             let cell = sender as? QuizTableViewCell {
                 let indexPath = tableView.indexPathForCell(cell)!
                 let quiz = quizList[indexPath.row]
-                qcvc.quiz_id = quiz.quiz_id
+                qcvc.quiz = quiz
                 qcvc.editType = quiz.correct.integerValue == -1 ? .Edit : .Inspect
         }
     }
     
     func retrieveQuizList() {
         ContentManager.sharedInstance.quizList(course_id) {
-            [weak self] (success, quizList, message) in
+            (success, quizList, message) in
             DDLogDebug("\(success) \(message)")
-            self?.quizList = quizList
-            self?.animationDidEnd()
+            self.quizList = quizList
+            self.animationDidEnd()
         }
     }
 

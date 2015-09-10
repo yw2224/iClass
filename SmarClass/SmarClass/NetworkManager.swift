@@ -52,16 +52,17 @@ class NetworkManager: NSObject {
 extension NetworkManager {
     
     private struct Constants {
-        static let LoginKey      = "Login"
-        static let RegisterKey   = "Register"
-        static let UserCourseKey = "User's Course"
-        static let QuizListKey   = "Quiz List"
-        static let QuizContentKey = "Quiz Content"
-        static let SigninInfoKey = "Signin Info"
+        static let LoginKey        = "Login"
+        static let RegisterKey     = "Register"
+        static let UserCourseKey   = "User's Course"
+        static let QuizListKey     = "Quiz List"
+        static let QuizContentKey  = "Quiz Content"
+        static let SigninInfoKey   = "Signin Info"
+        static let OriginAnswerKey = "Original Answer"
     }
     
     private enum Router: URLRequestConvertible {
-        static let baseURLString = "http://localhost:3000/api"
+        static let baseURLString = "http://162.105.146.224:3000/api"
         
         case Login(String, String)
         case Register(String, String, String)
@@ -69,6 +70,7 @@ extension NetworkManager {
         case QuizList(String, String, String)
         case QuizContent(String, String, String)
         case SigninInfo(String, String, String)
+        case OriginAnswer(String, String, String)
         
         var URLRequest: NSURLRequest {
             var (path: String, method: Alamofire.Method, parameters: [String: AnyObject]) = {
@@ -91,6 +93,9 @@ extension NetworkManager {
                 case .SigninInfo(let _id, let token, let course_id):
                     let params = ["_id": _id, "token": token, "course_id": course_id]
                     return ("/signin/info", Method.GET, params)
+                case .OriginAnswer(let _id, let token, let quiz_id):
+                    let params = ["_id": _id, "token": token, "quiz_id": quiz_id]
+                    return ("/answer/quiz/info", Method.GET, params)
                 }
             }()
             
@@ -204,5 +209,20 @@ extension NetworkManager {
             NetworkManager.callback(Constants.SigninInfoKey, res, data, error, callback)
         }
 
+    }
+    
+    func originAnswer(user_id: String?, token: String?, quiz_id: String?, callback: NetworkBlock) {
+        if NetworkManager.isPendingRequestWithKey(Constants.OriginAnswerKey) {
+            return
+        }
+        
+        let request = NetworkManager.Manager.request(Router.OriginAnswer(user_id ?? "", token ?? "", quiz_id ?? ""))
+        NetworkManager.insertRequestWithKey(Constants.OriginAnswerKey, request: request)
+        
+        request.validate().responseJSON(options: .allZeros) {
+            (_, res, data, error) in
+            NetworkManager.removeRequestWithKey(Constants.OriginAnswerKey)
+            NetworkManager.callback(Constants.OriginAnswerKey, res, data, error, callback)
+        }
     }
 }

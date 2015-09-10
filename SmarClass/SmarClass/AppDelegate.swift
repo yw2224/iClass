@@ -6,8 +6,9 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import UIKit
 import CoreData
+import CoreLocation
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,20 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.config()
         CoreDataManager.config()
         
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
-        Answer.MR_truncateAll()
-        Option.MR_truncateAll()
-        Choice.MR_truncateAll()
-        
-        if(application.respondsToSelector("registerUserNotificationSettings:")) {
-            application.registerUserNotificationSettings(
-                UIUserNotificationSettings(
-                    forTypes: .Alert | .Sound,
-                    categories: nil
-                )
+        application.statusBarStyle = .LightContent
+        application.registerUserNotificationSettings(
+            UIUserNotificationSettings(
+                forTypes: .Alert | .Sound,
+                categories: nil
             )
-        }
+        )
         
         return true
     }

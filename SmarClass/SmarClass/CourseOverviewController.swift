@@ -14,9 +14,12 @@ import UIKit
 class CourseOverviewController: UIViewController {
     
     let beaconIdentifier = "edu.pku.netlab.SmartClass-Teacher"
+    var lastProximity: CLProximity?
     var locationManager: CLLocationManager!
-    var uuidString: String! // "BCEAD00F-F457-4E69-B32E-681251AC2048"
-    var signin_id: String!
+    var uuidString: String? // "BCEAD00F-F457-4E69-B32E-681251AC2048"
+    var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
+    var signin_id: String?
+    var isSigninEnabled = false
     var isBeaconFound = false
 
 	var course: Course!
@@ -38,16 +41,14 @@ class CourseOverviewController: UIViewController {
         static let AnimationTime = 0.5
         static let CourseDescriptionSegueIdentifier = "Course Description Segue"
         static let ImportantDateSegueIdentifier = "Important Date Segue"
+        static let SignInCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
+        static let RefreshTag = 0
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ContentManager.sharedInstance.signinInfo(course.course_id) {
-            (success, uuid, enable, total, user, signin_id, message) in
-            println("\(success) \(uuid) \(enable) \(total) \(user) \(signin_id) \(message)")
-//            setupLocationManager()
-        }
+        retrieveSigninInfo()
     }
     
     // MARK: Navigation
@@ -61,6 +62,43 @@ class CourseOverviewController: UIViewController {
             cccvc.midTerm = course.midterm
             cccvc.finalExam = course.finalExam
             cccvc.lectureTime = course.lectureTime.allObjects as! [LectureTime]
+        }
+    }
+    
+    func retrieveSigninInfo() {
+        ContentManager.sharedInstance.signinInfo(course.course_id) {
+            (success, uuid, enable, total, user, signin_id, message) in
+            // MARK if error present HUD and return
+            
+            if let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell {
+                if success {
+                    cell.successWithText("已签到： \(user) / \(total)")
+                } else {
+                    cell.fail()
+                }
+            }
+            
+            if success {
+                DDLogDebug("\(success) \(enable) \(message)")
+                self.uuidString = NSUUID(UUIDString: uuid)?.UUIDString
+                self.signin_id = signin_id
+                self.isSigninEnabled = enable
+                self.setupLocationManager()
+            }
+        }
+    }
+    
+    @IBAction func signIn(sender: UIButton) {
+        if let cell = courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell {
+            cell.activityIndicator.startAnimating()
+            cell.signInButton.enabled = false
+            
+            if cell.tag == Constants.RefreshTag {
+                retrieveSigninInfo()
+                return
+            }
+            // uuidString, deviceId, signin_id
+            // submit signin
         }
     }
 }
@@ -139,12 +177,16 @@ extension CourseOverviewController: UITableViewDelegate {
 extension CourseOverviewController : CLLocationManagerDelegate {
     
     func setupLocationManager() {
+        if signin_id == nil || uuidString == nil || !isSigninEnabled {
+            return
+        }
+        
         let beaconUUID   = NSUUID(UUIDString: uuidString!)!
         let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
             identifier: beaconIdentifier)
+        beaconRegion.notifyEntryStateOnDisplay = true
         
         locationManager = CLLocationManager()
-        
         if(locationManager.respondsToSelector("requestAlwaysAuthorization")) {
             locationManager.requestAlwaysAuthorization()
         }
@@ -176,22 +218,24 @@ extension CourseOverviewController : CLLocationManagerDelegate {
             inRegion region: CLBeaconRegion!) {
                 if beacons.count > 0 {
                     let nearestBeacon = beacons[0] as! CLBeacon
-                    if nearestBeacon.proximity == .Unknown {
+                    if nearestBeacon.proximity == .Unknown ||
+                        nearestBeacon.proximity == lastProximity {
                         return
                     }
-                    DDLogInfo("Ranging beacons")
+                    DDLogInfo("Beacon found")
                     isBeaconFound = true
-                    manager.stopRangingBeaconsInRegion(region)
-                    manager.stopUpdatingLocation()
+                    lastProximity = nearestBeacon.proximity
+                } else {
+                    lastProximity = .Unknown
                 }
     }
-        
+    
     func locationManager(manager: CLLocationManager!,
         didEnterRegion region: CLRegion!) {
             DDLogInfo("Enter region")
             manager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
             manager.startUpdatingLocation()
-            sendLocalNotificationWithMessage("发现iBeacon，快打开App签到吧~", playSound: true)
+            sendLocalNotificationWithMessage("发现iBeacon，快打开App签到吧~", playSound: false)
     }
         
     func locationManager(manager: CLLocationManager!,
@@ -225,19 +269,26 @@ class SignInTableViewCell: UITableViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var signInLabel: UILabel!
     @IBOutlet weak var signInButton: UIButton!
+    
     func setup() {
         signInLabel.text = "已签到： 0 / 0"
-        signInButton.addTarget(self, action: "signIn:", forControlEvents: .TouchUpInside)
-        activityIndicator.startAnimating()
+        signInButton.setTitle("刷新", forState: .Normal)
     }
     
-    func signIn(sender: UIButton) {
-        activityIndicator.startAnimating()
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-            [weak self] in
-            self?.activityIndicator.stopAnimating()
-        }
+    func successWithText(text: String) {
+        signInLabel.text = text
+        signInButton.enabled = true
+        signInButton.setTitle("签到", forState: .Normal)
+        activityIndicator.stopAnimating()
+        tag = 1
+    }
+    
+    func fail() {
+        signInLabel.text = "已签到： 0 / 0"
+        signInButton.enabled = true
+        signInButton.setTitle("刷新", forState: .Normal)
+        activityIndicator.stopAnimating()
+        tag = 0
     }
 }
 

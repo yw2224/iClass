@@ -13,15 +13,14 @@ enum EditType {
     
     case Edit
     case Inspect
-    
 }
 
 protocol QuestionRetrieveDataSource: class {
     
     var Type: EditType {get set}
     var QuizId: String {get}
+    var QuizName: String {get}
     var AnswerDictionary: NSMutableDictionary {get set}
-    
 }
 
 class QuestionContainerViewController: UIViewController {
@@ -29,10 +28,9 @@ class QuestionContainerViewController: UIViewController {
     var answerDict = NSMutableDictionary()
     // MARK: Init these variables in the presenting view controller's prepareForSegue
     var editType: EditType = .Inspect
-    var quiz_id: String!
+    var quiz: Quiz!
     
     private struct Constants {
-        static var NumOfPages = 0
         static let QuestionViewControllerIdentifier = "Question View Controller"
     }
     
@@ -47,6 +45,8 @@ class QuestionContainerViewController: UIViewController {
             for answer in answerArray {
                 answerDict[answer.question_id] = answer
             }
+        } else {
+            view.backgroundColor = UIColor.flatWhiteColor()
         }
     }
     
@@ -96,7 +96,13 @@ extension QuestionContainerViewController: QuestionRetrieveDataSource {
     
     var QuizId: String {
         get {
-            return quiz_id
+            return quiz.quiz_id
+        }
+    }
+    
+    var QuizName: String {
+        get {
+            return quiz.name
         }
     }
     

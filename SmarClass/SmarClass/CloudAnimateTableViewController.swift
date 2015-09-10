@@ -146,7 +146,7 @@ class CloudAnimateTableViewController: UITableViewController {
                 [weak self] in
                 if $0 {
                     self?.animationDidStart()
-                }
+            }
         }
     }
     

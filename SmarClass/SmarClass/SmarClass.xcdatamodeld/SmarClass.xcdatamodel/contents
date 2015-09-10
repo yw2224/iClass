@@ -3,6 +3,7 @@
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="question_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="originAnswer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" syncable="YES"/>
     </entity>
     <entity name="Avatar" representedClassName="Avatar" syncable="YES">
@@ -64,6 +65,7 @@
         <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Avatar" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Answer" positionX="18" positionY="621" width="128" height="103"/>
         <element name="Avatar" positionX="16" positionY="30" width="128" height="60"/>
         <element name="Choice" positionX="16" positionY="522" width="128" height="60"/>
         <element name="Course" positionX="-297" positionY="120" width="128" height="225"/>
@@ -73,6 +75,5 @@
         <element name="Quiz" positionX="-297" positionY="369" width="128" height="165"/>
         <element name="TeacherNames" positionX="16" positionY="246" width="128" height="60"/>
         <element name="User" positionX="-297" positionY="-18" width="128" height="120"/>
-        <element name="Answer" positionX="18" positionY="621" width="128" height="88"/>
     </elements>
 </model>

@@ -97,10 +97,10 @@ class MainHomeViewController: CloudAnimateTableViewController {
     
     func retrieveCourseList() {
         ContentManager.sharedInstance.courseList {
-            [weak self] (success, courseList, message) in
+            (success, courseList, message) in
             DDLogDebug("\(success) \(message)")
-            self?.courseList = courseList
-            self?.animationDidEnd()
+            self.courseList = courseList
+            self.animationDidEnd()
         }
     }
 }

@@ -24,8 +24,8 @@ class Splash3ViewController: SplashViewController {
     @IBOutlet weak var imageViewTop: NSLayoutConstraint!
     
     private struct Constants {
-        static let laughTopRatio: CGFloat   = 204.0 / 716.0
-        static let laughLeftRatio: CGFloat  = 24.0 / 414.0
+        static let laughTopRatio: CGFloat   = 205.0 / 716.0
+        static let laughLeftRatio: CGFloat  = 32.0 / 414.0
         static let laughWidthRatio: CGFloat = 67.0 / 414.0
         static let cryTopRatio: CGFloat     = 175.0 / 716.0
         static let cryLeftRatio: CGFloat    = 345.0 / 414.0

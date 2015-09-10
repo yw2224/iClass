@@ -42,6 +42,10 @@ class CoreDataManager: NSObject {
         return Quiz.MR_findAllSortedBy("to", ascending: false) as! [Quiz]
     }
     
+    func answerList(quiz_id: String) -> [Answer] {
+        return Answer.MR_findByAttribute("quiz_id", withValue: quiz_id) as! [Answer]
+    }
+    
     func quizContent(quiz_id: String) -> [Question] {
         return Question.MR_findByAttribute("quiz_id", withValue: quiz_id, andOrderBy: "no", ascending: true) as! [Question]
     }
@@ -49,6 +53,12 @@ class CoreDataManager: NSObject {
     func deleteQuestions(quiz_id: String) {
         for question in quizContent(quiz_id) {
             question.MR_deleteEntity()
+        }
+    }
+    
+    func deleteAnswers(quiz_id: String) {
+        for answer in answerList(quiz_id) {
+            answer.MR_deleteEntity()
         }
     }
     

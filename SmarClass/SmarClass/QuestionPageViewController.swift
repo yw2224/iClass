@@ -16,7 +16,6 @@ class QuestionPageViewController: UIPageViewController {
     weak var quizDelegate: QuestionRetrieveDataSource!
     
     private struct Constants {
-        static var NumOfPages = 0
         static let QuestionViewControllerIdentifier = "Question View Controller"
     }
     
@@ -35,18 +34,37 @@ class QuestionPageViewController: UIPageViewController {
     func retrieveQuizContent() {
         // MARK: present HUD
         ContentManager.sharedInstance.quizContent(quizDelegate.QuizId) {
-            [weak self] (success, questionList, message) in
+            (success, questionList, message) in
             DDLogDebug("\(success) \(message)")
             // dismiss HUD
-            // MARK if not success editType = false!!!!
-            self?.questionList = questionList
-            if questionList.count > 0 {
-                self?.setupPageViewController()
+            // MARK: if failed, present HUD
+            self.questionList = questionList
+            if self.quizDelegate.Type == .Edit {
+                self.setupPageViewController()
+            } else {
+                // retrieve origin answer from network
+                self.retrieveOriginAnswers()
             }
         }
     }
     
+    func retrieveOriginAnswers() {
+        ContentManager.sharedInstance.originAnswer(quizDelegate.QuizId) {
+            (success, answerList, message) in
+            // MARK: if failed, present HUD
+            DDLogDebug("\(success) \(message)")
+            for answer in answerList {
+                self.quizDelegate.AnswerDictionary[answer.question_id] = answer
+            }
+            self.setupPageViewController()
+        }
+    }
+    
     func setupPageViewController() {
+        if questionList.count <= 0 {
+            return
+        }
+        
         dataSource = self
         delegate   = self
         setViewControllers([questionChildViewControllerAtIndex(0)!], direction: .Forward, animated: true, completion: nil)

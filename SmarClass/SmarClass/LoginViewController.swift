@@ -170,12 +170,12 @@ class LoginViewController: UIViewController {
     
         if status == LoginStatus.Register {
             ContentManager.sharedInstance.register(input.1, realName: input.2, password: input.3) {
-                [weak self] (success, message) in
+                (success, message) in
                 
-                self?.enableLoginButton()
+                self.enableLoginButton()
 
                 if success {
-                    self?.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: Constants.LoginCollectionViewMarginRatio)
+                    self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: Constants.LoginCollectionViewMarginRatio)
                 } else {
                     println("Showing HUD failed or somewhat")
                     println(message)
@@ -183,12 +183,12 @@ class LoginViewController: UIViewController {
             }
         } else {
             ContentManager.sharedInstance.login("S1", password: "SS1") {
-                [weak self] (success, message) in
+                (success, message) in
                 
-                self?.enableLoginButton()
+                self.enableLoginButton()
 
                 if success {
-                    self?.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
+                    self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
                 } else {
                     println("Showing HUD failed or somewhat")
                     println(message)

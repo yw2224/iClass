@@ -111,7 +111,7 @@ class ContentManager: NSObject {
     
     func courseList(block: ((success: Bool, courseList: [Course], message: String) -> Void)?) {
         NetworkManager.sharedInstance.courseList(ContentManager.User_id, token: ContentManager.Token) {
-            (success, data, message) in
+            (success, data, response) in
             Log.debugLog()
             
             if success { // network success
@@ -126,7 +126,7 @@ class ContentManager: NSObject {
                         }
                         return []
                     }()
-                    block?(success: successValue, courseList: courseList, message: successValue ? "Querying course list success" : json["message"].stringValue)
+                    block?(success: successValue, courseList: courseList, message: successValue ? "Querying course list success" : response.message)
                 }
             } else {
                 // MARK: Retrieve from core data, network error
@@ -140,7 +140,7 @@ class ContentManager: NSObject {
     
     func quizList(course_id: String, block: ((success: Bool, quizList: [Quiz], message: String) -> Void)?) {        
         NetworkManager.sharedInstance.quizList(ContentManager.User_id, token: ContentManager.Token, course_id: course_id) {
-            (success, data, message) in
+            (success, data, response) in
             Log.debugLog()
             
             if success { // network success
@@ -164,7 +164,7 @@ class ContentManager: NSObject {
                             }
                         }
                     }
-                    block?(success: successValue, quizList: quizList, message: successValue ? "Querying quiz list success" : json["message"].stringValue)
+                    block?(success: successValue, quizList: quizList, message: successValue ? "Querying quiz list success" : response.message)
                 }
             } else {
                 // MARK: Retrieve from core data, network error
@@ -178,7 +178,7 @@ class ContentManager: NSObject {
     
     func quizContent(quiz_id: String, block: ((success: Bool, quizContent: [Question], message: String) -> Void)?) {
         NetworkManager.sharedInstance.quizContent(ContentManager.User_id, token: ContentManager.Token, quiz_id: quiz_id) {
-            (success, data, message) in
+            (success, data, response) in
             Log.debugLog()
             
             if success { // network success
@@ -197,7 +197,7 @@ class ContentManager: NSObject {
                         }
                         return []
                     }()
-                    block?(success: successValue, quizContent: quizContent, message: successValue ? "Querying question list success" : json["message"].stringValue)
+                    block?(success: successValue, quizContent: quizContent, message: successValue ? "Querying question list success" : response.message)
                 }
             } else {
                 // MARK: Retrieve from core data, network error
@@ -217,7 +217,7 @@ class ContentManager: NSObject {
         signin_id: String,
         message: String) -> Void)?) {
             NetworkManager.sharedInstance.signinInfo(ContentManager.User_id, token: ContentManager.Token, course_id: course_id) {
-                (success, data, message) in
+                (success, data, response) in
                 Log.debugLog()
                 
                 if success { // network success
@@ -230,7 +230,7 @@ class ContentManager: NSObject {
                             total: json["total"].int ?? 0,
                             user: json["user"].int ?? 0,
                             signin_id: json["signin_id"].string ?? "",
-                            message: successValue ? "Querying signin info success" : json["message"].stringValue)
+                            message: successValue ? "Querying signin info success" : response.message)
 
                     }
                 } else {
@@ -248,6 +248,42 @@ class ContentManager: NSObject {
             }
     }
     
+    func originAnswer(quiz_id: String, block: ((success: Bool, answerList: [Answer], message: String) -> Void)?) {
+        NetworkManager.sharedInstance.originAnswer(ContentManager.User_id, token: ContentManager.Token, quiz_id: quiz_id) {
+            (success, data, response) in
+            Log.debugLog()
+            
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let json = JSON(data!)
+                    let successValue = json["success"].boolValue
+                    var answerList: [Answer] = {
+                        if successValue {
+                            DDLogInfo("Querying answer list")
+                            CoreDataManager.sharedInstance.deleteAnswers(quiz_id)
+                            let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
+                            for answer in answerList {
+                                answer.quiz_id = quiz_id
+                            }
+                            return answerList
+                        }
+                        return []
+                    }()
+                    block?(success: successValue, answerList: answerList, message: successValue ? "Querying answer list success" : response.message)
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let answerList = CoreDataManager.sharedInstance.answerList(quiz_id)
+                    block?(success: false, answerList: answerList, message: "Cahced answer list")
+                }
+            }
+        }
+    }
+    
+    func cleanUpCoreData() {
+        
+    }
+    
     private func saveConfidential(user_id: String, token: String, password: String) {
         if let _id = ContentManager.User_id {
             if _id != user_id {
@@ -257,9 +293,5 @@ class ContentManager: NSObject {
         ContentManager.User_id = user_id
         ContentManager.Token = token
         ContentManager.Password = password
-    }
-    
-    func cleanUpCoreData() {
-        
     }
 }

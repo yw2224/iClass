@@ -77,14 +77,13 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
                     calendar.enumerateDatesStartingAfterDate(refer,
                         matchingComponents: components,
                         options: .MatchStrictly) {
-                            [weak self] (date, Bool, stop) in
-                            if self?.endDate.compare(date) == .OrderedAscending {
+                            (date, Bool, stop) in
+                            if self.endDate.compare(date) == .OrderedAscending {
                                 stop.memory = true
                             }
-                            if let key = self?.formatter.stringFromDate(date) {
-                                if self?.importantDate[key] == nil {
-                                    self?.importantDate[key] = .Lecture
-                                }
+                            let key = self.formatter.stringFromDate(date)
+                            if self.importantDate[key] == nil {
+                                self.importantDate[key] = .Lecture
                             }
                     }
                 }
