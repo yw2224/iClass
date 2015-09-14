@@ -21,4 +21,11 @@ struct GlobalConstants {
         GradientColor(.LeftToRight, UIScreen.mainScreen().bounds, [FlatWatermelon(), FlatPowderBlue()]),
     ]
     static var EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+    static let HomePageLinks = [
+        "http://net.pku.edu.cn",
+        "http://net.pku.edu.cn",
+        "http://net.pku.edu.cn",
+        "http://www.pixiv.net/member.php?id=4007606",
+        "http://net.pku.edu.cn"
+    ]
 }

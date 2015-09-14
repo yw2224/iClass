@@ -63,17 +63,22 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var loginTableView: UITableView!
     @IBOutlet weak var SNSCollectionView: UICollectionView!
+    @IBOutlet weak var blankViewHeight: NSLayoutConstraint!
     
     private struct Constants {
-        static let LoginToMainHomeSegueIdentifier = "Login To MainHome Segue"
-        static let HeaderHeight: CGFloat = 100.0
-        static let FooterHeight: CGFloat = 72.0
+        static let LoginToMainHomeSegueIdentifier             = "Login To MainHome Segue"
+        static let HeaderHeight: CGFloat                      = 100.0
+        static let FooterHeight: CGFloat                      = 72.0
+        static let LoginTableViewHeight: CGFloat              = 304
         static let RegisterCollectionViewMarginRatio: CGFloat = 0.3
-        static let LoginCollectionViewMarginRatio: CGFloat = 0.24
-        static let CollectionViewCellIdentifier = "SNS Cell"
-        static let CollectionViewHeaderIdentifier = "SNS Header"
-        static let CollectionCellWidth: CGFloat = 50.0
-        static let CollectionCellHeight: CGFloat = 80.0
+        static let LoginCollectionViewMarginRatio: CGFloat    = 0.24
+        static let CollectionViewCellIdentifier               = "SNS Cell"
+        static let CollectionViewHeaderIdentifier             = "SNS Header"
+        static let CollectionCellWidth: CGFloat               = 50.0
+        static let CollectionCellHeight: CGFloat              = 80.0
+        static let CollectionViewHeight: CGFloat              = 110.0
+        static let LoginButtonHeight: CGFloat                 = 34.0
+        static let StatusBarHeight: CGFloat                   = 20.0
     }
     
     override func viewDidLoad() {
@@ -99,6 +104,12 @@ class LoginViewController: UIViewController {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         SNSCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        let height = CGRectGetHeight(view.frame)
+        let blankHeight = (height - Constants.CollectionViewHeight - Constants.LoginTableViewHeight - Constants.LoginButtonHeight - Constants.StatusBarHeight) / 3.5
+        blankViewHeight.constant = max(blankHeight, 8)
     }
     
     func setupButton() {

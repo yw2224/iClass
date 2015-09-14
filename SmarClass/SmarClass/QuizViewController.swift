@@ -63,7 +63,9 @@ class QuizViewController: CloudAnimateTableViewController {
             let cell = sender as? QuizTableViewCell {
                 let indexPath = tableView.indexPathForCell(cell)!
                 let quiz = quizList[indexPath.row]
-                qcvc.quiz = quiz
+                qcvc.quizId = quiz.quiz_id
+                qcvc.quizName = quiz.name
+                qcvc.courseId = quiz.course_id
                 qcvc.editType = quiz.correct.integerValue == -1 ? .Edit : .Inspect
         }
     }

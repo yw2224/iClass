@@ -26,6 +26,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     private struct Constants {
         static let CellIdentifier = "Course Cell"
         static let CourseCellHeight : CGFloat = 88.0
+        static let PresentCourseOverviewSegueIdentifier = "Present Course Overview Segue"
     }
     
     // MARK: Life cycle
@@ -38,6 +39,11 @@ class MainHomeViewController: CloudAnimateTableViewController {
         tableView.estimatedRowHeight = Constants.CourseCellHeight
         
         retrieveCourseList()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.userInteractionEnabled = true
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -142,6 +148,14 @@ extension MainHomeViewController: UITableViewDataSource {
         return cell
     }
     
+}
+
+extension MainHomeViewController: UITableViewDelegate {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        tableView.userInteractionEnabled = false
+        performSegueWithIdentifier(Constants.PresentCourseOverviewSegueIdentifier, sender: cell)
+    }
 }
 
 class CourseTableViewCell : UITableViewCell {

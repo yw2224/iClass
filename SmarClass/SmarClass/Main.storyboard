@@ -201,7 +201,6 @@
                                     <outlet property="bookCover" destination="GSm-IB-qAt" id="YDY-RJ-TiS"/>
                                     <outlet property="courseName" destination="Yl1-ts-6Ls" id="dos-2m-vqp"/>
                                     <outlet property="teacherLabel" destination="QPz-h0-2cq" id="J0M-og-tLv"/>
-                                    <segue destination="Cnu-PV-qD0" kind="custom" customClass="CrossDissolveSegue" customModule="SmarClass" customModuleProvider="target" id="h1i-GN-jMz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -229,6 +228,10 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="gB3-Ba-QvK">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <segue destination="43J-XR-eDk" kind="presentation" identifier="About Us  Segue" modalTransitionStyle="crossDissolve" id="ZYK-W0-3Qu"/>
+                        <segue destination="Cnu-PV-qD0" kind="custom" identifier="Present Course Overview Segue" customClass="CrossDissolveSegue" customModule="SmarClass" customModuleProvider="target" id="0Ez-qU-IND"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eH9-Dn-vm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -512,6 +515,65 @@
             </objects>
             <point key="canvasLocation" x="3958" y="1407"/>
         </scene>
+        <!--关于我们-->
+        <scene sceneID="D7A-4e-EC9">
+            <objects>
+                <viewController title="关于我们" id="DHp-4B-5LB" customClass="AboutUsViewController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xxE-gc-fhb"/>
+                        <viewControllerLayoutGuide type="bottom" id="fWX-tK-fy4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6if-h9-cbL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="fEO-uB-zwA">
+                                <rect key="frame" x="264" y="555" width="71" height="37"/>
+                                <color key="pageIndicatorTintColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.51784205436706543" green="0.58159953355789185" blue="0.58617168664932251" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-YZ-ogt" customClass="iCarousel">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="DHp-4B-5LB" id="IHP-nF-WQQ"/>
+                                    <outlet property="delegate" destination="DHp-4B-5LB" id="bPx-2K-tuO"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4t2-YZ-ogt" firstAttribute="top" secondItem="xxE-gc-fhb" secondAttribute="bottom" id="NQ1-Qd-tJg"/>
+                            <constraint firstItem="4t2-YZ-ogt" firstAttribute="top" secondItem="xxE-gc-fhb" secondAttribute="bottom" id="Ono-jx-R1E"/>
+                            <constraint firstAttribute="trailing" secondItem="4t2-YZ-ogt" secondAttribute="trailing" id="SgI-Lf-UwE"/>
+                            <constraint firstAttribute="centerX" secondItem="fEO-uB-zwA" secondAttribute="centerX" id="Wma-tH-TTm"/>
+                            <constraint firstItem="fWX-tK-fy4" firstAttribute="top" secondItem="4t2-YZ-ogt" secondAttribute="bottom" id="eLb-gP-3Fb"/>
+                            <constraint firstItem="4t2-YZ-ogt" firstAttribute="leading" secondItem="6if-h9-cbL" secondAttribute="leading" id="i98-VX-bcL"/>
+                            <constraint firstItem="fWX-tK-fy4" firstAttribute="top" secondItem="fEO-uB-zwA" secondAttribute="bottom" constant="8" symbolic="YES" id="xI3-Fx-DnA"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="NQ1-Qd-tJg"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="关于我们" id="vuH-un-n5D">
+                        <barButtonItem key="leftBarButtonItem" title="课程库" id="y0k-1R-sCe">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="MhJ-rN-u2X" kind="unwind" unwindAction="unwindToHomePage:" id="VIh-RZ-WzE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="carousel" destination="4t2-YZ-ogt" id="GQg-9r-taq"/>
+                        <outlet property="pageControl" destination="fEO-uB-zwA" id="AsL-Qm-hfC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d64-Fq-dNC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="MhJ-rN-u2X" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-5" y="329"/>
+        </scene>
         <!--Side Panel View Controller-->
         <scene sceneID="bW9-0G-n1C">
             <objects>
@@ -607,7 +669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axX-LW-v6B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2324" y="329"/>
+            <point key="canvasLocation" x="-1599" y="329"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="hkr-Yf-7ki">
@@ -921,7 +983,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uc3-rg-qaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="pn2-Ln-8rN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1772" y="553"/>
+            <point key="canvasLocation" x="1772" y="609"/>
         </scene>
         <!--课程概述-->
         <scene sceneID="mq3-1X-TsK">
@@ -958,7 +1020,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddq-Af-R0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2545" y="-172"/>
+            <point key="canvasLocation" x="2545" y="-116"/>
         </scene>
         <!--重要日期-->
         <scene sceneID="h4J-8E-C5N">
@@ -1065,7 +1127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZYW-7A-zkW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2545" y="553"/>
+            <point key="canvasLocation" x="2545" y="609"/>
         </scene>
         <!--课程-->
         <scene sceneID="TpV-zI-dUF">
@@ -1089,7 +1151,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HS-KT-8V7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="968" y="553"/>
+            <point key="canvasLocation" x="968" y="609"/>
         </scene>
         <!--测验-->
         <scene sceneID="jJ3-vw-Dxn">
@@ -1443,6 +1505,9 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvW-35-7GP">
                                         <rect key="frame" x="228" y="349" width="144" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="48j-Sm-ai8"/>
+                                        </constraints>
                                         <state key="normal" title="注册课堂助手账号">
                                             <color key="titleColor" red="0.68888300657272339" green="0.71366006135940552" blue="0.73448425531387329" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1663,6 +1728,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qd-qo-wwo">
                                         <rect key="frame" x="0.0" y="304" width="600" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="fqI-of-PaA"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CIq-Gx-Opg">
                                         <rect key="frame" x="0.0" y="383.5" width="600" height="112.5"/>
@@ -1695,13 +1763,13 @@
                             <constraint firstItem="SAI-ue-7Qg" firstAttribute="leading" secondItem="XbD-im-wVe" secondAttribute="leading" id="OGg-Z4-7EG"/>
                             <constraint firstAttribute="trailing" secondItem="SAI-ue-7Qg" secondAttribute="trailing" id="OaR-8C-cIS"/>
                             <constraint firstItem="SAI-ue-7Qg" firstAttribute="top" secondItem="bms-9l-tgd" secondAttribute="bottom" id="V1Z-js-HLo"/>
-                            <constraint firstItem="8qd-qo-wwo" firstAttribute="height" secondItem="XbD-im-wVe" secondAttribute="height" multiplier="0.075" id="gRH-YY-AmB"/>
                             <constraint firstItem="hal-Yn-RiJ" firstAttribute="top" secondItem="SAI-ue-7Qg" secondAttribute="bottom" id="obn-2M-6e5"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <connections>
                         <outlet property="SNSCollectionView" destination="xbG-sk-q8Z" id="kYo-H7-WvR"/>
+                        <outlet property="blankViewHeight" destination="fqI-of-PaA" id="8Jk-iZ-gzG"/>
                         <outlet property="loginButton" destination="7Y3-DE-G1S" id="5jq-8J-cmT"/>
                         <outlet property="loginIndicator" destination="vyb-T1-9Dz" id="9sy-cO-qtZ"/>
                         <outlet property="loginTableView" destination="SYd-IW-XAh" id="1iE-zJ-IuZ"/>
@@ -1853,7 +1921,28 @@
                     <nil key="highlightedColor"/>
                 </label>
             </objects>
-            <point key="canvasLocation" x="3300" y="552.5"/>
+            <point key="canvasLocation" x="3300" y="607.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CRV-uk-Jqn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="43J-XR-eDk" customClass="NavigationController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MoL-oC-Aez">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DHp-4B-5LB" kind="relationship" relationship="rootViewController" id="iGw-eu-011"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8NJ-JS-7WS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-836" y="329"/>
         </scene>
     </scenes>
     <resources>

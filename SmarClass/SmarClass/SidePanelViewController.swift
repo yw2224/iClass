@@ -10,8 +10,7 @@ import UIKit
 
 @objc protocol SidePanelDelegate: class {
     
-    optional func sidePanelTappedAtRow(row: Int)
-    
+    optional func sidePanelTappedAtRow(row: Int, sender: AnyObject)
 }
 
 class SidePanelViewController: UIViewController {
@@ -108,14 +107,8 @@ extension SidePanelViewController: UITableViewDelegate {
     }
     
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("row selected: \(indexPath.section) \(indexPath.row)")
-//		if indexPath.section == 2 && indexPath.row == 2 {
-//			jumpToLoginPage()
-//		}else if indexPath.section == 0 && indexPath.row == 0{
-////			jumpToPersonalInfoPage()
-//			performSegueWithIdentifier(Constants.PersonalInfoSegue, sender: self)
-//		}
-		
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        delegate?.sidePanelTappedAtRow?(indexPath.row, sender: cell)
 	}
 }
 

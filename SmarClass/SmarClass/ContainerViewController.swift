@@ -54,6 +54,7 @@ class ContainerViewController: UIViewController {
     private struct Constants {
         static let NavigationControllerIdentifier = "Course Navigation View Controller"
         static let SidebarViewControllerIdentifier = "User Siddebar View Controller"
+        static let AboutUsSegueIdentifier = "About Us  Segue"
         static let SidePanelOffsetRatio: CGFloat = 0.46
         static let PortraitScaleRatio: CGFloat = 0.90
         static let LandscapeScaleRatio: CGFloat = 0.85
@@ -123,13 +124,13 @@ extension ContainerViewController: CenteralViewDelegate {
     // Helpers
     func addLeftPanelViewController() {
         if userSidebarViewController == nil {
-            userSidebarViewController = UIStoryboard.initViewControllerWithIdentifier(Constants.SidebarViewControllerIdentifier) as? SidePanelViewController
-            userSidebarViewController!.delegate = self
+            userSidebarViewController = UIStoryboard.initViewControllerWithIdentifier(Constants.SidebarViewControllerIdentifier) as! SidePanelViewController
+            userSidebarViewController.delegate = self
             
             userSidebarViewController.view.backgroundColor = UIColor.clearColor()
             view.insertSubview(userSidebarViewController!.view, atIndex: 0)
             addChildViewController(userSidebarViewController!)
-            userSidebarViewController!.didMoveToParentViewController(self)
+            userSidebarViewController.didMoveToParentViewController(self)
             userSidebarViewController.view.alpha = Constants.OriginAlpha
             view.backgroundColor = UIColor(white: Constants.OriginBackgroundColor, alpha: 1.0)
         }
@@ -142,7 +143,7 @@ extension ContainerViewController: CenteralViewDelegate {
         }
     }
     
-    func animateLeftPanel(#shouldExpand: Bool, animate: Bool) {
+    func animateLeftPanel(#shouldExpand: Bool, animate: Bool, block: (() -> Void)? = nil) {
         isAnimating = true
         gestureDisabled = true
         if (shouldExpand) {
@@ -152,6 +153,7 @@ extension ContainerViewController: CenteralViewDelegate {
                 if $0 {
                     self?.isAnimating = false
                     self?.gestureDisabled = false
+                    block?()
                 }
             }
         } else {
@@ -161,6 +163,7 @@ extension ContainerViewController: CenteralViewDelegate {
                     self?.currentState = .BothCollapsed
                     self?.isAnimating = false
                     self?.gestureDisabled = false
+                    block?()
                 }
             }
         }
@@ -168,7 +171,7 @@ extension ContainerViewController: CenteralViewDelegate {
     
     func animateCenterPanelXPosition(#ratio: CGFloat, animate: Bool, completion: ((Bool) -> Void)) {
         if animate {
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
                 self.partialAnimation(ratio)
             }, completion: completion)
         } else {
@@ -196,7 +199,11 @@ extension ContainerViewController: CenteralViewDelegate {
 }
 
 extension ContainerViewController: SidePanelDelegate {
-    
+    func sidePanelTappedAtRow(row: Int, sender: AnyObject) {
+        animateLeftPanel(shouldExpand: false, animate: true) {
+            self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)
+        }
+    }
 }
 
 // MARK: Gesture recognizer

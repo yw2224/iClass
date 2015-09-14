@@ -34,6 +34,10 @@
 		F8D4DAF11B9695A6000B771A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF01B9695A6000B771A /* Course.swift */; };
 		F8D4DAF31B9695A6000B771A /* LectureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF21B9695A6000B771A /* LectureTime.swift */; };
 		F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF41B9695A6000B771A /* TeacherNames.swift */; };
+		F8D742721BA1933300B346EE /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D742711BA1933300B346EE /* iCarousel.m */; };
+		F8D742761BA1945E00B346EE /* AboutUsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8D742751BA1945E00B346EE /* AboutUsView.xib */; };
+		F8D742781BA1947D00B346EE /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D742771BA1947D00B346EE /* AboutUsView.swift */; };
+		F8D7427A1BA1A34500B346EE /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D742791BA1A34500B346EE /* AboutUsViewController.swift */; };
 		F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */; };
 		F8F16B121B9C168F00170D64 /* QuestionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */; };
 		F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */; };
@@ -113,6 +117,11 @@
 		F8D4DAF01B9695A6000B771A /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		F8D4DAF21B9695A6000B771A /* LectureTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LectureTime.swift; sourceTree = "<group>"; };
 		F8D4DAF41B9695A6000B771A /* TeacherNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherNames.swift; sourceTree = "<group>"; };
+		F8D742701BA1933300B346EE /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		F8D742711BA1933300B346EE /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		F8D742751BA1945E00B346EE /* AboutUsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsView.xib; sourceTree = "<group>"; };
+		F8D742771BA1947D00B346EE /* AboutUsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
+		F8D742791BA1A34500B346EE /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutUsViewController.swift; path = SmarClass/AboutUsViewController.swift; sourceTree = "<group>"; };
 		F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPanelViewController.swift; sourceTree = "<group>"; };
 		F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContainerViewController.swift; sourceTree = "<group>"; };
 		F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = SmarClass/GlobalConstants.swift; sourceTree = "<group>"; };
@@ -331,6 +340,34 @@
 			name = "Content Retrieve Manager";
 			sourceTree = "<group>";
 		};
+		F8D742731BA1933700B346EE /* Vendor-iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				F8D742701BA1933300B346EE /* iCarousel.h */,
+				F8D742711BA1933300B346EE /* iCarousel.m */,
+			);
+			name = "Vendor-iCarousel";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F8D742741BA1942300B346EE /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				F8D742771BA1947D00B346EE /* AboutUsView.swift */,
+				F8D742751BA1945E00B346EE /* AboutUsView.xib */,
+			);
+			name = iCarousel;
+			sourceTree = "<group>";
+		};
+		F8D7427B1BA1A34D00B346EE /* About Us */ = {
+			isa = PBXGroup;
+			children = (
+				F8D742791BA1A34500B346EE /* AboutUsViewController.swift */,
+			);
+			name = "About Us";
+			path = ..;
+			sourceTree = "<group>";
+		};
 		F8F3A1321B5775AC004733B3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,6 +421,7 @@
 				F86537E01B96E85600BFCF6D /* Quiz */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
 				F81FEE471B8D847200363501 /* Personal Info */,
+				F8D7427B1BA1A34D00B346EE /* About Us */,
 			);
 			name = "View Controllers";
 			path = SmarClass;
@@ -438,6 +476,8 @@
 		F8FEFE731B564B0B004FA01C /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				F8D742731BA1933700B346EE /* Vendor-iCarousel */,
+				F8D742741BA1942300B346EE /* iCarousel */,
 				F8F3D6001B90377D001ADDCE /* Badge */,
 				F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */,
 				F86537E31B96EB6D00BFCF6D /* Avatar */,
@@ -575,6 +615,7 @@
 				F86537E21B96EB6600BFCF6D /* AvatarView.xib in Resources */,
 				F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */,
 				F8C5D2C81B9EFCCD00E9EA02 /* tos_beep.caf in Resources */,
+				F8D742761BA1945E00B346EE /* AboutUsView.xib in Resources */,
 				F87957AB1B9C2A7A001B06E4 /* ChoiceView.xib in Resources */,
 				F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */,
 			);
@@ -658,9 +699,11 @@
 				F8F3A1341B577B04004733B3 /* NetworkManager.swift in Sources */,
 				F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */,
 				F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */,
+				F8D742781BA1947D00B346EE /* AboutUsView.swift in Sources */,
 				F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */,
 				F87957B41B9D5E09001B06E4 /* Option.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
+				F8D7427A1BA1A34500B346EE /* AboutUsViewController.swift in Sources */,
 				F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */,
 				F8D4DAEF1B9695A6000B771A /* Avatar.swift in Sources */,
 				F824B22B1B9E6BB90003827B /* Choice.swift in Sources */,
@@ -673,6 +716,7 @@
 				F8D4DAED1B9695A5000B771A /* User.swift in Sources */,
 				F8D4DAF11B9695A6000B771A /* Course.swift in Sources */,
 				F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */,
+				F8D742721BA1933300B346EE /* iCarousel.m in Sources */,
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
 				F8B7CDF61B5E75B000F2B8EB /* CrossDisappearSegue.swift in Sources */,

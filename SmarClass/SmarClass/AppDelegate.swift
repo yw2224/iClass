@@ -29,6 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         )
         
+        Answer.MR_truncateAll()
+        Choice.MR_truncateAll()
+        TeacherNames.MR_truncateAll()
+        LectureTime.MR_truncateAll()
+        
         return true
     }
 

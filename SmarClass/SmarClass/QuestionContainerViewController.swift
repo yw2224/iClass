@@ -29,7 +29,9 @@ class QuestionContainerViewController: UIViewController {
     var answerDict = NSMutableDictionary()
     // MARK: Init these variables in the presenting view controller's prepareForSegue
     var editType: EditType = .Inspect
-    var quiz: Quiz!
+    var quizId: String!
+    var quizName: String!
+    var courseId: String!
     
     private struct Constants {
         static let QuestionViewControllerIdentifier = "Question View Controller"
@@ -90,7 +92,7 @@ class QuestionContainerViewController: UIViewController {
             }
             status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))
         }
-        ContentManager.sharedInstance.submitAnswer(quiz.course_id, quiz_id: quiz.quiz_id, status: status) { (success, answerList, message) in
+        ContentManager.sharedInstance.submitAnswer(courseId, quiz_id: quizId, status: status) { (success, answerList, message) in
             DDLogDebug("\(success) \(answerList)")
             
             if success {
@@ -113,19 +115,19 @@ extension QuestionContainerViewController: QuestionRetrieveDataSource {
     
     var QuizId: String {
         get {
-            return quiz.quiz_id
+            return quizId
         }
     }
     
     var QuizName: String {
         get {
-            return quiz.name
+            return quizName
         }
     }
     
     var CourseId: String {
         get {
-            return quiz.course_id
+            return courseId
         }
     }
     
