@@ -29,12 +29,12 @@ class Course: NSManagedObject {
     var teacherNameString: String {
         get {
             var str = ""
-            var teacherNameArray: [String] = {
+            let teacherNameArray: [String] = {
                 var array = [String]()
                 for teacherName in self.teacherNames.allObjects {
                     array.append(teacherName.name)
                 }
-                array.sort() {
+                array.sortInPlace() {
                     return $0 < $1
                 }
                 return array

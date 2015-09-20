@@ -91,7 +91,7 @@ extension LoginContainerViewController: UIPageViewControllerDataSource {
 
 extension LoginContainerViewController: UIPageViewControllerDelegate {
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed,
             let current = pageViewController.viewControllers[0] as? SplashViewController {
             if current.index >= 0 && current.index < Constants.NumOfPages {

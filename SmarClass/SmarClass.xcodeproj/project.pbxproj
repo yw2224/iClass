@@ -39,6 +39,7 @@
 		F8D742781BA1947D00B346EE /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D742771BA1947D00B346EE /* AboutUsView.swift */; };
 		F8D7427A1BA1A34500B346EE /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D742791BA1A34500B346EE /* AboutUsViewController.swift */; };
 		F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */; };
+		F8E3C2711BA9A63F006928F3 /* AttendCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3C2701BA9A63F006928F3 /* AttendCourseViewController.swift */; };
 		F8F16B121B9C168F00170D64 /* QuestionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */; };
 		F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */; };
 		F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1301B576D69004733B3 /* FileManager.swift */; };
@@ -123,6 +124,7 @@
 		F8D742771BA1947D00B346EE /* AboutUsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		F8D742791BA1A34500B346EE /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutUsViewController.swift; path = SmarClass/AboutUsViewController.swift; sourceTree = "<group>"; };
 		F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPanelViewController.swift; sourceTree = "<group>"; };
+		F8E3C2701BA9A63F006928F3 /* AttendCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttendCourseViewController.swift; path = SmarClass/AttendCourseViewController.swift; sourceTree = "<group>"; };
 		F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContainerViewController.swift; sourceTree = "<group>"; };
 		F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = SmarClass/GlobalConstants.swift; sourceTree = "<group>"; };
 		F8F3A1301B576D69004733B3 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = SmarClass/FileManager.swift; sourceTree = "<group>"; };
@@ -368,6 +370,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		F8E3C26F1BA9A5D6006928F3 /* Attend Course */ = {
+			isa = PBXGroup;
+			children = (
+				F8E3C2701BA9A63F006928F3 /* AttendCourseViewController.swift */,
+			);
+			name = "Attend Course";
+			path = ..;
+			sourceTree = "<group>";
+		};
 		F8F3A1321B5775AC004733B3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +432,7 @@
 				F86537E01B96E85600BFCF6D /* Quiz */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
 				F81FEE471B8D847200363501 /* Personal Info */,
+				F8E3C26F1BA9A5D6006928F3 /* Attend Course */,
 				F8D7427B1BA1A34D00B346EE /* About Us */,
 			);
 			name = "View Controllers";
@@ -558,6 +570,8 @@
 		F8FEFDFC1B56479C004FA01C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = PKU;
 				TargetAttributes = {
@@ -729,6 +743,7 @@
 				F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */,
 				F8FEFE411B5647F8004FA01C /* PersonalInfoViewController.swift in Sources */,
 				F8D4DAF31B9695A6000B771A /* LectureTime.swift in Sources */,
+				F8E3C2711BA9A63F006928F3 /* AttendCourseViewController.swift in Sources */,
 				F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */,
 				F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */,
 				F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */,

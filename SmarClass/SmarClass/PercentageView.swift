@@ -41,7 +41,7 @@ class PercentageView: UIView {
         layerSetup()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         // 1. setup any properties here
         
         // 2. call super.init(coder:)
@@ -57,7 +57,7 @@ class PercentageView: UIView {
         percentageLabel.textAlignment = .Center
         percentageLabel.font = UIFont.systemFontOfSize(14.0)
         
-        percentageLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        percentageLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(percentageLabel)
         let centerX = NSLayoutConstraint(item: percentageLabel, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0.0)
         let centerY = NSLayoutConstraint(item: percentageLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0)

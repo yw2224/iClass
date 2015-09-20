@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarStyle = .LightContent
         application.registerUserNotificationSettings(
             UIUserNotificationSettings(
-                forTypes: .Alert | .Sound,
+                forTypes: [.Alert, .Sound],
                 categories: nil
             )
         )

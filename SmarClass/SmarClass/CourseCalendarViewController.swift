@@ -68,9 +68,9 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
             
             let calendar = NSCalendar.currentCalendar()
             if let refer = calendar.nextDateAfterDate(startDate,
-                matchingUnit: .CalendarUnitWeekday,
+                matchingUnit: .Weekday,
                 value: weekDayConvert(Constants.Sunday),
-                options: .SearchBackwards | .MatchStrictly) {
+                options: [.SearchBackwards, .MatchStrictly]) {
                 for lt in lectureTime {
                     let components = NSDateComponents()
                     components.weekday = weekDayConvert(lt.weekday.integerValue)
@@ -91,7 +91,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
         }
         
         countLectureTime()
-        collectionView?.delegate = self
+        collectionView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {

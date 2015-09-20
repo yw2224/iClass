@@ -22,7 +22,7 @@ class PersonalInfoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
+		self.tableView.tableFooterView = UIView(frame: CGRect.zero)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -52,7 +52,7 @@ class PersonalInfoTableViewController: UITableViewController {
 
 	
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(InnerConstants.cellIdentifiers[indexPath.row]!, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(InnerConstants.cellIdentifiers[indexPath.row]!, forIndexPath: indexPath) 
 
 		switch indexPath.row {
 		case 0:
@@ -97,7 +97,7 @@ class PersonalInfoTableViewController: UITableViewController {
 		var action = UIAlertAction(
 			title: "确定",
 			style: UIAlertActionStyle.Default)
-			{ (action:UIAlertAction!) -> Void in
+			{ (action:UIAlertAction) -> Void in
 				if let textfield = alert.textFields?.first as? UITextField{
 					let realname = textfield.text
 					self.modifyRealName(realname)
@@ -106,7 +106,7 @@ class PersonalInfoTableViewController: UITableViewController {
 		alert.addAction(UIAlertAction(
 			title: "取消",
 			style: UIAlertActionStyle.Cancel,
-			handler: { (action:UIAlertAction!) -> Void in
+			handler: { (action:UIAlertAction) -> Void in
 				//do nothing
 		}))
 		alert.addAction(action)

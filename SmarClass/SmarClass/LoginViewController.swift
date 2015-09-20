@@ -127,37 +127,37 @@ class LoginViewController: UIViewController {
     
     func checkInput() -> (Bool, String, String, String) {
         let indexes = cellIndexes[status]
-        let someDigitsRegex = NSRegularExpression(pattern: "\\d+", options: .allZeros, error: nil)!
+        let someDigitsRegex = try! NSRegularExpression(pattern: "\\d+", options: [])
         func trimWhiteSpace(text: String) -> String {
             return text.stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
         }
         
         if status == LoginStatus.Register {
-            let (name: String, realName: String, password: String) = {
+            let (name, realName, password): (String, String, String) = {
                 return (trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($0) as! LoginTableViewCell).textFieldContent()),
                         trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($1) as! LoginTableViewCell).textFieldContent()),
                         trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($2) as! LoginTableViewCell).textFieldContent()))
             } (indexes!["name"]!, indexes!["realName"]!, indexes!["password"]!)
             
-            if count(name) == 0 || count(realName) == 0 || count(password) == 0 {
+            if name.characters.count == 0 || realName.characters.count == 0 || password.characters.count == 0 {
                 return (false, name, realName, password)
             }
-            let regexResult = someDigitsRegex.matchesInString(name, options: .allZeros, range: NSMakeRange(0, count(name)))
-            if count(regexResult) != 1 {
+            let regexResult = someDigitsRegex.matchesInString(name, options: [], range: NSMakeRange(0, name.characters.count))
+            if regexResult.count != 1 {
                 return (false, name, realName, password)
             }
             return (true, name, realName, password)
         } else {
-            let (name: String, password: String) = {
+            let (name, password): (String, String) = {
                 return (trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($0) as! LoginTableViewCell).textFieldContent()),
                     trimWhiteSpace((self.loginTableView.cellForRowAtIndexPath($1) as! LoginTableViewCell).textFieldContent()))
                 } (indexes!["name"]!, indexes!["password"]!)
             
-            if count(name) == 0 || count(password) == 0 {
+            if name.characters.count == 0 || password.characters.count == 0 {
                 return (false, name, "", password)
             }
-            let regexResult = someDigitsRegex.matchesInString(name, options: .allZeros, range: NSMakeRange(0, count(name)))
-            if count(regexResult) != 1 {
+            let regexResult = someDigitsRegex.matchesInString(name, options: [], range: NSMakeRange(0, name.characters.count))
+            if regexResult.count != 1 {
                 return (false, name, "", password)
             }
             return (true, name, "", password)
@@ -169,7 +169,7 @@ class LoginViewController: UIViewController {
         var title = loginButton.currentTitle
         if !input.0 {
             //  Show a HUD or somewhat
-            println("Showing HUD")
+            print("Showing HUD")
             return
         }
         
@@ -188,8 +188,8 @@ class LoginViewController: UIViewController {
                 if success {
                     self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: Constants.LoginCollectionViewMarginRatio)
                 } else {
-                    println("Showing HUD failed or somewhat")
-                    println(message)
+                    print("Showing HUD failed or somewhat")
+                    print(message)
                 }
             }
         } else {
@@ -201,8 +201,8 @@ class LoginViewController: UIViewController {
                 if success {
                     self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
                 } else {
-                    println("Showing HUD failed or somewhat")
-                    println(message)
+                    print("Showing HUD failed or somewhat")
+                    print(message)
                 }
             }
         }
@@ -262,7 +262,7 @@ extension LoginViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var (cellId: String, text: String) = {
+        var (cellId, text): (String, String) = {
             if let content = self.rowIdentifiers[self.status]?[indexPath.row] {
                 return (content == "Empty" ? content : "Text", content)
             }
@@ -337,7 +337,7 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDelegat
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        println(indexPath)
+        print(indexPath)
     }
 }
 

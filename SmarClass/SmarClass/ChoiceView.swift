@@ -43,7 +43,7 @@ class ChoiceView: UIView {
         layerSetup()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         // 1. setup any properties here
         
         // 2. call super.init(coder:)
@@ -61,7 +61,7 @@ class ChoiceView: UIView {
         view.frame = bounds
         
         // Make the view stretch with containing view
-        view.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         
         // Adding custom subview on top of our view (over any custom drawing > see note below)
         addSubview(view)
@@ -92,12 +92,12 @@ class ChoiceView: UIView {
     
     /**
     Convert string into title, e.g., 1 -> A, 1 -> B ... 27 -> AA
-    :param: n n int
-    :returns: converted string
+    - parameter n: n int
+    - returns: converted string
     */
     func convertToTitle(var number: Int) -> String {
         var ret = ""
-        do {
+        repeat {
             let A = ("A" as Character).unicodeScalarCodePoint() + (--number) % 26
             let c = Character(UnicodeScalar(UInt32(A)))
             ret = String(c) + ret

@@ -14,8 +14,8 @@ class CrossDissolveSegue: UIStoryboardSegue {
     
     override func perform() {
         
-        let svc = sourceViewController as! UIViewController
-        let dvc = destinationViewController as! UIViewController
+        let svc = sourceViewController 
+        let dvc = destinationViewController 
         
         let popOverView: UIImageView = {
             let length = min(CGRectGetWidth(svc.view.frame), CGRectGetHeight(svc.view.frame))

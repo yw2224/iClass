@@ -12,8 +12,8 @@ class CrossDisappearSegue: UIStoryboardSegue {
    
     override func perform() {
         
-        let svc = sourceViewController as! UIViewController
-        let dvc = destinationViewController as! UIViewController
+        let svc = sourceViewController 
+        let dvc = destinationViewController 
         
         let frame = svc.view.frame
         let center = svc.view.center

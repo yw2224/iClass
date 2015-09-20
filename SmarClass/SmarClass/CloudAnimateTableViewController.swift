@@ -178,11 +178,11 @@ extension CloudAnimateTableViewController: UIScrollViewDelegate, RefreshControlH
         var refreshBounds = refreshControl!.bounds
         
         // Distance the table has been pulled >= 0
-        var pullDistance = max(0.0, -refreshControl!.frame.origin.y)
+        let pullDistance = max(0.0, -refreshControl!.frame.origin.y)
         
         // Calculate the pull ratio, between 0.0-1.0
-        var pullRatio = min( max(pullDistance, 0.0), 100.0) / 50.0
-        var scaleRatio = 1 + pullRatio
+        let pullRatio = min( max(pullDistance, 0.0), 100.0) / 50.0
+        let scaleRatio = 1 + pullRatio
         
         // Set the encompassing view's frames
         refreshBounds.size.height = pullDistance;

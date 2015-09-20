@@ -92,11 +92,11 @@ class ContainerViewController: UIViewController {
         return !isAnimating
     }
     
-    override func supportedInterfaceOrientations() -> Int {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         if isAnimating {
-            return Int(UIInterfaceOrientationMask.Portrait.rawValue)
+            return UIInterfaceOrientationMask.Portrait
         }
-        return Int(UIInterfaceOrientationMask.All.rawValue)
+        return UIInterfaceOrientationMask.All
     }
 }
 
@@ -143,7 +143,7 @@ extension ContainerViewController: CenteralViewDelegate {
         }
     }
     
-    func animateLeftPanel(#shouldExpand: Bool, animate: Bool, block: (() -> Void)? = nil) {
+    func animateLeftPanel(shouldExpand shouldExpand: Bool, animate: Bool, block: (() -> Void)? = nil) {
         isAnimating = true
         gestureDisabled = true
         if (shouldExpand) {
@@ -169,7 +169,7 @@ extension ContainerViewController: CenteralViewDelegate {
         }
     }
     
-    func animateCenterPanelXPosition(#ratio: CGFloat, animate: Bool, completion: ((Bool) -> Void)) {
+    func animateCenterPanelXPosition(ratio ratio: CGFloat, animate: Bool, completion: ((Bool) -> Void)) {
         if animate {
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
                 self.partialAnimation(ratio)

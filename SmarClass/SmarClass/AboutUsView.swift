@@ -20,7 +20,7 @@ class AboutUsView: UIView {
             let arrayOf4Color = [UIColor.flatWatermelonColor(), UIColor.flatYellowColor(), UIColor.flatLimeColor(), UIColor.flatPowderBlueColor(), UIColor.flatSandColor()]
             let anotherOf4Color = [UIColor.flatRedColor(), UIColor.flatOrangeColor(), UIColor.flatGreenColor(), UIColor.flatSkyBlueColor(), UIColor.flatCoffeeColor()]
             var gradientColorArray = [UIColor]()
-            for (index, color) in enumerate(arrayOf4Color) {
+            for (index, color) in arrayOf4Color.enumerate() {
                 gradientColorArray.append(UIColor(gradientStyle: .Radial, withFrame: UIScreen.mainScreen().bounds, andColors: [color, anotherOf4Color[index]]))
             }
             return gradientColorArray
@@ -48,7 +48,7 @@ class AboutUsView: UIView {
         layerSetup()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         xibSetup()
@@ -62,7 +62,7 @@ class AboutUsView: UIView {
         view.frame = bounds
         
         // Make the view stretch with containing view
-        view.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         
         // Adding custom subview on top of our view (over any custom drawing > see note below)
         addSubview(view)

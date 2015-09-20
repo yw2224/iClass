@@ -363,7 +363,7 @@ class TextTableViewCell: UITableViewCell {
     
     func setTextFieldCorrectText(text: String) {
         let attributeText = NSMutableAttributedString(string: textField.text + "\t\(text)")
-        attributeText.addAttribute(NSStrikethroughStyleAttributeName, value: NSNumber(integer: 2), range: NSMakeRange(0, count(textField.text)))
+        attributeText.addAttribute(NSStrikethroughStyleAttributeName, value: NSNumber(integer: 2), range: NSMakeRange(0, textField.text.characters.count))
         textField.attributedText = attributeText
     }
 }

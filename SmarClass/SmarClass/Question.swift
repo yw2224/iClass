@@ -39,7 +39,7 @@ extension Question: JSONConvertible {
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
         var ret = [Question]()
-        for (index, json) in enumerate(jsonArray) {
+        for (index, json) in jsonArray.enumerate() {
             let question = objectFromJSONObject(json) as! Question
             question.no = index
             ret.append(question)

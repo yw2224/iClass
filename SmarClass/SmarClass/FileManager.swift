@@ -30,7 +30,7 @@ class FileManager: NSObject {
     
     // if file doesn't exist or any error happens
     private class func dataForFileName(folder: String, name: String) -> NSData? {
-        var path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as! [String]).first!
+        var path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) ).first!
         path = path.stringByAppendingPathComponent(folder)
                    .stringByAppendingPathComponent(name)
         let manager = NSFileManager.defaultManager()
@@ -42,13 +42,13 @@ class FileManager: NSObject {
     }
     
     private class func saveDataOfFileName(data: NSData, folder: String, name: String, override: Bool) {
-        var path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) as! [String]).first!
+        var path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) ).first!
         path = path.stringByAppendingPathComponent(folder)
         let manager = NSFileManager.defaultManager()
         // create directory
         if (!manager.fileExistsAtPath(path)) {
             var error:  NSError?
-            if !manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: &error) || error != nil {
+            if !manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil) || error != nil {
                 return
             }
         }

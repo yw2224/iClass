@@ -68,7 +68,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let dest = segue.destinationViewController as? TabBarController {
-            let indexPath = tableView.indexPathForSelectedRow()!
+            let indexPath = tableView.indexPathForSelectedRow!
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! CourseTableViewCell
             let course = courseList[indexPath.row]
             
@@ -90,7 +90,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
     
     @IBAction func addOrRemoveCourse(sender: UIBarButtonItem) {
-        println("add or remove course")
+        print("add or remove course")
     }
     
     func disableTableView() {
@@ -140,7 +140,7 @@ extension MainHomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! CourseTableViewCell
         let course = courseList[indexPath.row]
         cell.setupUIWithImage(
-            imageName: "Computer Networks",
+            "Computer Networks",
             courseTitle: course.name,
             teacherName: course.teacherNameString,
             badgeNum: 0

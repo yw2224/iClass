@@ -61,6 +61,8 @@ extension NetworkManager {
         static let OriginAnswerKey = "Original Answer"
         static let SubmitAnswerKey = "Submit Answer"
         static let SubmitSignInKey = "Submit SignIn"
+        static let AttendCourseKey = "Attend Course"
+        static let AllCourseKey    = "All Course"
     }
     
     private enum Router: URLRequestConvertible {
@@ -75,9 +77,11 @@ extension NetworkManager {
         case OriginAnswer(String, String, String, String)
         case SubmitAnswer(String, String, String, String, String)
         case SubmitSignIn(String, String, String, String, String, String)
+        case AttendCourse(String, String, String)
+        case AllCourse(String)
         
         var URLRequest: NSURLRequest {
-            var (path: String, method: Alamofire.Method, parameters: [String: AnyObject]) = {
+            var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
                 switch self {
                 case .Login(let name, let password):
                     let params = ["name": name, "password": password]
@@ -106,6 +110,12 @@ extension NetworkManager {
                 case .SubmitSignIn(let _id, let token, let course_id, let signin_id, let uuidString, let deviceId):
                     let params = ["_id": _id, "token": token, "course_id": course_id, "signin_id": signin_id, "uuid": uuidString, "device_id": deviceId]
                     return ("/signin/submit", Method.POST, params)
+                case .AttendCourse(let _id, let token, let course_id):
+                    let params = ["_id": _id, "token": token, "course_id": course_id]
+                    return ("/user/attend", Method.POST, params)
+                case .AllCourse(let _id):
+                    let params = ["_id": _id]
+                    return ("/course/all", Method.GET, params)
                 }
             }()
             
@@ -114,10 +124,10 @@ extension NetworkManager {
                 (inout parameters: [String: AnyObject]) in
                 let request = NSMutableURLRequest(URL: URL!.URLByAppendingPathComponent(path))
                 // MARK: version number
-                let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+                let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
                 request.HTTPMethod = method.rawValue
                 request.setValue(parameters["token"] as! String?, forHTTPHeaderField: "x-access-token")
-                request.setValue("iOS \(version)", forHTTPHeaderField: "x-build-version")
+                request.setValue("iOS \(buildVersion)", forHTTPHeaderField: "x-build-version")
                 parameters.removeValueForKey("token")
                 return request
             }(&parameters)
@@ -244,7 +254,6 @@ extension NetworkManager {
         let request = NetworkManager.Manager.request(Router.SubmitAnswer(user_id ?? "", token ?? "", course_id ?? "", quiz_id ?? "", status ?? ""))
         NetworkManager.insertRequestWithKey(Constants.SubmitAnswerKey, request: request)
         
-        
         request.validate().responseJSON(options: .allZeros) {
             (_, res, data, error) in
             NetworkManager.removeRequestWithKey(Constants.SubmitAnswerKey)
@@ -267,4 +276,23 @@ extension NetworkManager {
             NetworkManager.callback(Constants.SubmitSignInKey, res, data, error, callback)
         }
     }
+    
+    func attendCourse(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
+        if NetworkManager.isPendingRequestWithKey(Constants.AttendCourseKey) {
+            return
+        }
+        
+        let request = NetworkManager.Manager.request(Router.AttendCourse(user_id ?? "", token ?? "", course_id ?? ""))
+        NetworkManager.insertRequestWithKey(Constants.AttendCourseKey, request: request)
+        
+        request.validate().responseJSON(options: .allZeros) {
+            (_, res, data, error) in
+            NetworkManager.removeRequestWithKey(Constants.AttendCourseKey)
+            NetworkManager.callback(Constants.AttendCourseKey, res, data, error, callback)
+        }
+    }
+    
+//    func allCourse(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
+//        if NetworkManager.isPendingRequestWithKey(Constants)
+//    }
 }

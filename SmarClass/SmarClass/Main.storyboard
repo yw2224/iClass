@@ -221,6 +221,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="addOrRemoveCourse:" destination="4gy-yW-AIk" id="XbP-kW-Obj"/>
+                                <segue destination="c96-11-0Tz" kind="presentation" id="LAe-lK-mHS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -236,6 +237,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eH9-Dn-vm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-836" y="1027"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="lsA-iE-ngV">
+            <objects>
+                <tableViewController id="c96-11-0Tz" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XIb-DV-XuI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qBG-W4-Gsd">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qBG-W4-Gsd" id="AoY-nK-1bQ">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="c96-11-0Tz" id="VGg-P0-Xjd"/>
+                            <outlet property="delegate" destination="c96-11-0Tz" id="fJM-YW-e6T"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CZo-j6-P3X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-836" y="1760"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="USp-Cu-PS9">

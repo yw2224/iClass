@@ -333,10 +333,32 @@ class ContentManager: NSObject {
                 }
             } else {
                 dispatch_async(dispatch_get_main_queue()) {
-                    block?(success: false, message: "Submit sign-in failed")
+                    block?(success: false, message: "Network failed")
                 }
             }
         }
+    }
+    
+    func attendCourse(course_id: String, block: ((success: Bool, message: String) -> Void)?) {
+        NetworkManager.sharedInstance.attendCourse(ContentManager.User_id, token: ContentManager.Token, course_id: course_id) {
+            (success, data, response) in
+            
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    let json = JSON(data!)
+                    let successValue = json["success"].boolValue
+                    block?(success: successValue, message: successValue ? "Attend course success" : response.message)
+                }
+            } else {
+                dispatch_async(dispatch_get_main_queue()) {
+                    block?(success: false, message: "Network error")
+                }
+            }
+        }
+    }
+    
+    func allCourse(course_id: String, block: ((success: Bool, courseList: [Course], message: String) -> Void)?) {
+//        NetworkManager.sharedInstance.allCourse
     }
     
     func cleanUpCoreData() {

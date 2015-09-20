@@ -40,7 +40,7 @@ class CourseCalendarContainerViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let dest = segue.destinationViewController as! UIViewController
+        let dest = segue.destinationViewController 
         if let ccvc = dest as? CourseCalendarViewController {
             ccvc.startDate = startDate
             ccvc.endDate = endDate

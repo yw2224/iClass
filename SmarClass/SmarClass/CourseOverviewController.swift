@@ -53,7 +53,7 @@ class CourseOverviewController: UIViewController {
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let dest = segue.destinationViewController as! UIViewController
+        let dest = segue.destinationViewController 
         if let cdvc = dest as? CourseDescriptionViewController {
             cdvc.text = course.introduction
         } else if let cccvc = dest as? CourseCalendarContainerViewController {
@@ -91,7 +91,7 @@ class CourseOverviewController: UIViewController {
     func submitSigninInfo() {
         ContentManager.sharedInstance.submitSignIn(course.course_id, signin_id: signin_id!, uuidString: uuidString!, deviceId: deviceId) {
             (success, message) in
-            println("\(success) \(message)")
+            print("\(success) \(message)")
             if success {
                 self.retrieveSigninInfo()
             } else {
@@ -130,7 +130,7 @@ extension CourseOverviewController: UITableViewDataSource {
         case Constants.Header.0:
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Header.1) as! HeaderTableViewCell
             cell.setupWithImage(
-                imageName: "Computer Networks",
+                "Computer Networks",
                 title: course.name,
                 teacherNames: course.teacherNameString,
                 term: course.term)
@@ -224,11 +224,11 @@ extension CourseOverviewController : CLLocationManagerDelegate {
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
         
-    func locationManager(manager: CLLocationManager!,
-            didRangeBeacons beacons: [AnyObject]!,
-            inRegion region: CLBeaconRegion!) {
+    func locationManager(manager: CLLocationManager,
+            didRangeBeacons beacons: [CLBeacon],
+            inRegion region: CLBeaconRegion) {
                 if beacons.count > 0 {
-                    let nearestBeacon = beacons[0] as! CLBeacon
+                    let nearestBeacon = beacons[0] 
                     if nearestBeacon.proximity == .Unknown ||
                         nearestBeacon.proximity == lastProximity {
                         return
@@ -241,16 +241,16 @@ extension CourseOverviewController : CLLocationManagerDelegate {
                 }
     }
     
-    func locationManager(manager: CLLocationManager!,
-        didEnterRegion region: CLRegion!) {
+    func locationManager(manager: CLLocationManager,
+        didEnterRegion region: CLRegion) {
             DDLogInfo("Enter region")
             manager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
             manager.startUpdatingLocation()
             sendLocalNotificationWithMessage("发现iBeacon，快打开App签到吧~", playSound: false)
     }
         
-    func locationManager(manager: CLLocationManager!,
-            didExitRegion region: CLRegion!) {
+    func locationManager(manager: CLLocationManager,
+            didExitRegion region: CLRegion) {
             DDLogInfo("Exit region")
             manager.stopRangingBeaconsInRegion(region as! CLBeaconRegion)
             manager.stopUpdatingLocation()

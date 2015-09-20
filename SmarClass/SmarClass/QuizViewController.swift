@@ -40,6 +40,7 @@ class QuizViewController: CloudAnimateTableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
+        // MARK: This should be improved for performance!
         retrieveQuizList()
     }
     
