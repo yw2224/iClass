@@ -36,15 +36,11 @@ class LoginViewController: UIViewController {
     var animationLeft = true
     var keyboardAppeared = false {
         didSet {
-            if oldValue != keyboardAppeared && loginTableView != nil {
-                var offset = loginTableView.contentOffset
-                if keyboardAppeared {
-                    offset.y = Constants.HeaderHeight
-                } else {
-                    offset.y = 0
-                }
-                loginTableView.setContentOffset(offset, animated: true)
-            }
+            // Value changed this time
+            guard (oldValue != keyboardAppeared) else {return}
+            var offset = loginTableView.contentOffset
+            offset.y = keyboardAppeared ? Constants.HeaderHeight : 0
+            loginTableView?.setContentOffset(offset, animated: true)
         }
     }
     var status: LoginStatus! {
@@ -166,7 +162,6 @@ class LoginViewController: UIViewController {
     
 	@IBAction func loginAction(sender: UIButton) {
         let input = checkInput()
-        var title = loginButton.currentTitle
         if !input.0 {
             //  Show a HUD or somewhat
             print("Showing HUD")
@@ -181,28 +176,26 @@ class LoginViewController: UIViewController {
     
         if status == LoginStatus.Register {
             ContentManager.sharedInstance.register(input.1, realName: input.2, password: input.3) {
-                (success, message) in
+                (error) in
                 
                 self.enableLoginButton()
 
-                if success {
+                if error == nil {
                     self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: Constants.LoginCollectionViewMarginRatio)
                 } else {
                     print("Showing HUD failed or somewhat")
-                    print(message)
                 }
             }
         } else {
             ContentManager.sharedInstance.login(input.1, password: input.3) {
-                (success, message) in
+                (error) in
                 
                 self.enableLoginButton()
 
-                if success {
+                if error == nil {
                     self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
                 } else {
                     print("Showing HUD failed or somewhat")
-                    print(message)
                 }
             }
         }
@@ -262,15 +255,15 @@ extension LoginViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var (cellId, text): (String, String) = {
+        let (cellId, text): (String, String) = {
             if let content = self.rowIdentifiers[self.status]?[indexPath.row] {
                 return (content == "Empty" ? content : "Text", content)
             }
             return ("Empty", "")
         }()
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId) as! UITableViewCell
-        if cellId != "Empty" {
-            (cell as! LoginTableViewCell).configureCellWithPlaceHolder(text)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellId) ?? UITableViewCell()
+        if cellId != "Empty", let cell = cell as? LoginTableViewCell {
+            cell.configureCellWithPlaceHolder(text)
         }
         return cell
     }
@@ -377,7 +370,7 @@ class LoginTableViewCell: UITableViewCell {
     }
     
     func textFieldContent() -> String {
-        return textField.text
+        return textField.text ?? ""
     }
 }
 

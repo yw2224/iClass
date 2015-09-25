@@ -34,11 +34,10 @@ class QuestionPageViewController: UIPageViewController {
     func retrieveQuizContent() {
         // MARK: present HUD
         ContentManager.sharedInstance.quizContent(quizDelegate.QuizId) {
-            (success, questionList, message) in
-            DDLogDebug("\(success) \(message)")
+            (quizContent, error) in
             // dismiss HUD
             // MARK: if failed, present HUD
-            self.questionList = questionList
+            self.questionList = quizContent
             if self.quizDelegate.Type == .Edit {
                 self.setupPageViewController()
             } else {
@@ -49,10 +48,9 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveOriginAnswers() {
-        ContentManager.sharedInstance.originAnswer(quizDelegate.CourseId, quiz_id: quizDelegate.QuizId) {
-            (success, answerList, message) in
+        ContentManager.sharedInstance.originAnswer(quizDelegate.CourseId, quizId: quizDelegate.QuizId) {
+            (answerList, error) in
             // MARK: if failed, present HUD
-            DDLogDebug("\(success) \(message)")
             for answer in answerList {
                 self.quizDelegate.AnswerDictionary[answer.question_id] = answer
             }
@@ -71,19 +69,13 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func questionChildViewControllerAtIndex(index: Int) -> QuestionViewController? {
-        if (index < 0 || index >= questionList.count) {
-            return nil
-        }
-        
-        return {
-            let qvc = UIStoryboard.initViewControllerWithIdentifier(Constants.QuestionViewControllerIdentifier) as! QuestionViewController
-            qvc.index = index
-            qvc.total = self.questionList.count
-            qvc.question = self.questionList[index]
-            qvc.quizDelegate = self.quizDelegate
-            qvc.pageViewController = self
-            return qvc
-        }()
+        guard index >= 0 && index < questionList.count, let qvc = UIStoryboard.initViewControllerWithIdentifier(Constants.QuestionViewControllerIdentifier) as? QuestionViewController else {return nil}
+        qvc.index = index
+        qvc.total = questionList.count
+        qvc.question = questionList[index]
+        qvc.quizDelegate = quizDelegate
+        qvc.pageViewController = self
+        return qvc
     }
 
     /*
@@ -101,17 +93,13 @@ class QuestionPageViewController: UIPageViewController {
 extension QuestionPageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        if let qvc = viewController as? QuestionViewController {
-            return questionChildViewControllerAtIndex(qvc.index - 1)
-        }
-        return nil
+        guard let qvc = viewController as? QuestionViewController else {return nil}
+        return questionChildViewControllerAtIndex(qvc.index - 1)
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        if let qvc = viewController as? QuestionViewController {
-            return questionChildViewControllerAtIndex(qvc.index + 1)
-        }
-        return nil
+        guard let qvc = viewController as? QuestionViewController else {return nil}
+        return questionChildViewControllerAtIndex(qvc.index + 1)
     }
     
 }

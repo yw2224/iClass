@@ -10,48 +10,43 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class NetworkManager: NSObject {
+typealias NetworkCallbackBlock = (AnyObject?, NetworkErrorType?) -> Void
+
+enum NetworkErrorType: ErrorType, CustomStringConvertible {
+    case NetworkUnreachable(String) // Timeout or sth.
+    case NetworkUnauthenticated(String) // 401 or 403
+    case NetworkServerError(String) // 5XX
+    case NetworkForbiddenAccess(String) // 400 or 404
+    case NetworkWrongParameter(String) // 422
     
-    // This is a singleton
-    static let sharedInstance = NetworkManager()
-    
-    private static let Manager: Alamofire.Manager = {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest = 10.0
-        return Alamofire.Manager(configuration: configuration, serverTrustPolicyManager: nil)
-    }()
-    private static var PendingOpDict = [String : (Request, NSDate)]()
-    
-    private class func insertRequestWithKey(key: String, request: Request) {
-        PendingOpDict[key] = (request, NSDate())
-    }
-    
-    private class func isPendingRequestWithKey(key: String) -> Bool {
-        return PendingOpDict[key] != nil
-    }
-    
-    private class func removeRequestWithKey(key: String) {
-        PendingOpDict.removeValueForKey(key)
-    }
-    
-    private static let callback: ((String, NSHTTPURLResponse?, AnyObject?, NSError?, NetworkBlock) -> Void) = {
-        (key, res, data, error, callback) in
-        PendingOpDict.removeValueForKey(key)
-        if let e = error {
-            callback(false, nil,
-                (statusCode: res == nil ? 404 : res!.statusCode,
-                    message: data == nil ? e.description : JSON(data!)["message"].stringValue))
-        } else {
-            callback(true, data,
-                (statusCode: res!.statusCode,
-                    message: "Network success"))
+    var description: String {
+        get {
+            switch self {
+            case .NetworkUnreachable(let message):
+                return "NetworkUnreachable - \(message)"
+            case .NetworkUnauthenticated(let message):
+                return "NetworkUnauthenticated - \(message)"
+            case .NetworkServerError(let message):
+                return "NetworkServerError - \(message)"
+            case .NetworkForbiddenAccess(let message):
+                return "NetworkForbiddenAccess - \(message)"
+            case .NetworkWrongParameter(let message):
+                return "NetworkWrongParameter - \(message)"
+            }
         }
     }
 }
 
-extension NetworkManager {
+class NetworkManager: NSObject {
     
+    // This is a singleton
+    static let sharedInstance = NetworkManager()
+
     private struct Constants {
+        static let BadRequestStatusCode = 400
+        static let UnauthorizedStatusCode = 401
+        static let ForbiddenStatusCode = 403
+        static let NotFoundStatusCode = 404
         static let LoginKey        = "Login"
         static let RegisterKey     = "Register"
         static let UserCourseKey   = "User's Course"
@@ -64,6 +59,51 @@ extension NetworkManager {
         static let AttendCourseKey = "Attend Course"
         static let AllCourseKey    = "All Course"
     }
+    
+    private static let Manager: Alamofire.Manager = {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForRequest = 10.0
+        return Alamofire.Manager(configuration: configuration, serverTrustPolicyManager: nil)
+    }()
+    private static var PendingOpDict = [String : (Request, NSDate)]()
+    
+    private class func executeRequestWithKey(key: String, request: Request, callback: NetworkCallbackBlock) {
+        if PendingOpDict[key] != nil {
+            return
+        }
+        
+        PendingOpDict[key] = (request, NSDate())
+        request.validate().responseJSON() {
+            (_, res, result) in
+            let statusCode = res?.statusCode ?? 404
+            var data: AnyObject?
+            var error: NetworkErrorType?
+            PendingOpDict.removeValueForKey(key)
+            
+            if result.isSuccess && (statusCode >= 200 && statusCode < 300) {
+                data = result.value
+            } else {
+                if result.isFailure {
+                    error = NetworkErrorType.NetworkUnreachable("\(result.error)")
+                } else if let value = result.value {
+                    let message = JSON(value)["message"].string
+                    if statusCode == Constants.ForbiddenStatusCode || statusCode == Constants.UnauthorizedStatusCode {
+                        error = NetworkErrorType.NetworkUnauthenticated(message ?? "Unauthenticated access")
+                    } else if statusCode == Constants.BadRequestStatusCode || statusCode == Constants.NotFoundStatusCode {
+                        error = NetworkErrorType.NetworkForbiddenAccess(message ?? "Bad request")
+                    } else if case(400..<500) = statusCode {
+                        error = NetworkErrorType.NetworkWrongParameter(message ?? "Wrong parameters")
+                    } else if case(500...505) = statusCode {
+                        error = NetworkErrorType.NetworkServerError(message ?? "Server error")
+                    }
+                }
+            }
+            callback(data, error)
+        }
+    }
+}
+
+extension NetworkManager {
     
     private enum Router: URLRequestConvertible {
         static let baseURLString = "http://localhost:3000/api"
@@ -80,7 +120,7 @@ extension NetworkManager {
         case AttendCourse(String, String, String)
         case AllCourse(String)
         
-        var URLRequest: NSURLRequest {
+        var URLRequest: NSMutableURLRequest {
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
                 switch self {
                 case .Login(let name, let password):
@@ -89,46 +129,49 @@ extension NetworkManager {
                 case .Register(let name, let realName, let password):
                     let params = ["name": name, "realName": realName, "password": password]
                     return ("/user/register", Method.POST, params)
-                case .UserCourse(let _id, let token):
-                    let params = ["_id": _id, "token": token]
+                case .UserCourse(let id, let token):
+                    let params = ["_id": id, "token": token]
                     return ("/user/courses", Method.GET, params)
-                case .QuizList(let _id, let token, let course_id):
-                    let params = ["_id": _id, "token": token, "course_id": course_id]
+                case .QuizList(let id, let token, let courseId):
+                    let params = ["_id": id, "token": token, "course_id": courseId]
                     return ("/quiz/list", Method.GET, params)
-                case .QuizContent(let _id, let token, let quiz_id):
-                    let params = ["_id": _id, "token": token, "quiz_id": quiz_id]
+                case .QuizContent(let id, let token, let quizId):
+                    let params = ["_id": id, "token": token, "quiz_id": quizId]
                     return ("/quiz/content", Method.GET, params)
-                case .SigninInfo(let _id, let token, let course_id):
-                    let params = ["_id": _id, "token": token, "course_id": course_id]
+                case .SigninInfo(let id, let token, let courseId):
+                    let params = ["_id": id, "token": token, "course_id": courseId]
                     return ("/signin/info", Method.GET, params)
-                case .OriginAnswer(let _id, let token, let course_id, let quiz_id):
-                    let params = ["_id": _id, "token": token, "course_id": course_id, "quiz_id": quiz_id]
+                case .OriginAnswer(let id, let token, let courseId, let quizId):
+                    let params = ["_id": id, "token": token, "course_id": courseId, "quiz_id": quizId]
                     return ("/answer/quiz/info", Method.GET, params)
-                case .SubmitAnswer(let _id, let token, let course_id, let quiz_id, let status):
-                    let params = ["_id": _id, "token": token, "course_id": course_id, "quiz_id": quiz_id, "status": status]
+                case .SubmitAnswer(let id, let token, let courseId, let quizId, let status):
+                    let params = ["_id": id, "token": token, "course_id": courseId, "quiz_id": quizId, "status": status]
                     return ("/answer/submit", Method.POST, params)
-                case .SubmitSignIn(let _id, let token, let course_id, let signin_id, let uuidString, let deviceId):
-                    let params = ["_id": _id, "token": token, "course_id": course_id, "signin_id": signin_id, "uuid": uuidString, "device_id": deviceId]
+                case .SubmitSignIn(let id, let token, let courseId, let signinId, let uuid, let deviceId):
+                    let params = ["_id": id, "token": token, "course_id": courseId, "signin_id": signinId, "uuid": uuid, "device_id": deviceId]
                     return ("/signin/submit", Method.POST, params)
-                case .AttendCourse(let _id, let token, let course_id):
-                    let params = ["_id": _id, "token": token, "course_id": course_id]
+                case .AttendCourse(let id, let token, let courseId):
+                    let params = ["_id": id, "token": token, "course_id": courseId]
                     return ("/user/attend", Method.POST, params)
-                case .AllCourse(let _id):
-                    let params = ["_id": _id]
+                case .AllCourse(let id):
+                    let params = ["_id": id]
                     return ("/course/all", Method.GET, params)
                 }
             }()
             
-            let URL = NSURL(string: Router.baseURLString)
-            let URLRequest: NSURLRequest = {
+            let URLRequest: NSMutableURLRequest = {
                 (inout parameters: [String: AnyObject]) in
-                let request = NSMutableURLRequest(URL: URL!.URLByAppendingPathComponent(path))
+                let URL = NSURL(string: Router.baseURLString)!
+                let request = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
+                
                 // MARK: version number
                 let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
-                request.HTTPMethod = method.rawValue
-                request.setValue(parameters["token"] as! String?, forHTTPHeaderField: "x-access-token")
                 request.setValue("iOS \(buildVersion)", forHTTPHeaderField: "x-build-version")
+                
+                request.setValue(parameters["token"] as? String, forHTTPHeaderField: "x-access-token")
                 parameters.removeValueForKey("token")
+                
+                request.HTTPMethod = method.rawValue
                 return request
             }(&parameters)
             
@@ -139,160 +182,57 @@ extension NetworkManager {
         }
     }
     
-    func login(name: String, password: String, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.LoginKey) {
-            return
-        }
-        
+    func login(name: String, password: String, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.Login(name, password))
-        NetworkManager.insertRequestWithKey(Constants.LoginKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.LoginKey)
-            NetworkManager.callback(Constants.LoginKey, res, data, error, callback)
-        }
+        NetworkManager.executeRequestWithKey(Constants.LoginKey, request: request, callback: callback)
     }
     
-    func register(name: String, realName: String, password: String, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.RegisterKey) {
-            return
-        }
-        
+    func register(name: String, realName: String, password: String, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.Register(name, realName, password))
-        NetworkManager.insertRequestWithKey(Constants.RegisterKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.RegisterKey)
-            NetworkManager.callback(Constants.RegisterKey, res, data, error, callback)
-        }
+        NetworkManager.executeRequestWithKey(Constants.RegisterKey, request: request, callback: callback)
     }
     
-    func courseList(user_id: String?, token: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.UserCourseKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.UserCourse(user_id ?? "", token ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.UserCourseKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.UserCourseKey)
-            NetworkManager.callback(Constants.UserCourseKey, res, data, error, callback)
-        }
-        
+    func courseList(userId: String?, token: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.UserCourse(userId ?? "", token ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.UserCourseKey, request: request, callback: callback)
     }
     
-    func quizList(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.QuizListKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.QuizList(user_id ?? "", token ?? "", course_id ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.QuizListKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.QuizListKey)
-            NetworkManager.callback(Constants.QuizListKey, res, data, error, callback)
-        }
+    func quizList(userId: String?, token: String?, courseId: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.QuizList(userId ?? "", token ?? "", courseId ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.QuizListKey, request: request, callback: callback)
     }
     
-    func quizContent(user_id: String?, token: String?, quiz_id: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.QuizContentKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.QuizContent(user_id ?? "", token ?? "", quiz_id ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.QuizContentKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.QuizContentKey)
-            NetworkManager.callback(Constants.QuizContentKey, res, data, error, callback)
-        }
+    func quizContent(userId: String?, token: String?, quizId: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.QuizContent(userId ?? "", token ?? "", quizId ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.QuizContentKey, request: request, callback: callback)
     }
     
-    func signinInfo(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.SigninInfoKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.SigninInfo(user_id ?? "", token ?? "", course_id ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.SigninInfoKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.SigninInfoKey)
-            NetworkManager.callback(Constants.SigninInfoKey, res, data, error, callback)
-        }
-
+    func signinInfo(userId: String?, token: String?, courseId: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.SigninInfo(userId ?? "", token ?? "", courseId ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.SigninInfoKey, request: request, callback: callback)
     }
     
-    func originAnswer(user_id: String?, token: String?, course_id: String?, quiz_id: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.OriginAnswerKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.OriginAnswer(user_id ?? "", token ?? "", course_id ?? "", quiz_id ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.OriginAnswerKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.OriginAnswerKey)
-            NetworkManager.callback(Constants.OriginAnswerKey, res, data, error, callback)
-        }
+    func originAnswer(userId: String?, token: String?, courseId: String?, quizId: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.OriginAnswer(userId ?? "", token ?? "", courseId ?? "", quizId ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.OriginAnswerKey, request: request, callback: callback)
     }
     
-    func submitAnswer(user_id: String?, token: String?, course_id: String?, quiz_id: String?, status: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.SubmitAnswerKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.SubmitAnswer(user_id ?? "", token ?? "", course_id ?? "", quiz_id ?? "", status ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.SubmitAnswerKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.SubmitAnswerKey)
-            NetworkManager.callback(Constants.SubmitAnswerKey, res, data, error, callback)
-        }
+    func submitAnswer(userId: String?, token: String?, courseId: String?, quizId: String?, status: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.SubmitAnswer(userId ?? "", token ?? "", courseId ?? "", quizId ?? "", status ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.SubmitAnswerKey, request: request, callback: callback)
     }
     
-    func submitSignIn(user_id: String?, token: String?, course_id: String?, signin_id: String?, uuidString: String?, deviceId: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.SubmitSignInKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.SubmitSignIn(user_id ?? "", token ?? "", course_id ?? "", signin_id ?? "", uuidString ?? "", deviceId ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.SubmitSignInKey, request: request)
-        
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.SubmitSignInKey)
-            NetworkManager.callback(Constants.SubmitSignInKey, res, data, error, callback)
-        }
+    func submitSignIn(userId: String?, token: String?, courseId: String?, signinId: String?, uuid: String?, deviceId: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.SubmitSignIn(userId ?? "", token ?? "", courseId ?? "", signinId ?? "", uuid ?? "", deviceId ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.SubmitSignInKey, request: request, callback: callback)
     }
     
-    func attendCourse(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
-        if NetworkManager.isPendingRequestWithKey(Constants.AttendCourseKey) {
-            return
-        }
-        
-        let request = NetworkManager.Manager.request(Router.AttendCourse(user_id ?? "", token ?? "", course_id ?? ""))
-        NetworkManager.insertRequestWithKey(Constants.AttendCourseKey, request: request)
-        
-        request.validate().responseJSON(options: .allZeros) {
-            (_, res, data, error) in
-            NetworkManager.removeRequestWithKey(Constants.AttendCourseKey)
-            NetworkManager.callback(Constants.AttendCourseKey, res, data, error, callback)
-        }
+    func attendCourse(userId: String?, token: String?, courseId: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.AttendCourse(userId ?? "", token ?? "", courseId ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.AttendCourseKey, request: request, callback: callback)
     }
     
-//    func allCourse(user_id: String?, token: String?, course_id: String?, callback: NetworkBlock) {
+//    func allCourse(user_id: String?, token: String?, course_id: String?, callback: NetworkCallbackBlock) {
 //        if NetworkManager.isPendingRequestWithKey(Constants)
 //    }
 }

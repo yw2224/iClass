@@ -60,21 +60,20 @@ class QuizViewController: CloudAnimateTableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if let qcvc = segue.destinationViewController as? QuestionContainerViewController,
-            let cell = sender as? QuizTableViewCell {
-                let indexPath = tableView.indexPathForCell(cell)!
-                let quiz = quizList[indexPath.row]
-                qcvc.quizId = quiz.quiz_id
-                qcvc.quizName = quiz.name
-                qcvc.courseId = quiz.course_id
-                qcvc.editType = quiz.correct.integerValue == -1 ? .Edit : .Inspect
-        }
+        guard
+            let qcvc = segue.destinationViewController as? QuestionContainerViewController,
+            let cell = sender as? QuizTableViewCell,
+            let indexPath = tableView.indexPathForCell(cell) else {return}
+        let quiz = quizList[indexPath.row]
+        qcvc.quizId = quiz.quiz_id
+        qcvc.quizName = quiz.name
+        qcvc.courseId = quiz.course_id
+        qcvc.editType = quiz.correct.integerValue == -1 ? .Edit : .Inspect
     }
     
     func retrieveQuizList() {
         ContentManager.sharedInstance.quizList(course_id) {
-            (success, quizList, message) in
-            DDLogDebug("\(success) \(message)")
+            (quizList, error) in
             self.quizList = quizList
             self.animationDidEnd()
         }
@@ -82,7 +81,8 @@ class QuizViewController: CloudAnimateTableViewController {
 
 }
 
-extension QuizViewController: RefreshControlHook {
+// MARK: RefreshControlHook
+extension QuizViewController {
     
     override func animationDidStart() {
         super.animationDidStart()
@@ -96,7 +96,8 @@ extension QuizViewController: RefreshControlHook {
     }
 }
 
-extension QuizViewController: UITableViewDataSource {
+// MARK: UITableViewDataSource
+extension QuizViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -122,7 +123,8 @@ extension QuizViewController: UITableViewDataSource {
     }
 }
 
-extension QuizViewController: UITableViewDelegate {
+// MARK: UITableViewDelegate
+extension QuizViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return Constants.QuizCellHeight
@@ -136,13 +138,13 @@ class QuizTableViewCell: UITableViewCell {
     @IBOutlet weak var percentageView: PercentageView!
     
     func setupWithTestName(name: String, deadline: NSDate, percentage: CGFloat) {
-        testNameLabel.text = name
         let timeFormatter: NSDateFormatter = {
             let f = NSDateFormatter()
             f.locale = NSLocale(localeIdentifier: "zh_CN")
             f.dateFormat = "MM-dd"
             return f
         }()
+        testNameLabel.text = name
         deadlineLabel.text = "截止时间： " + timeFormatter.stringFromDate(deadline)
         percentageView.percentage = percentage
     }

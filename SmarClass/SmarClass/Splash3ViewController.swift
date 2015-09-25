@@ -74,7 +74,8 @@ class Splash3ViewController: SplashViewController {
 
 }
 
-extension Splash3ViewController: AnimationControl {
+// MARK: AnimationControl
+extension Splash3ViewController {
     override func setupAnimation() {
         let move = NSValue(CATransform3D: CATransform3DMakeTranslation(0, 2, 0))
         let offset = CAKeyframeAnimation(keyPath: "transform")

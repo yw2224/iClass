@@ -84,7 +84,8 @@ class Splash1ViewController: SplashViewController {
 
 }
 
-extension Splash1ViewController: AnimationControl {
+// MARK: AnimationControl
+extension Splash1ViewController {
     override func setupAnimation() {
         let small = NSValue(CATransform3D: CATransform3DMakeScale(0.8, 0.8, 1.0))
         

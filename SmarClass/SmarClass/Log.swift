@@ -27,12 +27,9 @@ class Log: NSObject {
         DDLog.addLogger(fileLogger)
     }
     
-//    static func debugLog(message: String, filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
-//        DDLogDebug(message)
-//    }
-//    
-    static func debugLog(filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
-        let fileName = filePath.lastPathComponent
+    class func debugLog(filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
+        let url = NSURL(fileURLWithPath: filePath)
+        let fileName = url.lastPathComponent
         DDLogDebug("\(fileName) \(functionName) [Line \(line)]")
     }
 

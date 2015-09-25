@@ -34,9 +34,7 @@ class Course: NSManagedObject {
                 for teacherName in self.teacherNames.allObjects {
                     array.append(teacherName.name)
                 }
-                array.sortInPlace() {
-                    return $0 < $1
-                }
+                array.sortInPlace(<)
                 return array
             }()
             for teacherName in teacherNameArray {

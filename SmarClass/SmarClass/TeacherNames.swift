@@ -16,14 +16,12 @@ class TeacherNames: NSManagedObject {
     @NSManaged var name: String
 
     static func objectFromJSONArray(jsonArray: [JSON]) -> [TeacherNames] {
-        return {
-            var ret = [TeacherNames]()
-            for name in jsonArray {
-                let teacherName = TeacherNames.MR_createEntity()
-                teacherName.name = name.description
-                ret.append(teacherName)
-            }
-            return ret
-        }()
+        var ret = [TeacherNames]()
+        for name in jsonArray {
+            let teacherName = TeacherNames.MR_createEntity()
+            teacherName.name = name.description
+            ret.append(teacherName)
+        }
+        return ret
     }
 }

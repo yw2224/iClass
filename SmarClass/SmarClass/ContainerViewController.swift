@@ -12,14 +12,12 @@ enum SlideOutState {
     
     case BothCollapsed
     case LeftPanelExpanded
-    
 }
 
 protocol CenteralViewDelegate: class {
     
     func toggleLeftPanel(animate: Bool)
     func collapseLeftPanel()
-    
 }
 
 class ContainerViewController: UIViewController {
@@ -117,8 +115,8 @@ extension ContainerViewController: CenteralViewDelegate {
         if currentState == .LeftPanelExpanded {
             toggleLeftPanel(false)
         }
-//        Safe Code
-//        animateLeftPanel(shouldExpand: false, animate: false)
+        // Safe Code
+        // animateLeftPanel(shouldExpand: false, animate: false)
     }
     
     // Helpers
@@ -137,10 +135,8 @@ extension ContainerViewController: CenteralViewDelegate {
     }
     
     func removeLeftPanelViewController() {
-        if userSidebarViewController != nil {
-            userSidebarViewController!.view.removeFromSuperview()
-            userSidebarViewController = nil;
-        }
+        userSidebarViewController?.view.removeFromSuperview()
+        userSidebarViewController = nil
     }
     
     func animateLeftPanel(shouldExpand shouldExpand: Bool, animate: Bool, block: (() -> Void)? = nil) {

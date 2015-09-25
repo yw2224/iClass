@@ -16,9 +16,9 @@ class CourseOverviewController: UIViewController {
     let beaconIdentifier = "edu.pku.netlab.SmartClass-Teacher"
     var lastProximity: CLProximity?
     var locationManager: CLLocationManager!
-    var uuidString: String? // "BCEAD00F-F457-4E69-B32E-681251AC2048"
-    var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
-    var signin_id: String?
+    var uuid: String? // "BCEAD00F-F457-4E69-B32E-681251AC2048"
+    var deviceId = UIDevice.currentDevice().identifierForVendor!.UUIDString
+    var signinId: String?
     var isSigninEnabled = false
     var isBeaconFound = false
 
@@ -37,8 +37,8 @@ class CourseOverviewController: UIViewController {
         static let ImportantDate = (3, "ExaminationCell")
         static let Error = (-1, "ErrorCell")
         static let CellHeights: [CGFloat] = [100, 42, 88, 88]
-        static let SpaceInterval = 40.0
-        static let AnimationTime = 0.5
+        static let SpaceInterval: CGFloat = 40.0
+        static let AnimationTime: CGFloat = 0.5
         static let CourseDescriptionSegueIdentifier = "Course Description Segue"
         static let ImportantDateSegueIdentifier = "Important Date Segue"
         static let SignInCellIndexPath = NSIndexPath(forRow: 1, inSection: 0)
@@ -67,32 +67,26 @@ class CourseOverviewController: UIViewController {
     
     func retrieveSigninInfo() {
         ContentManager.sharedInstance.signinInfo(course.course_id) {
-            (success, uuid, enable, total, user, signin_id, message) in
+            (uuid, enable, total, user, signin_id, error) in
             // MARK if error present HUD and return
+            guard let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
             
-            if let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell {
-                if success {
-                    cell.successWithText("已签到： \(user) / \(total)")
-                } else {
-                    cell.fail()
-                }
+            if error != nil {
+                cell.fail()
+            } else {
+                cell.successWithText("已签到： \(user) / \(total)")
             }
             
-            if success {
-                DDLogDebug("\(success) \(enable) \(message)")
-                self.uuidString = NSUUID(UUIDString: uuid)?.UUIDString
-                self.signin_id = signin_id
-                self.isSigninEnabled = enable
-                self.setupLocationManager()
-            }
+            self.uuid = NSUUID(UUIDString: uuid)?.UUIDString
+            self.signinId = signin_id
+            self.isSigninEnabled = enable
+            self.setupLocationManager()
         }
     }
     
     func submitSigninInfo() {
-        ContentManager.sharedInstance.submitSignIn(course.course_id, signin_id: signin_id!, uuidString: uuidString!, deviceId: deviceId) {
-            (success, message) in
-            print("\(success) \(message)")
-            if success {
+        ContentManager.sharedInstance.submitSignIn(course.course_id, signinId: signinId!, uuid: uuid!, deviceId: deviceId) {
+            if $0 == nil {
                 self.retrieveSigninInfo()
             } else {
                 // present HUD
@@ -101,15 +95,14 @@ class CourseOverviewController: UIViewController {
     }
     
     @IBAction func signIn(sender: UIButton) {
-        if let cell = courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell {
-            cell.activityIndicator.startAnimating()
-            cell.signInButton.enabled = false
+        guard let cell = courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
+        cell.activityIndicator.startAnimating()
+        cell.signInButton.enabled = false
             
-            if cell.tag == Constants.RefreshTag {
-                retrieveSigninInfo()
-            } else {
-                submitSigninInfo()
-            }
+        if cell.tag == Constants.RefreshTag {
+            retrieveSigninInfo()
+        } else {
+            submitSigninInfo()
         }
     }
 }
@@ -148,8 +141,7 @@ extension CourseOverviewController: UITableViewDataSource {
             cell.setupCell(course.midterm, finalExam: course.finalExam)
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Error.1) as! UITableViewCell
-            return cell
+            fatalError()
         }
     }
     
@@ -158,16 +150,16 @@ extension CourseOverviewController: UITableViewDataSource {
 extension CourseOverviewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        var cellFrame = cell.frame
-        let spaceX = Double(CGRectGetWidth(cellFrame)) + Double(indexPath.row) * Constants.SpaceInterval
-        cellFrame.origin.x = CGFloat(spaceX)
-        cell.frame = cellFrame
-        let animationTime = fabs(spaceX / Double(CGRectGetWidth(cellFrame)) * Constants.AnimationTime)
-        
-        UIView.animateWithDuration(Constants.AnimationTime, animations: {
-            cellFrame.origin.x = 0
-            cell.frame = cellFrame
-        })
+        let spaceX = CGRectGetWidth(cell.frame) + CGFloat(indexPath.row) * Constants.SpaceInterval
+        let cellFrame: CGRect = {
+            var frame = cell.frame
+            frame.origin.x = spaceX
+            return frame
+        }()
+        let animationTime = fabs(spaceX / CGRectGetWidth(cellFrame) * Constants.AnimationTime)
+        UIView.animateWithDuration(Double(animationTime)) {
+            cell.frame.origin.x = 0
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -188,19 +180,17 @@ extension CourseOverviewController: UITableViewDelegate {
 extension CourseOverviewController : CLLocationManagerDelegate {
     
     func setupLocationManager() {
-        if signin_id == nil || uuidString == nil || !isSigninEnabled {
+        guard !isSigninEnabled && signinId != nil, let uuid = uuid else {
             return
         }
         
-        let beaconUUID   = NSUUID(UUIDString: uuidString!)!
+        let beaconUUID   = NSUUID(UUIDString: uuid)!
         let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
             identifier: beaconIdentifier)
         beaconRegion.notifyEntryStateOnDisplay = true
         
         locationManager = CLLocationManager()
-        if(locationManager.respondsToSelector("requestAlwaysAuthorization")) {
-            locationManager.requestAlwaysAuthorization()
-        }
+        locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
         locationManager.startMonitoringForRegion(beaconRegion)
         locationManager.startRangingBeaconsInRegion(beaconRegion)
@@ -227,18 +217,12 @@ extension CourseOverviewController : CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager,
             didRangeBeacons beacons: [CLBeacon],
             inRegion region: CLBeaconRegion) {
-                if beacons.count > 0 {
-                    let nearestBeacon = beacons[0] 
-                    if nearestBeacon.proximity == .Unknown ||
-                        nearestBeacon.proximity == lastProximity {
-                        return
-                    }
-                    DDLogInfo("Beacon found")
-                    isBeaconFound = true
-                    lastProximity = nearestBeacon.proximity
-                } else {
-                    lastProximity = .Unknown
-                }
+                guard let beacon = beacons.first where
+                    (beacon.proximity != .Unknown && beacon.proximity != lastProximity)
+                    else {lastProximity = .Unknown; return;}
+                DDLogInfo("Beacon found")
+                isBeaconFound = true
+                lastProximity = beacon.proximity
     }
     
     func locationManager(manager: CLLocationManager,
@@ -268,7 +252,7 @@ class HeaderTableViewCell: UITableViewCell {
         title: String,
         teacherNames: String,
         term: String) {
-        bookCover.image = UIImage(named: imageName ?? "DefaultBookCover") ?? UIImage(named: "DefaultBookCover")
+        bookCover.image = UIImage(named: imageName ?? "DefaultBookCover")
         titleLabel.text = title
         teacherNameLabel.text = teacherNames
         termLabel.text = term

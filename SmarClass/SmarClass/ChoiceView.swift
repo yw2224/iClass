@@ -116,10 +116,8 @@ class ChoiceView: UIView {
             circleLayer.fillColor = UIColor.flatLimeColor().CGColor
         } else {
             circleLayer.strokeColor = UIColor.flatWatermelonColor().CGColor
-            circleLayer.fillColor = [
-                false: UIColor.clearColor().CGColor,
-                true: UIColor.flatWatermelonColor().CGColor,
-            ][selected]
+            circleLayer.fillColor = selected ? UIColor.flatWatermelonColor().CGColor :
+                UIColor.clearColor().CGColor
         }
         bringSubviewToFront(view)
     }

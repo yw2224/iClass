@@ -22,7 +22,7 @@ class BadgeView: UIView {
             
             textLabel.hidden = false
             hidden = false
-            textLabel.text = String(min(badgeNum, Constants.MaxBadgeNum))
+            textLabel.text = "\(min(badgeNum, Constants.MaxBadgeNum))"
             textLabel.sizeToFit()
             setNeedsDisplay()
         }

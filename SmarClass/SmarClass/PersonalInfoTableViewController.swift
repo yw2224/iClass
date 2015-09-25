@@ -85,34 +85,34 @@ class PersonalInfoTableViewController: UITableViewController {
 
 	}
 	func showChangeRealNameAlertView(cell:RealnameCell){
-		var alert = UIAlertController(
-			title: "修改真实姓名", message: "请输入真实姓名", preferredStyle: UIAlertControllerStyle.Alert)
-		alert.addTextFieldWithConfigurationHandler
-			{ (textField:UITextField!) -> Void in
-				textField.placeholder="请输入真实姓名"
-				textField.borderStyle = UITextBorderStyle.RoundedRect
-				textField.clearButtonMode = UITextFieldViewMode.WhileEditing
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("alertTextFieldDidChange:"), name: UITextFieldTextDidChangeNotification, object: nil)
-		}
-		var action = UIAlertAction(
-			title: "确定",
-			style: UIAlertActionStyle.Default)
-			{ (action:UIAlertAction) -> Void in
-				if let textfield = alert.textFields?.first as? UITextField{
-					let realname = textfield.text
-					self.modifyRealName(realname)
-				}
-		}
-		alert.addAction(UIAlertAction(
-			title: "取消",
-			style: UIAlertActionStyle.Cancel,
-			handler: { (action:UIAlertAction) -> Void in
-				//do nothing
-		}))
-		alert.addAction(action)
-		self.presentViewController(alert, animated: true) { () -> Void in
-			//do nothing
-		}
+//		var alert = UIAlertController(
+//			title: "修改真实姓名", message: "请输入真实姓名", preferredStyle: UIAlertControllerStyle.Alert)
+//		alert.addTextFieldWithConfigurationHandler
+//			{ (textField:UITextField!) -> Void in
+//				textField.placeholder="请输入真实姓名"
+//				textField.borderStyle = UITextBorderStyle.RoundedRect
+//				textField.clearButtonMode = UITextFieldViewMode.WhileEditing
+//				NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("alertTextFieldDidChange:"), name: UITextFieldTextDidChangeNotification, object: nil)
+//		}
+//		var action = UIAlertAction(
+//			title: "确定",
+//			style: UIAlertActionStyle.Default)
+//			{ (action:UIAlertAction) -> Void in
+//				if let textfield = alert.textFields?.first as? UITextField{
+//					let realname = textfield.text
+//					self.modifyRealName(realname)
+//				}
+//		}
+//		alert.addAction(UIAlertAction(
+//			title: "取消",
+//			style: UIAlertActionStyle.Cancel,
+//			handler: { (action:UIAlertAction) -> Void in
+//				//do nothing
+//		}))
+//		alert.addAction(action)
+//		self.presentViewController(alert, animated: true) { () -> Void in
+//			//do nothing
+//		}
 	}
 	func modifyRealName(realname:String){
 //		SCRequest.changeRealName(realname, completionHandler:
@@ -126,11 +126,11 @@ class PersonalInfoTableViewController: UITableViewController {
 	}
 	
 	func alertTextFieldDidChange(notification:NSNotification){
-		if let alert = self.presentedViewController as? UIAlertController {
-			if let textfield = alert.textFields?.first as? UITextField {
-				
-			}
-		}
+//		if let alert = self.presentedViewController as? UIAlertController {
+//			if let textfield = alert.textFields?.first as? UITextField {
+//				
+//			}
+//		}
 	}
     /*
     // Override to support conditional editing of the table view.

@@ -78,10 +78,11 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
                         matchingComponents: components,
                         options: .MatchStrictly) {
                             (date, Bool, stop) in
+                            guard let date = date else {return}
+                            let key = self.formatter.stringFromDate(date)
                             if self.endDate.compare(date) == .OrderedAscending {
                                 stop.memory = true
                             }
-                            let key = self.formatter.stringFromDate(date)
                             if self.importantDate[key] == nil {
                                 self.importantDate[key] = .Lecture
                             }
@@ -91,7 +92,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
         }
         
         countLectureTime()
-        collectionView.delegate = self
+        collectionView?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,10 +116,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
 extension CourseCalendarViewController: PDTSimpleCalendarViewDelegate {
     
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, shouldUseCustomColorsForDate date: NSDate!) -> Bool {
-        if let type = importantDate[formatter.stringFromDate(date)] {
-            return true
-        }
-        return false
+        return importantDate[formatter.stringFromDate(date)] != nil
     }
     
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, circleColorForDate date: NSDate!) -> UIColor! {
@@ -136,17 +134,15 @@ extension CourseCalendarViewController: PDTSimpleCalendarViewDelegate {
     }
     
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, textColorForDate date: NSDate!) -> UIColor! {
-        if let type = importantDate[formatter.stringFromDate(date)] {
-            return UIColor.whiteColor()
-        }
-        return UIColor.flatGrayColorDark()
+        return importantDate[formatter.stringFromDate(date)] != nil ? UIColor.whiteColor() : UIColor.flatGrayColor()
     }
     
 }
 
 // Since PDTSimpleCalendarViewController adopts a collection view to be the inside calendar,
 // we can disable the item selection.
-extension CourseCalendarViewController: UICollectionViewDelegate {
+// MARK: UICollectionViewDelegate
+extension CourseCalendarViewController {
     
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false

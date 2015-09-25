@@ -55,15 +55,12 @@ class LoginContainerViewController: UIViewController {
     }
     
     func splashChildViewControllerAtIndex(index: Int) -> SplashViewController? {
-        if (index < 0 || index >= Constants.NumOfPages) {
+        guard (index >= 0 && index < Constants.NumOfPages),
+            let svc = UIStoryboard.initViewControllerWithIdentifier("\(Constants.SplashViewControllerIdentifier) \(index)") as? SplashViewController else {
             return nil
         }
-        
-        return {
-            let svc = UIStoryboard.initViewControllerWithIdentifier("\(Constants.SplashViewControllerIdentifier) \(index)") as! SplashViewController
-            svc.index = index
-            return svc
-        }()
+        svc.index = index
+        return svc
     }
     
     // MARK: Navigation
@@ -75,28 +72,21 @@ class LoginContainerViewController: UIViewController {
 extension LoginContainerViewController: UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        if let svc = viewController as? SplashViewController {
-            return splashChildViewControllerAtIndex(svc.index - 1)
-        }
-        return nil
+        guard let svc = viewController as? SplashViewController else {return nil}
+        return splashChildViewControllerAtIndex(svc.index - 1)
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        if let svc = viewController as? SplashViewController {
-            return splashChildViewControllerAtIndex(svc.index + 1)
-        }
-        return nil
+        guard let svc = viewController as? SplashViewController else {return nil}
+        return splashChildViewControllerAtIndex(svc.index + 1)
     }
 }
 
 extension LoginContainerViewController: UIPageViewControllerDelegate {
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed,
-            let current = pageViewController.viewControllers[0] as? SplashViewController {
-            if current.index >= 0 && current.index < Constants.NumOfPages {
-                pageControl.currentPage = current.index
-            }
-        }
+        guard completed,
+            let current = pageViewController.viewControllers?.first as? SplashViewController where (current.index >= 0 && current.index < Constants.NumOfPages) else {return}
+        pageControl.currentPage = current.index
     }
 }

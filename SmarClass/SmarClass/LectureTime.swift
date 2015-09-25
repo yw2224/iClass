@@ -35,6 +35,5 @@ extension LectureTime: JSONConvertible {
             ret.append(objectFromJSONObject(json) as! LectureTime)
         }
         return ret
-        
     }
 }

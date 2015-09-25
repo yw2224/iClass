@@ -12,7 +12,7 @@ class CourseCalendarContainerViewController: UIViewController {
 
     var lectureTime: [LectureTime]! {
         didSet {
-            lectureTime.sort {
+            lectureTime.sortInPlace {
                 return $0.weekday < $1.weekday
             }
         }

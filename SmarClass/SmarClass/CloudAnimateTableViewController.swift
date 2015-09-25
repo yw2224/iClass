@@ -171,7 +171,7 @@ class CloudAnimateTableViewController: UITableViewController {
 }
 
 
-extension CloudAnimateTableViewController: UIScrollViewDelegate, RefreshControlHook {
+extension CloudAnimateTableViewController: RefreshControlHook {
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         // Get the current size of the refresh controller
@@ -181,7 +181,7 @@ extension CloudAnimateTableViewController: UIScrollViewDelegate, RefreshControlH
         let pullDistance = max(0.0, -refreshControl!.frame.origin.y)
         
         // Calculate the pull ratio, between 0.0-1.0
-        let pullRatio = min( max(pullDistance, 0.0), 100.0) / 50.0
+        let pullRatio = min(max(pullDistance, 0.0), 100.0) / 50.0
         let scaleRatio = 1 + pullRatio
         
         // Set the encompassing view's frames

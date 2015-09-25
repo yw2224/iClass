@@ -30,19 +30,19 @@ class ChangePasswdViewController: UIViewController {
 		self.rePasswordTextField.secureTextEntry = true
 	}
 	func handleChangePassword(sender:UIBarButtonItem){
-		if let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
-			let password = self.newPasswordTextField.text
-			let repassword = self.rePasswordTextField.text
-//			if password == repassword {
-//				SCRequest.changePassword(username, password: password)
-//					{ (_, _, JSON, _) -> Void in
-//					println(JSON)
-//						self.showAlertView()
-//				}
-//			}else{
-//				return
-//			}
-		}
+//		if let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
+//			let password = self.newPasswordTextField.text
+//			let repassword = self.rePasswordTextField.text
+////			if password == repassword {
+////				SCRequest.changePassword(username, password: password)
+////					{ (_, _, JSON, _) -> Void in
+////					println(JSON)
+////						self.showAlertView()
+////				}
+////			}else{
+////				return
+////			}
+//		}
 	}
 	
 	

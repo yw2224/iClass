@@ -19,7 +19,7 @@ class PercentageView: UIView {
                 arc1.hidden = false
                 arc2.hidden = false
                 percentageLabel.hidden = false
-                let text = String(format: "%.0f", min(max(floor(percentage * 100), 0), 100))
+                let text = String(format: "%.0f", min(max(round(percentage * 100), 0), 100))
                 percentageLabel.text = "\(text)%"
                 setNeedsDisplay()
             }

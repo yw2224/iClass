@@ -92,10 +92,10 @@ class QuestionContainerViewController: UIViewController {
             }
             status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))
         }
-        ContentManager.sharedInstance.submitAnswer(courseId, quiz_id: quizId, status: status) { (success, answerList, message) in
-            DDLogDebug("\(success) \(answerList)")
+        ContentManager.sharedInstance.submitAnswer(courseId, quizId: quizId, status: status) {
+            (answerList, error) in
             
-            if success {
+            if error == nil {
                 self.navigationController?.popViewControllerAnimated(true)
             }
         }

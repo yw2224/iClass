@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CocoaLumberjack
 
 class FileManager: NSObject {
     
@@ -15,46 +16,52 @@ class FileManager: NSObject {
     }
     
     class func imageCacheOfName(name: String) -> UIImage? {
-        let data = dataForFileName(Constants.ImageCache, name: name)
-        if let theData = data {
-            let image = UIImage(data: theData)
-            return image
+        if let data = dataForFileName(Constants.ImageCache, name: name) {
+            return UIImage(data: data)
         }
         return nil
     }
     
     class func saveImageOfName(image: UIImage, quality: CGFloat, name: String, override: Bool) {
-        let data = UIImageJPEGRepresentation(image, quality)
+        guard let data = UIImageJPEGRepresentation(image, quality) else {
+            DDLogError("JPEG represent failed")
+            return
+        }
         saveDataOfFileName(data, folder: Constants.ImageCache, name: name, override: override)
     }
     
     // if file doesn't exist or any error happens
     private class func dataForFileName(folder: String, name: String) -> NSData? {
-        var path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) ).first!
-        path = path.stringByAppendingPathComponent(folder)
-                   .stringByAppendingPathComponent(name)
+        let path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) ).first!
         let manager = NSFileManager.defaultManager()
-        if manager.fileExistsAtPath(path) {
-            let data = NSData(contentsOfFile: path)
-            return data
+        guard let filePath = NSURL(fileURLWithPath: path)
+                .URLByAppendingPathComponent(folder)
+                .URLByAppendingPathComponent(name).path else {return nil}
+        
+        if manager.fileExistsAtPath(filePath) {
+            return NSData(contentsOfFile: filePath)
         }
         return nil
     }
     
-    private class func saveDataOfFileName(data: NSData, folder: String, name: String, override: Bool) {
-        var path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true) ).first!
-        path = path.stringByAppendingPathComponent(folder)
+    private class func saveDataOfFileName(data: NSData, folder: String, name: String, override: Bool) -> Bool {
+        let cachePath = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first!
+        let url = NSURL(fileURLWithPath: cachePath).URLByAppendingPathComponent(folder)
         let manager = NSFileManager.defaultManager()
-        // create directory
-        if (!manager.fileExistsAtPath(path)) {
-            var error:  NSError?
-            if !manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil) || error != nil {
-                return
+        guard let folderPath = url.path else {return false}
+        guard let filePath = url.URLByAppendingPathComponent(name).path else {return false}
+        
+        do {
+            if !manager.fileExistsAtPath(folderPath) {
+              try manager.createDirectoryAtPath(folderPath, withIntermediateDirectories: true, attributes: nil)
             }
-        }
-        path = path.stringByAppendingPathComponent(name)
-        if !manager.fileExistsAtPath(path) || override {
-            data.writeToFile(path, atomically: true)
+            if !manager.fileExistsAtPath(filePath) || override {
+                return data.writeToFile(filePath, atomically: true)
+            }
+            return true
+        } catch let error {
+            DDLogError("save file data error: \(error)")
+            return false
         }
     }
 }

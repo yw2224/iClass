@@ -15,7 +15,7 @@ extension UIStoryboard {
     class func initViewControllerWithIdentifier(identifier: String!) -> UIViewController? {
         if let theIdentifier = identifier {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            return storyboard.instantiateViewControllerWithIdentifier(theIdentifier) as? UIViewController
+            return storyboard.instantiateViewControllerWithIdentifier(theIdentifier)
         }
         return nil
     }
@@ -25,11 +25,15 @@ extension UIStoryboard {
 extension UIViewController {
     
     func contentViewController(index: Int?) -> UIViewController {
-        if self is UINavigationController {
-            return (self as! UINavigationController).visibleViewController
-        } else if self is UITabBarController {
-            let viewControllers = (self as! UITabBarController).viewControllers as! [UIViewController]
-            return viewControllers[index!].contentViewController(index)
+        if let navigationController = self as? UINavigationController {
+            return navigationController.visibleViewController!
+        } else if let tabbarController = self as? UITabBarController {
+            guard
+                let viewControllers = tabbarController.viewControllers,
+                let index = index else {
+                    return self
+            }
+            return viewControllers[index].contentViewController(index)
         }
         return self
     }
@@ -80,5 +84,4 @@ protocol JSONConvertible: class {
     
     static func objectFromJSONObject(json: JSON) -> NSManagedObject?
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject]
-    
 }

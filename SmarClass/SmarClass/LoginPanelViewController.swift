@@ -27,14 +27,13 @@ class LoginPanelViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if let destination = segue.destinationViewController as? LoginViewController {
-            if let button = sender as? UIButton {
-                if button.tag == 0 {
-                    destination.status = LoginStatus.Register
-                } else {
-                    destination.status = LoginStatus.Login
-                }
-            }
+        guard
+            let dest = segue.destinationViewController as? LoginViewController,
+            let button = sender as? UIButton else {return}
+        if button.tag == 0 {
+            dest.status = .Register
+        } else {
+            dest.status = .Login
         }
     }
 

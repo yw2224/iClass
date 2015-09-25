@@ -36,7 +36,7 @@ class CrossDissolveSegue: UIStoryboardSegue {
         UIView.animateWithDuration(0.6,
             delay: 0,
             options: .CurveEaseInOut,
-            animations: { () -> Void in
+            animations: {
                 popOverView.transform = CGAffineTransformMakeScale(3, 3)
                 popOverView.alpha = 0
             }) {

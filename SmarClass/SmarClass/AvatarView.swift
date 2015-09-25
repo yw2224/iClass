@@ -35,9 +35,9 @@ class AvatarView: UIView {
                 if ($0 == "") {
                     return ""
                 }
-                var string = CFStringCreateMutableCopy(nil, 0, $0)
-                CFStringTransform(string, nil, kCFStringTransformToLatin, Boolean(0))
-                CFStringTransform(string, nil, kCFStringTransformStripCombiningMarks, Boolean(0))
+                let string = CFStringCreateMutableCopy(nil, 0, $0)
+                CFStringTransform(string, nil, kCFStringTransformToLatin, false)
+                CFStringTransform(string, nil, kCFStringTransformStripCombiningMarks, false)
                 return (string as NSString).substringToIndex(1).uppercaseString
             }(capital)
             status = .Text

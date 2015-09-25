@@ -103,15 +103,14 @@ class MainHomeViewController: CloudAnimateTableViewController {
     
     func retrieveCourseList() {
         ContentManager.sharedInstance.courseList {
-            (success, courseList, message) in
-            DDLogDebug("\(success) \(message)")
+            (courseList, error) in
             self.courseList = courseList
             self.animationDidEnd()
         }
     }
 }
 
-extension MainHomeViewController: RefreshControlHook {
+extension MainHomeViewController {
     
     override func animationDidStart() {
         super.animationDidStart()
@@ -126,7 +125,8 @@ extension MainHomeViewController: RefreshControlHook {
     
 }
 
-extension MainHomeViewController: UITableViewDataSource {
+// MARK: UITableViewDatasource
+extension MainHomeViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -150,7 +150,8 @@ extension MainHomeViewController: UITableViewDataSource {
     
 }
 
-extension MainHomeViewController: UITableViewDelegate {
+// MARK: UITableViewDelegate
+extension MainHomeViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)!
         tableView.userInteractionEnabled = false
@@ -166,7 +167,7 @@ class CourseTableViewCell : UITableViewCell {
     @IBOutlet weak var badgeView: BadgeView!
     
     func setupUIWithImage(imageName: String? = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
-        bookCover.image = UIImage(named: imageName ?? "DefaultBookCover") ?? UIImage(named: "DefaultBookCover")
+        bookCover.image = UIImage(named: imageName ?? "DefaultBookCover")
         courseName.text = course
         teacherLabel.text = teacher
         badgeView.badgeNum = badge

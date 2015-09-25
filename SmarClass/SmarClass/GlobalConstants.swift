@@ -15,12 +15,14 @@ struct GlobalConstants {
     static var RefreshControlColor = UIColor(red: 247.0 / 255.0, green: 115.0 / 255.0, blue: 114.0 / 255.0, alpha: 1.0)
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
     static var SplashPagesBackgroundColor = [
-        GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatSand(), FlatRed()]),
-        GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatPowderBlue(), FlatWhite()]),
-        GradientColor(.TopToBottom, UIScreen.mainScreen().bounds, [FlatOrange(), FlatSand()]),
-        GradientColor(.LeftToRight, UIScreen.mainScreen().bounds, [FlatWatermelon(), FlatPowderBlue()]),
+        GradientColor(.TopToBottom, frame: UIScreen.mainScreen().bounds, colors: [FlatSand(), FlatRed()]),
+        GradientColor(.TopToBottom, frame: UIScreen.mainScreen().bounds, colors: [FlatPowderBlue(), FlatWhite()]),
+        GradientColor(.TopToBottom, frame: UIScreen.mainScreen().bounds, colors: [FlatOrange(), FlatSand()]),
+        GradientColor(.LeftToRight, frame: UIScreen.mainScreen().bounds, colors: [FlatWatermelon(), FlatPowderBlue()]),
     ]
     static var EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+    static var QuestionCorrectTableViewTitleColor = UIColor(red: 228.0 / 255.0, green: 250.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
+    static var QuestionWrongTableViewTitleColor = UIColor(red: 246.0 / 255.0, green: 225.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
     static let HomePageLinks = [
         "http://net.pku.edu.cn",
         "http://net.pku.edu.cn",
