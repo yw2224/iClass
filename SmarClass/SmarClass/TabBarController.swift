@@ -9,18 +9,16 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    
-    var course_id: String!
-    
+    var courseID: String!
 }
 
 extension TabBarController: UITabBarControllerDelegate {
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        if let dest = viewController as? NavigationController {
-            if let qvc = dest.childViewControllers.first as? QuizViewController {
-                qvc.course_id = course_id
-            }
+        guard let dest = viewController as? NavigationController else {return}
+    
+        if let qvc = dest.childViewControllers.first as? QuizViewController {
+            qvc.courseID = courseID
         }
     }
     

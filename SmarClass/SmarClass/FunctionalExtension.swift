@@ -8,16 +8,15 @@
 
 import UIKit
 import CoreData
+import MagicalRecord
 import SwiftyJSON
 
 extension UIStoryboard {
     
     class func initViewControllerWithIdentifier(identifier: String!) -> UIViewController? {
-        if let theIdentifier = identifier {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            return storyboard.instantiateViewControllerWithIdentifier(theIdentifier)
-        }
-        return nil
+        guard let identifier = identifier else {return nil}
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        return storyboard.instantiateViewControllerWithIdentifier(identifier)
     }
     
 }
@@ -37,7 +36,6 @@ extension UIViewController {
         }
         return self
     }
-    
 }
 
 extension UIView {

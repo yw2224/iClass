@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import UIKit
 import CocoaLumberjack
+import UIKit
 
 class QuizViewController: CloudAnimateTableViewController {
 
-    var course_id: String!
+    var course: Course!
     var quizList = [Quiz]() {
         didSet {
             tableView.reloadData()
@@ -29,11 +29,15 @@ class QuizViewController: CloudAnimateTableViewController {
         static let PercentageViewTag = 1
         static let ShowQuizDetailSegue = "Show Quiz Detail Segue"
     }
+    
+    // MARK: Inited in the prepareForSegue()
+    var courseID: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        course = CoreDataManager.sharedInstance.course(courseID)
         tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
@@ -65,14 +69,12 @@ class QuizViewController: CloudAnimateTableViewController {
             let cell = sender as? QuizTableViewCell,
             let indexPath = tableView.indexPathForCell(cell) else {return}
         let quiz = quizList[indexPath.row]
-        qcvc.quizId = quiz.quiz_id
-        qcvc.quizName = quiz.name
-        qcvc.courseId = quiz.course_id
+        qcvc.quizID = quiz.quiz_id
         qcvc.editType = quiz.correct.integerValue == -1 ? .Edit : .Inspect
     }
     
     func retrieveQuizList() {
-        ContentManager.sharedInstance.quizList(course_id) {
+        ContentManager.sharedInstance.quizList(course.course_id) {
             (quizList, error) in
             self.quizList = quizList
             self.animationDidEnd()

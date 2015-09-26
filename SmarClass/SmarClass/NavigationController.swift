@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import UIKit
 import ChameleonFramework
+import UIKit
 
 class NavigationController: UINavigationController {
 

@@ -10,17 +10,7 @@ import UIKit
 
 class CourseCalendarContainerViewController: UIViewController {
 
-    var lectureTime: [LectureTime]! {
-        didSet {
-            lectureTime.sortInPlace {
-                return $0.weekday < $1.weekday
-            }
-        }
-    }
-    var startDate: NSDate!
-    var endDate: NSDate!
-    var midTerm: NSDate?
-    var finalExam: NSDate?
+    var courseID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,14 +30,8 @@ class CourseCalendarContainerViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let dest = segue.destinationViewController 
-        if let ccvc = dest as? CourseCalendarViewController {
-            ccvc.startDate = startDate
-            ccvc.endDate = endDate
-            ccvc.midTerm = midTerm
-            ccvc.finalExam = finalExam
-            ccvc.lectureTime = lectureTime
-        }
+        guard let ccvc = segue.destinationViewController as? CourseCalendarViewController else {return}
+        ccvc.courseID = courseID
     }
 
 }

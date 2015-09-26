@@ -61,7 +61,7 @@ class Splash0ViewController: SplashViewController {
 
 }
 
-// AnimationControl
+// AnimationControl 
 extension Splash0ViewController {
     override func setupAnimation() {
         let leftBorder = NSValue(CATransform3D: CATransform3DMakeRotation(-CGFloat(M_PI) / 10, 0, 0, 1))

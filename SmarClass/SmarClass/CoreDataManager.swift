@@ -38,8 +38,20 @@ class CoreDataManager: NSObject {
         return Course.MR_findAllSortedBy("course_id", ascending: true) as! [Course]
     }
     
+    func course(courseID: String) -> Course {
+        return Course.MR_findFirstByAttribute("course_id", withValue: courseID)
+    }
+    
     func quizList() -> [Quiz] {
         return Quiz.MR_findAllSortedBy("to", ascending: false) as! [Quiz]
+    }
+    
+    func quiz(quizID: String) -> Quiz {
+        return Quiz.MR_findFirstByAttribute("quiz_id", withValue: quizID)
+    }
+    
+    func question(questionID: String) -> Question {
+        return Question.MR_findFirstByAttribute("question_id", withValue: questionID)
     }
     
     func answerList(quiz_id: String) -> [Answer] {

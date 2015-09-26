@@ -26,7 +26,7 @@ class ContentManager: NSObject {
             return try? keychain.getString("_id") ?? ""
         }
         set {
-            setKeyChainItem(UserId, forKey: "_id")
+            setKeyChainItem(newValue, forKey: "_id")
         }
     }
     
@@ -35,7 +35,7 @@ class ContentManager: NSObject {
             return try? keychain.getString("token") ?? ""
         }
         set {
-            setKeyChainItem(Token, forKey: "token")
+            setKeyChainItem(newValue, forKey: "token")
         }
     }
     
@@ -44,7 +44,7 @@ class ContentManager: NSObject {
             return try? keychain.getString("token") ?? ""
         }
         set {
-            setKeyChainItem(Password, forKey: "password")
+            setKeyChainItem(newValue, forKey: "password")
         }
     }
     
@@ -95,10 +95,11 @@ class ContentManager: NSObject {
         NetworkManager.sharedInstance.courseList(ContentManager.UserId, token: ContentManager.Token) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
-                if error == nil, let data = data where JSON(data).boolValue {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying course list success")
-                    let json = JSON(data)
                     Course.MR_truncateAll()
+                    
+                    let json = JSON(data)
                     block?(courseList:
                         Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
                         error: error)
@@ -117,6 +118,8 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying quiz list success")
+                    Quiz.MR_truncateAll()
+                    
                     let json = JSON(data)
                     let quizList = Quiz.objectFromJSONArray(json["quizzes"].arrayValue) as! [Quiz]
                     for answer in json["answers"].arrayValue {
@@ -128,7 +131,6 @@ class ContentManager: NSObject {
                             break
                         }
                     }
-                    Quiz.MR_truncateAll()
                     block?(quizList: quizList, error: error)
                 } else {
                     DDLogInfo("Querying quiz list failed: \(error)")
@@ -145,12 +147,13 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying question content success")
+                    CoreDataManager.sharedInstance.deleteQuestions(quizId)
+                    
                     let json = JSON(data)
                     let quizContent = Question.objectFromJSONArray(json["questions"].arrayValue) as! [Question]
                     for question in quizContent {
                         question.quiz_id = quizId
                     }
-                    CoreDataManager.sharedInstance.deleteQuestions(quizId)
                     block?(quizContent: quizContent, error: error)
                 } else {
                     DDLogInfo("Querying question content failed: \(error)")
@@ -186,12 +189,13 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying answer list success")
+                    CoreDataManager.sharedInstance.deleteAnswers(quizId)
+                    
                     let json = JSON(data)
                     let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
                     for answer in answerList {
                         answer.quiz_id = quizId
                     }
-                    CoreDataManager.sharedInstance.deleteAnswers(quizId)
                     block?(answerList: answerList, error: error)
                 } else {
                     DDLogInfo("Querying answer list failed: \(error)")

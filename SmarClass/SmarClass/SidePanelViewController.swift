@@ -15,8 +15,6 @@ import UIKit
 
 class SidePanelViewController: UIViewController {
     
-    weak var delegate: SidePanelDelegate?
-    
     @IBOutlet weak var personalSettingsTableView: UITableView! {
         didSet {
             personalSettingsTableView.tableFooterView = UIView(frame: CGRectZero)
@@ -40,6 +38,9 @@ class SidePanelViewController: UIViewController {
 		static let PersonalInfoStoryBoardIdentifier = "PersonalInfoTableView"
 		static let PersonalInfoSegue = "PersonalInfoSegue"
     }
+    
+    // MARK: Inited in the prepareForSegue()
+    weak var delegate: SidePanelDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

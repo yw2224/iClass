@@ -11,9 +11,13 @@ import UIKit
 
 class QuestionPageViewController: UIPageViewController {
     
-    // MARK: Init thses variables after networking
+    var quiz: Quiz!
     var questionList: [Question]!
-    weak var quizDelegate: QuestionRetrieveDataSource!
+    
+    // MARK: Inited in the prepareForSegue()
+    var editType: EditType!
+    var answerDict: NSMutableDictionary!
+    var quizID: String!
     
     private struct Constants {
         static let QuestionViewControllerIdentifier = "Question View Controller"
@@ -23,6 +27,7 @@ class QuestionPageViewController: UIPageViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        quiz = CoreDataManager.sharedInstance.quiz(quizID)
         retrieveQuizContent()
     }
 
@@ -33,12 +38,12 @@ class QuestionPageViewController: UIPageViewController {
     
     func retrieveQuizContent() {
         // MARK: present HUD
-        ContentManager.sharedInstance.quizContent(quizDelegate.QuizId) {
+        ContentManager.sharedInstance.quizContent(quiz.quiz_id) {
             (quizContent, error) in
             // dismiss HUD
             // MARK: if failed, present HUD
             self.questionList = quizContent
-            if self.quizDelegate.Type == .Edit {
+            if self.editType == EditType.Edit {
                 self.setupPageViewController()
             } else {
                 // retrieve origin answer from network
@@ -48,11 +53,11 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveOriginAnswers() {
-        ContentManager.sharedInstance.originAnswer(quizDelegate.CourseId, quizId: quizDelegate.QuizId) {
+        ContentManager.sharedInstance.originAnswer(quiz.course_id, quizId: quiz.quiz_id) {
             (answerList, error) in
             // MARK: if failed, present HUD
             for answer in answerList {
-                self.quizDelegate.AnswerDictionary[answer.question_id] = answer
+                self.answerDict[answer.question_id] = answer
             }
             self.setupPageViewController()
         }
@@ -72,9 +77,12 @@ class QuestionPageViewController: UIPageViewController {
         guard index >= 0 && index < questionList.count, let qvc = UIStoryboard.initViewControllerWithIdentifier(Constants.QuestionViewControllerIdentifier) as? QuestionViewController else {return nil}
         qvc.index = index
         qvc.total = questionList.count
-        qvc.question = questionList[index]
-        qvc.quizDelegate = quizDelegate
+        qvc.quizName = quiz.name
+        qvc.questionID = questionList[index].question_id
+        qvc.editType = editType
+        qvc.answerDict = answerDict
         qvc.pageViewController = self
+        
         return qvc
     }
 

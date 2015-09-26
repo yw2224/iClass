@@ -22,7 +22,6 @@ class QuestionViewController: IndexViewController {
     
     var total: Int!
     var question: Question!
-    weak var quizDelegate: QuestionRetrieveDataSource!
     weak var pageViewController: QuestionPageViewController!
     var questionType: QuestionType? {
         get {
@@ -42,19 +41,27 @@ class QuestionViewController: IndexViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    // MARK: Inited in the prepareForSegue()
+    var questionID: String!
+    var quizName: String!
+    var editType: EditType!
+    var answerDict: NSMutableDictionary!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        question = CoreDataManager.sharedInstance.question(questionID)
+        
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.QuestionCellHeight
         
         indexLabel.text = "\(index + 1)"
         totalLabel.text = "\(total)"
-        nameLabel.text  = quizDelegate.QuizName
+        nameLabel.text  = quizName
         
-        if quizDelegate.Type == .Inspect {
+        if editType == EditType.Inspect {
             tableView.backgroundColor = UIColor.flatWhiteColor()
         }
     }
@@ -73,7 +80,7 @@ class QuestionViewController: IndexViewController {
 extension QuestionViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let type = QuestionType(rawValue: question.type) else {return 1}
+        guard let type = questionType else {return 1}
         switch type {
             case .TrueFalse, .SingleChoice, .MultipleChoice:
                 return self.question.options.allObjects.count + 1
@@ -83,7 +90,7 @@ extension QuestionViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let type = QuestionType(rawValue: question.type) else {fatalError()}
+        guard let type = questionType else {return UITableViewCell()}
         
         let index = indexPath.row
         var cell: UITableViewCell!
@@ -97,7 +104,7 @@ extension QuestionViewController: UITableViewDataSource {
                 cell = textCell(indexPath)
             }
             setupCellAnswer(cell, indexPath: indexPath)
-            if quizDelegate.Type == .Inspect {
+            if editType == EditType.Inspect {
                 setupCellCorrectAnswer(cell, indexPath: indexPath)
             }
         }
@@ -106,7 +113,7 @@ extension QuestionViewController: UITableViewDataSource {
     }
     
     func headerCell() -> UITableViewCell {
-        guard let type = QuestionType(rawValue: question.type) else {return UITableViewCell()}
+        guard let type = questionType else {return UITableViewCell()}
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.QuestionHeaderCell) as! QuestionHeaderTableViewCell
         let typeText = [
             QuestionType.TrueFalse: "判断题",
@@ -139,7 +146,7 @@ extension QuestionViewController: UITableViewDataSource {
     }
     
     func setupCellAnswer(cell: UITableViewCell, indexPath: NSIndexPath) {
-        guard let answer = quizDelegate.AnswerDictionary[question.question_id] as? Answer else {return}
+        guard let answer = answerDict[question.question_id] as? Answer else {return}
         if let cell = cell as? ChoiceTableViewCell {
             for choice in answer.originAnswer.allObjects
                     where (choice as! Choice).content == "\(indexPath.row - 1)" {
@@ -176,8 +183,8 @@ extension QuestionViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard
-            quizDelegate.Type == .Inspect,
-            let score = (quizDelegate.AnswerDictionary[question.question_id] as? Answer)?.score
+            editType == EditType.Inspect,
+            let score = (answerDict[question.question_id] as? Answer)?.score
             else {return 0}
         let status = score.integerValue > 0
         tableView.tableHeaderView?.backgroundColor = status ?
@@ -188,7 +195,7 @@ extension QuestionViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard
-            quizDelegate.Type == .Edit,
+            editType == EditType.Edit,
             let cell = tableView.cellForRowAtIndexPath(indexPath) as? ChoiceTableViewCell
             else {return}
         
@@ -215,7 +222,7 @@ extension QuestionViewController: UITableViewDelegate {
     
     func autoIncreaseTableView() {
         guard let type = questionType where type != QuestionType.MultipleChoice else {return}
-        guard let originAnswer = (quizDelegate.AnswerDictionary[question.question_id] as? Answer)?.originAnswer else {return}
+        guard let originAnswer = (answerDict[question.question_id] as? Answer)?.originAnswer else {return}
         
         if type == .BlankFilling || type == .ShortAnswer {
             guard let choice = originAnswer.allObjects.first as? Choice where choice.content != ""
@@ -234,14 +241,15 @@ extension QuestionViewController: UITableViewDelegate {
     
     func updateAnswersWithIndexPath(indexPath: NSIndexPath) {
         guard let type = questionType else {return}
-        let question_id = question.question_id
+        let quizID = question.quiz_id
+        let questionID = question.question_id
         let answerEntity: Answer = {
-            if let answer = self.quizDelegate.AnswerDictionary[question_id] as? Answer {
+            if let answer = self.answerDict[questionID] as? Answer {
                 return answer
             }
             let answer = Answer.MR_createEntity()
-            answer.quiz_id = self.quizDelegate.QuizId
-            answer.question_id = question_id
+            answer.quiz_id = quizID
+            answer.question_id = questionID
             return answer
         }()
         
@@ -263,7 +271,7 @@ extension QuestionViewController: UITableViewDelegate {
             answerEntity.originAnswer = NSSet(array:
                 Choice.objectFromStringArray(array))
         }
-        quizDelegate.AnswerDictionary[question_id] = answerEntity
+        answerDict[questionID] = answerEntity
     }
 }
 
@@ -324,7 +332,7 @@ class TextTableViewCell: UITableViewCell {
 extension QuestionViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        return quizDelegate.Type == .Edit
+        return editType == EditType.Edit
     }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import UIKit
 import CocoaLumberjack
+import UIKit
 
 class MainHomeViewController: CloudAnimateTableViewController {
     
@@ -16,7 +16,6 @@ class MainHomeViewController: CloudAnimateTableViewController {
             tableView.reloadData()
         }
     }
-    weak var delegate: CenteralViewDelegate?
     override var emptyTitle: String {
         get {
             return "课程库为空。\n请添加课程/下拉刷新重试！"
@@ -28,6 +27,9 @@ class MainHomeViewController: CloudAnimateTableViewController {
         static let CourseCellHeight : CGFloat = 88.0
         static let PresentCourseOverviewSegueIdentifier = "Present Course Overview Segue"
     }
+    
+    // MARK: Inited in the prepareForSegue()
+    weak var delegate: CenteralViewDelegate?
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -73,10 +75,10 @@ class MainHomeViewController: CloudAnimateTableViewController {
             let course = courseList[indexPath.row]
             
             dest.delegate = dest
-            dest.course_id = course.course_id
+            dest.courseID = course.course_id
             
             if let covc = dest.contentViewController(0) as? CourseOverviewController {
-                covc.course = course
+                covc.courseID = course.course_id
             }
             if let segue = segue as? CrossDissolveSegue {
                 segue.image = cell.bookCover.image

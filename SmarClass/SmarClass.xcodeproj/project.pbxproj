@@ -52,9 +52,6 @@
 		F8FEFE141B56479C004FA01C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE131B56479C004FA01C /* Images.xcassets */; };
 		F8FEFE171B56479C004FA01C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8FEFE151B56479C004FA01C /* LaunchScreen.xib */; };
 		F8FEFE231B56479D004FA01C /* SmarClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE221B56479C004FA01C /* SmarClassTests.swift */; };
-		F8FEFE3F1B5647F8004FA01C /* ChangePasswdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */; };
-		F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */; };
-		F8FEFE411B5647F8004FA01C /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */; };
 		F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE301B5647F8004FA01C /* LoginContainerViewController.swift */; };
 		F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE311B5647F8004FA01C /* SplashViewController.swift */; };
 		F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FEFE331B5647F8004FA01C /* LoginViewController.swift */; };
@@ -140,9 +137,6 @@
 		F8FEFE1C1B56479C004FA01C /* SmarClassTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmarClassTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FEFE211B56479C004FA01C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FEFE221B56479C004FA01C /* SmarClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmarClassTests.swift; sourceTree = "<group>"; };
-		F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswdViewController.swift; sourceTree = "<group>"; };
-		F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoTableViewController.swift; sourceTree = "<group>"; };
-		F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		F8FEFE301B5647F8004FA01C /* LoginContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginContainerViewController.swift; sourceTree = "<group>"; };
 		F8FEFE311B5647F8004FA01C /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		F8FEFE331B5647F8004FA01C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -208,16 +202,6 @@
 				F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */,
 			);
 			name = Splash;
-			sourceTree = "<group>";
-		};
-		F81FEE471B8D847200363501 /* Personal Info */ = {
-			isa = PBXGroup;
-			children = (
-				F8FEFE2D1B5647F8004FA01C /* ChangePasswdViewController.swift */,
-				F8FEFE2E1B5647F8004FA01C /* PersonalInfoTableViewController.swift */,
-				F8FEFE2F1B5647F8004FA01C /* PersonalInfoViewController.swift */,
-			);
-			name = "Personal Info";
 			sourceTree = "<group>";
 		};
 		F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */ = {
@@ -427,7 +411,6 @@
 				F8B7CDF71B5E88ED00F2B8EB /* Course */,
 				F86537E01B96E85600BFCF6D /* Quiz */,
 				F89C108E1B5F2B3D00A233C8 /* Login */,
-				F81FEE471B8D847200363501 /* Personal Info */,
 				F8E3C26F1BA9A5D6006928F3 /* Attend Course */,
 				F8D7427B1BA1A34D00B346EE /* About Us */,
 			);
@@ -713,7 +696,6 @@
 				F87957B41B9D5E09001B06E4 /* Option.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
 				F8D7427A1BA1A34500B346EE /* AboutUsViewController.swift in Sources */,
-				F8FEFE401B5647F8004FA01C /* PersonalInfoTableViewController.swift in Sources */,
 				F8D4DAEF1B9695A6000B771A /* Avatar.swift in Sources */,
 				F824B22B1B9E6BB90003827B /* Choice.swift in Sources */,
 				F87957B21B9D5E09001B06E4 /* Question.swift in Sources */,
@@ -735,14 +717,12 @@
 				F8FEFE4B1B5647F8004FA01C /* SidePanelViewController.swift in Sources */,
 				F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */,
 				F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */,
-				F8FEFE411B5647F8004FA01C /* PersonalInfoViewController.swift in Sources */,
 				F8D4DAF31B9695A6000B771A /* LectureTime.swift in Sources */,
 				F8E3C2711BA9A63F006928F3 /* AttendCourseViewController.swift in Sources */,
 				F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */,
 				F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */,
 				F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */,
 				F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */,
-				F8FEFE3F1B5647F8004FA01C /* ChangePasswdViewController.swift in Sources */,
 				F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */,
 				F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */,
 				F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */,

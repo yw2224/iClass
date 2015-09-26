@@ -166,7 +166,7 @@ extension NetworkManager {
                 
                 // MARK: version number
                 let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
-                request.setValue("iOS \(buildVersion)", forHTTPHeaderField: "x-build-version")
+                request.setValue("\(buildVersion)", forHTTPHeaderField: "x-build-version")
                 
                 request.setValue(parameters["token"] as? String, forHTTPHeaderField: "x-access-token")
                 parameters.removeValueForKey("token")

@@ -22,7 +22,9 @@ class CourseOverviewController: UIViewController {
     var isSigninEnabled = false
     var isBeaconFound = false
 
-	var course: Course!
+    // MARK: Inited in the prepare for segue
+	var courseID: String!
+    var course: Course!
     
     @IBOutlet weak var courseOverviewTableview: UITableView! {
         didSet {
@@ -31,11 +33,11 @@ class CourseOverviewController: UIViewController {
     }
 	
     private struct Constants {
-        static let Header = (0, "HeaderCell")
-        static let SignIn = (1, "SignInCell")
-        static let Overview = (2, "OverviewCell")
-        static let ImportantDate = (3, "ExaminationCell")
-        static let Error = (-1, "ErrorCell")
+        static let Header = (0, "Header Cell")
+        static let SignIn = (1, "SignIn Cell")
+        static let Overview = (2, "Overview Cell")
+        static let ImportantDate = (3, "Examination Cell")
+        static let Error = (-1, "Error Cell")
         static let CellHeights: [CGFloat] = [100, 42, 88, 88]
         static let SpaceInterval: CGFloat = 40.0
         static let AnimationTime: CGFloat = 0.5
@@ -48,6 +50,7 @@ class CourseOverviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        course = CoreDataManager.sharedInstance.course(courseID)
         retrieveSigninInfo()
     }
     
@@ -57,11 +60,7 @@ class CourseOverviewController: UIViewController {
         if let cdvc = dest as? CourseDescriptionViewController {
             cdvc.text = course.introduction
         } else if let cccvc = dest as? CourseCalendarContainerViewController {
-            cccvc.startDate = course.startDate
-            cccvc.endDate = course.endDate
-            cccvc.midTerm = course.midterm
-            cccvc.finalExam = course.finalExam
-            cccvc.lectureTime = course.lectureTime.allObjects as! [LectureTime]
+            cccvc.courseID = course.course_id
         }
     }
     

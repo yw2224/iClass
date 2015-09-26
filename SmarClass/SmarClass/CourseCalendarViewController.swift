@@ -17,20 +17,14 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
         case Today
         case Lecture
     }
-
-    var lectureTime = [LectureTime]()
-    var startDate = NSDate() {
+    
+    var lectureTime = [LectureTime]() {
         didSet {
-            firstDate = startDate
+            lectureTime.sortInPlace() {
+                return $0.weekday < $1.weekday
+            }
         }
     }
-    var endDate = NSDate() {
-        didSet {
-            lastDate = endDate
-        }
-    }
-    var midTerm: NSDate?
-    var finalExam: NSDate?
     var importantDate = [String: DateType]()
     let formatter: NSDateFormatter = {
         let f = NSDateFormatter()
@@ -43,24 +37,23 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
         static let Sunday = 7
     }
     
+    // MARK: Inited in the prepareForSegue()
+    var courseID: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        title = "重要日期"
-        delegate = self
-        weekdayHeaderEnabled = false
-        PDTSimpleCalendarViewCell.appearance().textDefaultColor = UIColor.flatGrayColorDark()
+        var course = CoreDataManager.sharedInstance.course(courseID)
+        firstDate = course.startDate
+        lastDate = course.endDate
+        lectureTime = course.lectureTime.allObjects as! [LectureTime]
         
-        if let m = midTerm {
-            importantDate[formatter.stringFromDate(m)] = .MidTerm
-        }
-        if let f = finalExam {
-            importantDate[formatter.stringFromDate(f)] = .FinalExam
-        }
-        importantDate[formatter.stringFromDate(NSDate())] = .Today
-        
-        func countLectureTime() {
+        func countLectureTime(startDate: NSDate, endDate: NSDate) {
+            importantDate[formatter.stringFromDate(course.midterm)] = .MidTerm
+            importantDate[formatter.stringFromDate(course.finalExam)] = .FinalExam
+            importantDate[formatter.stringFromDate(NSDate())] = .Today
+            
             let weekDayConvert: (Int) -> Int = {
                 let addOne = 1 + $0
                 return addOne > 7 ? addOne - 7 : addOne
@@ -80,7 +73,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
                             (date, Bool, stop) in
                             guard let date = date else {return}
                             let key = self.formatter.stringFromDate(date)
-                            if self.endDate.compare(date) == .OrderedAscending {
+                            if endDate.compare(date) == .OrderedAscending {
                                 stop.memory = true
                             }
                             if self.importantDate[key] == nil {
@@ -91,8 +84,13 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
             }
         }
         
-        countLectureTime()
+        countLectureTime(firstDate, endDate: lastDate)
+        
+        delegate = self
         collectionView?.delegate = self
+        
+        weekdayHeaderEnabled = false
+        PDTSimpleCalendarViewCell.appearance().textDefaultColor = UIColor.flatGrayColorDark()
     }
 
     override func didReceiveMemoryWarning() {

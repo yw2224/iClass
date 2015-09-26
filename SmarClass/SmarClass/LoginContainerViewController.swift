@@ -64,9 +64,9 @@ class LoginContainerViewController: UIViewController {
     }
     
     // MARK: Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//    }
 }
 
 extension LoginContainerViewController: UIPageViewControllerDataSource {

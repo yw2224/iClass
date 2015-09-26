@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import UIKit
 import CocoaLumberjack
+import UIKit
 
 enum EditType {
     
@@ -15,23 +15,14 @@ enum EditType {
     case Inspect
 }
 
-protocol QuestionRetrieveDataSource: class {
-    
-    var Type: EditType {get set}
-    var QuizId: String {get}
-    var QuizName: String {get}
-    var CourseId: String {get}
-    var AnswerDictionary: NSMutableDictionary {get set}
-}
-
 class QuestionContainerViewController: UIViewController {
     
+    var quiz: Quiz!
     var answerDict = NSMutableDictionary()
-    // MARK: Init these variables in the presenting view controller's prepareForSegue
+    
+    // MARK: Inited in the prepareForSegue()
     var editType: EditType = .Inspect
-    var quizId: String!
-    var quizName: String!
-    var courseId: String!
+    var quizID: String!
     
     private struct Constants {
         static let QuestionViewControllerIdentifier = "Question View Controller"
@@ -41,10 +32,11 @@ class QuestionContainerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        quiz = CoreDataManager.sharedInstance.quiz(quizID)
         if editType == .Edit {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAnswers")
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "submitAnswers")
-            let answerArray = CoreDataManager.sharedInstance.cachedAnswerForQuiz(QuizId)
+            let answerArray = CoreDataManager.sharedInstance.cachedAnswerForQuiz(quiz.quiz_id)
             for answer in answerArray {
                 answerDict[answer.question_id] = answer
             }
@@ -66,7 +58,9 @@ class QuestionContainerViewController: UIViewController {
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let dest = segue.destinationViewController as? QuestionPageViewController {
-            dest.quizDelegate = self
+            dest.answerDict = answerDict
+            dest.quizID = quizID
+            dest.editType = editType
         }
     }
     
@@ -92,51 +86,12 @@ class QuestionContainerViewController: UIViewController {
             }
             status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))
         }
-        ContentManager.sharedInstance.submitAnswer(courseId, quizId: quizId, status: status) {
+        ContentManager.sharedInstance.submitAnswer(quiz.course_id, quizId: quiz.quiz_id, status: status) {
             (answerList, error) in
             
             if error == nil {
                 self.navigationController?.popViewControllerAnimated(true)
             }
-        }
-    }
-}
-
-extension QuestionContainerViewController: QuestionRetrieveDataSource {
-    
-    var Type: EditType {
-        get {
-            return editType
-        }
-        set {
-            editType = Type
-        }
-    }
-    
-    var QuizId: String {
-        get {
-            return quizId
-        }
-    }
-    
-    var QuizName: String {
-        get {
-            return quizName
-        }
-    }
-    
-    var CourseId: String {
-        get {
-            return courseId
-        }
-    }
-    
-    var AnswerDictionary: NSMutableDictionary {
-        get {
-            return answerDict
-        }
-        set {
-            answerDict = AnswerDictionary
         }
     }
 }
