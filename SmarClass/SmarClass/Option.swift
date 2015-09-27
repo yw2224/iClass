@@ -28,10 +28,8 @@ extension Option: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        var ret = [Option]()
-        for json in jsonArray {
-            ret.append(objectFromJSONObject(json) as! Option)
+        return jsonArray.map() {
+            return objectFromJSONObject($0) as! Option
         }
-        return ret
     }
 }

@@ -16,6 +16,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
             tableView.reloadData()
         }
     }
+    
     override var emptyTitle: String {
         get {
             return "课程加载失败，请下拉以刷新。"
@@ -23,7 +24,8 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     }
     
     private struct Constants {
-        
+        static let CellIdentifier = "Course Cell"
+        static let CourseCellHeight : CGFloat = 88.0
     }
 
     
@@ -31,7 +33,11 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-       tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = Constants.CourseCellHeight
+        
+        retrieveCourseList()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -57,12 +63,11 @@ class AttendCourseViewController: CloudAnimateTableViewController {
 //    }
     
     func retrieveCourseList() {
-//        ContentManager.sharedInstance.allCourse(course_id) {
-//            (success, courseList, message) in
-//            DDLogDebug("\(success) \(message)")
-//            self.courseList = courseList
-//            self.animationDidEnd()
-//        }
+        ContentManager.sharedInstance.allCourse() {
+            (courseList, error) in
+            self.courseList = courseList
+            self.animationDidEnd()
+        }
     }
 
 }

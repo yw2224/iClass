@@ -28,19 +28,10 @@ class Course: NSManagedObject {
     
     var teacherNameString: String {
         get {
-            var str = ""
-            let teacherNameArray: [String] = {
-                var array = [String]()
-                for teacherName in self.teacherNames.allObjects {
-                    array.append(teacherName.name)
-                }
-                array.sortInPlace(<)
-                return array
-            }()
-            for teacherName in teacherNameArray {
-                str += "\(teacherName)\t"
-            }
-            return str
+            let teacherNameArray: [String] = self.teacherNames.allObjects.map({
+                return $0.name
+            }).sort(<)
+            return teacherNameArray.joinWithSeparator("\t")
         }
     }
 }
@@ -67,10 +58,8 @@ extension Course: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        var ret = [Course]()
-        for json in jsonArray {
-            ret.append(objectFromJSONObject(json) as! Course)
+        return jsonArray.map() {
+            return objectFromJSONObject($0) as! Course
         }
-        return ret
     }
 }

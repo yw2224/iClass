@@ -118,7 +118,7 @@ extension NetworkManager {
         case SubmitAnswer(String, String, String, String, String)
         case SubmitSignIn(String, String, String, String, String, String)
         case AttendCourse(String, String, String)
-        case AllCourse(String)
+        case AllCourse(String, String)
         
         var URLRequest: NSMutableURLRequest {
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
@@ -153,8 +153,8 @@ extension NetworkManager {
                 case .AttendCourse(let id, let token, let courseId):
                     let params = ["_id": id, "token": token, "course_id": courseId]
                     return ("/user/attend", Method.POST, params)
-                case .AllCourse(let id):
-                    let params = ["_id": id]
+                case .AllCourse(let id, let token):
+                    let params = ["_id": id, "token": token]
                     return ("/course/all", Method.GET, params)
                 }
             }()
@@ -192,47 +192,48 @@ extension NetworkManager {
         NetworkManager.executeRequestWithKey(Constants.RegisterKey, request: request, callback: callback)
     }
     
-    func courseList(userId: String?, token: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.UserCourse(userId ?? "", token ?? ""))
+    func courseList(userID: String?, token: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.UserCourse(userID ?? "", token ?? ""))
         NetworkManager.executeRequestWithKey(Constants.UserCourseKey, request: request, callback: callback)
     }
     
-    func quizList(userId: String?, token: String?, courseId: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.QuizList(userId ?? "", token ?? "", courseId ?? ""))
+    func quizList(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.QuizList(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.QuizListKey, request: request, callback: callback)
     }
     
-    func quizContent(userId: String?, token: String?, quizId: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.QuizContent(userId ?? "", token ?? "", quizId ?? ""))
+    func quizContent(userID: String?, token: String?, quizID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.QuizContent(userID ?? "", token ?? "", quizID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.QuizContentKey, request: request, callback: callback)
     }
     
-    func signinInfo(userId: String?, token: String?, courseId: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.SigninInfo(userId ?? "", token ?? "", courseId ?? ""))
+    func signinInfo(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.SigninInfo(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.SigninInfoKey, request: request, callback: callback)
     }
     
-    func originAnswer(userId: String?, token: String?, courseId: String?, quizId: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.OriginAnswer(userId ?? "", token ?? "", courseId ?? "", quizId ?? ""))
+    func originAnswer(userID: String?, token: String?, courseID: String?, quizID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.OriginAnswer(userID ?? "", token ?? "", courseID ?? "", quizID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.OriginAnswerKey, request: request, callback: callback)
     }
     
-    func submitAnswer(userId: String?, token: String?, courseId: String?, quizId: String?, status: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.SubmitAnswer(userId ?? "", token ?? "", courseId ?? "", quizId ?? "", status ?? ""))
+    func submitAnswer(userID: String?, token: String?, courseID: String?, quizID: String?, status: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.SubmitAnswer(userID ?? "", token ?? "", courseID ?? "", quizID ?? "", status ?? ""))
         NetworkManager.executeRequestWithKey(Constants.SubmitAnswerKey, request: request, callback: callback)
     }
     
-    func submitSignIn(userId: String?, token: String?, courseId: String?, signinId: String?, uuid: String?, deviceId: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.SubmitSignIn(userId ?? "", token ?? "", courseId ?? "", signinId ?? "", uuid ?? "", deviceId ?? ""))
+    func submitSignIn(userID: String?, token: String?, courseID: String?, signinID: String?, uuid: String?, deviceID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.SubmitSignIn(userID ?? "", token ?? "", courseID ?? "", signinID ?? "", uuid ?? "", deviceID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.SubmitSignInKey, request: request, callback: callback)
     }
     
-    func attendCourse(userId: String?, token: String?, courseId: String?, callback: NetworkCallbackBlock) {
-        let request = NetworkManager.Manager.request(Router.AttendCourse(userId ?? "", token ?? "", courseId ?? ""))
+    func attendCourse(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.AttendCourse(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.AttendCourseKey, request: request, callback: callback)
     }
     
-//    func allCourse(user_id: String?, token: String?, course_id: String?, callback: NetworkCallbackBlock) {
-//        if NetworkManager.isPendingRequestWithKey(Constants)
-//    }
+    func allCourse(userID: String?, token: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.AllCourse(userID ?? "", token ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.AllCourseKey, request: request, callback: callback)
+    }
 }

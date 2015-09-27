@@ -97,9 +97,14 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying course list success")
-                    Course.MR_truncateAll()
-                    
                     let json = JSON(data)
+                    let courseIDForDelete : [String] = (json["courses"].arrayValue).map() {
+                        return $0["course_id"].stringValue
+                    }
+                    
+                    let predicate = NSPredicate(format: "course_id IN %@", courseIDForDelete)
+                    Course.MR_deleteAllMatchingPredicate(predicate)
+                    
                     block?(courseList:
                         Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
                         error: error)
@@ -112,15 +117,17 @@ class ContentManager: NSObject {
         }
     }
 
-    func quizList(courseId: String, block: ((quizList: [Quiz], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.quizList(ContentManager.UserId, token: ContentManager.Token, courseId: courseId) {
+    func quizList(courseID: String, block: ((quizList: [Quiz], error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.quizList(ContentManager.UserId, token: ContentManager.Token, courseID: courseID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying quiz list success")
-                    Quiz.MR_truncateAll()
-                    
                     let json = JSON(data)
+
+                    let predicate = NSPredicate(format: "course_id = %@", courseID)
+                    Course.MR_deleteAllMatchingPredicate(predicate)
+
                     let quizList = Quiz.objectFromJSONArray(json["quizzes"].arrayValue) as! [Quiz]
                     for answer in json["answers"].arrayValue {
                         let quizId = answer["quiz_id"].stringValue
@@ -141,32 +148,32 @@ class ContentManager: NSObject {
         }
     }
     
-    func quizContent(quizId: String, block: ((quizContent: [Question], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.quizContent(ContentManager.UserId, token: ContentManager.Token, quizId: quizId) {
+    func quizContent(quizID: String, block: ((quizContent: [Question], error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.quizContent(ContentManager.UserId, token: ContentManager.Token, quizID: quizID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying question content success")
-                    CoreDataManager.sharedInstance.deleteQuestions(quizId)
+                    CoreDataManager.sharedInstance.deleteQuestions(quizID)
                     
                     let json = JSON(data)
                     let quizContent = Question.objectFromJSONArray(json["questions"].arrayValue) as! [Question]
                     for question in quizContent {
-                        question.quiz_id = quizId
+                        question.quiz_id = quizID
                     }
                     block?(quizContent: quizContent, error: error)
                 } else {
                     DDLogInfo("Querying question content failed: \(error)")
-                    block?(quizContent: CoreDataManager.sharedInstance.quizContent(quizId),
+                    block?(quizContent: CoreDataManager.sharedInstance.quizContent(quizID),
                         error: error)
                 }
             }
         }
     }
 
-    func signinInfo(courseId: String, block: ((uuid: String, enable: Bool, total: Int,
-        user: Int, signinId: String, error: NetworkErrorType?) -> Void)?) {
-            NetworkManager.sharedInstance.signinInfo(ContentManager.UserId, token: ContentManager.Token, courseId: courseId) {
+    func signinInfo(courseID: String, block: ((uuid: String, enable: Bool, total: Int,
+        user: Int, signinID: String, error: NetworkErrorType?) -> Void)?) {
+            NetworkManager.sharedInstance.signinInfo(ContentManager.UserId, token: ContentManager.Token, courseID: courseID) {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
                     if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -174,70 +181,70 @@ class ContentManager: NSObject {
                         let json = JSON(data)
                         block?(uuid: json["uuid"].stringValue, enable: json["enable"].boolValue,
                             total: json["total"].intValue, user: json["user"].intValue,
-                            signinId: json["signin_id"].stringValue, error: error)
+                            signinID: json["signin_id"].stringValue, error: error)
                     } else {
                         DDLogInfo("Querying sign info failed: \(error)")
-                        block?(uuid: "", enable: false, total: 0, user: 0, signinId: "", error: error)
+                        block?(uuid: "", enable: false, total: 0, user: 0, signinID: "", error: error)
                     }
                 }
             }
     }
     
-    func originAnswer(courseId: String, quizId: String, block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.originAnswer(ContentManager.UserId, token: ContentManager.Token, courseId: courseId, quizId: quizId) {
+    func originAnswer(courseID: String, quizID: String, block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.originAnswer(ContentManager.UserId, token: ContentManager.Token, courseID: courseID, quizID: quizID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying answer list success")
-                    CoreDataManager.sharedInstance.deleteAnswers(quizId)
+                    CoreDataManager.sharedInstance.deleteAnswers(quizID)
                     
                     let json = JSON(data)
                     let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
                     for answer in answerList {
-                        answer.quiz_id = quizId
+                        answer.quiz_id = quizID
                     }
                     block?(answerList: answerList, error: error)
                 } else {
                     DDLogInfo("Querying answer list failed: \(error)")
-                    block?(answerList: CoreDataManager.sharedInstance.answerList(quizId),
+                    block?(answerList: CoreDataManager.sharedInstance.answerList(quizID),
                         error: error)
                 }
             }
         }
     }
     
-    func submitAnswer(courseId: String, quizId: String, status: [AnswerJSON], block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
-        var array = [String]()
-        for answerJSON in status {
+    func submitAnswer(courseID: String, quizID: String, status: [AnswerJSON], block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
+        let array: [String] = status.map() {
             let element = JSON([
-                "question_id": answerJSON.question_id,
-                "originAnswer": JSON(answerJSON.originAnswer).description
+                "question_id": $0.question_id,
+                "originAnswer": JSON($0.originAnswer).description
             ])
-            array.append(element.description)
+            return element.description
         }
         
-        NetworkManager.sharedInstance.submitAnswer(ContentManager.UserId, token: ContentManager.Token, courseId: courseId, quizId: quizId, status: JSON(array).description) {
+        NetworkManager.sharedInstance.submitAnswer(ContentManager.UserId, token: ContentManager.Token, courseID: courseID, quizID: quizID, status: JSON(array).description) {
             (data, error) in
             if error == nil, let data = data where JSON(data)["success"].boolValue {
                 DDLogInfo("Submit answer success")
+                CoreDataManager.sharedInstance.deleteAnswers(quizID)
+                
                 let json = JSON(data)
                 let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
                 for answer in answerList {
-                    answer.quiz_id = quizId
+                    answer.quiz_id = quizID
                 }
-                CoreDataManager.sharedInstance.deleteAnswers(quizId)
                 block?(answerList: answerList, error: error)
             } else {
                 DDLogInfo("Submit answer failed")
-                block?(answerList: CoreDataManager.sharedInstance.answerList(quizId),
+                block?(answerList: CoreDataManager.sharedInstance.answerList(quizID),
                     error: error)
             }
         }
     }
     
-    func submitSignIn(courseId: String, signinId: String, uuid: String, deviceId: String, block: ((error: NetworkErrorType?) -> Void)?) {
+    func submitSignIn(courseID: String, signinID: String, uuid: String, deviceID: String, block: ((error: NetworkErrorType?) -> Void)?) {
         NetworkManager.sharedInstance.submitSignIn(ContentManager.UserId, token: ContentManager.Token,
-            courseId: courseId, signinId: signinId, uuid: uuid, deviceId: deviceId) {
+            courseID: courseID, signinID: signinID, uuid: uuid, deviceID: deviceID) {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
                     if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -250,8 +257,8 @@ class ContentManager: NSObject {
         }
     }
     
-    func attendCourse(courseId: String, block: ((error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.attendCourse(ContentManager.UserId, token: ContentManager.Token, courseId: courseId) {
+    func attendCourse(courseID: String, block: ((error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.attendCourse(ContentManager.UserId, token: ContentManager.Token, courseID: courseID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -264,8 +271,25 @@ class ContentManager: NSObject {
         }
     }
     
-    func allCourse(courseId: String, block: ((courseList: [Course], error: NetworkErrorType?) -> Void)?) {
-//        NetworkManager.sharedInstance.allCourse
+    func allCourse(block: ((courseList: [Course], error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.allCourse(ContentManager.UserId, token: ContentManager.Token) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Querying all course success")
+                    Course.MR_truncateAll()
+                    
+                    let json = JSON(data)
+                    block?(courseList:
+                        Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
+                        error: error)
+                } else {
+                    DDLogInfo("Querying all course failed: \(error)")
+                    block?(courseList: CoreDataManager.sharedInstance.courseList(),
+                        error: error)
+                }
+            }
+        }
     }
     
     func cleanUpCoreData() {

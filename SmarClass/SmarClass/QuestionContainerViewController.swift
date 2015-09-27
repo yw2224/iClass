@@ -80,13 +80,12 @@ class QuestionContainerViewController: UIViewController {
         var status = [AnswerJSON]()
         for (key, value) in answerDict {
             let answer = value as! Answer
-            var originAnswer = [String]()
-            for choice in answer.originAnswer.allObjects {
-                originAnswer.append((choice as! Choice).content)
+            let originAnswer: [String] = answer.originAnswer.allObjects.map() {
+                return ($0 as! Choice).content
             }
             status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))
         }
-        ContentManager.sharedInstance.submitAnswer(quiz.course_id, quizId: quiz.quiz_id, status: status) {
+        ContentManager.sharedInstance.submitAnswer(quiz.course_id, quizID: quiz.quiz_id, status: status) {
             (answerList, error) in
             
             if error == nil {

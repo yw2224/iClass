@@ -39,10 +39,8 @@ extension Quiz: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        var ret = [Quiz]()
-        for json in jsonArray {
-            ret.append(objectFromJSONObject(json) as! Quiz)
+        return jsonArray.map() {
+            return objectFromJSONObject($0) as! Quiz
         }
-        return ret
     }
 }

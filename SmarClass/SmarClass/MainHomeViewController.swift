@@ -91,10 +91,6 @@ class MainHomeViewController: CloudAnimateTableViewController {
         delegate?.toggleLeftPanel(true)
     }
     
-    @IBAction func addOrRemoveCourse(sender: UIBarButtonItem) {
-        print("add or remove course")
-    }
-    
     func disableTableView() {
         tableView.userInteractionEnabled = false
     }

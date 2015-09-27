@@ -84,7 +84,7 @@ class CourseOverviewController: UIViewController {
     }
     
     func submitSigninInfo() {
-        ContentManager.sharedInstance.submitSignIn(course.course_id, signinId: signinId!, uuid: uuid!, deviceId: deviceId) {
+        ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinId!, uuid: uuid!, deviceID: deviceId) {
             if $0 == nil {
                 self.retrieveSigninInfo()
             } else {

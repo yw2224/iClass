@@ -30,10 +30,8 @@ extension LectureTime: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        var ret = [LectureTime]()
-        for json in jsonArray {
-            ret.append(objectFromJSONObject(json) as! LectureTime)
+        return jsonArray.map() {
+            return objectFromJSONObject($0) as! LectureTime
         }
-        return ret
     }
 }

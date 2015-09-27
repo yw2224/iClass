@@ -41,10 +41,8 @@ extension Answer: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        var ret = [Answer]()
-        for json in jsonArray {
-            ret.append(objectFromJSONObject(json) as! Answer)
+        return jsonArray.map() {
+            return objectFromJSONObject($0) as! Answer
         }
-        return ret
     }
 }

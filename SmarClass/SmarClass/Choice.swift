@@ -16,26 +16,18 @@ class Choice: NSManagedObject {
     @NSManaged var content: String
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [Choice] {
-        return {
-            var ret = [Choice]()
-            for name in jsonArray {
-                let choice = Choice.MR_createEntity()
-                choice.content = name.description
-                ret.append(choice)
-            }
-            return ret
-        }()
+        return jsonArray.map() {
+            let choice = Choice.MR_createEntity()
+            choice.content = $0.description
+            return choice
+        }
     }
     
     static func objectFromStringArray(strArray: [String]) -> [Choice] {
-        return {
-            var ret = [Choice]()
-            for name in strArray {
-                let choice = Choice.MR_createEntity()
-                choice.content = name
-                ret.append(choice)
-            }
-            return ret
-        }()
+        return strArray.map() {
+            let choice = Choice.MR_createEntity()
+            choice.content = $0
+            return choice
+        }
     }
 }

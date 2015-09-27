@@ -53,7 +53,7 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveOriginAnswers() {
-        ContentManager.sharedInstance.originAnswer(quiz.course_id, quizId: quiz.quiz_id) {
+        ContentManager.sharedInstance.originAnswer(quiz.course_id, quizID: quiz.quiz_id) {
             (answerList, error) in
             // MARK: if failed, present HUD
             for answer in answerList {
