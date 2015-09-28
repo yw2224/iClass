@@ -37,7 +37,6 @@ class QuizViewController: CloudAnimateTableViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        course = CoreDataManager.sharedInstance.course(courseID)
         tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
@@ -45,6 +44,7 @@ class QuizViewController: CloudAnimateTableViewController {
         super.viewDidAppear(animated)
 
         // MARK: This should be improved for performance!
+        course = CoreDataManager.sharedInstance.course(courseID)
         retrieveQuizList()
     }
     

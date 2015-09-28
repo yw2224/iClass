@@ -98,12 +98,12 @@ class ContentManager: NSObject {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying course list success")
                     let json = JSON(data)
+                    
                     let courseIDForDelete : [String] = (json["courses"].arrayValue).map() {
                         return $0["course_id"].stringValue
                     }
-                    
                     let predicate = NSPredicate(format: "course_id IN %@", courseIDForDelete)
-                    Course.MR_deleteAllMatchingPredicate(predicate)
+                    CoreDataManager.sharedInstance.deleteCourseWithinPredicate(predicate)
                     
                     block?(courseList:
                         Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
@@ -124,16 +124,15 @@ class ContentManager: NSObject {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying quiz list success")
                     let json = JSON(data)
-
                     let predicate = NSPredicate(format: "course_id = %@", courseID)
-                    Course.MR_deleteAllMatchingPredicate(predicate)
+                    CoreDataManager.sharedInstance.deleteQuizWithinPredicate(predicate)
 
                     let quizList = Quiz.objectFromJSONArray(json["quizzes"].arrayValue) as! [Quiz]
                     for answer in json["answers"].arrayValue {
-                        let quizId = answer["quiz_id"].stringValue
+                        let quizID = answer["quiz_id"].stringValue
                         let correct = answer["total"].intValue
                         // the quiz_id should be unique, so search can be stopped when finding one candidate
-                        for quiz in quizList where quiz.quiz_id == quizId {
+                        for quiz in quizList where quiz.quiz_id == quizID {
                             quiz.correct = NSNumber(integer: correct)
                             break
                         }
@@ -141,7 +140,7 @@ class ContentManager: NSObject {
                     block?(quizList: quizList, error: error)
                 } else {
                     DDLogInfo("Querying quiz list failed: \(error)")
-                    block?(quizList: CoreDataManager.sharedInstance.quizList(),
+                    block?(quizList: CoreDataManager.sharedInstance.quizList(courseID),
                         error: error)
                 }
             }
@@ -277,7 +276,7 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying all course success")
-                    Course.MR_truncateAll()
+                    CoreDataManager.sharedInstance.deleteAllCourses()
                     
                     let json = JSON(data)
                     block?(courseList:
@@ -285,7 +284,7 @@ class ContentManager: NSObject {
                         error: error)
                 } else {
                     DDLogInfo("Querying all course failed: \(error)")
-                    block?(courseList: CoreDataManager.sharedInstance.courseList(),
+                    block?(courseList: [],
                         error: error)
                 }
             }

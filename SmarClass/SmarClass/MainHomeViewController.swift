@@ -65,7 +65,8 @@ class MainHomeViewController: CloudAnimateTableViewController {
 //    }
     
     @IBAction func unwindToHomePage(segue: UIStoryboardSegue) {
-//        dismissViewControllerAnimated(true, completion: nil)
+        courseList.removeAll()
+        retrieveCourseList()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -83,7 +84,13 @@ class MainHomeViewController: CloudAnimateTableViewController {
             if let segue = segue as? CrossDissolveSegue {
                 segue.image = cell.bookCover.image
             }
-		}
+        } else if let dest = segue.destinationViewController as? NavigationController {
+            if let acvc = dest.contentViewController(0) as? AttendCourseViewController {
+                acvc.attendCourseID = courseList.map() {
+                    return $0.course_id
+                }
+            }
+        }
 	}
     
     // MARK: Actions
@@ -108,6 +115,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
 }
 
+// MARK: RefreshControlHook
 extension MainHomeViewController {
     
     override func animationDidStart() {

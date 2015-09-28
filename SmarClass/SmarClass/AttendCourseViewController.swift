@@ -10,12 +10,8 @@ import UIKit
 
 class AttendCourseViewController: CloudAnimateTableViewController {
 
-    var attendCourse: [String]!
-    var courseList = [Course]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var attendCourse = [Course]()
+    var courseList = [Course]()
     
     override var emptyTitle: String {
         get {
@@ -27,15 +23,30 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         static let CellIdentifier = "Course Cell"
         static let CourseCellHeight : CGFloat = 88.0
     }
-
+    
+    // MARK: Inited in the prepareForSegue()
+    var attendCourseID: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        if let superView = navigationController?.view {
+            let vibrancyView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+            let topToTLG = NSLayoutConstraint(item: vibrancyView, attribute: .Top, relatedBy: .Equal, toItem: superView, attribute: .Top, multiplier: 1.0, constant: 0.0)
+            let bottomToBLG = NSLayoutConstraint(item: vibrancyView, attribute: .Bottom, relatedBy: .Equal, toItem: superView, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
+            let leftToLeading = NSLayoutConstraint(item: vibrancyView, attribute: .Leading, relatedBy: .Equal, toItem: superView, attribute: .Leading, multiplier: 1.0, constant: 0.0)
+            let rightToTrailing = NSLayoutConstraint(item: vibrancyView, attribute: .Trailing, relatedBy: .Equal, toItem: superView, attribute: .Trailing, multiplier: 1.0, constant: 0.0)
+            vibrancyView.translatesAutoresizingMaskIntoConstraints = false
+            superView.insertSubview(vibrancyView, atIndex: 0)
+            superView.addConstraints([topToTLG, bottomToBLG, leftToLeading, rightToTrailing])
+        }
+        
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.CourseCellHeight
+        tableView.setEditing(true, animated: true)
         
         retrieveCourseList()
     }
@@ -65,9 +76,111 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     func retrieveCourseList() {
         ContentManager.sharedInstance.allCourse() {
             (courseList, error) in
-            self.courseList = courseList
+            self.attendCourse.removeAll()
+            self.courseList = courseList.filter() {
+                if self.attendCourseID.indexOf($0.course_id) != nil {
+                    self.attendCourse.append($0)
+                    return false
+                }
+                return true
+            }
+            self.tableView.reloadData()
             self.animationDidEnd()
         }
     }
 
 }
+
+// MARK: RefreshControlHook
+extension AttendCourseViewController {
+    
+    override func animationDidStart() {
+        super.animationDidStart()
+        
+        // Remember to call 'animationDidEnd' in the following code
+        retrieveCourseList()
+    }
+    
+    override func animationDidEnd() {
+        super.animationDidEnd()
+    }
+    
+}
+
+// MARK: UITableViewDatasource
+extension AttendCourseViewController {
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (section == 0) {
+            return attendCourse.count
+        }
+        return courseList.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! CourseTableViewCell2
+        let course = (indexPath.section == 0) ? attendCourse[indexPath.row] : courseList[indexPath.row]
+        cell.setupUIWithImage(
+            "Computer Networks",
+            courseTitle: course.name,
+            teacherName: course.teacherNameString)
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return attendCourse.isEmpty ? nil : "已选课程"
+        } else if section == 1 {
+            return courseList.isEmpty ? nil : "备选课程"
+        }
+        return nil
+    }
+    
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .None
+    }
+    
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        let course = sourceIndexPath.section == 0 ? attendCourse[sourceIndexPath.row] : courseList[sourceIndexPath.row]
+        sourceIndexPath.section == 0 ? attendCourse.removeAtIndex(sourceIndexPath.row) : courseList.removeAtIndex(sourceIndexPath.row)
+        destinationIndexPath.section == 0 ? attendCourse.insert(course, atIndex: destinationIndexPath.row) : courseList.insert(course, atIndex: destinationIndexPath.row)
+    }
+}
+
+// MARK: UITableViewDelegate
+extension AttendCourseViewController {
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44.0
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+}
+
+class CourseTableViewCell2 : UITableViewCell {
+    
+    @IBOutlet weak var bookCover: UIImageView!
+    @IBOutlet weak var courseName: UILabel!
+    @IBOutlet weak var teacherLabel: UILabel!
+    
+    func setupUIWithImage(imageName: String? = "DefaultBookCover", courseTitle course: String, teacherName teacher: String) {
+        bookCover.image = UIImage(named: imageName ?? "DefaultBookCover")
+        courseName.text = course
+        teacherLabel.text = teacher
+    }
+}
+

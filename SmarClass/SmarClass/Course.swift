@@ -31,7 +31,11 @@ class Course: NSManagedObject {
             let teacherNameArray: [String] = self.teacherNames.allObjects.map({
                 return $0.name
             }).sort(<)
-            return teacherNameArray.joinWithSeparator("\t")
+            let string = teacherNameArray.joinWithSeparator("\t")
+            if string.characters.count == 0 {
+                return "无"
+            }
+            return string
         }
     }
 }
