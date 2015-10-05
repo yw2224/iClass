@@ -132,26 +132,26 @@ extension NetworkManager {
                 case .UserCourse(let id, let token):
                     let params = ["_id": id, "token": token]
                     return ("/user/courses", Method.GET, params)
-                case .QuizList(let id, let token, let courseId):
-                    let params = ["_id": id, "token": token, "course_id": courseId]
+                case .QuizList(let id, let token, let courseID):
+                    let params = ["_id": id, "token": token, "course_id": courseID]
                     return ("/quiz/list", Method.GET, params)
-                case .QuizContent(let id, let token, let quizId):
-                    let params = ["_id": id, "token": token, "quiz_id": quizId]
+                case .QuizContent(let id, let token, let quizID):
+                    let params = ["_id": id, "token": token, "quiz_id": quizID]
                     return ("/quiz/content", Method.GET, params)
-                case .SigninInfo(let id, let token, let courseId):
-                    let params = ["_id": id, "token": token, "course_id": courseId]
+                case .SigninInfo(let id, let token, let courseID):
+                    let params = ["_id": id, "token": token, "course_id": courseID]
                     return ("/signin/info", Method.GET, params)
-                case .OriginAnswer(let id, let token, let courseId, let quizId):
-                    let params = ["_id": id, "token": token, "course_id": courseId, "quiz_id": quizId]
+                case .OriginAnswer(let id, let token, let courseID, let quizID):
+                    let params = ["_id": id, "token": token, "course_id": courseID, "quiz_id": quizID]
                     return ("/answer/quiz/info", Method.GET, params)
-                case .SubmitAnswer(let id, let token, let courseId, let quizId, let status):
-                    let params = ["_id": id, "token": token, "course_id": courseId, "quiz_id": quizId, "status": status]
+                case .SubmitAnswer(let id, let token, let courseID, let quizID, let status):
+                    let params = ["_id": id, "token": token, "course_id": courseID, "quiz_id": quizID, "status": status]
                     return ("/answer/submit", Method.POST, params)
-                case .SubmitSignIn(let id, let token, let courseId, let signinId, let uuid, let deviceId):
-                    let params = ["_id": id, "token": token, "course_id": courseId, "signin_id": signinId, "uuid": uuid, "device_id": deviceId]
+                case .SubmitSignIn(let id, let token, let courseID, let signinID, let uuid, let deviceID):
+                    let params = ["_id": id, "token": token, "course_id": courseID, "signin_id": signinID, "uuid": uuid, "device_id": deviceID]
                     return ("/signin/submit", Method.POST, params)
-                case .AttendCourse(let id, let token, let courseId):
-                    let params = ["_id": id, "token": token, "course_id": courseId]
+                case .AttendCourse(let id, let token, let courseID):
+                    let params = ["_id": id, "token": token, "course_id": courseID]
                     return ("/user/attend", Method.POST, params)
                 case .AllCourse(let id, let token):
                     let params = ["_id": id, "token": token]

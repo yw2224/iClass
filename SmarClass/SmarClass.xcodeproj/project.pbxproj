@@ -14,6 +14,12 @@
 		F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */; };
 		F824B22B1B9E6BB90003827B /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F824B22A1B9E6BB80003827B /* Choice.swift */; };
 		F824B22D1B9E86D00003827B /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F824B22C1B9E86D00003827B /* Answer.swift */; };
+		F82F8DCF1BB912670011065C /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DCE1BB912670011065C /* ProjectViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F82F8DD21BB924B30011065C /* ProjectContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD11BB924B30011065C /* ProjectContainerViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F82F8DD41BB92E780011065C /* ProblemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD31BB92E780011065C /* ProblemViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD51BB92F070011065C /* SwitcherViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F82F8DD81BB93BB20011065C /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD71BB93BB20011065C /* GroupViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F82F8DDA1BB93C8E0011065C /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD91BB93C8E0011065C /* Empty.swift */; settings = {ASSET_TAGS = (); }; };
 		F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */; };
 		F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */; };
 		F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85C83701B8ED56E00701C73 /* RefreshContents.xib */; };
@@ -92,6 +98,12 @@
 		F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash3ViewController.swift; sourceTree = "<group>"; };
 		F824B22A1B9E6BB80003827B /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choice.swift; sourceTree = "<group>"; };
 		F824B22C1B9E86D00003827B /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		F82F8DCE1BB912670011065C /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		F82F8DD11BB924B30011065C /* ProjectContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectContainerViewController.swift; sourceTree = "<group>"; };
+		F82F8DD31BB92E780011065C /* ProblemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProblemViewController.swift; sourceTree = "<group>"; };
+		F82F8DD51BB92F070011065C /* SwitcherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitcherViewController.swift; sourceTree = "<group>"; };
+		F82F8DD71BB93BB20011065C /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		F82F8DD91BB93C8E0011065C /* Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = SmarClass/CoreDataManager.swift; sourceTree = "<group>"; };
 		F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAnimateTableViewController.swift; sourceTree = "<group>"; };
 		F85C83701B8ED56E00701C73 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
@@ -144,7 +156,7 @@
 		F8FEFE361B5647F8004FA01C /* MainHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHomeViewController.swift; sourceTree = "<group>"; };
 		F8FEFE371B5647F8004FA01C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		F8FEFE381B5647F8004FA01C /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
-		F8FEFE391B5647F8004FA01C /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
+		F8FEFE391B5647F8004FA01C /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SidePanelViewController.swift; path = SmarClass/SidePanelViewController.swift; sourceTree = "<group>"; };
 		F8FEFE3A1B5647F8004FA01C /* QuizViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		F8FEFE3D1B5647F8004FA01C /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		F8FEFE501B564815004FA01C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -202,6 +214,17 @@
 				F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */,
 			);
 			name = Splash;
+			sourceTree = "<group>";
+		};
+		F82F8DD01BB912730011065C /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				F82F8DD31BB92E780011065C /* ProblemViewController.swift */,
+				F82F8DD11BB924B30011065C /* ProjectContainerViewController.swift */,
+				F82F8DCE1BB912670011065C /* ProjectViewController.swift */,
+				F82F8DD71BB93BB20011065C /* GroupViewController.swift */,
+			);
+			name = Project;
 			sourceTree = "<group>";
 		};
 		F85C83721B8ED57300701C73 /* Cloud Animation Refresh Control */ = {
@@ -296,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */,
+				F82F8DD91BB93C8E0011065C /* Empty.swift */,
 			);
 			name = Segue;
 			sourceTree = "<group>";
@@ -341,12 +365,13 @@
 			name = iCarousel;
 			sourceTree = "<group>";
 		};
-		F8D7427B1BA1A34D00B346EE /* About Us */ = {
+		F8D7427B1BA1A34D00B346EE /* Side Panel */ = {
 			isa = PBXGroup;
 			children = (
+				F8FEFE391B5647F8004FA01C /* SidePanelViewController.swift */,
 				F8D742791BA1A34500B346EE /* AboutUsViewController.swift */,
 			);
-			name = "About Us";
+			name = "Side Panel";
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -407,12 +432,12 @@
 			children = (
 				F8B7CDF21B5E6EFC00F2B8EB /* Segue */,
 				F8FEFE771B565818004FA01C /* Helpers */,
+				F89C108E1B5F2B3D00A233C8 /* Login */,
+				F8E3C26F1BA9A5D6006928F3 /* Attend Course */,
 				F8FEFE761B564F30004FA01C /* Homepage */,
 				F8B7CDF71B5E88ED00F2B8EB /* Course */,
 				F86537E01B96E85600BFCF6D /* Quiz */,
-				F89C108E1B5F2B3D00A233C8 /* Login */,
-				F8E3C26F1BA9A5D6006928F3 /* Attend Course */,
-				F8D7427B1BA1A34D00B346EE /* About Us */,
+				F82F8DD01BB912730011065C /* Project */,
 			);
 			name = "View Controllers";
 			path = SmarClass;
@@ -483,7 +508,7 @@
 			children = (
 				F8FEFE361B5647F8004FA01C /* MainHomeViewController.swift */,
 				F8FEFE381B5647F8004FA01C /* ContainerViewController.swift */,
-				F8FEFE391B5647F8004FA01C /* SidePanelViewController.swift */,
+				F8D7427B1BA1A34D00B346EE /* Side Panel */,
 			);
 			name = Homepage;
 			sourceTree = "<group>";
@@ -497,6 +522,7 @@
 				F8FEFE631B5649DB004FA01C /* NavigationController.swift */,
 				F8FEFE371B5647F8004FA01C /* TabBarController.swift */,
 				F8FEFE641B5649DB004FA01C /* FunctionalExtension.swift */,
+				F82F8DD51BB92F070011065C /* SwitcherViewController.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -679,6 +705,7 @@
 				F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */,
 				F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */,
 				F8FEFE491B5647F8004FA01C /* TabBarController.swift in Sources */,
+				F82F8DD21BB924B30011065C /* ProjectContainerViewController.swift in Sources */,
 				F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */,
 				F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */,
 				F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */,
@@ -703,14 +730,17 @@
 				F86734091B972B7F002A69F8 /* CourseDescriptionViewController.swift in Sources */,
 				F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */,
 				F8F16B121B9C168F00170D64 /* QuestionContainerViewController.swift in Sources */,
+				F82F8DD41BB92E780011065C /* ProblemViewController.swift in Sources */,
 				F8FEFE0A1B56479C004FA01C /* AppDelegate.swift in Sources */,
 				F8D4DAED1B9695A5000B771A /* User.swift in Sources */,
+				F82F8DCF1BB912670011065C /* ProjectViewController.swift in Sources */,
 				F8D4DAF11B9695A6000B771A /* Course.swift in Sources */,
 				F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */,
 				F8D742721BA1933300B346EE /* iCarousel.m in Sources */,
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
 				F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */,
+				F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */,
 				F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */,
 				F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */,
 				F8FEFE4A1B5647F8004FA01C /* ContainerViewController.swift in Sources */,
@@ -722,6 +752,8 @@
 				F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */,
 				F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */,
 				F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */,
+				F82F8DDA1BB93C8E0011065C /* Empty.swift in Sources */,
+				F82F8DD81BB93BB20011065C /* GroupViewController.swift in Sources */,
 				F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */,
 				F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */,
 				F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */,

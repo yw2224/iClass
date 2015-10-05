@@ -34,12 +34,16 @@ class CoreDataManager: NSObject {
         NSManagedObjectContext.MR_defaultContext().MR_saveOnlySelfAndWait()
     }
     
-    func answerList(quiz_id: String) -> [Answer] {
-        return Answer.MR_findByAttribute("quiz_id", withValue: quiz_id) as! [Answer]
+    func answerList(quizID: String) -> [Answer] {
+        return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
     }
     
     func courseList() -> [Course] {
         return Course.MR_findAllSortedBy("course_id", ascending: true) as! [Course]
+    }
+    
+    func courseList(predicate: NSPredicate) -> [Course] {
+        return Course.MR_findAllSortedBy("course_id", ascending: true, withPredicate: predicate) as! [Course]
     }
     
     func course(courseID: String) -> Course {
@@ -62,12 +66,12 @@ class CoreDataManager: NSObject {
         return Question.MR_findFirstByAttribute("question_id", withValue: questionID)
     }
     
-    func quizContent(quiz_id: String) -> [Question] {
-        return Question.MR_findByAttribute("quiz_id", withValue: quiz_id, andOrderBy: "no", ascending: true) as! [Question]
+    func quizContent(quizID: String) -> [Question] {
+        return Question.MR_findByAttribute("quiz_id", withValue: quizID, andOrderBy: "no", ascending: true) as! [Question]
     }
     
-    func deleteQuestions(quiz_id: String) {
-        let predicate = NSPredicate(format: "quiz_id = %@", quiz_id)
+    func deleteQuestions(quizID: String) {
+        let predicate = NSPredicate(format: "quiz_id = %@", quizID)
         Question.MR_deleteAllMatchingPredicate(predicate)
     }
     
@@ -75,8 +79,8 @@ class CoreDataManager: NSObject {
         Quiz.MR_deleteAllMatchingPredicate(predicate)
     }
     
-    func deleteAnswers(quiz_id: String) {
-        let predicate = NSPredicate(format: "quiz_id = %@", quiz_id)
+    func deleteAnswers(quizID: String) {
+        let predicate = NSPredicate(format: "quiz_id = %@", quizID)
         Answer.MR_deleteAllMatchingPredicate(predicate)
     }
     
@@ -88,7 +92,7 @@ class CoreDataManager: NSObject {
         Course.MR_truncateAll()
     }
     
-    func cachedAnswerForQuiz(quiz_id: String) -> [Answer] {
-        return Answer.MR_findByAttribute("quiz_id", withValue: quiz_id) as! [Answer]
+    func cachedAnswerForQuiz(quizID: String) -> [Answer] {
+        return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
     }
 }

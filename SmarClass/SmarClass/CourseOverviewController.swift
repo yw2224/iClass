@@ -17,8 +17,8 @@ class CourseOverviewController: UIViewController {
     var lastProximity: CLProximity?
     var locationManager: CLLocationManager!
     var uuid: String? // "BCEAD00F-F457-4E69-B32E-681251AC2048"
-    var deviceId = UIDevice.currentDevice().identifierForVendor!.UUIDString
-    var signinId: String?
+    var deviceID = UIDevice.currentDevice().identifierForVendor!.UUIDString
+    var signinID: String?
     var isSigninEnabled = false
     var isBeaconFound = false
 
@@ -66,7 +66,7 @@ class CourseOverviewController: UIViewController {
     
     func retrieveSigninInfo() {
         ContentManager.sharedInstance.signinInfo(course.course_id) {
-            (uuid, enable, total, user, signin_id, error) in
+            (uuid, enable, total, user, signinID, error) in
             // MARK if error present HUD and return
             guard let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
             
@@ -77,14 +77,14 @@ class CourseOverviewController: UIViewController {
             }
             
             self.uuid = NSUUID(UUIDString: uuid)?.UUIDString
-            self.signinId = signin_id
+            self.signinID = signinID
             self.isSigninEnabled = enable
             self.setupLocationManager()
         }
     }
     
     func submitSigninInfo() {
-        ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinId!, uuid: uuid!, deviceID: deviceId) {
+        ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinID!, uuid: uuid!, deviceID: deviceID) {
             if $0 == nil {
                 self.retrieveSigninInfo()
             } else {
@@ -179,7 +179,7 @@ extension CourseOverviewController: UITableViewDelegate {
 extension CourseOverviewController : CLLocationManagerDelegate {
     
     func setupLocationManager() {
-        guard !isSigninEnabled && signinId != nil, let uuid = uuid else {
+        guard !isSigninEnabled && signinID != nil, let uuid = uuid else {
             return
         }
         

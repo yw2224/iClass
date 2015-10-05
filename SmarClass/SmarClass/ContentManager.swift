@@ -21,7 +21,7 @@ class ContentManager: NSObject {
         return Keychain(service: bundleIdentifier)
     }()
     
-    private static var UserId: String? {
+    private static var UserID: String? {
         get {
             return try? keychain.getString("_id") ?? ""
         }
@@ -92,7 +92,7 @@ class ContentManager: NSObject {
     }
 
     func courseList(block: ((courseList: [Course], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.courseList(ContentManager.UserId, token: ContentManager.Token) {
+        NetworkManager.sharedInstance.courseList(ContentManager.UserID, token: ContentManager.Token) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -118,7 +118,7 @@ class ContentManager: NSObject {
     }
 
     func quizList(courseID: String, block: ((quizList: [Quiz], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.quizList(ContentManager.UserId, token: ContentManager.Token, courseID: courseID) {
+        NetworkManager.sharedInstance.quizList(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -148,7 +148,7 @@ class ContentManager: NSObject {
     }
     
     func quizContent(quizID: String, block: ((quizContent: [Question], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.quizContent(ContentManager.UserId, token: ContentManager.Token, quizID: quizID) {
+        NetworkManager.sharedInstance.quizContent(ContentManager.UserID, token: ContentManager.Token, quizID: quizID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -172,7 +172,7 @@ class ContentManager: NSObject {
 
     func signinInfo(courseID: String, block: ((uuid: String, enable: Bool, total: Int,
         user: Int, signinID: String, error: NetworkErrorType?) -> Void)?) {
-            NetworkManager.sharedInstance.signinInfo(ContentManager.UserId, token: ContentManager.Token, courseID: courseID) {
+            NetworkManager.sharedInstance.signinInfo(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
                     if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -190,7 +190,7 @@ class ContentManager: NSObject {
     }
     
     func originAnswer(courseID: String, quizID: String, block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.originAnswer(ContentManager.UserId, token: ContentManager.Token, courseID: courseID, quizID: quizID) {
+        NetworkManager.sharedInstance.originAnswer(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, quizID: quizID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -221,7 +221,7 @@ class ContentManager: NSObject {
             return element.description
         }
         
-        NetworkManager.sharedInstance.submitAnswer(ContentManager.UserId, token: ContentManager.Token, courseID: courseID, quizID: quizID, status: JSON(array).description) {
+        NetworkManager.sharedInstance.submitAnswer(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, quizID: quizID, status: JSON(array).description) {
             (data, error) in
             if error == nil, let data = data where JSON(data)["success"].boolValue {
                 DDLogInfo("Submit answer success")
@@ -242,7 +242,7 @@ class ContentManager: NSObject {
     }
     
     func submitSignIn(courseID: String, signinID: String, uuid: String, deviceID: String, block: ((error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.submitSignIn(ContentManager.UserId, token: ContentManager.Token,
+        NetworkManager.sharedInstance.submitSignIn(ContentManager.UserID, token: ContentManager.Token,
             courseID: courseID, signinID: signinID, uuid: uuid, deviceID: deviceID) {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
@@ -257,7 +257,7 @@ class ContentManager: NSObject {
     }
     
     func attendCourse(courseID: String, block: ((error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.attendCourse(ContentManager.UserId, token: ContentManager.Token, courseID: courseID) {
+        NetworkManager.sharedInstance.attendCourse(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -271,7 +271,7 @@ class ContentManager: NSObject {
     }
     
     func allCourse(block: ((courseList: [Course], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.allCourse(ContentManager.UserId, token: ContentManager.Token) {
+        NetworkManager.sharedInstance.allCourse(ContentManager.UserID, token: ContentManager.Token) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -295,11 +295,11 @@ class ContentManager: NSObject {
         
     }
     
-    private func saveConfidential(userId: String, token: String, password: String) {
-        if let id = ContentManager.UserId where id != userId {
+    private func saveConfidential(userID: String, token: String, password: String) {
+        if let id = ContentManager.UserID where id != userID {
             cleanUpCoreData()
         }
-        ContentManager.UserId = userId
+        ContentManager.UserID = userID
         ContentManager.Token = token
         ContentManager.Password = password
     }

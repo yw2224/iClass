@@ -11,8 +11,13 @@ import UIKit
 
 class MainHomeViewController: CloudAnimateTableViewController {
     
+    // MARK: synchronized with each other in case Core Date Object will fault over time
+    var courseID = [String]()
     var courseList = [Course]() {
         didSet {
+            courseID = courseList.map() {
+                return $0.course_id
+            }
             tableView.reloadData()
         }
     }
@@ -65,8 +70,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
 //    }
     
     @IBAction func unwindToHomePage(segue: UIStoryboardSegue) {
-        courseList.removeAll()
-        retrieveCourseList()
+        retrieveCourseListFromCache()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -112,6 +116,11 @@ class MainHomeViewController: CloudAnimateTableViewController {
             self.courseList = courseList
             self.animationDidEnd()
         }
+    }
+    
+    func retrieveCourseListFromCache() {
+        let predicate = NSPredicate(format: "course_id IN %@", courseID)
+        courseList = CoreDataManager.sharedInstance.courseList(predicate)
     }
 }
 

@@ -255,14 +255,14 @@ extension LoginViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let (cellId, text): (String, String) = {
+        let (cellID, text): (String, String) = {
             if let content = self.rowIdentifiers[self.status]?[indexPath.row] {
                 return (content == "Empty" ? content : "Text", content)
             }
             return ("Empty", "")
         }()
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId) ?? UITableViewCell()
-        if cellId != "Empty", let cell = cell as? LoginTableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellID) ?? UITableViewCell()
+        if cellID != "Empty", let cell = cell as? LoginTableViewCell {
             cell.configureCellWithPlaceHolder(text)
         }
         return cell
