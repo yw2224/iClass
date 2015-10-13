@@ -67,6 +67,10 @@ class LoginContainerViewController: UIViewController {
 //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //        
 //    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }
 
 extension LoginContainerViewController: UIPageViewControllerDataSource {

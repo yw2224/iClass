@@ -2,7 +2,7 @@
 //  LectureTime+CoreDataProperties.swift
 //  SmarClass
 //
-//  Created by PengZhao on 15/10/5.
+//  Created by PengZhao on 15/10/13.
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu

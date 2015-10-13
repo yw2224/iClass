@@ -20,13 +20,12 @@ class ProjectContainerViewController: UIViewController {
     }
     
     // MARK: Inited in the prepareForSegue()
-    var courseID: String!
+    var projectID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        retrieveProjectList()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -41,10 +40,6 @@ class ProjectContainerViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func retrieveProjectList() {
-        ContentManager.sharedInstance.projectList(courseID, block: nil)
     }
     
     @IBAction func switchChildViewController(sender: UISegmentedControl) {
@@ -65,7 +60,7 @@ class ProjectContainerViewController: UIViewController {
             Constants.ProblemViewControllerSegueIdentifier
         ]
         switcherViewController.delegate = self
-        switcherViewController.courseID = courseID
+        switcherViewController.projectID = projectID
     }
 }
 

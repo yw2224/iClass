@@ -77,6 +77,10 @@ class CoreDataManager: NSObject {
         return nil
     }
     
+    func projectList(courseID: String) -> [Project] {
+        return Project.MR_findByAttribute("course_id", withValue: courseID, andOrderBy: "to", ascending: false) as! [Project]
+    }
+    
     func deleteQuestions(quizID: String) {
         let predicate = NSPredicate(format: "quiz_id = %@", quizID)
         Question.MR_deleteAllMatchingPredicate(predicate)
@@ -107,6 +111,11 @@ class CoreDataManager: NSObject {
     func deleteGroupList(projectID: String) {
         let predicate = NSPredicate(format: "project_id = %@", projectID)
         Group.MR_deleteAllMatchingPredicate(predicate)
+    }
+    
+    func deleteProblemList(projectID: String) {
+        let predicate = NSPredicate(format: "project_id = %@", projectID)
+        Problem.MR_deleteAllMatchingPredicate(predicate)
     }
     
     func cachedAnswerForQuiz(quizID: String) -> [Answer] {

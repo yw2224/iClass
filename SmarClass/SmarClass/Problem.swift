@@ -8,9 +8,28 @@
 
 import Foundation
 import CoreData
+import SwiftyJSON
 
-class Problem: NSManagedObject {
+@objc(Problem)
+class Problem: NSManagedObject, JSONConvertible {
 
 // Insert code here to add functionality to your managed object subclass
+    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
+        let problem = Problem.MR_createEntity()
+        problem.problem_id = json["problem_id"].string ?? ""
+        problem.name = json["name"].string ?? ""
+        problem.deskription = json["description"].string ?? ""
+        problem.maxGroupNum = json["maxGroupNum"].int ?? 0
+        problem.groupSize = json["groupSize"].int ?? 0
+        problem.current = json["current"].int ?? 0
+        return problem
+    }
+    
+    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
+        return jsonArray.map {
+            return objectFromJSONObject($0) as! Problem
+        }
+    }
+    
 
 }

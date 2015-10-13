@@ -10,9 +10,14 @@ import UIKit
 
 class ProblemViewController: CloudAnimateTableViewController {
     
+    var problemList = [Problem]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     override var emptyTitle: String {
         get {
-            return "尚未添加小测验，下拉以刷新。"
+            return "大作业题目为空，请下拉以刷新。"
         }
     }
     
@@ -22,7 +27,7 @@ class ProblemViewController: CloudAnimateTableViewController {
     }
     
     // MARK: Inited in the prepareForSegue()
-    var courseID: String!
+    var projectID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +36,12 @@ class ProblemViewController: CloudAnimateTableViewController {
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.ProblemCellHeight
+        
+        retrieveProblemList()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // MARK: This should be improved for performance!
-//        course = CoreDataManager.sharedInstance.course(courseID)
-//        retrieveQuizList()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -51,6 +54,7 @@ class ProblemViewController: CloudAnimateTableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /*
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -58,13 +62,15 @@ class ProblemViewController: CloudAnimateTableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
+    */
     
-    func retrieveQuizList() {
-//        ContentManager.sharedInstance.quizList(course.course_id) {
-//            (quizList, error) in
-//            self.quizList = quizList
-//            self.animationDidEnd()
-//        }
+    func retrieveProblemList() {
+        ContentManager.sharedInstance.problemList(projectID) {
+            (problemList, error) in
+            self.problemList = problemList
+            
+            self.animationDidEnd()
+        }
     }
     
 }
@@ -76,7 +82,7 @@ extension ProblemViewController {
         super.animationDidStart()
         
         // Remember to call 'animationDidEnd' in the following code
-        retrieveQuizList()
+        retrieveProblemList()
     }
     
     override func animationDidEnd() {
@@ -92,21 +98,34 @@ extension ProblemViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return problemList.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier)!
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! ProblemTableViewCell
+        let problem = problemList[indexPath.row]
+        cell.setupProblemWithProjectName(problem.name, introduction: problem.deskription, currentGroup: problem.current.integerValue, totalGroup: problem.maxGroupNum.integerValue)
         return cell
     }
 }
 
 // MARK: UITableViewDelegate
 extension ProblemViewController {
-    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
 }
 
 class ProblemTableViewCell: UITableViewCell {
     @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var introLabel: UILabel!
+    @IBOutlet weak var currentGroupLabel: UILabel!
+    @IBOutlet weak var totalGroupLabel: UILabel!
+    
+    func setupProblemWithProjectName(projectName: String, introduction: String, currentGroup: Int, totalGroup: Int) {
+        projectNameLabel.text = projectName
+        introLabel.text = introduction
+        currentGroupLabel.text = "\(currentGroup)"
+        totalGroupLabel.text = "\(totalGroup)"
+    }
 }

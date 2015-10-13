@@ -2,7 +2,7 @@
 //  Problem+CoreDataProperties.swift
 //  SmarClass
 //
-//  Created by PengZhao on 15/10/5.
+//  Created by PengZhao on 15/10/13.
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,10 +14,12 @@ import CoreData
 
 extension Problem {
 
-    @NSManaged var name: String?
-    @NSManaged var deskription: String?
-    @NSManaged var maxGroupNum: NSNumber?
-    @NSManaged var groupSize: NSNumber?
-    @NSManaged var current: NSNumber?
+    @NSManaged var current: NSNumber!
+    @NSManaged var deskription: String!
+    @NSManaged var groupSize: NSNumber!
+    @NSManaged var maxGroupNum: NSNumber!
+    @NSManaged var name: String!
+    @NSManaged var problem_id: String!
+    @NSManaged var project_id: String!
 
 }

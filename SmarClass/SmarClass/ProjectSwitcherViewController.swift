@@ -10,13 +10,13 @@ import UIKit
 
 class ProjectSwitcherViewController: SwitcherViewController {
     
-    var courseID: String!
+    var projectID: String!
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let pvc = segue.destinationViewController as? ProblemViewController {
-            pvc.courseID = courseID
+            pvc.projectID = projectID
         } else if let gvc = segue.destinationViewController as? GroupViewController {
-            gvc.courseID = courseID
+            gvc.projectID = projectID
         }
         super.prepareForSegue(segue, sender: sender)
     }

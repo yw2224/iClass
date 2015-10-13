@@ -96,6 +96,10 @@ class ContainerViewController: UIViewController {
         }
         return UIInterfaceOrientationMask.All
     }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }
 
 // MARK: MainHomeViewController delegate

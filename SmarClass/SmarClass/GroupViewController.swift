@@ -21,12 +21,12 @@ class GroupViewController: CloudAnimateTableViewController {
     }
 
     private struct Constants {
-        static let CellIdentifier = "Group Cell"
-        static let GroupCellHeight : CGFloat = 210.0
+        static let CellIdentifer = "Group Cell"
+        static let GroupCellHeight : CGFloat = 220.0
     }
     
     // MARK: Inited in the prepareForSegue()
-    var courseID: String!
+    var projectID: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class GroupViewController: CloudAnimateTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.GroupCellHeight
         
-        retrieveGroupList()
+        retrieveGroupList(projectID)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,25 +64,7 @@ class GroupViewController: CloudAnimateTableViewController {
     }
     */
 
-    func retrieveGroupList() {
-        guard let projectID = CoreDataManager.sharedInstance.projectIDForCourse(courseID) else {
-            ContentManager.sharedInstance.projectList(courseID) {
-                (projectID, error) in
-                
-                if error == nil, let pID = projectID {
-                    self.retrieveGroupListForProject(pID)
-                } else {
-                    // MARK: present HUD
-                    self.animationDidEnd()
-                }
-            }
-            return
-        }
-        
-        retrieveGroupListForProject(projectID)
-    }
-    
-    func retrieveGroupListForProject(projectID: String) {
+    func retrieveGroupList(projectID: String) {
         ContentManager.sharedInstance.groupList(projectID) {
             (groupID, creatorList, memberList, error) in
             if error == nil {
@@ -105,7 +87,7 @@ extension GroupViewController {
         super.animationDidStart()
         
         // Remember to call 'animationDidEnd' in the following code
-        retrieveGroupList()
+        retrieveGroupList(projectID)
     }
     
     override func animationDidEnd() {
@@ -139,12 +121,16 @@ extension GroupViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! GroupTableViewCell
-        if indexPath.section == 0 {
-            let group = createdGroupList[indexPath.row]
-            cell.setupCellWithProjectName()
-        } else if indexPath.section == 1 {
-            
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifer) as! GroupTableViewCell
+        let group = indexPath.section == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
+        cell.setupCellWithProjectName(group.name, creator: group.creator, members: group.members.allObjects as! [Member])
+        switch group.status {
+        case 1:
+            cell.accessoryView = UIImageView(image: UIImage(named: "Accept"))
+        case 2:
+            cell.accessoryView = UIImageView(image: UIImage(named: "Decline"))
+        default:
+            cell.accessoryView = UIImageView(image: UIImage(named: "Idle"))
         }
         return cell
     }
@@ -153,10 +139,60 @@ extension GroupViewController {
 class GroupTableViewCell: UITableViewCell {
     
     @IBOutlet weak var projectNameLabel: UILabel!
-    @IBOutlet weak var captainLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    func setupCellWithProjectName(name: String, creator: Member, members: [Member]) {
-        
+    var creatorName: String!, creatorRealName: String!
+    var memberNames = [(name: String, realName: String)]()
+    
+    private struct Constants {
+        static let CellIdentifer = "Member Cell"
+    }
+    
+    func setupCellWithProjectName(projectName: String, creator: Member, members: [Member]) {
+        projectNameLabel.text = projectName
+        (creatorName, creatorRealName) = (creator.name, creator.realName)
+        memberNames = members.map {
+            return ($0.name, $0.realName)
+        }
+        collectionView.reloadData()
+    }
+}
+
+extension GroupTableViewCell: UICollectionViewDataSource {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return memberNames.count + 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.CellIdentifer, forIndexPath: indexPath) as! MemberCollectionViewCell
+        if indexPath.row == 0 {
+            cell.setupWithName(creatorName, realName: creatorRealName, isCaptain: true)
+        } else {
+            cell.setupWithName(memberNames[indexPath.row - 1].name, realName: memberNames[indexPath.row - 1].realName, isCaptain: false)
+        }
+        return cell
+    }
+}
+
+extension GroupTableViewCell: UICollectionViewDelegate {
+    
+}
+
+class MemberCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var avatarView: AvatarView!
+    @IBOutlet weak var captianIconImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var stuNoLabel: UILabel!
+    
+    func setupWithName(name: String, realName: String, isCaptain: Bool) {
+        avatarView.capital = name
+        captianIconImageView.image = isCaptain ? UIImage(named: "Captain") : UIImage(named: "Member")
+        nameLabel.text = realName
+        stuNoLabel.text = name
     }
     
 }

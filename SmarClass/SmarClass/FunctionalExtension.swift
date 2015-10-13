@@ -23,15 +23,11 @@ extension UIStoryboard {
 
 extension UIViewController {
     
-    func contentViewController(index: Int?) -> UIViewController {
+    func contentViewController(index: Int = 0) -> UIViewController {
         if let navigationController = self as? UINavigationController {
             return navigationController.visibleViewController!
         } else if let tabbarController = self as? UITabBarController {
-            guard
-                let viewControllers = tabbarController.viewControllers,
-                let index = index else {
-                    return self
-            }
+            guard let viewControllers = tabbarController.viewControllers else {return self}
             return viewControllers[index].contentViewController(index)
         }
         return self

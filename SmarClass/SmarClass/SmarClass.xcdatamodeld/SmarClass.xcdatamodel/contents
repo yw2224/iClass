@@ -56,6 +56,7 @@
         <attribute name="maxGroupNum" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="problem_id" attributeType="String" syncable="YES"/>
+        <attribute name="project_id" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="course_id" attributeType="String" syncable="YES"/>
@@ -63,7 +64,6 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="project_id" attributeType="String" syncable="YES"/>
         <attribute name="to" attributeType="Date" syncable="YES"/>
-        <relationship name="problems" toMany="YES" deletionRule="Cascade" destinationEntity="Problem" syncable="YES"/>
     </entity>
     <entity name="Question" representedClassName="Question" syncable="YES">
         <attribute name="content" attributeType="String" syncable="YES"/>
@@ -95,19 +95,19 @@
         <relationship name="avatars" toMany="YES" deletionRule="Cascade" destinationEntity="Avatar" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Answer" positionX="18" positionY="621" width="128" height="103"/>
-        <element name="Avatar" positionX="16" positionY="30" width="128" height="58"/>
-        <element name="Choice" positionX="16" positionY="522" width="128" height="58"/>
-        <element name="Course" positionX="-297" positionY="120" width="128" height="223"/>
-        <element name="Group" positionX="-99" positionY="126" width="128" height="148"/>
-        <element name="LectureTime" positionX="16" positionY="117" width="128" height="88"/>
-        <element name="Member" positionX="-90" positionY="135" width="128" height="88"/>
-        <element name="Option" positionX="196" positionY="366" width="128" height="73"/>
-        <element name="Problem" positionX="-99" positionY="126" width="128" height="133"/>
-        <element name="Project" positionX="-81" positionY="144" width="128" height="133"/>
-        <element name="Question" positionX="16" positionY="324" width="128" height="148"/>
-        <element name="Quiz" positionX="-297" positionY="369" width="128" height="163"/>
-        <element name="TeacherNames" positionX="16" positionY="246" width="128" height="58"/>
-        <element name="User" positionX="-297" positionY="-18" width="128" height="118"/>
+        <element name="Answer" positionX="18" positionY="621" width="128" height="105"/>
+        <element name="Avatar" positionX="16" positionY="30" width="128" height="60"/>
+        <element name="Choice" positionX="16" positionY="522" width="128" height="60"/>
+        <element name="Course" positionX="-297" positionY="120" width="128" height="225"/>
+        <element name="Group" positionX="-99" positionY="126" width="128" height="150"/>
+        <element name="LectureTime" positionX="16" positionY="117" width="128" height="90"/>
+        <element name="Member" positionX="-90" positionY="135" width="128" height="90"/>
+        <element name="Option" positionX="196" positionY="366" width="128" height="75"/>
+        <element name="Problem" positionX="-99" positionY="126" width="128" height="150"/>
+        <element name="Project" positionX="-81" positionY="144" width="128" height="120"/>
+        <element name="Question" positionX="16" positionY="324" width="128" height="150"/>
+        <element name="Quiz" positionX="-297" positionY="369" width="128" height="165"/>
+        <element name="TeacherNames" positionX="16" positionY="246" width="128" height="60"/>
+        <element name="User" positionX="-297" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

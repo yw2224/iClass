@@ -15,12 +15,12 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        guard let dest = viewController as? NavigationController else {return}
-    
-        if let qvc = dest.childViewControllers.first as? QuizViewController {
+        let dest = viewController.contentViewController()
+        
+        if let qvc = dest as? QuizViewController {
             qvc.courseID = courseID
-        } else if let pcvc = dest.childViewControllers.first as? ProjectContainerViewController {
-            pcvc.courseID = courseID
+        } else if let pvc = dest as? ProjectViewController {
+            pvc.courseID = courseID
         }
     }
     

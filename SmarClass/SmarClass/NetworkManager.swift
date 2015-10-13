@@ -60,6 +60,7 @@ class NetworkManager: NSObject {
         static let AllCourseKey    = "All Course"
         static let ProjectListKey  = "Project List"
         static let GroupListKey    = "Group List"
+        static let ProblemListKey  = "Problem List"
     }
     
     private static let Manager: Alamofire.Manager = {
@@ -123,6 +124,7 @@ extension NetworkManager {
         case AllCourse(String, String)
         case ProjectList(String, String, String)
         case GroupList(String, String, String)
+        case ProlemList(String, String, String)
         
         var URLRequest: NSMutableURLRequest {
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
@@ -166,6 +168,9 @@ extension NetworkManager {
                 case .GroupList(let id, let token, let projectID):
                     let params = ["_id": id, "token": token, "project_id": projectID]
                     return ("/project/group/info", Method.GET, params)
+                case .ProlemList(let id, let token, let projectID):
+                    let params = ["_id": id, "token": token, "project_id": projectID]
+                    return ("/project/problem/info", Method.GET, params)
                 }
             }()
             
@@ -255,5 +260,10 @@ extension NetworkManager {
     func groupList(userID: String?, token: String?, projectID: String, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.GroupList(userID ?? "", token ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.GroupListKey, request: request, callback: callback)
+    }
+    
+    func problemList(userID: String?, token: String?, projectID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.ProlemList(userID ?? "", token ?? "", projectID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.ProblemListKey, request: request, callback: callback)
     }
 }

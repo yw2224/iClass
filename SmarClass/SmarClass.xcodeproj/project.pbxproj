@@ -19,8 +19,6 @@
 		F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD51BB92F070011065C /* SwitcherViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F82F8DD81BB93BB20011065C /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD71BB93BB20011065C /* GroupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F82F8DDA1BB93C8E0011065C /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD91BB93C8E0011065C /* Empty.swift */; settings = {ASSET_TAGS = (); }; };
-		F8434BA41BC28B84004AB031 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8434B9F1BC28B84004AB031 /* Project+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8434BA71BC28B84004AB031 /* Problem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8434BA21BC28B84004AB031 /* Problem+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F8434BA81BC28B84004AB031 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8434BA31BC28B84004AB031 /* Problem.swift */; settings = {ASSET_TAGS = (); }; };
 		F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */; };
 		F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */; };
@@ -33,23 +31,28 @@
 		F87957B61B9DA2FE001B06E4 /* QuestionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */; };
 		F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */; };
 		F89C2A9B1BC281D500AC3EEA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2A991BC281D500AC3EEA /* Project.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AAF1BC283B600AC3EEA /* Question+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA01BC283B600AC3EEA /* Question+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB01BC283B600AC3EEA /* Member+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA11BC283B600AC3EEA /* Member+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F89C2AB11BC283B600AC3EEA /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA21BC283B600AC3EEA /* Member.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB21BC283B600AC3EEA /* Choice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA31BC283B600AC3EEA /* Choice+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB41BC283B600AC3EEA /* Option+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA51BC283B600AC3EEA /* Option+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB51BC283B600AC3EEA /* TeacherNames+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA61BC283B600AC3EEA /* TeacherNames+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB61BC283B600AC3EEA /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA71BC283B600AC3EEA /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F89C2AB81BC283B600AC3EEA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA91BC283B600AC3EEA /* Group.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB91BC283B600AC3EEA /* Course+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AAA1BC283B600AC3EEA /* Course+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2ABA1BC283B600AC3EEA /* Quiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AAB1BC283B600AC3EEA /* Quiz+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2ACB1BC2872200AC3EEA /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2ACA1BC2872200AC3EEA /* Answer+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2ACE1BC287D400AC3EEA /* Avatar+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2ACC1BC287D400AC3EEA /* Avatar+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F89C2ACF1BC287D400AC3EEA /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2ACD1BC287D400AC3EEA /* Avatar.swift */; settings = {ASSET_TAGS = (); }; };
 		F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */; };
 		F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9691B99C67000A9D971 /* Quiz.swift */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
 		F8C5D2C81B9EFCCD00E9EA02 /* tos_beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = F8C5D2C71B9EFCCD00E9EA02 /* tos_beep.caf */; };
+		F8CB34A61BCCAD31000B6732 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34A51BCCAD31000B6732 /* ProjectViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34B71BCCD30A000B6732 /* Question+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34A91BCCD30A000B6732 /* Question+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34B81BCCD30A000B6732 /* Member+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AA1BCCD30A000B6732 /* Member+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34B91BCCD30A000B6732 /* Choice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AB1BCCD30A000B6732 /* Choice+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34BA1BCCD30A000B6732 /* Problem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AC1BCCD30A000B6732 /* Problem+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34BB1BCCD30A000B6732 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AD1BCCD30A000B6732 /* Project+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34BC1BCCD30A000B6732 /* Course+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AE1BCCD30A000B6732 /* Course+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34BD1BCCD30A000B6732 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AF1BCCD30A000B6732 /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34BE1BCCD30A000B6732 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B01BCCD30A000B6732 /* Group+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34BF1BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B11BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34C01BCCD30A000B6732 /* Quiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B21BCCD30A000B6732 /* Quiz+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34C11BCCD30A000B6732 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B31BCCD30A000B6732 /* Answer+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34C21BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B41BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34C31BCCD30A000B6732 /* Avatar+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34C41BCCD30A000B6732 /* Option+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F8D4DAED1B9695A5000B771A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEC1B9695A5000B771A /* User.swift */; };
 		F8D4DAF11B9695A6000B771A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF01B9695A6000B771A /* Course.swift */; };
 		F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF41B9695A6000B771A /* TeacherNames.swift */; };
@@ -60,9 +63,7 @@
 		F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */; };
 		F8E3C2711BA9A63F006928F3 /* AttendCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3C2701BA9A63F006928F3 /* AttendCourseViewController.swift */; };
 		F8E8A0471BC28E7C0069C4BF /* LectureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A0431BC28D980069C4BF /* LectureTime.swift */; };
-		F8E8A0481BC28E7C0069C4BF /* LectureTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A0441BC28D980069C4BF /* LectureTime+CoreDataProperties.swift */; };
 		F8E8A04A1BC29EA10069C4BF /* ProjectSwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A0491BC29EA10069C4BF /* ProjectSwitcherViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8E8A0501BC409840069C4BF /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A04F1BC409840069C4BF /* Group+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F8F16B121B9C168F00170D64 /* QuestionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */; };
 		F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */; };
 		F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1301B576D69004733B3 /* FileManager.swift */; };
@@ -121,8 +122,6 @@
 		F82F8DD51BB92F070011065C /* SwitcherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitcherViewController.swift; sourceTree = "<group>"; };
 		F82F8DD71BB93BB20011065C /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		F82F8DD91BB93C8E0011065C /* Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
-		F8434B9F1BC28B84004AB031 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F8434BA21BC28B84004AB031 /* Problem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Problem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8434BA31BC28B84004AB031 /* Problem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Problem.swift; sourceTree = "<group>"; };
 		F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = SmarClass/CoreDataManager.swift; sourceTree = "<group>"; };
 		F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAnimateTableViewController.swift; sourceTree = "<group>"; };
@@ -135,23 +134,28 @@
 		F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionPageViewController.swift; sourceTree = "<group>"; };
 		F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarViewController.swift; sourceTree = "<group>"; };
 		F89C2A991BC281D500AC3EEA /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		F89C2AA01BC283B600AC3EEA /* Question+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Question+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2AA11BC283B600AC3EEA /* Member+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Member+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F89C2AA21BC283B600AC3EEA /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
-		F89C2AA31BC283B600AC3EEA /* Choice+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Choice+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2AA51BC283B600AC3EEA /* Option+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Option+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2AA61BC283B600AC3EEA /* TeacherNames+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TeacherNames+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2AA71BC283B600AC3EEA /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F89C2AA91BC283B600AC3EEA /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = SmarClass/Group.swift; sourceTree = "<group>"; };
-		F89C2AAA1BC283B600AC3EEA /* Course+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Course+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2AAB1BC283B600AC3EEA /* Quiz+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Quiz+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2ACA1BC2872200AC3EEA /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F89C2ACC1BC287D400AC3EEA /* Avatar+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Avatar+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F89C2ACD1BC287D400AC3EEA /* Avatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarContainerViewController.swift; sourceTree = "<group>"; };
 		F8AAE9691B99C67000A9D971 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossDissolveSegue.swift; sourceTree = "<group>"; };
 		F8C5D2C71B9EFCCD00E9EA02 /* tos_beep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tos_beep.caf; sourceTree = "<group>"; };
+		F8CB34A51BCCAD31000B6732 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		F8CB34A91BCCD30A000B6732 /* Question+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Question+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34AA1BCCD30A000B6732 /* Member+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Member+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34AB1BCCD30A000B6732 /* Choice+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Choice+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34AC1BCCD30A000B6732 /* Problem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Problem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34AD1BCCD30A000B6732 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34AE1BCCD30A000B6732 /* Course+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Course+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34AF1BCCD30A000B6732 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B01BCCD30A000B6732 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Group+CoreDataProperties.swift"; path = "SmarClass/Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B11BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TeacherNames+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B21BCCD30A000B6732 /* Quiz+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Quiz+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B31BCCD30A000B6732 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B41BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LectureTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Avatar+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Option+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SmarClass.entitlements; sourceTree = "<group>"; };
 		F8D4DAEC1B9695A5000B771A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F8D4DAF01B9695A6000B771A /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
@@ -164,9 +168,7 @@
 		F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPanelViewController.swift; sourceTree = "<group>"; };
 		F8E3C2701BA9A63F006928F3 /* AttendCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttendCourseViewController.swift; path = SmarClass/AttendCourseViewController.swift; sourceTree = "<group>"; };
 		F8E8A0431BC28D980069C4BF /* LectureTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LectureTime.swift; sourceTree = "<group>"; };
-		F8E8A0441BC28D980069C4BF /* LectureTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LectureTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8E8A0491BC29EA10069C4BF /* ProjectSwitcherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSwitcherViewController.swift; sourceTree = "<group>"; };
-		F8E8A04F1BC409840069C4BF /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Group+CoreDataProperties.swift"; path = "SmarClass/Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionContainerViewController.swift; sourceTree = "<group>"; };
 		F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = SmarClass/GlobalConstants.swift; sourceTree = "<group>"; };
 		F8F3A1301B576D69004733B3 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = SmarClass/FileManager.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		F82F8DD01BB912730011065C /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				F8CB34A51BCCAD31000B6732 /* ProjectViewController.swift */,
 				F82F8DD11BB924B30011065C /* ProjectContainerViewController.swift */,
 				F8E8A0491BC29EA10069C4BF /* ProjectSwitcherViewController.swift */,
 				F82F8DD31BB92E780011065C /* ProblemViewController.swift */,
@@ -266,7 +269,7 @@
 		F8434BA91BC28BB5004AB031 /* Problem */ = {
 			isa = PBXGroup;
 			children = (
-				F8434BA21BC28B84004AB031 /* Problem+CoreDataProperties.swift */,
+				F8CB34AC1BCCD30A000B6732 /* Problem+CoreDataProperties.swift */,
 				F8434BA31BC28B84004AB031 /* Problem.swift */,
 			);
 			name = Problem;
@@ -353,7 +356,7 @@
 		F89C2A9D1BC2838400AC3EEA /* Teacher name */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AA61BC283B600AC3EEA /* TeacherNames+CoreDataProperties.swift */,
+				F8CB34B11BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift */,
 				F8D4DAF41B9695A6000B771A /* TeacherNames.swift */,
 			);
 			name = "Teacher name";
@@ -362,8 +365,8 @@
 		F89C2ABE1BC2844500AC3EEA /* Lecture time */ = {
 			isa = PBXGroup;
 			children = (
+				F8CB34B41BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift */,
 				F8E8A0431BC28D980069C4BF /* LectureTime.swift */,
-				F8E8A0441BC28D980069C4BF /* LectureTime+CoreDataProperties.swift */,
 			);
 			name = "Lecture time";
 			sourceTree = "<group>";
@@ -371,7 +374,7 @@
 		F89C2ABF1BC2846B00AC3EEA /* Course */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AAA1BC283B600AC3EEA /* Course+CoreDataProperties.swift */,
+				F8CB34AE1BCCD30A000B6732 /* Course+CoreDataProperties.swift */,
 				F8D4DAF01B9695A6000B771A /* Course.swift */,
 			);
 			name = Course;
@@ -380,7 +383,7 @@
 		F89C2AC01BC2857D00AC3EEA /* Avatar */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2ACC1BC287D400AC3EEA /* Avatar+CoreDataProperties.swift */,
+				F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */,
 				F89C2ACD1BC287D400AC3EEA /* Avatar.swift */,
 			);
 			name = Avatar;
@@ -389,7 +392,7 @@
 		F89C2AC11BC2859B00AC3EEA /* User */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AA71BC283B600AC3EEA /* User+CoreDataProperties.swift */,
+				F8CB34AF1BCCD30A000B6732 /* User+CoreDataProperties.swift */,
 				F8D4DAEC1B9695A5000B771A /* User.swift */,
 			);
 			name = User;
@@ -398,7 +401,7 @@
 		F89C2AC21BC285B700AC3EEA /* Answer */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2ACA1BC2872200AC3EEA /* Answer+CoreDataProperties.swift */,
+				F8CB34B31BCCD30A000B6732 /* Answer+CoreDataProperties.swift */,
 				F824B22C1B9E86D00003827B /* Answer.swift */,
 			);
 			name = Answer;
@@ -407,7 +410,7 @@
 		F89C2AC31BC285E100AC3EEA /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AAB1BC283B600AC3EEA /* Quiz+CoreDataProperties.swift */,
+				F8CB34B21BCCD30A000B6732 /* Quiz+CoreDataProperties.swift */,
 				F8AAE9691B99C67000A9D971 /* Quiz.swift */,
 			);
 			name = Quiz;
@@ -416,7 +419,7 @@
 		F89C2AC41BC2861B00AC3EEA /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				F8E8A04F1BC409840069C4BF /* Group+CoreDataProperties.swift */,
+				F8CB34B01BCCD30A000B6732 /* Group+CoreDataProperties.swift */,
 				F89C2AA91BC283B600AC3EEA /* Group.swift */,
 				F89C2AC61BC2863700AC3EEA /* Member */,
 			);
@@ -427,7 +430,7 @@
 		F89C2AC51BC2862600AC3EEA /* Project record */ = {
 			isa = PBXGroup;
 			children = (
-				F8434B9F1BC28B84004AB031 /* Project+CoreDataProperties.swift */,
+				F8CB34AD1BCCD30A000B6732 /* Project+CoreDataProperties.swift */,
 				F89C2A991BC281D500AC3EEA /* Project.swift */,
 			);
 			name = "Project record";
@@ -436,7 +439,7 @@
 		F89C2AC61BC2863700AC3EEA /* Member */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AA11BC283B600AC3EEA /* Member+CoreDataProperties.swift */,
+				F8CB34AA1BCCD30A000B6732 /* Member+CoreDataProperties.swift */,
 				F89C2AA21BC283B600AC3EEA /* Member.swift */,
 			);
 			name = Member;
@@ -446,7 +449,7 @@
 		F89C2AC71BC2865E00AC3EEA /* Option */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AA51BC283B600AC3EEA /* Option+CoreDataProperties.swift */,
+				F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */,
 				F87957B31B9D5E09001B06E4 /* Option.swift */,
 			);
 			name = Option;
@@ -455,7 +458,7 @@
 		F89C2AC81BC2869000AC3EEA /* Choice */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AA31BC283B600AC3EEA /* Choice+CoreDataProperties.swift */,
+				F8CB34AB1BCCD30A000B6732 /* Choice+CoreDataProperties.swift */,
 				F824B22A1B9E6BB80003827B /* Choice.swift */,
 			);
 			name = Choice;
@@ -464,7 +467,7 @@
 		F89C2AC91BC286B300AC3EEA /* Question */ = {
 			isa = PBXGroup;
 			children = (
-				F89C2AA01BC283B600AC3EEA /* Question+CoreDataProperties.swift */,
+				F8CB34A91BCCD30A000B6732 /* Question+CoreDataProperties.swift */,
 				F87957B11B9D5E09001B06E4 /* Question.swift */,
 			);
 			name = Question;
@@ -879,7 +882,6 @@
 			files = (
 				F8E8A0471BC28E7C0069C4BF /* LectureTime.swift in Sources */,
 				F8E8A04A1BC29EA10069C4BF /* ProjectSwitcherViewController.swift in Sources */,
-				F8E8A0481BC28E7C0069C4BF /* LectureTime+CoreDataProperties.swift in Sources */,
 				F8FEFE721B5649DB004FA01C /* AvatarView.swift in Sources */,
 				F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */,
 				F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */,
@@ -888,8 +890,12 @@
 				F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */,
 				F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */,
 				F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */,
+				F8CB34BC1BCCD30A000B6732 /* Course+CoreDataProperties.swift in Sources */,
 				F824B22D1B9E86D00003827B /* Answer.swift in Sources */,
+				F8CB34A61BCCAD31000B6732 /* ProjectViewController.swift in Sources */,
+				F8CB34BA1BCCD30A000B6732 /* Problem+CoreDataProperties.swift in Sources */,
 				F89C2AB11BC283B600AC3EEA /* Member.swift in Sources */,
+				F8CB34B71BCCD30A000B6732 /* Question+CoreDataProperties.swift in Sources */,
 				F87957B61B9DA2FE001B06E4 /* QuestionPageViewController.swift in Sources */,
 				F8FEFE4F1B5647F8004FA01C /* QuestionViewController.swift in Sources */,
 				F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */,
@@ -897,61 +903,59 @@
 				F8FEFE6B1B5649DB004FA01C /* NavigationController.swift in Sources */,
 				F8F3A1341B577B04004733B3 /* NetworkManager.swift in Sources */,
 				F8FEFE481B5647F8004FA01C /* MainHomeViewController.swift in Sources */,
+				F8CB34C11BCCD30A000B6732 /* Answer+CoreDataProperties.swift in Sources */,
 				F8FEFE751B564C1E004FA01C /* CourseOverviewController.swift in Sources */,
 				F8D742781BA1947D00B346EE /* AboutUsView.swift in Sources */,
 				F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */,
 				F87957B41B9D5E09001B06E4 /* Option.swift in Sources */,
+				F8CB34BF1BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
-				F89C2ACB1BC2872200AC3EEA /* Answer+CoreDataProperties.swift in Sources */,
 				F8D7427A1BA1A34500B346EE /* AboutUsViewController.swift in Sources */,
+				F8CB34BE1BCCD30A000B6732 /* Group+CoreDataProperties.swift in Sources */,
 				F89C2A9B1BC281D500AC3EEA /* Project.swift in Sources */,
+				F8CB34C41BCCD30A000B6732 /* Option+CoreDataProperties.swift in Sources */,
 				F824B22B1B9E6BB90003827B /* Choice.swift in Sources */,
+				F8CB34B81BCCD30A000B6732 /* Member+CoreDataProperties.swift in Sources */,
 				F89C2AB81BC283B600AC3EEA /* Group.swift in Sources */,
 				F87957B21B9D5E09001B06E4 /* Question.swift in Sources */,
 				F8FEFE461B5647F8004FA01C /* IndexViewController.swift in Sources */,
-				F89C2AB91BC283B600AC3EEA /* Course+CoreDataProperties.swift in Sources */,
-				F89C2ABA1BC283B600AC3EEA /* Quiz+CoreDataProperties.swift in Sources */,
 				F86734091B972B7F002A69F8 /* CourseDescriptionViewController.swift in Sources */,
+				F8CB34B91BCCD30A000B6732 /* Choice+CoreDataProperties.swift in Sources */,
 				F8FEFE431B5647F8004FA01C /* SplashViewController.swift in Sources */,
+				F8CB34BD1BCCD30A000B6732 /* User+CoreDataProperties.swift in Sources */,
 				F8F16B121B9C168F00170D64 /* QuestionContainerViewController.swift in Sources */,
 				F8434BA81BC28B84004AB031 /* Problem.swift in Sources */,
 				F82F8DD41BB92E780011065C /* ProblemViewController.swift in Sources */,
-				F89C2AAF1BC283B600AC3EEA /* Question+CoreDataProperties.swift in Sources */,
-				F89C2AB41BC283B600AC3EEA /* Option+CoreDataProperties.swift in Sources */,
-				F89C2AB21BC283B600AC3EEA /* Choice+CoreDataProperties.swift in Sources */,
 				F8FEFE0A1B56479C004FA01C /* AppDelegate.swift in Sources */,
-				F89C2AB61BC283B600AC3EEA /* User+CoreDataProperties.swift in Sources */,
 				F8D4DAED1B9695A5000B771A /* User.swift in Sources */,
-				F8434BA41BC28B84004AB031 /* Project+CoreDataProperties.swift in Sources */,
 				F8D4DAF11B9695A6000B771A /* Course.swift in Sources */,
 				F8FEFE6C1B5649DB004FA01C /* FunctionalExtension.swift in Sources */,
 				F8D742721BA1933300B346EE /* iCarousel.m in Sources */,
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
-				F89C2AB51BC283B600AC3EEA /* TeacherNames+CoreDataProperties.swift in Sources */,
+				F8CB34BB1BCCD30A000B6732 /* Project+CoreDataProperties.swift in Sources */,
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
+				F8CB34C21BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift in Sources */,
 				F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */,
+				F8CB34C01BCCD30A000B6732 /* Quiz+CoreDataProperties.swift in Sources */,
 				F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */,
-				F89C2AB01BC283B600AC3EEA /* Member+CoreDataProperties.swift in Sources */,
 				F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */,
 				F89C2ACF1BC287D400AC3EEA /* Avatar.swift in Sources */,
 				F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */,
-				F89C2ACE1BC287D400AC3EEA /* Avatar+CoreDataProperties.swift in Sources */,
 				F8FEFE4A1B5647F8004FA01C /* ContainerViewController.swift in Sources */,
 				F8FEFE4B1B5647F8004FA01C /* SidePanelViewController.swift in Sources */,
 				F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */,
 				F8FEFE0D1B56479C004FA01C /* SmarClass.xcdatamodeld in Sources */,
+				F8CB34C31BCCD30A000B6732 /* Avatar+CoreDataProperties.swift in Sources */,
 				F8E3C2711BA9A63F006928F3 /* AttendCourseViewController.swift in Sources */,
 				F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */,
 				F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */,
 				F8FEFE6F1B5649DB004FA01C /* ChoiceView.swift in Sources */,
 				F82F8DDA1BB93C8E0011065C /* Empty.swift in Sources */,
 				F82F8DD81BB93BB20011065C /* GroupViewController.swift in Sources */,
-				F8E8A0501BC409840069C4BF /* Group+CoreDataProperties.swift in Sources */,
 				F8FEFE6D1B5649DB004FA01C /* BadgeView.swift in Sources */,
 				F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */,
 				F8FEFE4C1B5647F8004FA01C /* QuizViewController.swift in Sources */,
 				F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */,
-				F8434BA71BC28B84004AB031 /* Problem+CoreDataProperties.swift in Sources */,
 				F8FEFE451B5647F8004FA01C /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

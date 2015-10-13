@@ -20,12 +20,12 @@ class AvatarView: UIView {
     var status = ShowingStatus.Text {
         didSet {
             if status == .Text {
-                textLabel?.hidden = false
-                imageView?.image = nil
-                imageView?.hidden = true
+                textLabel.hidden = false
+                imageView.image = nil
+                imageView.hidden = true
             } else {
-                textLabel?.hidden = true
-                imageView?.hidden = false
+                textLabel.hidden = true
+                imageView.hidden = false
             }
         }
     }
@@ -100,6 +100,8 @@ class AvatarView: UIView {
     func setup() {
         layer.cornerRadius = CGRectGetWidth(frame) / 2.0
         layer.masksToBounds = true
+        
+        backgroundColor = UIColor.randomFlatColor()
     }
     
     /*
