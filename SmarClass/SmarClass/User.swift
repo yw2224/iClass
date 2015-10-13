@@ -12,10 +12,4 @@ import CoreData
 @objc(User)
 class User: NSManagedObject {
 
-    @NSManaged var email: String
-    @NSManaged var name: String
-    @NSManaged var phone: String
-    @NSManaged var realName: String
-    @NSManaged var avatars: NSSet
-
 }

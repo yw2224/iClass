@@ -10,6 +10,7 @@ import UIKit
 
 protocol SwitchChildViewController {
     var childViewControllerSegueIdentifier: [String] {get set}
+    var currentViewController: UIViewController? {get}
     func switchChildViewControllerAtIndex(index: Int)
 }
 
@@ -53,7 +54,6 @@ class SwitcherViewController: UIViewController {
             view.addSubview(dest.view)
             dest.didMoveToParentViewController(self)
         }
-        
     }
     
     func swapFromViewController(fromViewController: UIViewController, toViewController: UIViewController, atIndex index: Int) {
@@ -81,6 +81,12 @@ extension SwitcherViewController: SwitchChildViewController {
         }
         set {
             segueIdentifiers = childViewControllerSegueIdentifier
+        }
+    }
+    
+    var currentViewController: UIViewController? {
+        get {
+            return childViewControllers.first
         }
     }
     

@@ -13,29 +13,11 @@ import SwiftyJSON
 @objc(Course)
 class Course: NSManagedObject {
 
-    @NSManaged var course_id: String
-    @NSManaged var name: String
-    @NSManaged var introduction: String
-    @NSManaged var midterm: NSDate
-    @NSManaged var finalExam: NSDate
-    @NSManaged var maxStudentsNumber: NSNumber
-    @NSManaged var students: NSNumber
-    @NSManaged var term: String
-    @NSManaged var startDate: NSDate
-    @NSManaged var endDate: NSDate
-    @NSManaged var lectureTime: NSSet
-    @NSManaged var teacherNames: NSSet
-    
     var teacherNameString: String {
         get {
-            let teacherNameArray: [String] = self.teacherNames.allObjects.map({
-                return $0.name
-            }).sort(<)
-            let string = teacherNameArray.joinWithSeparator("\t")
-            if string.characters.count == 0 {
-                return "无"
-            }
-            return string
+            guard let teacherNames = teacherNames?.allObjects as? [TeacherNames] where teacherNames.count > 0 else {return "无"}
+            let teacherNameArray: [String] = teacherNames.map({return $0.name ?? ""}).sort(<)
+            return teacherNameArray.joinWithSeparator("\t")
         }
     }
 }
@@ -62,7 +44,7 @@ extension Course: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map() {
+        return jsonArray.map {
             return objectFromJSONObject($0) as! Course
         }
     }

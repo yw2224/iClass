@@ -11,26 +11,8 @@ import CoreData
 import SwiftyJSON
 
 @objc(Answer)
-class Answer: NSManagedObject {
+class Answer: NSManagedObject, JSONConvertible {
 
-    @NSManaged var quiz_id: String
-    @NSManaged var question_id: String
-    @NSManaged var score: NSNumber
-    @NSManaged var originAnswer: NSSet
-}
-
-class AnswerJSON {
-    var question_id  = ""
-    var originAnswer = [String]()
-    
-    init (question_id: String, originAnswer: [String]) {
-        self.question_id  = question_id
-        self.originAnswer = originAnswer
-    }
-}
-
-extension Answer: JSONConvertible {
-    
     static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
         let answer          = Answer.MR_createEntity()
         answer.question_id  = json["question_id"].string ?? json["_id"].string ?? ""
@@ -41,8 +23,18 @@ extension Answer: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map() {
+        return jsonArray.map {
             return objectFromJSONObject($0) as! Answer
         }
+    }
+}
+
+class AnswerJSON {
+    var question_id  = ""
+    var originAnswer = [String]()
+    
+    init (question_id: String, originAnswer: [String]) {
+        self.question_id  = question_id
+        self.originAnswer = originAnswer
     }
 }

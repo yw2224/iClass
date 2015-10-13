@@ -13,13 +13,11 @@ import SwiftyJSON
 @objc(TeacherNames)
 class TeacherNames: NSManagedObject {
 
-    @NSManaged var name: String
-
     static func objectFromJSONArray(jsonArray: [JSON]) -> [TeacherNames] {
-        return jsonArray.map() {
-            let teacherName = TeacherNames.MR_createEntity()
-            teacherName.name = $0.description
-            return teacherName
+        return jsonArray.map {
+            let teacher = TeacherNames.MR_createEntity()
+            teacher.name = $0.description
+            return teacher
         }
     }
 }

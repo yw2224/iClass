@@ -10,7 +10,7 @@ import UIKit
 
 class ProjectContainerViewController: UIViewController {
 
-    var switcherViewController: SwitcherViewController!
+    var switcherViewController: ProjectSwitcherViewController!
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
     private struct Constants {
@@ -19,15 +19,32 @@ class ProjectContainerViewController: UIViewController {
         
     }
     
+    // MARK: Inited in the prepareForSegue()
+    var courseID: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        retrieveProjectList()
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        CoreDataManager.sharedInstance.saveInBackground()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func retrieveProjectList() {
+        ContentManager.sharedInstance.projectList(courseID, block: nil)
     }
     
     @IBAction func switchChildViewController(sender: UISegmentedControl) {
@@ -41,13 +58,14 @@ class ProjectContainerViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        guard let switcher = segue.destinationViewController as? SwitcherViewController else {return}
+        guard let switcher = segue.destinationViewController as? ProjectSwitcherViewController else {return}
         switcherViewController = switcher
         switcherViewController.segueIdentifiers = [
             Constants.GroupViewControllerSegueIdentifier,
             Constants.ProblemViewControllerSegueIdentifier
         ]
         switcherViewController.delegate = self
+        switcherViewController.courseID = courseID
     }
 }
 

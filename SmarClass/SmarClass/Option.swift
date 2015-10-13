@@ -11,14 +11,7 @@ import CoreData
 import SwiftyJSON
 
 @objc(Option)
-class Option: NSManagedObject {
-
-    @NSManaged var no: NSNumber
-    @NSManaged var content: String
-
-}
-
-extension Option: JSONConvertible {
+class Option: NSManagedObject, JSONConvertible {
     
     static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
         let option     = Option.MR_createEntity()
@@ -28,7 +21,7 @@ extension Option: JSONConvertible {
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map() {
+        return jsonArray.map {
             return objectFromJSONObject($0) as! Option
         }
     }

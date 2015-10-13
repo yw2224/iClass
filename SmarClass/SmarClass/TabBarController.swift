@@ -19,6 +19,8 @@ extension TabBarController: UITabBarControllerDelegate {
     
         if let qvc = dest.childViewControllers.first as? QuizViewController {
             qvc.courseID = courseID
+        } else if let pcvc = dest.childViewControllers.first as? ProjectContainerViewController {
+            pcvc.courseID = courseID
         }
     }
     

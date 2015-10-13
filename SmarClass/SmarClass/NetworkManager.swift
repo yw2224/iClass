@@ -58,6 +58,8 @@ class NetworkManager: NSObject {
         static let SubmitSignInKey = "Submit SignIn"
         static let AttendCourseKey = "Attend Course"
         static let AllCourseKey    = "All Course"
+        static let ProjectListKey  = "Project List"
+        static let GroupListKey    = "Group List"
     }
     
     private static let Manager: Alamofire.Manager = {
@@ -119,6 +121,8 @@ extension NetworkManager {
         case SubmitSignIn(String, String, String, String, String, String)
         case AttendCourse(String, String, String)
         case AllCourse(String, String)
+        case ProjectList(String, String, String)
+        case GroupList(String, String, String)
         
         var URLRequest: NSMutableURLRequest {
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
@@ -156,6 +160,12 @@ extension NetworkManager {
                 case .AllCourse(let id, let token):
                     let params = ["_id": id, "token": token]
                     return ("/course/all", Method.GET, params)
+                case .ProjectList(let id, let token, let courseID):
+                    let params = ["_id": id, "token": token, "course_id": courseID]
+                    return ("/project/info", Method.GET, params)
+                case .GroupList(let id, let token, let projectID):
+                    let params = ["_id": id, "token": token, "project_id": projectID]
+                    return ("/project/group/info", Method.GET, params)
                 }
             }()
             
@@ -235,5 +245,15 @@ extension NetworkManager {
     func allCourse(userID: String?, token: String?, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.AllCourse(userID ?? "", token ?? ""))
         NetworkManager.executeRequestWithKey(Constants.AllCourseKey, request: request, callback: callback)
+    }
+    
+    func projectList(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.ProjectList(userID ?? "", token ?? "", courseID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.ProjectListKey, request: request, callback: callback)
+    }
+    
+    func groupList(userID: String?, token: String?, projectID: String, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.GroupList(userID ?? "", token ?? "", projectID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.GroupListKey, request: request, callback: callback)
     }
 }

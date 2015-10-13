@@ -21,6 +21,9 @@ class ProblemViewController: CloudAnimateTableViewController {
         static let ProblemCellHeight: CGFloat = 66.0
     }
     
+    // MARK: Inited in the prepareForSegue()
+    var courseID: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

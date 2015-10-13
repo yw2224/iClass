@@ -154,19 +154,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJm-gb-hRB">
-                                <rect key="frame" x="0.0" y="112" width="600" height="444"/>
+                                <rect key="frame" x="0.0" y="132" width="600" height="424"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="UgL-gM-dFg" kind="embed" id="ohu-iS-aEF"/>
                                 </connections>
                             </containerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nK5-Ta-ohI">
-                                <rect key="frame" x="219.5" y="84" width="161" height="29"/>
+                                <rect key="frame" x="219" y="84" width="161" height="29"/>
                                 <animations/>
                                 <segments>
                                     <segment title="组队" width="80"/>
                                     <segment title="备选题目" width="80"/>
                                 </segments>
+                                <color key="tintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="switchChildViewController:" destination="TSi-BG-T6g" eventType="valueChanged" id="zQW-Du-Sml"/>
                                 </connections>
@@ -178,14 +179,18 @@
                             <constraint firstItem="nK5-Ta-ohI" firstAttribute="top" secondItem="MKg-0E-x9k" secondAttribute="bottom" constant="20" id="0kh-mA-zJa"/>
                             <constraint firstItem="E8I-xd-Us0" firstAttribute="top" secondItem="ZJm-gb-hRB" secondAttribute="bottom" id="4ak-Ws-Kn7"/>
                             <constraint firstItem="ZJm-gb-hRB" firstAttribute="leading" secondItem="hI6-gd-RtY" secondAttribute="leading" id="JOq-Nh-GRp"/>
-                            <constraint firstItem="ZJm-gb-hRB" firstAttribute="top" secondItem="nK5-Ta-ohI" secondAttribute="bottom" id="vLU-Sp-Df6"/>
+                            <constraint firstItem="ZJm-gb-hRB" firstAttribute="top" secondItem="nK5-Ta-ohI" secondAttribute="bottom" constant="20" id="vLU-Sp-Df6"/>
                             <constraint firstItem="ZJm-gb-hRB" firstAttribute="trailing" secondItem="hI6-gd-RtY" secondAttribute="trailing" id="wYF-hJ-HzG"/>
                             <constraint firstItem="nK5-Ta-ohI" firstAttribute="centerX" secondItem="hI6-gd-RtY" secondAttribute="centerXWithinMargins" id="ysn-S0-b6j"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="项目" id="UcG-4m-KZ4">
-                        <barButtonItem key="leftBarButtonItem" title="课程库" id="Ecl-tL-P9d"/>
+                        <barButtonItem key="leftBarButtonItem" title="课程库" id="Ecl-tL-P9d">
+                            <connections>
+                                <segue destination="W4p-Or-cto" kind="unwind" unwindAction="unwindToHomePage:" id="npc-fc-LRV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FgX-aP-Y14"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -194,19 +199,20 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eEe-FY-iho" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="W4p-Or-cto" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1760" y="2130"/>
         </scene>
-        <!--Switcher View Controller-->
+        <!--Project Switcher View Controller-->
         <scene sceneID="Odg-0H-wMh">
             <objects>
-                <viewController id="UgL-gM-dFg" customClass="SwitcherViewController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UgL-gM-dFg" customClass="ProjectSwitcherViewController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xdl-fN-GIe"/>
                         <viewControllerLayoutGuide type="bottom" id="edz-tQ-0qz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qNf-2i-RNg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="444"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="424"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,7 +230,7 @@
         <scene sceneID="2dO-X7-e0P">
             <objects>
                 <tableViewController id="xHF-Vl-JGh" customClass="GroupViewController" customModule="SmarClass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aWf-bh-U0o">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="aWf-bh-U0o">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -285,19 +291,13 @@
                                             <color key="textColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kig-di-407" customClass="AvatarView" customModule="SmarClass" customModuleProvider="target">
-                                            <rect key="frame" x="116" y="21" width="144" height="77"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Idle" translatesAutoresizingMaskIntoConstraints="NO" id="BVS-uU-NT8">
+                                            <rect key="frame" x="113" y="166" width="32" height="32"/>
                                             <animations/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="144" id="6u1-ff-7aV"/>
-                                                <constraint firstAttribute="height" constant="77" id="Ulf-M6-Xrq"/>
-                                            </constraints>
-                                        </view>
+                                        </imageView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
-                                        <constraint firstItem="kig-di-407" firstAttribute="leading" secondItem="mUb-QT-Y75" secondAttribute="trailing" constant="16" id="0ro-Eq-xQY"/>
                                         <constraint firstItem="j7r-kR-OH0" firstAttribute="leading" secondItem="GiW-rS-lZN" secondAttribute="leading" constant="20" symbolic="YES" id="2Zj-vG-mb7"/>
                                         <constraint firstItem="j7r-kR-OH0" firstAttribute="top" secondItem="dRd-fy-NMH" secondAttribute="bottom" constant="8" symbolic="YES" id="A66-ip-8Na"/>
                                         <constraint firstItem="JEr-Gn-YmP" firstAttribute="leading" secondItem="GiW-rS-lZN" secondAttribute="leading" constant="20" symbolic="YES" id="DyJ-p0-bef"/>
@@ -312,11 +312,12 @@
                                         <constraint firstItem="T6B-b2-1T4" firstAttribute="leading" secondItem="JEr-Gn-YmP" secondAttribute="trailing" constant="8" symbolic="YES" id="h3g-fI-OHB"/>
                                         <constraint firstItem="mUb-QT-Y75" firstAttribute="leading" secondItem="BKp-Ia-rSw" secondAttribute="trailing" constant="8" symbolic="YES" id="iWu-B4-2Z4"/>
                                         <constraint firstItem="JEr-Gn-YmP" firstAttribute="top" secondItem="GiW-rS-lZN" secondAttribute="top" constant="20" symbolic="YES" id="kaK-7s-oVl"/>
-                                        <constraint firstItem="kig-di-407" firstAttribute="centerY" secondItem="mUb-QT-Y75" secondAttribute="centerY" id="pjO-5S-UOk"/>
+                                        <constraint firstItem="BVS-uU-NT8" firstAttribute="leading" secondItem="gci-N5-vBd" secondAttribute="trailing" constant="8" symbolic="YES" id="sMU-Yy-Ovi"/>
                                         <constraint firstItem="mUb-QT-Y75" firstAttribute="top" secondItem="T6B-b2-1T4" secondAttribute="bottom" constant="8" symbolic="YES" id="sdJ-uh-TEt"/>
                                         <constraint firstAttribute="trailing" secondItem="j7r-kR-OH0" secondAttribute="trailing" constant="20" symbolic="YES" id="tq9-t8-GhC"/>
                                         <constraint firstItem="BKp-Ia-rSw" firstAttribute="leading" secondItem="GiW-rS-lZN" secondAttribute="leading" constant="20" symbolic="YES" id="ugh-7j-26T"/>
                                         <constraint firstAttribute="bottom" secondItem="gci-N5-vBd" secondAttribute="bottom" constant="20" symbolic="YES" id="w5a-p8-gZ7"/>
+                                        <constraint firstItem="BVS-uU-NT8" firstAttribute="centerY" secondItem="gci-N5-vBd" secondAttribute="centerY" id="yrP-IF-Xk4"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
@@ -334,7 +335,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Xc-aq-cak" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2221" y="2894"/>
+            <point key="canvasLocation" x="2149" y="2894"/>
         </scene>
         <!--Problem View Controller-->
         <scene sceneID="s1u-Ff-Vh3">
@@ -2563,7 +2564,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="TSi-BG-T6g" kind="relationship" relationship="rootViewController" id="R7G-8A-eaF"/>
+                        <segue destination="TSi-BG-T6g" kind="relationship" relationship="rootViewController" id="ZIo-vF-htj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ap-y8-jGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2579,6 +2580,7 @@
         <image name="Course2" width="21" height="21"/>
         <image name="Cry" width="61" height="60"/>
         <image name="Exam" width="22" height="22"/>
+        <image name="Idle" width="32" height="32"/>
         <image name="Laugh" width="67" height="66"/>
         <image name="Member" width="21" height="21"/>
         <image name="Note" width="22" height="22"/>

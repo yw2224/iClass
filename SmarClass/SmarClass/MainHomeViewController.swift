@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import CocoaLumberjack
 import UIKit
 
 class MainHomeViewController: CloudAnimateTableViewController {
@@ -15,7 +14,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     var courseID = [String]()
     var courseList = [Course]() {
         didSet {
-            courseID = courseList.map() {
+            courseID = courseList.map {
                 return $0.course_id
             }
             tableView.reloadData()
@@ -90,7 +89,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
             }
         } else if let dest = segue.destinationViewController as? NavigationController {
             if let acvc = dest.contentViewController(0) as? AttendCourseViewController {
-                acvc.attendCourseID = courseList.map() {
+                acvc.attendCourseID = courseList.map {
                     return $0.course_id
                 }
             }

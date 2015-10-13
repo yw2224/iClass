@@ -20,13 +20,13 @@ class QuestionContainerViewController: UIViewController {
     var quiz: Quiz!
     var answerDict = NSMutableDictionary()
     
-    // MARK: Inited in the prepareForSegue()
-    var editType: EditType = .Inspect
-    var quizID: String!
-    
     private struct Constants {
         static let QuestionViewControllerIdentifier = "Question View Controller"
     }
+    
+    // MARK: Inited in the prepareForSegue()
+    var editType: EditType = .Inspect
+    var quizID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +80,7 @@ class QuestionContainerViewController: UIViewController {
         var status = [AnswerJSON]()
         for (key, value) in answerDict {
             let answer = value as! Answer
-            let originAnswer: [String] = answer.originAnswer.allObjects.map() {
+            let originAnswer: [String] = answer.originAnswer.allObjects.map {
                 return ($0 as! Choice).content
             }
             status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))

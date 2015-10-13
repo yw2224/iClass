@@ -1,79 +1,113 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Automatic">
     <entity name="Answer" representedClassName="Answer" syncable="YES">
-        <attribute name="question_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="originAnswer" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" syncable="YES"/>
+        <attribute name="question_id" attributeType="String" syncable="YES"/>
+        <attribute name="quiz_id" attributeType="String" syncable="YES"/>
+        <attribute name="score" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="originAnswer" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" syncable="YES"/>
     </entity>
     <entity name="Avatar" representedClassName="Avatar" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Choice" representedClassName="Choice" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Course" representedClassName="Course" syncable="YES">
-        <attribute name="course_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="finalExam" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="introduction" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="maxStudentsNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="midterm" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="students" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="term" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="lectureTime" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LectureTime" syncable="YES"/>
-        <relationship name="teacherNames" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TeacherNames" syncable="YES"/>
+        <attribute name="course_id" attributeType="String" syncable="YES"/>
+        <attribute name="endDate" attributeType="Date" syncable="YES"/>
+        <attribute name="finalExam" attributeType="Date" syncable="YES"/>
+        <attribute name="introduction" attributeType="String" syncable="YES"/>
+        <attribute name="maxStudentsNumber" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="midterm" attributeType="Date" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" attributeType="Date" syncable="YES"/>
+        <attribute name="students" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="term" attributeType="String" syncable="YES"/>
+        <relationship name="lectureTime" toMany="YES" deletionRule="Cascade" destinationEntity="LectureTime" syncable="YES"/>
+        <relationship name="teacherNames" toMany="YES" deletionRule="Cascade" destinationEntity="TeacherNames" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" syncable="YES">
+        <attribute name="created" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="group_id" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="project_id" attributeType="String" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="creator" maxCount="1" deletionRule="Cascade" destinationEntity="Member" syncable="YES"/>
+        <relationship name="members" toMany="YES" deletionRule="Cascade" destinationEntity="Member" syncable="YES"/>
     </entity>
     <entity name="LectureTime" representedClassName="LectureTime" syncable="YES">
-        <attribute name="endTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="startTime" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="weekday" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="endTime" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startTime" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="weekday" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Member" representedClassName="Member" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="realName" attributeType="String" syncable="YES"/>
+        <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Option" representedClassName="Option" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="no" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="content" attributeType="String" syncable="YES"/>
+        <attribute name="no" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Problem" representedClassName="Problem" syncable="YES">
+        <attribute name="current" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="deskription" attributeType="String" syncable="YES"/>
+        <attribute name="groupSize" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxGroupNum" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="problem_id" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Project" representedClassName="Project" syncable="YES">
+        <attribute name="course_id" attributeType="String" syncable="YES"/>
+        <attribute name="from" attributeType="Date" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="project_id" attributeType="String" syncable="YES"/>
+        <attribute name="to" attributeType="Date" syncable="YES"/>
+        <relationship name="problems" toMany="YES" deletionRule="Cascade" destinationEntity="Problem" syncable="YES"/>
     </entity>
     <entity name="Question" representedClassName="Question" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="no" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="question_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="correctAnswer" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" syncable="YES"/>
-        <relationship name="options" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Option" syncable="YES"/>
+        <attribute name="content" attributeType="String" syncable="YES"/>
+        <attribute name="no" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="question_id" attributeType="String" syncable="YES"/>
+        <attribute name="quiz_id" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="String" syncable="YES"/>
+        <relationship name="correctAnswer" toMany="YES" deletionRule="Cascade" destinationEntity="Choice" syncable="YES"/>
+        <relationship name="options" toMany="YES" deletionRule="Cascade" destinationEntity="Option" syncable="YES"/>
     </entity>
     <entity name="Quiz" representedClassName="Quiz" syncable="YES">
-        <attribute name="correct" optional="YES" attributeType="Integer 32" defaultValueString="-1" syncable="YES"/>
-        <attribute name="course_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="from" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="quiz_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="to" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="total" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="correct" attributeType="Integer 32" defaultValueString="-1" syncable="YES"/>
+        <attribute name="course_id" attributeType="String" syncable="YES"/>
+        <attribute name="createDate" attributeType="Date" syncable="YES"/>
+        <attribute name="from" attributeType="Date" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="quiz_id" attributeType="String" syncable="YES"/>
+        <attribute name="to" attributeType="Date" syncable="YES"/>
+        <attribute name="total" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="TeacherNames" representedClassName="TeacherNames" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="realName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="avatars" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Avatar" syncable="YES"/>
+        <attribute name="email" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="phone" attributeType="String" syncable="YES"/>
+        <attribute name="realName" attributeType="String" syncable="YES"/>
+        <relationship name="avatars" toMany="YES" deletionRule="Cascade" destinationEntity="Avatar" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Answer" positionX="18" positionY="621" width="128" height="105"/>
-        <element name="Avatar" positionX="16" positionY="30" width="128" height="60"/>
-        <element name="Choice" positionX="16" positionY="522" width="128" height="60"/>
-        <element name="Course" positionX="-297" positionY="120" width="128" height="225"/>
-        <element name="LectureTime" positionX="16" positionY="117" width="128" height="90"/>
-        <element name="Option" positionX="196" positionY="366" width="128" height="75"/>
-        <element name="Question" positionX="16" positionY="324" width="128" height="150"/>
-        <element name="Quiz" positionX="-297" positionY="369" width="128" height="165"/>
-        <element name="TeacherNames" positionX="16" positionY="246" width="128" height="60"/>
-        <element name="User" positionX="-297" positionY="-18" width="128" height="120"/>
+        <element name="Answer" positionX="18" positionY="621" width="128" height="103"/>
+        <element name="Avatar" positionX="16" positionY="30" width="128" height="58"/>
+        <element name="Choice" positionX="16" positionY="522" width="128" height="58"/>
+        <element name="Course" positionX="-297" positionY="120" width="128" height="223"/>
+        <element name="Group" positionX="-99" positionY="126" width="128" height="148"/>
+        <element name="LectureTime" positionX="16" positionY="117" width="128" height="88"/>
+        <element name="Member" positionX="-90" positionY="135" width="128" height="88"/>
+        <element name="Option" positionX="196" positionY="366" width="128" height="73"/>
+        <element name="Problem" positionX="-99" positionY="126" width="128" height="133"/>
+        <element name="Project" positionX="-81" positionY="144" width="128" height="133"/>
+        <element name="Question" positionX="16" positionY="324" width="128" height="148"/>
+        <element name="Quiz" positionX="-297" positionY="369" width="128" height="163"/>
+        <element name="TeacherNames" positionX="16" positionY="246" width="128" height="58"/>
+        <element name="User" positionX="-297" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

@@ -11,19 +11,7 @@ import CoreData
 import SwiftyJSON
 
 @objc(Question)
-class Question: NSManagedObject {
-
-    @NSManaged var quiz_id: String
-    @NSManaged var question_id: String
-    @NSManaged var content: String
-    @NSManaged var type: String
-    @NSManaged var no: NSNumber
-    @NSManaged var options: NSSet
-    @NSManaged var correctAnswer: NSSet
-
-}
-
-extension Question: JSONConvertible {
+class Question: NSManagedObject, JSONConvertible {
     
     static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
         let question           = Question.MR_createEntity()

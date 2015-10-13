@@ -70,6 +70,13 @@ class CoreDataManager: NSObject {
         return Question.MR_findByAttribute("quiz_id", withValue: quizID, andOrderBy: "no", ascending: true) as! [Question]
     }
     
+    func projectIDForCourse(courseID: String) -> String? {
+        if let project =  Project.MR_findFirstByAttribute("course_id", withValue: courseID) {
+            return project.project_id
+        }
+        return nil
+    }
+    
     func deleteQuestions(quizID: String) {
         let predicate = NSPredicate(format: "quiz_id = %@", quizID)
         Question.MR_deleteAllMatchingPredicate(predicate)
@@ -90,6 +97,16 @@ class CoreDataManager: NSObject {
     
     func deleteAllCourses() {
         Course.MR_truncateAll()
+    }
+    
+    func deleteProjectList(courseID: String) {
+        let predicate = NSPredicate(format: "course_id = %@", courseID)
+        Project.MR_deleteAllMatchingPredicate(predicate)
+    }
+    
+    func deleteGroupList(projectID: String) {
+        let predicate = NSPredicate(format: "project_id = %@", projectID)
+        Group.MR_deleteAllMatchingPredicate(predicate)
     }
     
     func cachedAnswerForQuiz(quizID: String) -> [Answer] {

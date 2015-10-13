@@ -99,7 +99,7 @@ class ContentManager: NSObject {
                     DDLogInfo("Querying course list success")
                     let json = JSON(data)
                     
-                    let courseIDForDelete : [String] = (json["courses"].arrayValue).map() {
+                    let courseIDForDelete : [String] = (json["courses"].arrayValue).map {
                         return $0["course_id"].stringValue
                     }
                     let predicate = NSPredicate(format: "course_id IN %@", courseIDForDelete)
@@ -213,7 +213,7 @@ class ContentManager: NSObject {
     }
     
     func submitAnswer(courseID: String, quizID: String, status: [AnswerJSON], block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
-        let array: [String] = status.map() {
+        let array: [String] = status.map {
             let element = JSON([
                 "question_id": $0.question_id,
                 "originAnswer": JSON($0.originAnswer).description
@@ -286,6 +286,75 @@ class ContentManager: NSObject {
                     DDLogInfo("Querying all course failed: \(error)")
                     block?(courseList: [],
                         error: error)
+                }
+            }
+        }
+    }
+    
+    func projectList(courseID: String, block: ((projectID: String?, error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.projectList(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Querying project list success")
+                    
+                    CoreDataManager.sharedInstance.deleteProjectList(courseID)
+                    
+                    let json = JSON(data)
+                    // MARK: We assume there is the only one project for the given course now
+                    guard
+                        let project = json["projects"].arrayValue.first,
+                        let firstProject = Project.objectFromJSONObject(project) as? Project,
+                        let projectID = firstProject.project_id else {
+                            block?(projectID: nil, error: error)
+                        return
+                    }
+                    firstProject.course_id = courseID
+                    block?(projectID: projectID, error: error)
+                } else {
+                    DDLogInfo("Querying project list failed: \(error)")
+                    block?(projectID: CoreDataManager.sharedInstance.projectIDForCourse(courseID), error: error)
+                }
+            }
+        }
+    }
+    
+    /**
+    status：表示用户状态  Int，0表示尚未组队，1表示已经组队
+    group_id：（若status为1）用户确定参与的小组  String
+    creator：用户创建的小组  [Group -- JSON]，包括group_id，creator，members，problem，status几项内容。
+    member: 邀请用户的小组  [Group -- JSON]，内容同上。
+        group_id：小组_id  String
+        creator：创建者的name和realName组成的JSON对象  [Creator -- JSON]
+        members：组员的信息列表  [Member -- JSON]，由name，realName和status组成。
+        name，realName：组员的用户名和真实姓名  String
+        status：组员的状态  Int，0表示尚未确认，1表示接受，2表示拒绝
+        problem：小组申请的题目，包含problem_id，name，description，maxGroupNum，groupSize，current几项内容。
+        status：小组的状态  Int，0表示尚未确认，1表示成功，2表示失败
+    */
+    func groupList(projectID: String, block: ((groupID: String?, creatorList: [Group], memberList: [Group], error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.groupList(ContentManager.UserID, token: ContentManager.Token, projectID: projectID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Querying group list success")
+                    CoreDataManager.sharedInstance.deleteGroupList(projectID)
+                    
+                    let json = JSON(data)
+                    let groupID = json["group_id"].string
+                    let creator = Group.objectFromJSONArray(json["creator"].arrayValue) as! [Group]
+                    creator.forEach() {
+                        $0.created = true
+                    }
+                    let members = Group.objectFromJSONArray(json["members"].arrayValue) as! [Group]
+                    members.forEach() {
+                        $0.created = false
+                    }
+                    
+                    block?(groupID: groupID, creatorList: creator, memberList: members, error: error)
+                } else {
+                    DDLogInfo("Querying project list failed: \(error)")
+                    block?(groupID: nil, creatorList: [], memberList: [], error: error)
                 }
             }
         }

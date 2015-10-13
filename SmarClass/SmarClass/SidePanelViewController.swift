@@ -46,10 +46,6 @@ class SidePanelViewController: UIViewController {
         super.viewDidLoad()
     }
 	
-	@IBAction func unwindToSidePanel(sender: UIStoryboardSegue) {
-		
-	}
-	
 //	func jumpToLoginPage()
 //	{
 //		if let myStoryBoard = self.storyboard{

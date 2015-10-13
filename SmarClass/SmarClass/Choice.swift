@@ -12,11 +12,9 @@ import SwiftyJSON
 
 @objc(Choice)
 class Choice: NSManagedObject {
-
-    @NSManaged var content: String
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [Choice] {
-        return jsonArray.map() {
+        return jsonArray.map {
             let choice = Choice.MR_createEntity()
             choice.content = $0.description
             return choice
@@ -24,7 +22,7 @@ class Choice: NSManagedObject {
     }
     
     static func objectFromStringArray(strArray: [String]) -> [Choice] {
-        return strArray.map() {
+        return strArray.map {
             let choice = Choice.MR_createEntity()
             choice.content = $0
             return choice

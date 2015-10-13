@@ -1,5 +1,5 @@
 //
-//  Avatar.swift
+//  Problem.swift
 //  SmarClass
 //
 //  Created by PengZhao on 15/10/5.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class Avatar: NSManagedObject {
+class Problem: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
