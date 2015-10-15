@@ -19,7 +19,7 @@ enum QuestionType: String {
 }
 
 class QuestionViewController: IndexViewController {
-    
+
     var total: Int!
     var question: Question!
     weak var pageViewController: QuestionPageViewController!

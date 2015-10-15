@@ -87,6 +87,12 @@
     <entity name="TeacherNames" representedClassName="TeacherNames" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Teammate" representedClassName=".Teammate" syncable="YES">
+        <attribute name="course_id" attributeType="String" syncable="YES"/>
+        <attribute name="encypted_id" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="realName" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="email" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
@@ -109,5 +115,6 @@
         <element name="Quiz" positionX="-297" positionY="369" width="128" height="165"/>
         <element name="TeacherNames" positionX="16" positionY="246" width="128" height="60"/>
         <element name="User" positionX="-297" positionY="-18" width="128" height="120"/>
+        <element name="Teammate" positionX="-99" positionY="126" width="128" height="105"/>
     </elements>
 </model>

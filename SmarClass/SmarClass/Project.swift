@@ -22,9 +22,4 @@ class Project: NSManagedObject, JSONConvertible {
         return project
     }
     
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map {
-            return objectFromJSONObject($0) as! Project
-        }
-    }
 }

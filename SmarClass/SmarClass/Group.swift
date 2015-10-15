@@ -42,9 +42,4 @@ class Group: NSManagedObject, JSONConvertible {
         return group
     }
     
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map {
-            return objectFromJSONObject($0) as! Group
-        }
-    }
 }

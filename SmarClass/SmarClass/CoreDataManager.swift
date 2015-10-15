@@ -70,15 +70,20 @@ class CoreDataManager: NSObject {
         return Question.MR_findByAttribute("quiz_id", withValue: quizID, andOrderBy: "no", ascending: true) as! [Question]
     }
     
-    func projectIDForCourse(courseID: String) -> String? {
-        if let project =  Project.MR_findFirstByAttribute("course_id", withValue: courseID) {
-            return project.project_id
-        }
-        return nil
+    func project(projectID: String) -> Project {
+        return Project.MR_findFirstByAttribute("project_id", withValue: projectID)
+    }
+    
+    func problemList(projectID: String) -> [Problem] {
+        return Problem.MR_findByAttribute("project_id", withValue: projectID, andOrderBy: "name", ascending: true) as! [Problem]
     }
     
     func projectList(courseID: String) -> [Project] {
         return Project.MR_findByAttribute("course_id", withValue: courseID, andOrderBy: "to", ascending: false) as! [Project]
+    }
+    
+    func teammateList(courseID: String) -> [Teammate] {
+        return Teammate.MR_findByAttribute("course_id", withValue: courseID, andOrderBy: "name", ascending: true) as! [Teammate]
     }
     
     func deleteQuestions(quizID: String) {
@@ -116,6 +121,11 @@ class CoreDataManager: NSObject {
     func deleteProblemList(projectID: String) {
         let predicate = NSPredicate(format: "project_id = %@", projectID)
         Problem.MR_deleteAllMatchingPredicate(predicate)
+    }
+    
+    func deleteTeammateList(courseID: String) {
+        let predicate = NSPredicate(format: "course_id = %@", courseID)
+        Teammate.MR_deleteAllMatchingPredicate(predicate)
     }
     
     func cachedAnswerForQuiz(quizID: String) -> [Answer] {

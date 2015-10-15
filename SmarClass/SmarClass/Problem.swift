@@ -24,12 +24,5 @@ class Problem: NSManagedObject, JSONConvertible {
         problem.current = json["current"].int ?? 0
         return problem
     }
-    
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map {
-            return objectFromJSONObject($0) as! Problem
-        }
-    }
-    
 
 }

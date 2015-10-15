@@ -134,6 +134,14 @@ extension GroupViewController {
         }
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            print(createdGroupList[indexPath.row])
+        } else if indexPath.section == 1 {
+            print(invitedGroupList[indexPath.row])
+        }
+    }
 }
 
 class GroupTableViewCell: UITableViewCell {
@@ -189,7 +197,7 @@ class MemberCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var stuNoLabel: UILabel!
     
     func setupWithName(name: String, realName: String, isCaptain: Bool) {
-        avatarView.capital = name
+        avatarView.capital = realName
         captianIconImageView.image = isCaptain ? UIImage(named: "Captain") : UIImage(named: "Member")
         nameLabel.text = realName
         stuNoLabel.text = name

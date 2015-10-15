@@ -46,6 +46,10 @@ class ProjectContainerViewController: UIViewController {
         sender.userInteractionEnabled = false
         switcherViewController.switchChildViewControllerAtIndex(sender.selectedSegmentIndex)
     }
+    
+    @IBAction func unwindToProjectContainerViewController(segue: UIStoryboardSegue) {
+        
+    }
 
     // MARK: - Navigation
 
@@ -53,14 +57,17 @@ class ProjectContainerViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        guard let switcher = segue.destinationViewController as? ProjectSwitcherViewController else {return}
-        switcherViewController = switcher
-        switcherViewController.segueIdentifiers = [
-            Constants.GroupViewControllerSegueIdentifier,
-            Constants.ProblemViewControllerSegueIdentifier
-        ]
-        switcherViewController.delegate = self
-        switcherViewController.projectID = projectID
+        if let switcher = segue.destinationViewController as? ProjectSwitcherViewController {
+            switcherViewController = switcher
+            switcherViewController.segueIdentifiers = [
+                Constants.GroupViewControllerSegueIdentifier,
+                Constants.ProblemViewControllerSegueIdentifier
+            ]
+            switcherViewController.delegate = self
+            switcherViewController.projectID = projectID
+        } else if let dest = segue.destinationViewController.contentViewController() as? InvitationContainerViewController {
+            dest.projectID = projectID
+        }
     }
 }
 

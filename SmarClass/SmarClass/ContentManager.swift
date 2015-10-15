@@ -362,12 +362,32 @@ class ContentManager: NSObject {
                     block?(problemList: problemList, error: error)
                 } else {
                     DDLogInfo("Querying probem list failed: \(error)")
-                    // MARK: cached data from coredata
-                    block?(problemList: [], error: error)
+                    block?(problemList: CoreDataManager.sharedInstance.problemList(projectID), error: error)
                 }
             }
         }
-        
+    }
+    
+    func teammateList(courseID: String, projectID: String, block: ((teammateList: [Teammate], error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.teammateList(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, projectID: projectID){
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Querying teammate list success")
+                    CoreDataManager.sharedInstance.deleteTeammateList(courseID)
+                    
+                    let json = JSON(data)
+                    let teammateList = Teammate.objectFromJSONArray(json["students"].arrayValue) as! [Teammate]
+                    teammateList.forEach {
+                        $0.course_id = courseID
+                    }
+                    block?(teammateList: teammateList, error: error)
+                } else {
+                    DDLogInfo("Querying teammate list failed")
+                    block?(teammateList: CoreDataManager.sharedInstance.teammateList(courseID), error: error)
+                }
+            }
+        }
     }
     
     func cleanUpCoreData() {

@@ -19,10 +19,4 @@ class Option: NSManagedObject, JSONConvertible {
         option.content = json["content"].string ?? ""
         return option
     }
-    
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map {
-            return objectFromJSONObject($0) as! Option
-        }
-    }
 }

@@ -21,9 +21,4 @@ class LectureTime: NSManagedObject, JSONConvertible {
         return lectureTime
     }
     
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map {
-            return objectFromJSONObject($0) as! LectureTime
-        }
-    }
 }

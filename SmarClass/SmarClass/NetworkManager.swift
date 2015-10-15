@@ -61,6 +61,7 @@ class NetworkManager: NSObject {
         static let ProjectListKey  = "Project List"
         static let GroupListKey    = "Group List"
         static let ProblemListKey  = "Problem List"
+        static let TeammateListKey = "Teammate List"
     }
     
     private static let Manager: Alamofire.Manager = {
@@ -125,6 +126,7 @@ extension NetworkManager {
         case ProjectList(String, String, String)
         case GroupList(String, String, String)
         case ProlemList(String, String, String)
+        case TeammateList(String, String, String, String)
         
         var URLRequest: NSMutableURLRequest {
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
@@ -171,6 +173,9 @@ extension NetworkManager {
                 case .ProlemList(let id, let token, let projectID):
                     let params = ["_id": id, "token": token, "project_id": projectID]
                     return ("/project/problem/info", Method.GET, params)
+                case .TeammateList(let id, let token, let courseID, let projectID):
+                    let params = ["_id": id, "token": token, "course_id": courseID, "project_id": projectID]
+                    return ("/project/students", Method.GET, params)
                 }
             }()
             
@@ -265,5 +270,10 @@ extension NetworkManager {
     func problemList(userID: String?, token: String?, projectID: String?, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.ProlemList(userID ?? "", token ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.ProblemListKey, request: request, callback: callback)
+    }
+    
+    func teammateList(userID: String?, token: String?, courseID: String?, projectID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.TeammateList(userID ?? "", token ?? "", courseID ?? "", projectID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.TeammateListKey, request: request, callback: callback)
     }
 }

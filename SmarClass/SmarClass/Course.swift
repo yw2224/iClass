@@ -42,10 +42,4 @@ extension Course: JSONConvertible {
             TeacherNames.objectFromJSONArray(json["teacherNames"].arrayValue))
         return course
     }
-    
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
-        return jsonArray.map {
-            return objectFromJSONObject($0) as! Course
-        }
-    }
 }

@@ -6,10 +6,37 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import UIKit
+protocol IndexObject : class {
+    var index: Int {get set}
+}
 
 class IndexViewController: UIViewController {
     
-    var index: Int!
-    
+    var _index = 0
+}
+
+extension IndexViewController: IndexObject {
+    var index : Int {
+        get {
+            return _index
+        }
+        set {
+            _index = newValue
+        }
+    }
+}
+
+class IndexTableViewController: UITableViewController {
+    var _index = 0
+}
+
+extension IndexTableViewController: IndexObject {
+    var index : Int {
+        get {
+            return _index
+        }
+        set {
+            _index = newValue
+        }
+    }
 }

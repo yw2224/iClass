@@ -77,5 +77,15 @@ extension Character {
 protocol JSONConvertible: class {
     
     static func objectFromJSONObject(json: JSON) -> NSManagedObject?
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject]
+    
+}
+
+extension JSONConvertible {
+    
+    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
+        return jsonArray.map {
+            return objectFromJSONObject($0)!
+        }
+    }
+    
 }

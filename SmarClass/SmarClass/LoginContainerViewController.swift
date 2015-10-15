@@ -76,12 +76,12 @@ class LoginContainerViewController: UIViewController {
 extension LoginContainerViewController: UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard let svc = viewController as? SplashViewController else {return nil}
+        guard let svc = viewController as? IndexObject else {return nil}
         return splashChildViewControllerAtIndex(svc.index - 1)
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let svc = viewController as? SplashViewController else {return nil}
+        guard let svc = viewController as? IndexObject else {return nil}
         return splashChildViewControllerAtIndex(svc.index + 1)
     }
 }
