@@ -10,11 +10,6 @@ import UIKit
 
 class InvitationPageViewController: UIPageViewController {
     
-    private struct Constants {
-    }
-    
-//    weak var icvc: InvitationContainerViewController!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

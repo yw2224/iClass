@@ -23,7 +23,7 @@ class ProblemViewController: IndexCloudAnimateTableViewController {
     
     private struct Constants {
         static let CellIdentifier = "Problem Cell"
-        static let ProblemCellHeight: CGFloat = 66.0
+        static let ProblemCellHeight: CGFloat = 120.0
     }
     
     // MARK: Inited in the prepareForSegue()
@@ -67,7 +67,9 @@ class ProblemViewController: IndexCloudAnimateTableViewController {
     func retrieveProblemList() {
         ContentManager.sharedInstance.problemList(projectID) {
             (problemList, error) in
-            self.problemList = problemList
+            self.problemList = problemList.sort {
+                return $0.name < $1.name
+            }
             
             self.animationDidEnd()
         }
@@ -111,12 +113,14 @@ extension ProblemViewController {
 
 // MARK: UITableViewDelegate
 extension ProblemViewController {
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
 }
 
 class ProblemTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var introLabel: UILabel!
     @IBOutlet weak var currentGroupLabel: UILabel!

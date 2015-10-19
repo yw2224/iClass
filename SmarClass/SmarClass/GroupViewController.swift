@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import MGSwipeTableCell
 
 class GroupViewController: CloudAnimateTableViewController {
 
     var createdGroupList = [Group]()
     var invitedGroupList = [Group]()
-    var groupID: String?
+    var groupID: String? {
+        didSet {
+            // MARK: We should disable the 'INVITE' bar button here
+        }
+    }
     
     override var emptyTitle: String {
         get {
@@ -65,12 +70,28 @@ class GroupViewController: CloudAnimateTableViewController {
     */
 
     func retrieveGroupList(projectID: String) {
+        let cmp: (Group, Group) -> Bool = {
+            if $0.status != $1.status {
+                // Whatever group is accepted, put it up front
+                let accept = GroupStatus.Accept.rawValue
+                if $0.status == accept || $1.status == accept {
+                    return $0.status == accept
+                }
+                return $0.status < $1.status
+            } else {
+                if $0.name != $1.name {
+                    return $0.name < $1.name
+                }
+                return $0.creator.name < $1.creator.name
+            }
+        }
+        
         ContentManager.sharedInstance.groupList(projectID) {
             (groupID, creatorList, memberList, error) in
             if error == nil {
                 // MARK: map process for groupID
-                self.createdGroupList = creatorList
-                self.invitedGroupList = memberList
+                self.createdGroupList = creatorList.sort(cmp)
+                self.invitedGroupList = memberList.sort(cmp)
                 self.groupID = groupID
                 self.tableView.reloadData()
             }
@@ -96,8 +117,9 @@ extension GroupViewController {
     
 }
 
-// UITableViewDataSource
+// UITableViewDataSource. UITableViewDelegate
 extension GroupViewController {
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
@@ -132,19 +154,51 @@ extension GroupViewController {
         default:
             cell.accessoryView = UIImageView(image: UIImage(named: "Idle"))
         }
+        if GroupStatus(rawValue: group.status.integerValue) == .Pending {
+            let acceptButton = MGSwipeButton(title: "接受", icon: nil, backgroundColor: UIColor.flatLimeColor(), padding: 20)
+            let declineButton = MGSwipeButton(title: "拒绝", icon: nil, backgroundColor: UIColor.flatRedColor(), padding: 20)
+            let settings = MGSwipeExpansionSettings()
+            settings.buttonIndex = 0
+            settings.animationDuration = 0.1
+            cell.rightButtons = [acceptButton, declineButton]
+            cell.rightSwipeSettings.transition = .Drag
+            cell.rightExpansion = settings
+            cell.delegate = self
+        }
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            print(createdGroupList[indexPath.row])
-        } else if indexPath.section == 1 {
-            print(invitedGroupList[indexPath.row])
-        }
+        guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? MGSwipeTableCell else {return}
+        cell.showSwipe(.RightToLeft, animated: true)
     }
 }
 
-class GroupTableViewCell: UITableViewCell {
+extension GroupViewController: MGSwipeTableCellDelegate {
+    
+    func swipeTableCell(cell: MGSwipeTableCell!, tappedButtonAtIndex index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
+        guard let indexPath = tableView.indexPathForCell(cell) else {return false}
+        let group = indexPath.section  == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
+        if index == 0 { // Accept some group
+            ContentManager.sharedInstance.groupAccept(projectID, groupID: group.group_id) {
+                (error) in
+                // MARK: present HUD or sth.
+                // Acts as refresing
+                self.retrieveGroupList(self.projectID)
+            }
+        } else if index == 1 { // Decline some group
+            ContentManager.sharedInstance.groupDecline(projectID, groupID: group.group_id) {
+                (error) in
+                // MARK: present HUD or sth.
+                // Acts as refresing
+                self.retrieveGroupList(self.projectID)
+            }
+        }
+        return true
+    }
+}
+
+class GroupTableViewCell: MGSwipeTableCell {
     
     @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -167,6 +221,7 @@ class GroupTableViewCell: UITableViewCell {
 }
 
 extension GroupTableViewCell: UICollectionViewDataSource {
+    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -191,6 +246,7 @@ extension GroupTableViewCell: UICollectionViewDelegate {
 }
 
 class MemberCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var avatarView: AvatarView!
     @IBOutlet weak var captianIconImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!

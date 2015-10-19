@@ -20,6 +20,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
             tableView.reloadData()
         }
     }
+    
     override var emptyTitle: String {
         get {
             return "课程库为空。\n请添加课程/下拉刷新重试！"
@@ -27,13 +28,17 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
     
     private struct Constants {
-        static let CellIdentifier = "Course Cell"
-        static let CourseCellHeight : CGFloat = 88.0
-        static let PresentCourseOverviewSegueIdentifier = "Present Course Overview Segue"
+        static let CellIdentifier                      = "Course Cell"
+        static let CourseCellHeight: CGFloat           = 88.0
+        static let CourseOverviewSegueIdentifier       = "Course Overview Segue"
+        static let AttendCourseSegueIdentifier         = "Attend Course Segue"
+        static let DissmissAttendCourseSegueIdentifier = "Dissmiss Attend Course"
     }
     
     // MARK: Inited in the prepareForSegue()
     weak var delegate: CenteralViewDelegate?
+    
+    var attendOrQuitCourse: UIButton!
     
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -44,17 +49,29 @@ class MainHomeViewController: CloudAnimateTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.CourseCellHeight
         
+        attendOrQuitCourse = UIButton()
+        attendOrQuitCourse.setBackgroundImage(UIImage(named: "PlusOrMinus"), forState: .Normal)
+        attendOrQuitCourse.sizeToFit()
+        attendOrQuitCourse.addTarget(self, action: "attendCourseButtonTapped:", forControlEvents: .TouchUpInside)
+        
+        let barButtonItem = UIBarButtonItem(customView: attendOrQuitCourse)
+        navigationItem.setRightBarButtonItem(barButtonItem, animated: true)
+        
         retrieveCourseList()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         tableView.userInteractionEnabled = true
+        attendOrQuitCourse.startGlow(UIColor.flatYellowColor())
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        
         CoreDataManager.sharedInstance.saveInBackground()
+        attendOrQuitCourse.stopGlow()
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,7 +86,13 @@ class MainHomeViewController: CloudAnimateTableViewController {
 //    }
     
     @IBAction func unwindToHomePage(segue: UIStoryboardSegue) {
-        retrieveCourseListFromCache()
+        if segue.identifier != Constants.DissmissAttendCourseSegueIdentifier {
+            retrieveCourseListFromCache()
+        } else {
+            // Force refresh the data
+            courseList.removeAll()
+            retrieveCourseList()
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -121,6 +144,10 @@ class MainHomeViewController: CloudAnimateTableViewController {
         let predicate = NSPredicate(format: "course_id IN %@", courseID)
         courseList = CoreDataManager.sharedInstance.courseList(predicate)
     }
+    
+    func attendCourseButtonTapped(sender: UIButton) {
+        performSegueWithIdentifier(Constants.AttendCourseSegueIdentifier, sender: sender)
+    }
 }
 
 // MARK: RefreshControlHook
@@ -169,7 +196,7 @@ extension MainHomeViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)!
         tableView.userInteractionEnabled = false
-        performSegueWithIdentifier(Constants.PresentCourseOverviewSegueIdentifier, sender: cell)
+        performSegueWithIdentifier(Constants.CourseOverviewSegueIdentifier, sender: cell)
     }
 }
 

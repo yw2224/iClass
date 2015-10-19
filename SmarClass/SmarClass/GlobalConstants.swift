@@ -31,3 +31,9 @@ struct GlobalConstants {
         "http://net.pku.edu.cn"
     ]
 }
+
+enum GroupStatus: Int {
+    case Pending = 0
+    case Accept  = 1
+    case Decline = 2
+}

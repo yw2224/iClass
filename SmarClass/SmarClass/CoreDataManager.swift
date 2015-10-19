@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CocoaLumberjack
 import CoreData
 import MagicalRecord
 

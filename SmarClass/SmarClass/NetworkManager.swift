@@ -57,11 +57,15 @@ class NetworkManager: NSObject {
         static let SubmitAnswerKey = "Submit Answer"
         static let SubmitSignInKey = "Submit SignIn"
         static let AttendCourseKey = "Attend Course"
+        static let QuitCourseKey   = "Quit Course"
         static let AllCourseKey    = "All Course"
         static let ProjectListKey  = "Project List"
         static let GroupListKey    = "Group List"
         static let ProblemListKey  = "Problem List"
         static let TeammateListKey = "Teammate List"
+        static let GroupInviteKey  = "Group Invite"
+        static let GroupAcceptKey  = "Group Accept"
+        static let GroupDeclineKey = "Group Decline"
     }
     
     private static let Manager: Alamofire.Manager = {
@@ -122,11 +126,15 @@ extension NetworkManager {
         case SubmitAnswer(String, String, String, String, String)
         case SubmitSignIn(String, String, String, String, String, String)
         case AttendCourse(String, String, String)
+        case QuitCourse(String, String, String)
         case AllCourse(String, String)
         case ProjectList(String, String, String)
         case GroupList(String, String, String)
         case ProlemList(String, String, String)
         case TeammateList(String, String, String, String)
+        case GroupInvite(String, String, String, String, String)
+        case GroupAccept(String, String, String, String)
+        case GroupDecline(String, String, String, String)
         
         var URLRequest: NSMutableURLRequest {
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
@@ -161,6 +169,9 @@ extension NetworkManager {
                 case .AttendCourse(let id, let token, let courseID):
                     let params = ["_id": id, "token": token, "course_id": courseID]
                     return ("/user/attend", Method.POST, params)
+                case .QuitCourse(let id, let token, let courseID):
+                    let params = ["_id": id, "token": token, "course_id": courseID]
+                    return ("/user/quit", Method.PUT, params)
                 case .AllCourse(let id, let token):
                     let params = ["_id": id, "token": token]
                     return ("/course/all", Method.GET, params)
@@ -176,6 +187,15 @@ extension NetworkManager {
                 case .TeammateList(let id, let token, let courseID, let projectID):
                     let params = ["_id": id, "token": token, "course_id": courseID, "project_id": projectID]
                     return ("/project/students", Method.GET, params)
+                case .GroupInvite(let id, let token, let projectID, let problemID, let members):
+                    let params = ["_id": id, "token": token, "project_id": projectID, "problem_id": problemID, "members": members]
+                    return ("/project/group/invite", Method.POST, params)
+                case .GroupAccept(let id, let token, let projectID, let groupID):
+                    let params = ["_id": id, "token": token, "project_id": projectID, "group_id": groupID]
+                    return ("/project/group/accept", Method.PUT, params)
+                case .GroupDecline(let id, let token, let projectID, let groupID):
+                    let params = ["_id": id, "token": token, "project_id": projectID, "group_id": groupID]
+                    return ("/project/group/decline", Method.PUT, params)
                 }
             }()
             
@@ -252,6 +272,11 @@ extension NetworkManager {
         NetworkManager.executeRequestWithKey(Constants.AttendCourseKey, request: request, callback: callback)
     }
     
+    func quitCourse(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.QuitCourse(userID ?? "", token ?? "", courseID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.QuitCourseKey, request: request, callback: callback)
+    }
+    
     func allCourse(userID: String?, token: String?, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.AllCourse(userID ?? "", token ?? ""))
         NetworkManager.executeRequestWithKey(Constants.AllCourseKey, request: request, callback: callback)
@@ -275,5 +300,20 @@ extension NetworkManager {
     func teammateList(userID: String?, token: String?, courseID: String?, projectID: String?, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.TeammateList(userID ?? "", token ?? "", courseID ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.TeammateListKey, request: request, callback: callback)
+    }
+    
+    func groupInvite(userID: String?, token: String?, projectID: String?, problemID: String?, members: String?, callback: NetworkCallbackBlock) {
+        let request  = NetworkManager.Manager.request(Router.GroupInvite(userID ?? "", token ?? "", projectID ?? "", problemID ?? "", members ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.GroupInviteKey, request: request, callback: callback)
+    }
+    
+    func groupAccept(userID: String?, token: String?, projectID: String?, groupID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.GroupAccept(userID ?? "", token ?? "", projectID ?? "", groupID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.GroupAcceptKey, request: request, callback: callback)
+    }
+    
+    func groupDecline(userID: String?, token: String?, projectID: String?, groupID: String?, callback: NetworkCallbackBlock) {
+        let request = NetworkManager.Manager.request(Router.GroupDecline(userID ?? "", token ?? "", projectID ?? "", groupID ?? ""))
+        NetworkManager.executeRequestWithKey(Constants.GroupDeclineKey, request: request, callback: callback)
     }
 }

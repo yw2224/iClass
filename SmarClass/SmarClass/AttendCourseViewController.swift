@@ -22,6 +22,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     private struct Constants {
         static let CellIdentifier = "Course Cell"
         static let CourseCellHeight : CGFloat = 88.0
+        static let DissmissAttendCourseSegueIdentifier = "Dissmiss Attend Course"
     }
     
     // MARK: Inited in the prepareForSegue()
@@ -65,6 +66,41 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func attendCourse(sender: UIBarButtonItem) {
+        // MARK: present HUD or sth.
+        attendCourseAtSection(0, row: 0)
+        
+    }
+    
+    func attendCourseAtSection(section: Int, row: Int) {
+        if section >= 2 {
+            performSegueWithIdentifier(Constants.DissmissAttendCourseSegueIdentifier, sender: self) // Recursion exit
+            return
+        }
+        
+        if row >= tableView.numberOfRowsInSection(section) {
+            attendCourseAtSection(section + 1, row: 0)
+            return
+        }
+        
+        let block: (NetworkErrorType?) -> Void = {
+            if $0 == nil {
+                self.attendCourseAtSection(section, row: row + 1)
+            } else {
+                // Abort recursion, present HUD or sth.
+                return
+            }
+        }
+        if section == 0 {
+            let course = attendCourse[row]
+            ContentManager.sharedInstance.attendCourse(course.course_id, block: block)
+        } else if section == 1 {
+            let course = courseList[row]
+            ContentManager.sharedInstance.quitCourse(course.course_id, block: block)
+        }
+        
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -77,7 +113,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         ContentManager.sharedInstance.allCourse() {
             (courseList, error) in
             self.attendCourse.removeAll()
-            self.courseList = courseList.filter() {
+            self.courseList = courseList.filter {
                 if self.attendCourseID.indexOf($0.course_id) != nil {
                     self.attendCourse.append($0)
                     return false
@@ -115,7 +151,7 @@ extension AttendCourseViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0) {
+        if section == 0 {
             return attendCourse.count
         }
         return courseList.count
@@ -133,9 +169,9 @@ extension AttendCourseViewController {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return attendCourse.isEmpty ? nil : "已选课程"
+            return "已选课程"
         } else if section == 1 {
-            return courseList.isEmpty ? nil : "备选课程"
+            return "备选课程"
         }
         return nil
     }

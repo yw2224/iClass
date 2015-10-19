@@ -23,12 +23,7 @@ class NavigationController: UINavigationController {
     }
     
     override func unwindForSegue(unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
-        if #available(iOS 9.0, *) {
-            (topViewController ?? self).unwindForSegue(unwindSegue, towardsViewController: subsequentVC)
-        } else {
-            // Fallback on earlier versions
-            (topViewController ?? self).segueForUnwindingToViewController(subsequentVC, fromViewController: self, identifier: nil)
-        }
+        (topViewController ?? self).unwindForSegue(unwindSegue, towardsViewController: subsequentVC)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

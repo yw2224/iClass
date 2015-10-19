@@ -40,3 +40,18 @@ extension IndexTableViewController: IndexObject {
         }
     }
 }
+
+class IndexCollectionViewController: UICollectionViewController {
+    var _index = 0
+}
+
+extension IndexCollectionViewController: IndexObject {
+    var index: Int {
+        get {
+            return _index
+        }
+        set {
+            _index = newValue
+        }
+    }
+}

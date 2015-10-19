@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3FBDB559A5007EE8286F7CEE /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8D7C69E175F931120099A0 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3FBDB559A5007EE8286F7CEE /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8D7C69E175F931120099A0 /* Pods.framework */; };
+		F8042AAA1BD32ED9009712DF /* InvitationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8042AA91BD32ED9009712DF /* InvitationPageViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */; };
 		F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */; };
 		F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */; };
@@ -60,7 +61,6 @@
 		F8CB34C31BCCD30A000B6732 /* Avatar+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F8CB34C41BCCD30A000B6732 /* Option+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		F8CB34C61BCD44C4000B6732 /* InvitationContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34C51BCD44C4000B6732 /* InvitationContainerViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C91BCD4739000B6732 /* InvitationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34C81BCD4739000B6732 /* InvitationPageViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F8CB34CB1BCD489B000B6732 /* TeammateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34CA1BCD489B000B6732 /* TeammateViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		F8D4DAED1B9695A5000B771A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEC1B9695A5000B771A /* User.swift */; };
 		F8D4DAF11B9695A6000B771A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF01B9695A6000B771A /* Course.swift */; };
@@ -119,6 +119,7 @@
 		21CC47E7EEDFDC02E2E65D68 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		30A37B1A1C4ECD09D8342507 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7B8D7C69E175F931120099A0 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8042AA91BD32ED9009712DF /* InvitationPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationPageViewController.swift; sourceTree = "<group>"; };
 		F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash0ViewController.swift; sourceTree = "<group>"; };
 		F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash1ViewController.swift; sourceTree = "<group>"; };
 		F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash2ViewController.swift; sourceTree = "<group>"; };
@@ -171,7 +172,6 @@
 		F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Avatar+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Option+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34C51BCD44C4000B6732 /* InvitationContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationContainerViewController.swift; sourceTree = "<group>"; };
-		F8CB34C81BCD4739000B6732 /* InvitationPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationPageViewController.swift; sourceTree = "<group>"; };
 		F8CB34CA1BCD489B000B6732 /* TeammateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeammateViewController.swift; sourceTree = "<group>"; };
 		F8D4DAD41B946AC7000B771A /* SmarClass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SmarClass.entitlements; sourceTree = "<group>"; };
 		F8D4DAEC1B9695A5000B771A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -544,9 +544,9 @@
 			isa = PBXGroup;
 			children = (
 				F8CB34C51BCD44C4000B6732 /* InvitationContainerViewController.swift */,
-				F8CB34C81BCD4739000B6732 /* InvitationPageViewController.swift */,
-				F8CB34CA1BCD489B000B6732 /* TeammateViewController.swift */,
+				F8042AA91BD32ED9009712DF /* InvitationPageViewController.swift */,
 				F8B611301BCE548400BA9D95 /* PreferenceViewController.swift */,
+				F8CB34CA1BCD489B000B6732 /* TeammateViewController.swift */,
 				F8B611321BCE549100BA9D95 /* ConfirmationViewController.swift */,
 			);
 			name = Invitation;
@@ -926,10 +926,10 @@
 				F8B6112F1BCE4B1600BA9D95 /* Teammate+CoreDataProperties.swift in Sources */,
 				F8F3D5FD1B8F1A32001ADDCE /* RefreshContents.swift in Sources */,
 				F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */,
-				F8CB34C91BCD4739000B6732 /* InvitationPageViewController.swift in Sources */,
 				F8FEFE491B5647F8004FA01C /* TabBarController.swift in Sources */,
 				F82F8DD21BB924B30011065C /* ProjectContainerViewController.swift in Sources */,
 				F8F3A1361B577B1B004733B3 /* ContentManager.swift in Sources */,
+				F8042AAA1BD32ED9009712DF /* InvitationPageViewController.swift in Sources */,
 				F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */,
 				F8FEFE421B5647F8004FA01C /* LoginContainerViewController.swift in Sources */,
 				F8CB34BC1BCCD30A000B6732 /* Course+CoreDataProperties.swift in Sources */,
@@ -1132,6 +1132,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SmarClass/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.pku.netlab.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1151,6 +1152,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SmarClass/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.pku.netlab.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -9,17 +9,48 @@
 import UIKit
 
 class PreferenceViewController: ProblemViewController {
-    var indexPath: NSIndexPath!
+    
+    var previousIndexPath: NSIndexPath?
+    
+    // MARK: Inited in the prepareForSegue()
+    weak var icvc: InvitationContainerViewController!
+    
+    override var problemList: [Problem] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    private struct Constants {
+        static let CellIdentifier = "Problem Cell"
+    }
 }
 
-// MARK: UITableViewDelegate
+// MARK: UITableViewDataSource, UITableViewDelegate
 extension PreferenceViewController {
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! ProblemTableViewCell
+        let problem = problemList[indexPath.row]
+        cell.setupProblemWithProjectName(problem.name, introduction: problem.deskription, currentGroup: problem.groupSize.integerValue - 1, totalGroup: 0)
+        
+        if icvc.problemID == problem.problem_id {
+            cell.accessoryType = .Checkmark
+        }
+        return cell
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let path = self.indexPath, let cell = tableView.cellForRowAtIndexPath(path) {
+        if let pip = previousIndexPath, let cell = tableView.cellForRowAtIndexPath(pip) {
             cell.accessoryType = .None
         }
         let cell = tableView.cellForRowAtIndexPath(indexPath)!
         cell.accessoryType = .Checkmark
-        self.indexPath = indexPath
+        
+        // Update data in the delegate
+        let problem = problemList[indexPath.row]
+        (icvc.problemID, icvc.groupSize, icvc.problemName, icvc.currentStage) =
+            (problem.problem_id, problem.groupSize.integerValue - 1, problem.name, 1)
+        previousIndexPath = indexPath
     }
 }

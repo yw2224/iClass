@@ -234,7 +234,7 @@ class ContentManager: NSObject {
                 }
                 block?(answerList: answerList, error: error)
             } else {
-                DDLogInfo("Submit answer failed")
+                DDLogInfo("Submit answer failed: \(error)")
                 block?(answerList: CoreDataManager.sharedInstance.answerList(quizID),
                     error: error)
             }
@@ -264,6 +264,20 @@ class ContentManager: NSObject {
                     DDLogInfo("Attend course success")
                 } else {
                     DDLogInfo("Attend course failed: \(error)")
+                }
+                block?(error: error)
+            }
+        }
+    }
+    
+    func quitCourse(courseID: String, block: ((error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.quitCourse(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Quit course success")
+                } else {
+                    DDLogInfo("Quit course failed: \(error)")
                 }
                 block?(error: error)
             }
@@ -383,9 +397,53 @@ class ContentManager: NSObject {
                     }
                     block?(teammateList: teammateList, error: error)
                 } else {
-                    DDLogInfo("Querying teammate list failed")
+                    DDLogInfo("Querying teammate list failed: \(error)")
                     block?(teammateList: CoreDataManager.sharedInstance.teammateList(courseID), error: error)
                 }
+            }
+        }
+    }
+    
+    func groupInvite(projectID: String, problemID: String, members: [String], block: ((error: NetworkErrorType?) -> Void)?) {
+        let json = JSON(members)
+        
+        NetworkManager.sharedInstance.groupInvite(ContentManager.UserID, token: ContentManager.Token, projectID: projectID, problemID: problemID, members: json.description) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Group invite success")
+                } else {
+                    DDLogInfo("Group invite failed: \(error)")
+                }
+                block?(error: error)
+            }
+        }
+    }
+    
+    func groupAccept(projectID: String, groupID: String, block: ((error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.groupAccept(ContentManager.UserID, token: ContentManager.Token, projectID: projectID, groupID: groupID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Group accept success")
+                } else {
+                    DDLogInfo("Group accept failed: \(error)")
+                }
+                block?(error: error)
+            }
+        }
+    }
+    
+    func groupDecline(projectID: String, groupID: String, block: ((error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.groupDecline(ContentManager.UserID, token: ContentManager.Token, projectID: projectID, groupID: groupID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Group decline success")
+                } else {
+                    DDLogInfo("Group decline failed: \(error)")
+                }
+                block?(error: error)
             }
         }
     }
