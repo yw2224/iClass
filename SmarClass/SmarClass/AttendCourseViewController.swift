@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
+import SVProgressHUD
 import UIKit
 
 class AttendCourseViewController: CloudAnimateTableViewController {
@@ -70,7 +71,6 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     }
     
     @IBAction func attendCourse(sender: UIBarButtonItem) {
-        // MARK: present HUD or sth.
         attendCourseAtSection(0, row: 0)
         
     }
@@ -87,10 +87,19 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         }
         
         let block: (NetworkErrorType?) -> Void = {
-            if $0 == nil {
+            error in
+            if error == nil {
                 self.attendCourseAtSection(section, row: row + 1)
             } else {
-                // Abort recursion, present HUD or sth.
+                if case .NetworkUnauthenticated = error! {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.AttendCourseErrorPrompt)
+                } else if case NetworkErrorType.NetworkForbiddenAccess = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.AttendCourseErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
                 return
             }
         }
@@ -117,8 +126,18 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     }
     
     func retrieveCourseList() {
-        ContentManager.sharedInstance.allCourse() {
+        ContentManager.sharedInstance.allCourse {
             (courseList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.CourseListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
+            
             self.attendCourse.removeAll()
             self.courseList = courseList.filter {
                 if self.attendCourseID.indexOf($0.course_id) != nil {

@@ -30,10 +30,35 @@ struct GlobalConstants {
         "http://www.pixiv.net/member.php?id=4007606",
         "http://net.pku.edu.cn/mobile"
     ]
+    static let InputFormatErrorPrompt            = "格式有误，请检查您的输入"
+    static let PasswordWrongPrompt               = "您的用户名或密码有误"
+    static let DuplicateUserName                 = "此用户名已被注册，请重新输入"
+    static let LoginOrRegisterErrorPrompt        = GlobalConstants.NetworkErrorPrompt("登录/注册失败")
+    static let DataInconsistentErrorPrompt       = GlobalConstants.NetworkErrorPrompt("请刷新重试")
+    static let CourseListRetrieveErrorPrompt     = GlobalConstants.NetworkErrorPrompt("获取课程列表失败")
+    static let SignInRetrieveErrorPrompt         = GlobalConstants.NetworkErrorPrompt("获取签到信息失败")
+    static let QuizListRetrieveErrorPrompt       = GlobalConstants.NetworkErrorPrompt("获取测试列表失败")
+    static let QuizContentRetrieveErrorPrompt    = GlobalConstants.NetworkErrorPrompt("获取题目失败")
+    static let OriginAnswerRetrieveErrorPrompt   = GlobalConstants.NetworkErrorPrompt("获取原始答案失败")
+    static let SubmitAnswerErrorPrompt           = GlobalConstants.NetworkErrorPrompt("提交答案失败")
+    static let SubmitSigninErrorPrompt           = GlobalConstants.NetworkErrorPrompt("签到失败")
+    static let AttendCourseErrorPrompt           = GlobalConstants.NetworkErrorPrompt("选课失败")
+    static let ProjectListRetrieveErrorPrompt    = GlobalConstants.NetworkErrorPrompt("获取项目列表失败")
+    static let GroupListRetrieveErrorPrompt      = GlobalConstants.NetworkErrorPrompt("获取小组邀请失败")
+    static let ProblemListRetrieveErrorPrompt    = GlobalConstants.NetworkErrorPrompt("获取题目失败")
+    static let GroupInvitionRetrieveErrorPrompt  = GlobalConstants.NetworkErrorPrompt("小组邀请失败")
+    static let GroupOperationRetrieveErrorPrompt = GlobalConstants.NetworkErrorPrompt("小组操作失败")
+    static let ServerErrorPrompt                 = GlobalConstants.NetworkErrorPrompt("请稍后重试")
+    static let RetrieveErrorPrompt               = GlobalConstants.NetworkErrorPrompt("请检查您的网络设置")
+    static func NetworkErrorPrompt(prompt: String) -> String {
+        return "网络错误，\(prompt)"
+    }
 }
 
 enum GroupStatus: Int {
+    
     case Pending = 0
     case Accept  = 1
     case Decline = 2
+    
 }

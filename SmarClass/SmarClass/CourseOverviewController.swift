@@ -9,6 +9,7 @@
 import CocoaLumberjack
 import CoreBluetooth
 import CoreLocation
+import SVProgressHUD
 import UIKit
 
 class CourseOverviewController: UIViewController {
@@ -67,7 +68,16 @@ class CourseOverviewController: UIViewController {
     func retrieveSigninInfo() {
         ContentManager.sharedInstance.signinInfo(course.course_id) {
             (uuid, enable, total, user, signinID, error) in
-            // MARK: if error present HUD and return
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.SignInRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
+            
             guard let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
             
             if error != nil {
@@ -85,10 +95,19 @@ class CourseOverviewController: UIViewController {
     
     func submitSigninInfo() {
         ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinID!, uuid: uuid!, deviceID: deviceID) {
-            if $0 == nil {
+            error in
+            if error == nil {
                 self.retrieveSigninInfo()
             } else {
-                // present HUD
+                if case .NetworkUnauthenticated = error! {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.ServerErrorPrompt)
+                } else if case NetworkErrorType.NetworkForbiddenAccess = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.SubmitSigninErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
             }
         }
     }

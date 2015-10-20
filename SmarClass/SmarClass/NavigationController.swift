@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import ChameleonFramework
 import UIKit
 
 class NavigationController: UINavigationController {
@@ -27,7 +26,7 @@ class NavigationController: UINavigationController {
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyleContrast
+        return .LightContent
     }
     
     /*

@@ -6,8 +6,10 @@
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 
-import UIKit
+
 import MGSwipeTableCell
+import SVProgressHUD
+import UIKit
 
 class GroupViewController: CloudAnimateTableViewController {
 
@@ -88,13 +90,20 @@ class GroupViewController: CloudAnimateTableViewController {
         
         ContentManager.sharedInstance.groupList(projectID) {
             (groupID, creatorList, memberList, error) in
-            if error == nil {
-                // MARK: map process for groupID
-                self.createdGroupList = creatorList.sort(cmp)
-                self.invitedGroupList = memberList.sort(cmp)
-                self.groupID = groupID
-                self.tableView.reloadData()
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
             }
+            
+            self.createdGroupList = creatorList.sort(cmp)
+            self.invitedGroupList = memberList.sort(cmp)
+            self.groupID = groupID
+            self.tableView.reloadData()
             
             self.animationDidEnd()
         }
@@ -181,7 +190,15 @@ extension GroupViewController: MGSwipeTableCellDelegate {
         let group = indexPath.section  == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
         let block: (NetworkErrorType?) -> Void = {
             error in
-            // MARK: present HUD or sth.
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkForbiddenAccess = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupOperationRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             // Acts as refresing
             self.retrieveGroupList(self.projectID)
         }

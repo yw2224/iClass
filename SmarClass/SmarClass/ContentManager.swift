@@ -132,7 +132,7 @@ class ContentManager: NSObject {
                             break
                         }
                     }
-                    block?(quizList: quizList, error: error)
+                    block?(quizList: quizList.sort {return $0.to.compare($1.to) == .OrderedDescending}, error: error)
                 } else {
                     DDLogInfo("Querying quiz list failed: \(error)")
                     block?(quizList: CoreDataManager.sharedInstance.quizList(courseID),

@@ -81,7 +81,7 @@ class NetworkManager: NSObject {
         }
         
         PendingOpDict[key] = (request, NSDate())
-        request.validate().responseJSON() {
+        request.responseJSON() {
             (_, res, result) in
             let statusCode = res?.statusCode ?? 404
             var data: AnyObject?
@@ -114,6 +114,7 @@ class NetworkManager: NSObject {
 extension NetworkManager {
     
     private enum Router: URLRequestConvertible {
+        
         static let baseURLString = "http://localhost:3000/api"
         
         case Login(String, String)

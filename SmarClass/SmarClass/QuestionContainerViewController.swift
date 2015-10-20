@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjack
+import SVProgressHUD
 import UIKit
 
 enum EditType {
@@ -76,7 +77,6 @@ class QuestionContainerViewController: UIViewController {
     }
     
     func submitAnswers() {
-        // present HUD
         var status = [AnswerJSON]()
         for (key, value) in answerDict {
             let answer = value as! Answer
@@ -90,6 +90,14 @@ class QuestionContainerViewController: UIViewController {
             
             if error == nil {
                 self.navigationController?.popViewControllerAnimated(true)
+            } else {
+                if case .NetworkUnauthenticated = error! {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.SubmitAnswerErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
             }
         }
     }

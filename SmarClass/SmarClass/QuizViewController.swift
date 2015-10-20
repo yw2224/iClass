@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjack
+import SVProgressHUD
 import UIKit
 
 class QuizViewController: CloudAnimateTableViewController {
@@ -76,6 +77,15 @@ class QuizViewController: CloudAnimateTableViewController {
     func retrieveQuizList() {
         ContentManager.sharedInstance.quizList(course.course_id) {
             (quizList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.QuizListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             self.quizList = quizList
             self.animationDidEnd()
         }

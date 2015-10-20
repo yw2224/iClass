@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
+import SVProgressHUD
 import UIKit
 
 class MainHomeViewController: CloudAnimateTableViewController {
@@ -135,6 +136,15 @@ class MainHomeViewController: CloudAnimateTableViewController {
     func retrieveCourseList() {
         ContentManager.sharedInstance.courseList {
             (courseList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.CourseListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             self.courseList = courseList
             self.animationDidEnd()
         }

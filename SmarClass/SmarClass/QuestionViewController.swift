@@ -234,8 +234,6 @@ extension QuestionViewController: UITableViewDelegate {
         
         if index < total - 1 {
             pageViewController.setViewControllers([pageViewController.questionChildViewControllerAtIndex(index + 1)!], direction: .Forward, animated: true, completion: nil)
-        } else {
-            // present HUD for the first time
         }
     }
     

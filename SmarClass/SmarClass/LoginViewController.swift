@@ -172,7 +172,7 @@ class LoginViewController: UIViewController {
 	@IBAction func loginAction(sender: UIButton) {
         let input = checkInput()
         if !input.0 {
-            SVProgressHUD.showErrorWithStatus("请输入正确的学号或密码")
+            SVProgressHUD.showErrorWithStatus(GlobalConstants.InputFormatErrorPrompt)
             return
         }
         
@@ -190,9 +190,15 @@ class LoginViewController: UIViewController {
                 self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
             } else {
                 if case NetworkErrorType.NetworkForbiddenAccess = error! {
-                    SVProgressHUD.showErrorWithStatus("您的学号/密码有误")
+                    if self.status == LoginStatus.Login {
+                        SVProgressHUD.showErrorWithStatus(GlobalConstants.PasswordWrongPrompt)
+                    } else {
+                        SVProgressHUD.showErrorWithStatus(GlobalConstants.DuplicateUserName)
+                    }
+                } else if case NetworkErrorType.NetworkUnreachable = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.LoginOrRegisterErrorPrompt)
                 } else {
-                    SVProgressHUD.showErrorWithStatus("网络错误，登录/注册失败")
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.ServerErrorPrompt)
                 }
             }
         }

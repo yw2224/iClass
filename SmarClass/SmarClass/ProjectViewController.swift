@@ -6,7 +6,7 @@
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 
-
+import SVProgressHUD
 import UIKit
 
 class ProjectViewController: CloudAnimateTableViewController {
@@ -71,6 +71,15 @@ class ProjectViewController: CloudAnimateTableViewController {
     func retrieveProjectList() {
         ContentManager.sharedInstance.projectList(courseID) {
             (projectList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.ProjectListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             self.projectList = projectList
             self.animationDidEnd()
         }

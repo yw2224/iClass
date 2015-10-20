@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjack
+import SVProgressHUD
 import UIKit
 
 class QuestionPageViewController: UIPageViewController {
@@ -37,11 +38,19 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveQuizContent() {
-        // MARK: present HUD
         ContentManager.sharedInstance.quizContent(quiz.quiz_id) {
             (quizContent, error) in
-            // dismiss HUD
-            // MARK: if failed, present HUD
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkForbiddenAccess = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.DataInconsistentErrorPrompt)
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.QuizContentRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             self.questionList = quizContent
             if self.editType == EditType.Edit {
                 self.setupPageViewController()
@@ -55,7 +64,18 @@ class QuestionPageViewController: UIPageViewController {
     func retrieveOriginAnswers() {
         ContentManager.sharedInstance.originAnswer(quiz.course_id, quizID: quiz.quiz_id) {
             (answerList, error) in
-            // MARK: if failed, present HUD
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.OriginAnswerRetrieveErrorPrompt)
+                } else if case .NetworkForbiddenAccess = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.DataInconsistentErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
+            
             for answer in answerList {
                 self.answerDict[answer.question_id] = answer
             }

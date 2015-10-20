@@ -6,6 +6,7 @@
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 
+import SVProgressHUD
 import UIKit
 
 class TeammateViewController: IndexCloudAnimateCollectionViewController {
@@ -72,6 +73,15 @@ class TeammateViewController: IndexCloudAnimateCollectionViewController {
     func retrieveTeammate() {
         ContentManager.sharedInstance.teammateList(project.course_id, projectID: project.project_id) {
             (teammateList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.ServerErrorPrompt)
+                } else { // Data Inconsistency or Unreachable
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             self.teammateList = teammateList
             self.updateStage()
             

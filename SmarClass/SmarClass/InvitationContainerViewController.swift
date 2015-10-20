@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
+import SVProgressHUD
 import UIKit
 
 class InvitationContainerViewController: UIViewController {
@@ -125,15 +126,24 @@ class InvitationContainerViewController: UIViewController {
         guard let problemID = problemID else {return}
         let members = teammates.map {return $0.encryptID}
         ContentManager.sharedInstance.groupInvite(projectID, problemID: problemID, members: members) {
-            // handle error maybe using HUD
-            if $0 == nil {
+            error in
+            if error == nil {
                 self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                if case .NetworkUnauthenticated = error! {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkForbiddenAccess = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupInvitionRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
             }
         }
     }
 }
 
 extension InvitationContainerViewController: UIPageViewControllerDataSource {
+    
     // MARK: THIS SHOULD BE IMPROVED FOR BETTER INTERACTION
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         return nil

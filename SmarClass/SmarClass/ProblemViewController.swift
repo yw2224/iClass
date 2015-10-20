@@ -6,6 +6,7 @@
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 
+import SVProgressHUD
 import UIKit
 
 class ProblemViewController: IndexCloudAnimateTableViewController {
@@ -67,10 +68,18 @@ class ProblemViewController: IndexCloudAnimateTableViewController {
     func retrieveProblemList() {
         ContentManager.sharedInstance.problemList(projectID) {
             (problemList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    // MARK: WE NEED TO GO BACK
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.ProblemListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
             self.problemList = problemList.sort {
                 return $0.name < $1.name
             }
-            
             self.animationDidEnd()
         }
     }
