@@ -497,7 +497,7 @@
                                             <color key="textColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="题目说明：" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRJ-0l-NJJ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="题目说明：" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRJ-0l-NJJ">
                                             <rect key="frame" x="50" y="49" width="85" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -524,7 +524,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="组员人数：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19Y-Ty-0JW">
-                                            <rect key="frame" x="442" y="20.5" width="85" height="21"/>
+                                            <rect key="frame" x="442" y="21" width="85" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
@@ -794,7 +794,7 @@
                                             <color key="textColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="题目说明：" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auq-vV-dt3">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="题目说明：" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auq-vV-dt3">
                                             <rect key="frame" x="50" y="49" width="85" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -821,7 +821,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="组队情况：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K00-mH-ogq">
-                                            <rect key="frame" x="442" y="24.5" width="85" height="20.5"/>
+                                            <rect key="frame" x="442" y="24" width="85" height="20.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
@@ -986,12 +986,14 @@
                         <animations/>
                     </refreshControl>
                     <connections>
-                        <segue destination="43J-XR-eDk" kind="presentation" identifier="About Us  Segue" modalTransitionStyle="crossDissolve" id="ZYK-W0-3Qu"/>
+                        <segue destination="43J-XR-eDk" kind="presentation" identifier="About Us Segue" modalTransitionStyle="crossDissolve" id="ZYK-W0-3Qu"/>
                         <segue destination="Cnu-PV-qD0" kind="custom" identifier="Course Overview Segue" customClass="CrossDissolveSegue" customModule="SmarClass" customModuleProvider="target" id="0Ez-qU-IND"/>
                         <segue destination="fHM-xJ-sGi" kind="presentation" identifier="Attend Course Segue" modalPresentationStyle="overFullScreen" id="MAo-aO-w6u"/>
+                        <segue destination="Lyz-l3-HtK" kind="unwind" identifier="Unwind to Login Segue" unwindAction="unwindToLogin:" id="f0X-Rt-Fo1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eH9-Dn-vm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Lyz-l3-HtK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-836" y="1027"/>
         </scene>
@@ -1046,7 +1048,7 @@
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="XOd-F5-Yo1" secondAttribute="bottom" constant="20" symbolic="YES" id="30v-0Q-K6l"/>
                                         <constraint firstAttribute="centerY" secondItem="aVj-m3-zxh" secondAttribute="centerY" id="8fI-MZ-96H"/>
-                                        <constraint firstItem="XOd-F5-Yo1" firstAttribute="top" secondItem="0Ax-A7-LhW" secondAttribute="bottom" constant="8" id="FHc-HI-jMe"/>
+                                        <constraint firstItem="XOd-F5-Yo1" firstAttribute="top" secondItem="0Ax-A7-LhW" secondAttribute="bottom" constant="8" symbolic="YES" id="FHc-HI-jMe"/>
                                         <constraint firstItem="aVj-m3-zxh" firstAttribute="top" secondItem="0Ax-A7-LhW" secondAttribute="top" id="KKx-aP-QoA"/>
                                         <constraint firstItem="aVj-m3-zxh" firstAttribute="leading" secondItem="fc1-jt-cZZ" secondAttribute="leading" constant="20" symbolic="YES" id="PxX-XO-Swo"/>
                                         <constraint firstAttribute="trailing" secondItem="0Ax-A7-LhW" secondAttribute="trailing" constant="20" symbolic="YES" id="UDa-8z-Qjc"/>
@@ -1090,7 +1092,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="nFz-8y-jyf" kind="unwind" identifier="Dissmiss Attend Course" unwindAction="unwindToHomePage:" id="xoh-cj-Qkm"/>
+                        <segue destination="nFz-8y-jyf" kind="unwind" identifier="Dissmiss Attend Course Segue" unwindAction="unwindToHomePage:" id="xoh-cj-Qkm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZo-j6-P3X" userLabel="First Responder" sceneMemberID="firstResponder"/>

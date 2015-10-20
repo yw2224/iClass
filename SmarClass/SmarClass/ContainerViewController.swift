@@ -50,14 +50,15 @@ class ContainerViewController: UIViewController {
     var gestureDisabled = false
     
     private struct Constants {
-        static let NavigationControllerIdentifier = "Course Navigation View Controller"
+        static let NavigationControllerIdentifier  = "Course Navigation View Controller"
         static let SidebarViewControllerIdentifier = "User Siddebar View Controller"
-        static let AboutUsSegueIdentifier = "About Us  Segue"
-        static let SidePanelOffsetRatio: CGFloat = 0.46
-        static let PortraitScaleRatio: CGFloat = 0.90
-        static let LandscapeScaleRatio: CGFloat = 0.85
-        static let OriginAlpha: CGFloat = 0.20
-        static let OriginBackgroundColor: CGFloat = 0.40
+        static let AboutUsSegueIdentifier          = "About Us Segue"
+        static let UnwindToLoginSegueIdentifier    = "Unwind to Login Segue"
+        static let SidePanelOffsetRatio: CGFloat   = 0.46
+        static let PortraitScaleRatio: CGFloat     = 0.90
+        static let LandscapeScaleRatio: CGFloat    = 0.85
+        static let OriginAlpha: CGFloat            = 0.20
+        static let OriginBackgroundColor: CGFloat  = 0.40
     }
     
     // MARK: Life cycle
@@ -199,9 +200,14 @@ extension ContainerViewController: CenteralViewDelegate {
 }
 
 extension ContainerViewController: SidePanelDelegate {
+    
     func sidePanelTappedAtRow(row: Int, sender: AnyObject) {
         animateLeftPanel(shouldExpand: false, animate: true) {
-            self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)
+            if row == 4 {
+                self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)
+            } else if row == 5 {
+                self.mainHomeViewController.performSegueWithIdentifier(Constants.UnwindToLoginSegueIdentifier, sender: sender)
+            }
         }
     }
 }

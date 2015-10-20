@@ -67,7 +67,7 @@ class CourseOverviewController: UIViewController {
     func retrieveSigninInfo() {
         ContentManager.sharedInstance.signinInfo(course.course_id) {
             (uuid, enable, total, user, signinID, error) in
-            // MARK if error present HUD and return
+            // MARK: if error present HUD and return
             guard let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
             
             if error != nil {

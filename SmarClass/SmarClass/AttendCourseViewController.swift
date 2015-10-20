@@ -22,7 +22,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     private struct Constants {
         static let CellIdentifier = "Course Cell"
         static let CourseCellHeight : CGFloat = 88.0
-        static let DissmissAttendCourseSegueIdentifier = "Dissmiss Attend Course"
+        static let DissmissAttendCourseSegueIdentifier = "Dissmiss Attend Course Segue"
     }
     
     // MARK: Inited in the prepareForSegue()
@@ -58,6 +58,9 @@ class AttendCourseViewController: CloudAnimateTableViewController {
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        courseList.forEach {
+            $0.MR_deleteEntity()
+        }
         CoreDataManager.sharedInstance.saveInBackground()
     }
     
@@ -104,10 +107,14 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Navigation back
+        if let _ = segue.destinationViewController as? MainHomeViewController {
+            courseList.forEach { // Delete extra entities
+                $0.MR_deleteEntity()
+            }
+        }
+    }
     
     func retrieveCourseList() {
         ContentManager.sharedInstance.allCourse() {

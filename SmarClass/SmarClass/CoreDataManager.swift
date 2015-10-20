@@ -6,8 +6,9 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import Foundation
+import CocoaLumberjack
 import CoreData
+import Foundation
 import MagicalRecord
 
 class CoreDataManager: NSObject {
@@ -85,6 +86,16 @@ class CoreDataManager: NSObject {
         return Teammate.MR_findByAttribute("course_id", withValue: courseID, andOrderBy: "name", ascending: true) as! [Teammate]
     }
     
+    func creatorList(projectID: String) -> [Group] {
+        let predicate = NSPredicate(format: "project_id = %@ && created = %@", projectID, true)
+        return Group.MR_findAllWithPredicate(predicate) as! [Group]
+    }
+    
+    func memberList(projectID: String) -> [Group] {
+        let predicate = NSPredicate(format: "project_id = %@ && created = %@", projectID, false)
+        return Group.MR_findAllWithPredicate(predicate) as! [Group]
+    }
+    
     func deleteQuestions(quizID: String) {
         let predicate = NSPredicate(format: "quiz_id = %@", quizID)
         Question.MR_deleteAllMatchingPredicate(predicate)
@@ -129,5 +140,17 @@ class CoreDataManager: NSObject {
     
     func cachedAnswerForQuiz(quizID: String) -> [Answer] {
         return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
+    }
+    
+    func truncateData() {
+        User.MR_truncateAll()
+        Course.MR_truncateAll()
+        Quiz.MR_truncateAll()
+        Group.MR_truncateAll()
+        Project.MR_truncateAll()
+        Teammate.MR_truncateAll()
+        Problem.MR_truncateAll()
+        Question.MR_truncateAll()
+        Answer.MR_truncateAll()
     }
 }

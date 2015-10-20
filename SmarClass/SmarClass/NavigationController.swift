@@ -27,11 +27,7 @@ class NavigationController: UINavigationController {
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        if let navBarTintColor = navigationBar.barTintColor {
-            return StatusBarContrastColorOf(navBarTintColor)
-        } else {
-            return .Default
-        }
+        return UIStatusBarStyleContrast
     }
     
     /*

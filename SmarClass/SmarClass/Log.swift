@@ -12,7 +12,7 @@ import CocoaLumberjack
 class Log: NSObject {
     static func config() {
         DDLog.addLogger(DDASLLogger.sharedInstance())
-        
+        UIColor.flatBlackColor()
         DDTTYLogger.sharedInstance().colorsEnabled = true
         DDTTYLogger.sharedInstance().setForegroundColor(UIColor.flatRedColor(), backgroundColor: nil, forFlag: .Error)
         DDTTYLogger.sharedInstance().setForegroundColor(UIColor.flatOrangeColor(), backgroundColor: nil, forFlag: .Warning)

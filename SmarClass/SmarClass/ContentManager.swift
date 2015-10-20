@@ -97,14 +97,9 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying course list success")
+                    CoreDataManager.sharedInstance.deleteAllCourses()
+                    
                     let json = JSON(data)
-                    
-                    let courseIDForDelete : [String] = (json["courses"].arrayValue).map {
-                        return $0["course_id"].stringValue
-                    }
-                    let predicate = NSPredicate(format: "course_id IN %@", courseIDForDelete)
-                    CoreDataManager.sharedInstance.deleteCourseWithinPredicate(predicate)
-                    
                     block?(courseList:
                         Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
                         error: error)
@@ -290,7 +285,6 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying all course success")
-                    CoreDataManager.sharedInstance.deleteAllCourses()
                     
                     let json = JSON(data)
                     block?(courseList:
@@ -298,9 +292,7 @@ class ContentManager: NSObject {
                         error: error)
                 } else {
                     DDLogInfo("Querying all course failed: \(error)")
-                    // MARK: cache for all course list
-                    block?(courseList: [],
-                        error: error)
+                    block?(courseList: [], error: error)
                 }
             }
         }
@@ -353,8 +345,10 @@ class ContentManager: NSObject {
                     block?(groupID: groupID, creatorList: creator, memberList: members, error: error)
                 } else {
                     DDLogInfo("Querying project list failed: \(error)")
-                    // MARK: cache from coredata
-                    block?(groupID: nil, creatorList: [], memberList: [], error: error)
+                    block?(groupID: nil,
+                        creatorList: CoreDataManager.sharedInstance.creatorList(projectID),
+                        memberList: CoreDataManager.sharedInstance.memberList(projectID),
+                        error: error)
                 }
             }
         }
@@ -448,13 +442,13 @@ class ContentManager: NSObject {
         }
     }
     
-    func cleanUpCoreData() {
-        
+    func truncateData() {
+        CoreDataManager.sharedInstance.truncateData()
     }
     
     private func saveConfidential(userID: String, token: String, password: String) {
         if let id = ContentManager.UserID where id != userID {
-            cleanUpCoreData()
+            truncateData()
         }
         ContentManager.UserID = userID
         ContentManager.Token = token

@@ -179,20 +179,16 @@ extension GroupViewController: MGSwipeTableCellDelegate {
     func swipeTableCell(cell: MGSwipeTableCell!, tappedButtonAtIndex index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
         guard let indexPath = tableView.indexPathForCell(cell) else {return false}
         let group = indexPath.section  == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
+        let block: (NetworkErrorType?) -> Void = {
+            error in
+            // MARK: present HUD or sth.
+            // Acts as refresing
+            self.retrieveGroupList(self.projectID)
+        }
         if index == 0 { // Accept some group
-            ContentManager.sharedInstance.groupAccept(projectID, groupID: group.group_id) {
-                (error) in
-                // MARK: present HUD or sth.
-                // Acts as refresing
-                self.retrieveGroupList(self.projectID)
-            }
+            ContentManager.sharedInstance.groupAccept(projectID, groupID: group.group_id, block: block)
         } else if index == 1 { // Decline some group
-            ContentManager.sharedInstance.groupDecline(projectID, groupID: group.group_id) {
-                (error) in
-                // MARK: present HUD or sth.
-                // Acts as refresing
-                self.retrieveGroupList(self.projectID)
-            }
+            ContentManager.sharedInstance.groupDecline(projectID, groupID: group.group_id, block: block)
         }
         return true
     }

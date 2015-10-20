@@ -11,24 +11,24 @@ import ChameleonFramework
 
 struct GlobalConstants {
     static var DarkRed = UIColor(red: 238.0 / 255.0, green: 37.0 / 255.0, blue: 44.0 / 255.0, alpha: 1.0)
-    static var FlatDarkRed = UIColor(flatVersionOf: GlobalConstants.DarkRed)
+    static var FlatDarkRed = GlobalConstants.DarkRed.flatten()
     static var RefreshControlColor = UIColor(red: 247.0 / 255.0, green: 115.0 / 255.0, blue: 114.0 / 255.0, alpha: 1.0)
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
     static var SplashPagesBackgroundColor = [
-        GradientColor(.TopToBottom, frame: UIScreen.mainScreen().bounds, colors: [FlatSand(), FlatRed()]),
-        GradientColor(.TopToBottom, frame: UIScreen.mainScreen().bounds, colors: [FlatPowderBlue(), FlatWhite()]),
-        GradientColor(.TopToBottom, frame: UIScreen.mainScreen().bounds, colors: [FlatOrange(), FlatSand()]),
-        GradientColor(.LeftToRight, frame: UIScreen.mainScreen().bounds, colors: [FlatWatermelon(), FlatPowderBlue()]),
+        UIColor.init(gradientStyle: .TopToBottom, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatSandColor(), UIColor.flatRedColor()]),
+        UIColor.init(gradientStyle: .TopToBottom, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatPowderBlueColor(), UIColor.flatWhiteColor()]),
+        UIColor.init(gradientStyle: .TopToBottom, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatOrangeColor(), UIColor.flatSandColor()]),
+        UIColor.init(gradientStyle: .LeftToRight, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatWatermelonColor(), UIColor.flatPowderBlueColor()])
     ]
     static var EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
     static var QuestionCorrectTableViewTitleColor = UIColor(red: 228.0 / 255.0, green: 250.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
     static var QuestionWrongTableViewTitleColor = UIColor(red: 246.0 / 255.0, green: 225.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
     static let HomePageLinks = [
         "http://net.pku.edu.cn",
-        "http://net.pku.edu.cn",
+        "https://www.facebook.com/profile.php?id=100008570011089",
         "http://net.pku.edu.cn",
         "http://www.pixiv.net/member.php?id=4007606",
-        "http://net.pku.edu.cn"
+        "http://net.pku.edu.cn/mobile"
     ]
 }
 

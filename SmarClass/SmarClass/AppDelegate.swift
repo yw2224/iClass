@@ -6,8 +6,10 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
+import ChameleonFramework
 import CoreData
 import CoreLocation
+import SVProgressHUD
 import UIKit
 
 @UIApplicationMain
@@ -20,6 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         Log.config()
         CoreDataManager.config()
+        
+        SVProgressHUD.setDefaultMaskType(.Black)
+        SVProgressHUD.setDefaultStyle(.Custom)
+        SVProgressHUD.setBackgroundColor(UIColor.flatWhiteColor())
+        SVProgressHUD.setForegroundColor(UIColor.flatGrayColorDark().darkenByPercentage(0.3))
+        SVProgressHUD.setFont(UIFont.systemFontOfSize(14.0))
+        SVProgressHUD.setErrorImage(UIImage(named: "Error"))
         
         application.statusBarStyle = .LightContent
         application.registerUserNotificationSettings(
@@ -54,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        ContentManager.sharedInstance.cleanUpCoreData()
+        CoreDataManager.cleanup()
     }
 }
 

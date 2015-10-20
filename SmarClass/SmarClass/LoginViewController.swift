@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SVProgressHUD
 
 enum LoginStatus {
     case Register
@@ -75,6 +76,7 @@ class LoginViewController: UIViewController {
         static let CollectionViewHeight: CGFloat              = 110.0
         static let LoginButtonHeight: CGFloat                 = 34.0
         static let StatusBarHeight: CGFloat                   = 20.0
+        static let SpaceRatio: CGFloat                        = 2.5
     }
     
     override func viewDidLoad() {
@@ -104,8 +106,15 @@ class LoginViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         let height = CGRectGetHeight(view.frame)
-        let blankHeight = (height - Constants.CollectionViewHeight - Constants.LoginTableViewHeight - Constants.LoginButtonHeight - Constants.StatusBarHeight) / 3.5
+        let blankHeight = (height - Constants.CollectionViewHeight - Constants.LoginTableViewHeight - Constants.LoginButtonHeight - Constants.StatusBarHeight) / (1 + Constants.SpaceRatio)
         blankViewHeight.constant = max(blankHeight, 8)
+    }
+    
+    @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
+        for i in 0...loginTableView.numberOfRowsInSection(0) {
+            guard let cell = loginTableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as? LoginTableViewCell else {continue}
+            cell.textField.text = nil
+        }
     }
     
     func setupButton() {
@@ -163,8 +172,7 @@ class LoginViewController: UIViewController {
 	@IBAction func loginAction(sender: UIButton) {
         let input = checkInput()
         if !input.0 {
-            //  Show a HUD or somewhat
-            print("Showing HUD")
+            SVProgressHUD.showErrorWithStatus("请输入正确的学号或密码")
             return
         }
         
@@ -173,31 +181,25 @@ class LoginViewController: UIViewController {
         view.endEditing(false)
         
         disableLoginButton()
-    
+        
+        let block: (NetworkErrorType?) -> Void = {
+            (error) in
+            
+            self.enableLoginButton()
+            if error == nil {
+                self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
+            } else {
+                if case NetworkErrorType.NetworkForbiddenAccess = error! {
+                    SVProgressHUD.showErrorWithStatus("您的学号/密码有误")
+                } else {
+                    SVProgressHUD.showErrorWithStatus("网络错误，登录/注册失败")
+                }
+            }
+        }
         if status == LoginStatus.Register {
-            ContentManager.sharedInstance.register(input.1, realName: input.2, password: input.3) {
-                (error) in
-                
-                self.enableLoginButton()
-
-                if error == nil {
-                    self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: Constants.LoginCollectionViewMarginRatio)
-                } else {
-                    print("Showing HUD failed or somewhat")
-                }
-            }
+            ContentManager.sharedInstance.register(input.1, realName: input.2, password: input.3, block: block)
         } else {
-            ContentManager.sharedInstance.login(input.1, password: input.3) {
-                (error) in
-                
-                self.enableLoginButton()
-
-                if error == nil {
-                    self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
-                } else {
-                    print("Showing HUD failed or somewhat")
-                }
-            }
+            ContentManager.sharedInstance.login(input.1, password: input.3, block: block)
         }
 	}
     

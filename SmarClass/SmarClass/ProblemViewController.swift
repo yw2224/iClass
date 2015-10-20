@@ -117,6 +117,7 @@ extension ProblemViewController {
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
+
 }
 
 class ProblemTableViewCell: UITableViewCell {
