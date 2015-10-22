@@ -92,7 +92,7 @@ class QuestionContainerViewController: UIViewController {
                 self.navigationController?.popViewControllerAnimated(true)
             } else {
                 if case .NetworkUnauthenticated = error! {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error! {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.SubmitAnswerErrorPrompt)
                 } else {

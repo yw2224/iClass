@@ -33,7 +33,6 @@ class MainHomeViewController: CloudAnimateTableViewController {
         static let CourseCellHeight: CGFloat           = 88.0
         static let CourseOverviewSegueIdentifier       = "Course Overview Segue"
         static let AttendCourseSegueIdentifier         = "Attend Course Segue"
-        static let DissmissAttendCourseSegueIdentifier = "Dissmiss Attend Course"
     }
     
     // MARK: Inited in the prepareForSegue()
@@ -87,13 +86,9 @@ class MainHomeViewController: CloudAnimateTableViewController {
 //    }
     
     @IBAction func unwindToHomePage(segue: UIStoryboardSegue) {
-        if segue.identifier != Constants.DissmissAttendCourseSegueIdentifier {
-            retrieveCourseListFromCache()
-        } else {
-            // Force refresh the data
-            courseList.removeAll()
-            retrieveCourseList()
-        }
+        // Force refresh the data
+        courseList.removeAll()
+        retrieveCourseList()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -138,7 +133,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
             (courseList, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.CourseListRetrieveErrorPrompt)
                 } else {
@@ -148,11 +143,6 @@ class MainHomeViewController: CloudAnimateTableViewController {
             self.courseList = courseList
             self.animationDidEnd()
         }
-    }
-    
-    func retrieveCourseListFromCache() {
-        let predicate = NSPredicate(format: "course_id IN %@", courseID)
-        courseList = CoreDataManager.sharedInstance.courseList(predicate)
     }
     
     func attendCourseButtonTapped(sender: UIButton) {
@@ -190,7 +180,7 @@ extension MainHomeViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifier) as! CourseTableViewCell
         let course = courseList[indexPath.row]
-        cell.setupUIWithImage(
+        cell.setupWithImage(
             "Computer Networks",
             courseTitle: course.name,
             teacherName: course.teacherNameString,
@@ -217,7 +207,7 @@ class CourseTableViewCell : UITableViewCell {
     @IBOutlet weak var teacherLabel: UILabel!
     @IBOutlet weak var badgeView: BadgeView!
     
-    func setupUIWithImage(imageName: String? = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
+    func setupWithImage(imageName: String? = "DefaultBookCover", courseTitle course: String, teacherName teacher: String, badgeNum badge: Int) {
         bookCover.image = UIImage(named: imageName ?? "DefaultBookCover")
         courseName.text = course
         teacherLabel.text = teacher

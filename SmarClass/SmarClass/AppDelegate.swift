@@ -38,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         )
         
+        // MARK: This for Core-Data-Editor Debug use, pls feel free to comment it out.
+        let path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first!
+        print(path)
+        
         return true
     }
 

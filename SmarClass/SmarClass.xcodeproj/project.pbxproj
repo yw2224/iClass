@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		3FBDB559A5007EE8286F7CEE /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B8D7C69E175F931120099A0 /* Pods.framework */; };
-		F8042AAA1BD32ED9009712DF /* InvitationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8042AA91BD32ED9009712DF /* InvitationPageViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F8042AAA1BD32ED9009712DF /* InvitationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8042AA91BD32ED9009712DF /* InvitationPageViewController.swift */; };
 		F80CEF971B8875AE00B9EF74 /* Splash0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF961B8875AE00B9EF74 /* Splash0ViewController.swift */; };
 		F80CEF991B88775600B9EF74 /* Splash1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF981B88775600B9EF74 /* Splash1ViewController.swift */; };
 		F80CEF9B1B88776000B9EF74 /* Splash2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9A1B88776000B9EF74 /* Splash2ViewController.swift */; };
 		F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEF9C1B88776B00B9EF74 /* Splash3ViewController.swift */; };
 		F824B22B1B9E6BB90003827B /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F824B22A1B9E6BB80003827B /* Choice.swift */; };
 		F824B22D1B9E86D00003827B /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F824B22C1B9E86D00003827B /* Answer.swift */; };
-		F82F8DD21BB924B30011065C /* ProjectContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD11BB924B30011065C /* ProjectContainerViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F82F8DD41BB92E780011065C /* ProblemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD31BB92E780011065C /* ProblemViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD51BB92F070011065C /* SwitcherViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F82F8DD81BB93BB20011065C /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD71BB93BB20011065C /* GroupViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F82F8DDA1BB93C8E0011065C /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD91BB93C8E0011065C /* Empty.swift */; settings = {ASSET_TAGS = (); }; };
-		F8434BA81BC28B84004AB031 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8434BA31BC28B84004AB031 /* Problem.swift */; settings = {ASSET_TAGS = (); }; };
+		F82F8DD21BB924B30011065C /* ProjectContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD11BB924B30011065C /* ProjectContainerViewController.swift */; };
+		F82F8DD41BB92E780011065C /* ProblemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD31BB92E780011065C /* ProblemViewController.swift */; };
+		F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD51BB92F070011065C /* SwitcherViewController.swift */; };
+		F82F8DD81BB93BB20011065C /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD71BB93BB20011065C /* GroupViewController.swift */; };
+		F82F8DDA1BB93C8E0011065C /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82F8DD91BB93C8E0011065C /* Empty.swift */; };
+		F8434BA81BC28B84004AB031 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8434BA31BC28B84004AB031 /* Problem.swift */; };
 		F84AF9E31B90600A00CF4A99 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84AF9E21B90600A00CF4A99 /* CoreDataManager.swift */; };
 		F85C836E1B8ED31400701C73 /* CloudAnimateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85C836C1B8ED31400701C73 /* CloudAnimateTableViewController.swift */; };
 		F85C83711B8ED56E00701C73 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85C83701B8ED56E00701C73 /* RefreshContents.xib */; };
@@ -30,38 +30,38 @@
 		F87957B21B9D5E09001B06E4 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B11B9D5E09001B06E4 /* Question.swift */; };
 		F87957B41B9D5E09001B06E4 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B31B9D5E09001B06E4 /* Option.swift */; };
 		F87957B61B9DA2FE001B06E4 /* QuestionPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */; };
+		F88230D51BD898A700D5732A /* LectureTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88230D41BD898A700D5732A /* LectureTime+CoreDataProperties.swift */; };
 		F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */; };
-		F89C2A9B1BC281D500AC3EEA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2A991BC281D500AC3EEA /* Project.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB11BC283B600AC3EEA /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA21BC283B600AC3EEA /* Member.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2AB81BC283B600AC3EEA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA91BC283B600AC3EEA /* Group.swift */; settings = {ASSET_TAGS = (); }; };
-		F89C2ACF1BC287D400AC3EEA /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2ACD1BC287D400AC3EEA /* Avatar.swift */; settings = {ASSET_TAGS = (); }; };
+		F89C2A9B1BC281D500AC3EEA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2A991BC281D500AC3EEA /* Project.swift */; };
+		F89C2AB11BC283B600AC3EEA /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA21BC283B600AC3EEA /* Member.swift */; };
+		F89C2AB81BC283B600AC3EEA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2AA91BC283B600AC3EEA /* Group.swift */; };
+		F89C2ACF1BC287D400AC3EEA /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C2ACD1BC287D400AC3EEA /* Avatar.swift */; };
 		F8AAE9651B999C5B00A9D971 /* CourseCalendarContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9641B999C5B00A9D971 /* CourseCalendarContainerViewController.swift */; };
 		F8AAE96A1B99C67000A9D971 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AAE9691B99C67000A9D971 /* Quiz.swift */; };
-		F8B45ED01BCF4CAE00D23912 /* CloudAnimateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B45ECF1BCF4CAE00D23912 /* CloudAnimateCollectionViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8B6112A1BCE485F00BA9D95 /* Teammate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611281BCE485F00BA9D95 /* Teammate.swift */; settings = {ASSET_TAGS = (); }; };
-		F8B6112F1BCE4B1600BA9D95 /* Teammate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6112E1BCE4B1600BA9D95 /* Teammate+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8B611311BCE548400BA9D95 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611301BCE548400BA9D95 /* PreferenceViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8B611331BCE549100BA9D95 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611321BCE549100BA9D95 /* ConfirmationViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8B611351BCE986500BA9D95 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611341BCE986500BA9D95 /* IndexViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F8B45ED01BCF4CAE00D23912 /* CloudAnimateCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B45ECF1BCF4CAE00D23912 /* CloudAnimateCollectionViewController.swift */; };
+		F8B6112A1BCE485F00BA9D95 /* Teammate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611281BCE485F00BA9D95 /* Teammate.swift */; };
+		F8B6112F1BCE4B1600BA9D95 /* Teammate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B6112E1BCE4B1600BA9D95 /* Teammate+CoreDataProperties.swift */; };
+		F8B611311BCE548400BA9D95 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611301BCE548400BA9D95 /* PreferenceViewController.swift */; };
+		F8B611331BCE549100BA9D95 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611321BCE549100BA9D95 /* ConfirmationViewController.swift */; };
+		F8B611351BCE986500BA9D95 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611341BCE986500BA9D95 /* IndexViewController.swift */; };
 		F8B7CDF41B5E6F4300F2B8EB /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B7CDF31B5E6F4300F2B8EB /* CrossDissolveSegue.swift */; };
 		F8C5D2C81B9EFCCD00E9EA02 /* tos_beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = F8C5D2C71B9EFCCD00E9EA02 /* tos_beep.caf */; };
-		F8CB34A61BCCAD31000B6732 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34A51BCCAD31000B6732 /* ProjectViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34B71BCCD30A000B6732 /* Question+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34A91BCCD30A000B6732 /* Question+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34B81BCCD30A000B6732 /* Member+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AA1BCCD30A000B6732 /* Member+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34B91BCCD30A000B6732 /* Choice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AB1BCCD30A000B6732 /* Choice+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34BA1BCCD30A000B6732 /* Problem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AC1BCCD30A000B6732 /* Problem+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34BB1BCCD30A000B6732 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AD1BCCD30A000B6732 /* Project+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34BC1BCCD30A000B6732 /* Course+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AE1BCCD30A000B6732 /* Course+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34BD1BCCD30A000B6732 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AF1BCCD30A000B6732 /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34BE1BCCD30A000B6732 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B01BCCD30A000B6732 /* Group+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34BF1BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B11BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C01BCCD30A000B6732 /* Quiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B21BCCD30A000B6732 /* Quiz+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C11BCCD30A000B6732 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B31BCCD30A000B6732 /* Answer+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C21BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B41BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C31BCCD30A000B6732 /* Avatar+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C41BCCD30A000B6732 /* Option+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34C61BCD44C4000B6732 /* InvitationContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34C51BCD44C4000B6732 /* InvitationContainerViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F8CB34CB1BCD489B000B6732 /* TeammateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34CA1BCD489B000B6732 /* TeammateViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F8CB34A61BCCAD31000B6732 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34A51BCCAD31000B6732 /* ProjectViewController.swift */; };
+		F8CB34B71BCCD30A000B6732 /* Question+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34A91BCCD30A000B6732 /* Question+CoreDataProperties.swift */; };
+		F8CB34B81BCCD30A000B6732 /* Member+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AA1BCCD30A000B6732 /* Member+CoreDataProperties.swift */; };
+		F8CB34B91BCCD30A000B6732 /* Choice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AB1BCCD30A000B6732 /* Choice+CoreDataProperties.swift */; };
+		F8CB34BA1BCCD30A000B6732 /* Problem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AC1BCCD30A000B6732 /* Problem+CoreDataProperties.swift */; };
+		F8CB34BB1BCCD30A000B6732 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AD1BCCD30A000B6732 /* Project+CoreDataProperties.swift */; };
+		F8CB34BC1BCCD30A000B6732 /* Course+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AE1BCCD30A000B6732 /* Course+CoreDataProperties.swift */; };
+		F8CB34BD1BCCD30A000B6732 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34AF1BCCD30A000B6732 /* User+CoreDataProperties.swift */; };
+		F8CB34BE1BCCD30A000B6732 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B01BCCD30A000B6732 /* Group+CoreDataProperties.swift */; };
+		F8CB34BF1BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B11BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift */; };
+		F8CB34C01BCCD30A000B6732 /* Quiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B21BCCD30A000B6732 /* Quiz+CoreDataProperties.swift */; };
+		F8CB34C11BCCD30A000B6732 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B31BCCD30A000B6732 /* Answer+CoreDataProperties.swift */; };
+		F8CB34C31BCCD30A000B6732 /* Avatar+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */; };
+		F8CB34C41BCCD30A000B6732 /* Option+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */; };
+		F8CB34C61BCD44C4000B6732 /* InvitationContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34C51BCD44C4000B6732 /* InvitationContainerViewController.swift */; };
+		F8CB34CB1BCD489B000B6732 /* TeammateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB34CA1BCD489B000B6732 /* TeammateViewController.swift */; };
 		F8D4DAED1B9695A5000B771A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAEC1B9695A5000B771A /* User.swift */; };
 		F8D4DAF11B9695A6000B771A /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF01B9695A6000B771A /* Course.swift */; };
 		F8D4DAF51B9695A6000B771A /* TeacherNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4DAF41B9695A6000B771A /* TeacherNames.swift */; };
@@ -72,7 +72,7 @@
 		F8DDD1291B8B3A550072C3E4 /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DDD1281B8B3A550072C3E4 /* LoginPanelViewController.swift */; };
 		F8E3C2711BA9A63F006928F3 /* AttendCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3C2701BA9A63F006928F3 /* AttendCourseViewController.swift */; };
 		F8E8A0471BC28E7C0069C4BF /* LectureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A0431BC28D980069C4BF /* LectureTime.swift */; };
-		F8E8A04A1BC29EA10069C4BF /* ProjectSwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A0491BC29EA10069C4BF /* ProjectSwitcherViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F8E8A04A1BC29EA10069C4BF /* ProjectSwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8A0491BC29EA10069C4BF /* ProjectSwitcherViewController.swift */; };
 		F8F16B121B9C168F00170D64 /* QuestionContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F16B111B9C168F00170D64 /* QuestionContainerViewController.swift */; };
 		F8F3A12F1B575B4C004733B3 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A12E1B575B4C004733B3 /* GlobalConstants.swift */; };
 		F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F3A1301B576D69004733B3 /* FileManager.swift */; };
@@ -141,6 +141,7 @@
 		F87957B11B9D5E09001B06E4 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		F87957B31B9D5E09001B06E4 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		F87957B51B9DA2FE001B06E4 /* QuestionPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionPageViewController.swift; sourceTree = "<group>"; };
+		F88230D41BD898A700D5732A /* LectureTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LectureTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F893D8A31B9833F8002FC526 /* CourseCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseCalendarViewController.swift; sourceTree = "<group>"; };
 		F89C2A991BC281D500AC3EEA /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F89C2AA21BC283B600AC3EEA /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
@@ -168,7 +169,6 @@
 		F8CB34B11BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TeacherNames+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34B21BCCD30A000B6732 /* Quiz+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Quiz+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34B31BCCD30A000B6732 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F8CB34B41BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LectureTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34B51BCCD30A000B6732 /* Avatar+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Avatar+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34B61BCCD30A000B6732 /* Option+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Option+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8CB34C51BCD44C4000B6732 /* InvitationContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationContainerViewController.swift; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 		F89C2ABE1BC2844500AC3EEA /* Lecture time */ = {
 			isa = PBXGroup;
 			children = (
-				F8CB34B41BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift */,
+				F88230D41BD898A700D5732A /* LectureTime+CoreDataProperties.swift */,
 				F8E8A0431BC28D980069C4BF /* LectureTime.swift */,
 			);
 			name = "Lecture time";
@@ -953,6 +953,7 @@
 				F8CB34BF1BCCD30A000B6732 /* TeacherNames+CoreDataProperties.swift in Sources */,
 				F8CB34C61BCD44C4000B6732 /* InvitationContainerViewController.swift in Sources */,
 				F80CEF9D1B88776B00B9EF74 /* Splash3ViewController.swift in Sources */,
+				F88230D51BD898A700D5732A /* LectureTime+CoreDataProperties.swift in Sources */,
 				F8D7427A1BA1A34500B346EE /* AboutUsViewController.swift in Sources */,
 				F8CB34BE1BCCD30A000B6732 /* Group+CoreDataProperties.swift in Sources */,
 				F89C2A9B1BC281D500AC3EEA /* Project.swift in Sources */,
@@ -981,7 +982,6 @@
 				F8F3A1311B576D6A004733B3 /* FileManager.swift in Sources */,
 				F8CB34BB1BCCD30A000B6732 /* Project+CoreDataProperties.swift in Sources */,
 				F8F3D6021B90478C001ADDCE /* Log.swift in Sources */,
-				F8CB34C21BCCD30A000B6732 /* LectureTime+CoreDataProperties.swift in Sources */,
 				F893D8A41B9833F8002FC526 /* CourseCalendarViewController.swift in Sources */,
 				F8CB34C01BCCD30A000B6732 /* Quiz+CoreDataProperties.swift in Sources */,
 				F82F8DD61BB92F070011065C /* SwitcherViewController.swift in Sources */,

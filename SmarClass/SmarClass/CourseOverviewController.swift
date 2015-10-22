@@ -19,7 +19,7 @@ class CourseOverviewController: UIViewController {
     var locationManager: CLLocationManager!
     var uuid: String? // "BCEAD00F-F457-4E69-B32E-681251AC2048"
     var deviceID = UIDevice.currentDevice().identifierForVendor!.UUIDString
-    var signinID: String?
+    var signinID: String!
     var isSigninEnabled = false
     var isBeaconFound = false
 
@@ -70,7 +70,7 @@ class CourseOverviewController: UIViewController {
             (uuid, enable, total, user, signinID, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.SignInRetrieveErrorPrompt)
                 } else {
@@ -79,16 +79,13 @@ class CourseOverviewController: UIViewController {
             }
             
             guard let cell = self.courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
+            guard error == nil && enable, let uuid = NSUUID(UUIDString: uuid)?.UUIDString, signinID = signinID else {cell.failWithText("已签到： \(user) / \(total)"); return}
             
-            if error != nil {
-                cell.fail()
-            } else {
-                cell.successWithText("已签到： \(user) / \(total)")
-            }
-            
-            self.uuid = NSUUID(UUIDString: uuid)?.UUIDString
+            self.uuid = uuid
             self.signinID = signinID
-            self.isSigninEnabled = enable
+            self.isSigninEnabled = true
+            self.setupLocationManager()
+            cell.successWithText("已签到： \(user) / \(total)")
             self.setupLocationManager()
         }
     }
@@ -100,7 +97,7 @@ class CourseOverviewController: UIViewController {
                 self.retrieveSigninInfo()
             } else {
                 if case .NetworkUnauthenticated = error! {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error! {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.ServerErrorPrompt)
                 } else if case NetworkErrorType.NetworkForbiddenAccess = error! {
@@ -136,7 +133,6 @@ extension CourseOverviewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // MARK: Data for the current course.
         switch indexPath.row {
         case Constants.Header.0:
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Header.1) as! HeaderTableViewCell
@@ -174,6 +170,7 @@ extension CourseOverviewController: UITableViewDelegate {
             frame.origin.x = spaceX
             return frame
         }()
+        cell.frame = cellFrame
         let animationTime = fabs(spaceX / CGRectGetWidth(cellFrame) * Constants.AnimationTime)
         UIView.animateWithDuration(Double(animationTime)) {
             cell.frame.origin.x = 0
@@ -198,9 +195,7 @@ extension CourseOverviewController: UITableViewDelegate {
 extension CourseOverviewController : CLLocationManagerDelegate {
     
     func setupLocationManager() {
-        guard !isSigninEnabled && signinID != nil, let uuid = uuid else {
-            return
-        }
+        guard !isSigninEnabled, let _ = signinID, uuid = uuid else {return}
         
         let beaconUUID   = NSUUID(UUIDString: uuid)!
         let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
@@ -296,8 +291,8 @@ class SignInTableViewCell: UITableViewCell {
         tag = 1
     }
     
-    func fail() {
-        signInLabel.text = "已签到： 0 / 0"
+    func failWithText(text: String) {
+        signInLabel.text = text
         signInButton.enabled = true
         signInButton.setTitle("刷新", forState: .Normal)
         activityIndicator.stopAnimating()

@@ -42,7 +42,7 @@ class QuestionPageViewController: UIPageViewController {
             (quizContent, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkForbiddenAccess = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.DataInconsistentErrorPrompt)
                 } else if case .NetworkServerError = error {
@@ -66,7 +66,7 @@ class QuestionPageViewController: UIPageViewController {
             (answerList, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.OriginAnswerRetrieveErrorPrompt)
                 } else if case .NetworkForbiddenAccess = error {

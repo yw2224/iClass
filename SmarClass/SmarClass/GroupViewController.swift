@@ -92,7 +92,7 @@ class GroupViewController: CloudAnimateTableViewController {
             (groupID, creatorList, memberList, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupListRetrieveErrorPrompt)
                 } else {
@@ -192,7 +192,7 @@ extension GroupViewController: MGSwipeTableCellDelegate {
             error in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkForbiddenAccess = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupOperationRetrieveErrorPrompt)
                 } else {

@@ -100,8 +100,8 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteAllCourses()
                     
                     let json = JSON(data)
-                    block?(courseList:
-                        Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
+                    let courseList = Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course]
+                    block?(courseList: courseList.sort{return $0.name < $1.name},
                         error: error)
                 } else {
                     DDLogInfo("Querying course list failed: \(error)")
@@ -166,7 +166,7 @@ class ContentManager: NSObject {
     }
 
     func signinInfo(courseID: String, block: ((uuid: String, enable: Bool, total: Int,
-        user: Int, signinID: String, error: NetworkErrorType?) -> Void)?) {
+        user: Int, signinID: String?, error: NetworkErrorType?) -> Void)?) {
             NetworkManager.sharedInstance.signinInfo(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
@@ -175,7 +175,7 @@ class ContentManager: NSObject {
                         let json = JSON(data)
                         block?(uuid: json["uuid"].stringValue, enable: json["enable"].boolValue,
                             total: json["total"].intValue, user: json["user"].intValue,
-                            signinID: json["signin_id"].stringValue, error: error)
+                            signinID: json["signin_id"].string, error: error)
                     } else {
                         DDLogInfo("Querying sign info failed: \(error)")
                         block?(uuid: "", enable: false, total: 0, user: 0, signinID: "", error: error)
@@ -285,10 +285,11 @@ class ContentManager: NSObject {
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying all course success")
+                    CoreDataManager.sharedInstance.deleteAllCourses()
                     
                     let json = JSON(data)
-                    block?(courseList:
-                        Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course],
+                    let courseList = Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course]
+                    block?(courseList: courseList.sort{return $0.name < $1.name},
                         error: error)
                 } else {
                     DDLogInfo("Querying all course failed: \(error)")

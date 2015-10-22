@@ -92,7 +92,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
                 self.attendCourseAtSection(section, row: row + 1)
             } else {
                 if case .NetworkUnauthenticated = error! {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error! {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.AttendCourseErrorPrompt)
                 } else if case NetworkErrorType.NetworkForbiddenAccess = error! {
@@ -130,7 +130,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
             (courseList, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
-                    // MARK: WE NEED TO GO BACK
+                    self.promptLoginViewController()
                 } else if case .NetworkServerError = error {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.CourseListRetrieveErrorPrompt)
                 } else {

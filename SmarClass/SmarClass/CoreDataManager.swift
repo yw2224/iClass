@@ -24,10 +24,12 @@ class CoreDataManager: NSObject {
     }
     
     func saveInBackground() {
-        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
-            (success, error) in
-            DDLogInfo("save in background: \(success) \(error)")
-        }
+//        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
+//            (success, error) in
+//            DDLogInfo("save in background: \(success) \(error)")
+//        }
+        // MARK: This is for data test, NEED TO CHANGE IT BACK BEFORE PUBlISHMENT
+        saveInForeground()
     }
     
     func saveInForeground() {

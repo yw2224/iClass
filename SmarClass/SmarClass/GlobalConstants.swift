@@ -10,6 +10,7 @@ import UIKit
 import ChameleonFramework
 
 struct GlobalConstants {
+    
     static var DarkRed = UIColor(red: 238.0 / 255.0, green: 37.0 / 255.0, blue: 44.0 / 255.0, alpha: 1.0)
     static var FlatDarkRed = GlobalConstants.DarkRed.flatten()
     static var RefreshControlColor = UIColor(red: 247.0 / 255.0, green: 115.0 / 255.0, blue: 114.0 / 255.0, alpha: 1.0)
@@ -33,6 +34,7 @@ struct GlobalConstants {
     static let InputFormatErrorPrompt            = "格式有误，请检查您的输入"
     static let PasswordWrongPrompt               = "您的用户名或密码有误"
     static let DuplicateUserName                 = "此用户名已被注册，请重新输入"
+    static let UserTokenExpiredErrorPrompt       = "会话过期，请重新登录"
     static let LoginOrRegisterErrorPrompt        = GlobalConstants.NetworkErrorPrompt("登录/注册失败")
     static let DataInconsistentErrorPrompt       = GlobalConstants.NetworkErrorPrompt("请刷新重试")
     static let CourseListRetrieveErrorPrompt     = GlobalConstants.NetworkErrorPrompt("获取课程列表失败")

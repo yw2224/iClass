@@ -54,6 +54,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    var initFromStoryboard = false
     
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
@@ -148,7 +149,7 @@ class LoginViewController: UIViewController {
                 return (false, name, realName, password)
             }
             let regexResult = someDigitsRegex.matchesInString(name, options: [], range: NSMakeRange(0, name.characters.count))
-            if regexResult.count != 1 {
+            if regexResult.count != 1 || !NSEqualRanges(NSMakeRange(0, name.characters.count), regexResult[0].range) {
                 return (false, name, realName, password)
             }
             return (true, name, realName, password)
@@ -162,7 +163,7 @@ class LoginViewController: UIViewController {
                 return (false, name, "", password)
             }
             let regexResult = someDigitsRegex.matchesInString(name, options: [], range: NSMakeRange(0, name.characters.count))
-            if regexResult.count != 1 {
+            if regexResult.count != 1 || !NSEqualRanges(NSMakeRange(0, name.characters.count), regexResult[0].range) {
                 return (false, name, "", password)
             }
             return (true, name, "", password)
@@ -187,7 +188,11 @@ class LoginViewController: UIViewController {
             
             self.enableLoginButton()
             if error == nil {
-                self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
+                if !self.initFromStoryboard {
+                    self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
+                } else {
+                    self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                }
             } else {
                 if case NetworkErrorType.NetworkForbiddenAccess = error! {
                     if self.status == LoginStatus.Login {

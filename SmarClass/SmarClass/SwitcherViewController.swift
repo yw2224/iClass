@@ -53,6 +53,7 @@ class SwitcherViewController: UIViewController {
             dest.view.frame = view.frame
             view.addSubview(dest.view)
             dest.didMoveToParentViewController(self)
+            
         }
     }
     
@@ -75,6 +76,7 @@ class SwitcherViewController: UIViewController {
 }
 
 extension SwitcherViewController: SwitchChildViewController {
+    
     var childViewControllerSegueIdentifier: [String] {
         get {
             return segueIdentifiers

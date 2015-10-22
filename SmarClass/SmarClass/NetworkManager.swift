@@ -13,6 +13,7 @@ import SwiftyJSON
 typealias NetworkCallbackBlock = (AnyObject?, NetworkErrorType?) -> Void
 
 enum NetworkErrorType: ErrorType, CustomStringConvertible {
+    
     case NetworkUnreachable(String) // Timeout or sth.
     case NetworkUnauthenticated(String) // 401 or 403
     case NetworkServerError(String) // 5XX

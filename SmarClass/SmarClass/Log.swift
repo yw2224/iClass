@@ -10,6 +10,7 @@ import Foundation
 import CocoaLumberjack
 
 class Log: NSObject {
+    
     static func config() {
         DDLog.addLogger(DDASLLogger.sharedInstance())
         UIColor.flatBlackColor()

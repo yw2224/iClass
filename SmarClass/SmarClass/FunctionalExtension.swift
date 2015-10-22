@@ -6,10 +6,11 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import UIKit
 import CoreData
 import MagicalRecord
+import SVProgressHUD
 import SwiftyJSON
+import UIKit
 
 extension UIStoryboard {
     
@@ -31,6 +32,14 @@ extension UIViewController {
             return viewControllers[index].contentViewController(index)
         }
         return self
+    }
+    
+    func promptLoginViewController() {
+        let loginViewController = UIStoryboard.initViewControllerWithIdentifier("Login View Controller") as! LoginViewController
+        loginViewController.initFromStoryboard = true
+        presentViewController(loginViewController, animated: true) {
+            SVProgressHUD.showErrorWithStatus(GlobalConstants.UserTokenExpiredErrorPrompt)
+        }
     }
 }
 
