@@ -124,10 +124,14 @@ class InvitationContainerViewController: UIViewController {
     }
     
     func inviteGroup() {
+        SVProgressHUD.showWithStatus(GlobalConstants.InvitingGroupPropmt)
+        
         guard let problemID = problemID else {return}
         let members = teammates.map {return $0.encryptID}
         ContentManager.sharedInstance.groupInvite(projectID, problemID: problemID, members: members) {
             error in
+            SVProgressHUD.popActivity()
+            
             if error == nil {
                 self.performSegueWithIdentifier(Constants.unwindToProjectContainerViewControllerSegueIdentifer, sender: self)
             } else {

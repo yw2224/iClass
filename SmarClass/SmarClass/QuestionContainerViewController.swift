@@ -77,6 +77,8 @@ class QuestionContainerViewController: UIViewController {
     }
     
     func submitAnswers() {
+        SVProgressHUD.showWithStatus(GlobalConstants.SubmittingAnswerPrompt)
+        
         var status = [AnswerJSON]()
         for (key, value) in answerDict {
             let answer = value as! Answer
@@ -87,6 +89,7 @@ class QuestionContainerViewController: UIViewController {
         }
         ContentManager.sharedInstance.submitAnswer(quiz.course_id, quizID: quiz.quiz_id, status: status) {
             (answerList, error) in
+            SVProgressHUD.popActivity()
             
             if error == nil {
                 self.navigationController?.popViewControllerAnimated(true)

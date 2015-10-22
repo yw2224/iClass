@@ -193,6 +193,7 @@ class LoginViewController: UIViewController {
         
         let block: (NetworkErrorType?) -> Void = {
             (error) in
+            SVProgressHUD.popActivity()
             
             self.enableLoginButton()
             if error == nil {
@@ -215,6 +216,7 @@ class LoginViewController: UIViewController {
                 }
             }
         }
+        SVProgressHUD.showWithStatus(GlobalConstants.LoginPrompt)
         if status == LoginStatus.Register {
             ContentManager.sharedInstance.register(input.1, realName: input.2, password: input.3, block: block)
         } else {

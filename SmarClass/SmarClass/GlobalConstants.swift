@@ -31,11 +31,15 @@ struct GlobalConstants {
         "http://www.pixiv.net/member.php?id=4007606",
         "http://net.pku.edu.cn/mobile"
     ]
-    static let InputFormatErrorPrompt            = "格式有误，请检查您的输入"
-    static let PasswordWrongPrompt               = "您的用户名或密码有误"
-    static let DuplicateUserName                 = "此用户名已被注册，请重新输入"
-    static let UserTokenExpiredErrorPrompt       = "会话过期，请重新登录"
-    static let AnswerInconsistencyErrorPrompt    = "提交失败，您尚未完成任何题目"
+    static let InputFormatErrorPrompt         = "格式有误，请检查您的输入"
+    static let PasswordWrongPrompt            = "您的用户名或密码有误"
+    static let DuplicateUserName              = "此用户名已被注册，请重新输入"
+    static let UserTokenExpiredErrorPrompt    = "会话过期，请重新登录"
+    static let AnswerInconsistencyErrorPrompt = "提交失败，您尚未完成任何题目"
+    static let AttendingCoursePrompt          = "选课中，请稍候"
+    static let SubmittingAnswerPrompt         = "提交中，请稍候"
+    static let InvitingGroupPropmt            = "组队中，请稍候"
+    static let LoginPrompt                    = "登录中，请稍候"
     static let LoginOrRegisterErrorPrompt        = GlobalConstants.NetworkErrorPrompt("登录/注册失败")
     static let DataInconsistentErrorPrompt       = GlobalConstants.NetworkErrorPrompt("请刷新重试")
     static let CourseListRetrieveErrorPrompt     = GlobalConstants.NetworkErrorPrompt("获取课程列表失败")

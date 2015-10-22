@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setForegroundColor(UIColor.flatGrayColorDark().darkenByPercentage(0.3))
         SVProgressHUD.setFont(UIFont.systemFontOfSize(14.0))
         SVProgressHUD.setErrorImage(UIImage(named: "Error"))
+        SVProgressHUD.setRingThickness(5.0)
         
         application.statusBarStyle = .LightContent
         application.registerUserNotificationSettings(

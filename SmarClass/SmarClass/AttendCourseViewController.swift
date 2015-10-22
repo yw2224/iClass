@@ -71,12 +71,14 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     }
     
     @IBAction func attendCourse(sender: UIBarButtonItem) {
+        SVProgressHUD.showWithStatus(GlobalConstants.AttendingCoursePrompt)
         attendCourseAtSection(0, row: 0)
         
     }
     
     func attendCourseAtSection(section: Int, row: Int) {
         if section >= 2 {
+            SVProgressHUD.popActivity()
             performSegueWithIdentifier(Constants.DissmissAttendCourseSegueIdentifier, sender: self) // Recursion exit
             return
         }
@@ -91,6 +93,8 @@ class AttendCourseViewController: CloudAnimateTableViewController {
             if error == nil {
                 self.attendCourseAtSection(section, row: row + 1)
             } else {
+                SVProgressHUD.popActivity()
+                
                 if case .NetworkUnauthenticated = error! {
                     self.promptLoginViewController()
                 } else if case .NetworkServerError = error! {
