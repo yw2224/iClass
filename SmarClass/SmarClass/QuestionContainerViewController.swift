@@ -95,6 +95,8 @@ class QuestionContainerViewController: UIViewController {
                     self.promptLoginViewController()
                 } else if case .NetworkServerError = error! {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.SubmitAnswerErrorPrompt)
+                } else if case .NetworkWrongParameter = error! {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.AnswerInconsistencyErrorPrompt)
                 } else {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
                 }

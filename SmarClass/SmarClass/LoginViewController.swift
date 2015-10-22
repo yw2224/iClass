@@ -85,6 +85,10 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         setupButton()
+        let tapGesture = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let panGesture = UIPanGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(panGesture)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -168,6 +172,10 @@ class LoginViewController: UIViewController {
             }
             return (true, name, "", password)
         }
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
 	@IBAction func loginAction(sender: UIButton) {
@@ -297,7 +305,7 @@ extension LoginViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SNSCollectionIdentifiers.count
+        return status == .Login ? 3 : 2
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

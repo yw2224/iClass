@@ -48,7 +48,13 @@ class ProjectContainerViewController: UIViewController {
     }
     
     @IBAction func unwindToProjectContainerViewController(segue: UIStoryboardSegue) {
-        
+        if let tmvc = switcherViewController.currentViewController as? GroupViewController {
+            tmvc.createdGroupList = []
+            tmvc.invitedGroupList = []
+            tmvc.tableView.reloadData()
+            
+            tmvc.retrieveGroupList(projectID)
+        }
     }
 
     // MARK: - Navigation

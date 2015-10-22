@@ -22,6 +22,7 @@ class InvitationContainerViewController: UIViewController {
             "队员",
             "确认"
         ]
+        static let unwindToProjectContainerViewControllerSegueIdentifer = "Unwind to Project Container View Controller"
     }
     
     @IBOutlet weak var pageControl: UIPageControl!
@@ -128,7 +129,7 @@ class InvitationContainerViewController: UIViewController {
         ContentManager.sharedInstance.groupInvite(projectID, problemID: problemID, members: members) {
             error in
             if error == nil {
-                self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                self.performSegueWithIdentifier(Constants.unwindToProjectContainerViewControllerSegueIdentifer, sender: self)
             } else {
                 if case .NetworkUnauthenticated = error! {
                     self.promptLoginViewController()

@@ -203,6 +203,11 @@ extension AttendCourseViewController {
     }
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.section == 0 {
+            return .Delete
+        } else if indexPath.section == 1 {
+            return .Insert
+        }
         return .None
     }
     
@@ -214,6 +219,29 @@ extension AttendCourseViewController {
         let course = sourceIndexPath.section == 0 ? attendCourse[sourceIndexPath.row] : courseList[sourceIndexPath.row]
         sourceIndexPath.section == 0 ? attendCourse.removeAtIndex(sourceIndexPath.row) : courseList.removeAtIndex(sourceIndexPath.row)
         destinationIndexPath.section == 0 ? attendCourse.insert(course, atIndex: destinationIndexPath.row) : courseList.insert(course, atIndex: destinationIndexPath.row)
+        
+        tableView.reloadData()
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let row = indexPath.row
+        if indexPath.section == 0 && editingStyle == .Delete {
+            let course = attendCourse[row]
+            attendCourse.removeAtIndex(row)
+            courseList.insert(course, atIndex: 0)
+            tableView.beginUpdates()
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+            tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: .Left)
+            tableView.endUpdates()
+        } else if indexPath.section == 1 && editingStyle == .Insert {
+            let course = courseList[row]
+            courseList.removeAtIndex(row)
+            attendCourse.insert(course, atIndex: 0)
+            tableView.beginUpdates()
+            tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Left)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+            tableView.endUpdates()
+        }
     }
 }
 
