@@ -178,7 +178,7 @@ class ContentManager: NSObject {
                             signinID: json["signin_id"].string, error: error)
                     } else {
                         DDLogInfo("Querying sign info failed: \(error)")
-                        block?(uuid: "", enable: false, total: 0, user: 0, signinID: "", error: error)
+                        block?(uuid: "", enable: false, total: 0, user: 0, signinID: nil, error: error)
                     }
                 }
             }
@@ -313,7 +313,7 @@ class ContentManager: NSObject {
                     projectList.forEach {
                         $0.course_id = courseID
                     }
-                    block?(projectList: projectList, error: error)
+                    block?(projectList: projectList.sort{return $0.to.compare($1.to) == .OrderedDescending}, error: error)
                 } else {
                     DDLogInfo("Querying project list failed: \(error)")
                     block?(projectList: CoreDataManager.sharedInstance.projectList(courseID), error: error)
@@ -343,7 +343,7 @@ class ContentManager: NSObject {
                         $0.created = false
                     }
                     
-                    block?(groupID: groupID, creatorList: creator, memberList: members, error: error)
+                    block?(groupID: groupID, creatorList: creator.sort{return $0.name < $1.name}, memberList: members.sort{return $0.name < $1.name}, error: error)
                 } else {
                     DDLogInfo("Querying project list failed: \(error)")
                     block?(groupID: nil,
@@ -368,7 +368,7 @@ class ContentManager: NSObject {
                     problemList.forEach {
                         $0.project_id = projectID
                     }
-                    block?(problemList: problemList, error: error)
+                    block?(problemList: problemList.sort{return $0.name < $1.name}, error: error)
                 } else {
                     DDLogInfo("Querying probem list failed: \(error)")
                     block?(problemList: CoreDataManager.sharedInstance.problemList(projectID), error: error)
@@ -390,7 +390,7 @@ class ContentManager: NSObject {
                     teammateList.forEach {
                         $0.course_id = courseID
                     }
-                    block?(teammateList: teammateList, error: error)
+                    block?(teammateList: teammateList.sort{return $0.name < $1.name}, error: error)
                 } else {
                     DDLogInfo("Querying teammate list failed: \(error)")
                     block?(teammateList: CoreDataManager.sharedInstance.teammateList(courseID), error: error)

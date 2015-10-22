@@ -17,7 +17,7 @@ class CourseOverviewController: UIViewController {
     let beaconIdentifier = "edu.pku.netlab.SmartClass-Teacher"
     var lastProximity: CLProximity?
     var locationManager: CLLocationManager!
-    var uuid: String? // "BCEAD00F-F457-4E69-B32E-681251AC2048"
+    var uuid: String! // "BCEAD00F-F457-4E69-B32E-681251AC2048"
     var deviceID = UIDevice.currentDevice().identifierForVendor!.UUIDString
     var signinID: String!
     var isSigninEnabled = false
@@ -84,14 +84,16 @@ class CourseOverviewController: UIViewController {
             self.uuid = uuid
             self.signinID = signinID
             self.isSigninEnabled = true
-            self.setupLocationManager()
             cell.successWithText("已签到： \(user) / \(total)")
             self.setupLocationManager()
         }
     }
     
     func submitSigninInfo() {
-        ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinID!, uuid: uuid!, deviceID: deviceID) {
+        guard isSigninEnabled && isBeaconFound && signinID != nil && uuid != nil else
+        {SVProgressHUD.showErrorWithStatus(GlobalConstants.SignInRetrieveErrorPrompt); return;}
+        
+        ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinID, uuid: uuid, deviceID: deviceID) {
             error in
             if error == nil {
                 self.retrieveSigninInfo()

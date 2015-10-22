@@ -163,7 +163,7 @@ extension GroupViewController {
         default:
             cell.accessoryView = UIImageView(image: UIImage(named: "Idle"))
         }
-        if GroupStatus(rawValue: group.status.integerValue) == .Pending {
+        if GroupStatus(rawValue: group.status.integerValue) == .Pending && indexPath.section == 1 {
             let acceptButton = MGSwipeButton(title: "接受", icon: nil, backgroundColor: UIColor.flatLimeColor(), padding: 20)
             let declineButton = MGSwipeButton(title: "拒绝", icon: nil, backgroundColor: UIColor.flatRedColor(), padding: 20)
             let settings = MGSwipeExpansionSettings()

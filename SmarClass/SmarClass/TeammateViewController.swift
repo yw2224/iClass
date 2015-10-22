@@ -150,8 +150,9 @@ extension TeammateViewController {
         // update cell
         cell.toggleImageView()
         // update header
-        let header = collectionView.supplementaryViewForElementKind(UICollectionElementKindSectionHeader, atIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! TeammateCollectionViewHeader
-        header.setupWithCurrent(icvc.teammates.count, groupSize: groupSize)
+        // MARK: This is a weird problem, not documented in API reference
+        let header = collectionView.supplementaryViewForElementKind(UICollectionElementKindSectionHeader, atIndexPath: indexPath)
+        (header as? TeammateCollectionViewHeader)?.setupWithCurrent(icvc.teammates.count, groupSize: groupSize)
         // update stage
         updateStage()
     }

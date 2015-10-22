@@ -44,7 +44,7 @@ class LoginViewController: UIViewController {
             loginTableView?.setContentOffset(offset, animated: true)
         }
     }
-    var status: LoginStatus! {
+    var status: LoginStatus = .Login {
         didSet {
             if loginTableView != nil && SNSCollectionView != nil {
                 loginTableView?.reloadSections(NSIndexSet(index: 0), withRowAnimation: animationLeft ? .Left: .Right)
@@ -194,13 +194,13 @@ class LoginViewController: UIViewController {
                     self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                 }
             } else {
-                if case NetworkErrorType.NetworkForbiddenAccess = error! {
+                if case .NetworkForbiddenAccess = error! {
                     if self.status == LoginStatus.Login {
                         SVProgressHUD.showErrorWithStatus(GlobalConstants.PasswordWrongPrompt)
                     } else {
                         SVProgressHUD.showErrorWithStatus(GlobalConstants.DuplicateUserName)
                     }
-                } else if case NetworkErrorType.NetworkUnreachable = error! {
+                } else if case .NetworkUnreachable = error! {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.LoginOrRegisterErrorPrompt)
                 } else {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.ServerErrorPrompt)

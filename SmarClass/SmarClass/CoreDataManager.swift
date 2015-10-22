@@ -24,12 +24,10 @@ class CoreDataManager: NSObject {
     }
     
     func saveInBackground() {
-//        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
-//            (success, error) in
-//            DDLogInfo("save in background: \(success) \(error)")
-//        }
-        // MARK: This is for data test, NEED TO CHANGE IT BACK BEFORE PUBlISHMENT
-        saveInForeground()
+        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
+            (success, error) in
+            DDLogInfo("save in background: \(success) \(error)")
+        }
     }
     
     func saveInForeground() {
@@ -41,7 +39,7 @@ class CoreDataManager: NSObject {
     }
     
     func courseList() -> [Course] {
-        return Course.MR_findAllSortedBy("course_id", ascending: true) as! [Course]
+        return Course.MR_findAllSortedBy("name", ascending: true) as! [Course]
     }
     
     func courseList(predicate: NSPredicate) -> [Course] {
@@ -90,12 +88,12 @@ class CoreDataManager: NSObject {
     
     func creatorList(projectID: String) -> [Group] {
         let predicate = NSPredicate(format: "project_id = %@ && created = %@", projectID, true)
-        return Group.MR_findAllWithPredicate(predicate) as! [Group]
+        return Group.MR_findAllSortedBy("name", ascending: true, withPredicate: predicate) as! [Group]
     }
     
     func memberList(projectID: String) -> [Group] {
         let predicate = NSPredicate(format: "project_id = %@ && created = %@", projectID, false)
-        return Group.MR_findAllWithPredicate(predicate) as! [Group]
+        return Group.MR_findAllSortedBy("name", ascending: true, withPredicate: predicate) as! [Group]
     }
     
     func deleteQuestions(quizID: String) {
