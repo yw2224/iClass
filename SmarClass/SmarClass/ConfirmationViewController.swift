@@ -91,6 +91,7 @@ extension ConfirmationViewController {
 }
 
 extension ConfirmationViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         var inset = UIEdgeInsetsZero
         inset.top = Constants.CollectionViewTopMarginSpacing

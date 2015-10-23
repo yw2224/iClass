@@ -34,13 +34,10 @@ class TeammateViewController: IndexCloudAnimateCollectionViewController {
     var groupSize: Int!
     weak var icvc: InvitationContainerViewController!
     
-    var project: Project!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        project = CoreDataManager.sharedInstance.project(projectID)
         retrieveTeammate()
     }
     
@@ -71,6 +68,7 @@ class TeammateViewController: IndexCloudAnimateCollectionViewController {
     }
 
     func retrieveTeammate() {
+        let project = CoreDataManager.sharedInstance.project(projectID)
         ContentManager.sharedInstance.teammateList(project.course_id, projectID: project.project_id) {
             (teammateList, error) in
             if let error = error {

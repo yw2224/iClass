@@ -16,7 +16,7 @@ class Course: NSManagedObject {
     var teacherNameString: String {
         get {
             guard let teacherNames = teacherNames?.allObjects as? [TeacherNames] where teacherNames.count > 0 else {return "无"}
-            return teacherNames.map({return $0.name ?? ""}).sort(<).joinWithSeparator("\t")
+            return teacherNames.map{return $0.name ?? ""}.sort(<).joinWithSeparator("\t")
         }
     }
 }

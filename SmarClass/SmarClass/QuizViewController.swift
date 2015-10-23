@@ -12,7 +12,6 @@ import UIKit
 
 class QuizViewController: CloudAnimateTableViewController {
 
-    var course: Course!
     var quizList = [Quiz]() {
         didSet {
             tableView.reloadData()
@@ -28,7 +27,6 @@ class QuizViewController: CloudAnimateTableViewController {
         static let CellIdentifier = "Quiz Cell"
         static let QuizCellHeight: CGFloat = 66.0
         static let PercentageViewTag = 1
-        static let ShowQuizDetailSegue = "Show Quiz Detail Segue"
     }
     
     // MARK: Inited in the prepareForSegue()
@@ -45,7 +43,6 @@ class QuizViewController: CloudAnimateTableViewController {
         super.viewDidAppear(animated)
 
         // MARK: This should be improved for performance!
-        course = CoreDataManager.sharedInstance.course(courseID)
         retrieveQuizList()
     }
     
@@ -75,7 +72,7 @@ class QuizViewController: CloudAnimateTableViewController {
     }
     
     func retrieveQuizList() {
-        ContentManager.sharedInstance.quizList(course.course_id) {
+        ContentManager.sharedInstance.quizList(courseID) {
             (quizList, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {

@@ -11,6 +11,14 @@ import MGSwipeTableCell
 import SVProgressHUD
 import UIKit
 
+enum GroupStatus: Int {
+    
+    case Pending = 0
+    case Accept  = 1
+    case Decline = 2
+    
+}
+
 class GroupViewController: CloudAnimateTableViewController {
 
     var createdGroupList = [Group]()

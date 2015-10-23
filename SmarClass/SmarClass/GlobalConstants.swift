@@ -9,28 +9,41 @@
 import UIKit
 import ChameleonFramework
 
+/**
+ *  Global constants
+ *  Note: We may need to extend it for night mode supporting.
+ */
 struct GlobalConstants {
     
-    static var DarkRed = UIColor(red: 238.0 / 255.0, green: 37.0 / 255.0, blue: 44.0 / 255.0, alpha: 1.0)
-    static var FlatDarkRed = GlobalConstants.DarkRed.flatten()
-    static var RefreshControlColor = UIColor(red: 247.0 / 255.0, green: 115.0 / 255.0, blue: 114.0 / 255.0, alpha: 1.0)
+    /// Navigation bar's foreground color
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
+    
+    /// Splash screens' background gradient color
     static var SplashPagesBackgroundColor = [
         UIColor.init(gradientStyle: .TopToBottom, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatSandColor(), UIColor.flatRedColor()]),
         UIColor.init(gradientStyle: .TopToBottom, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatPowderBlueColor(), UIColor.flatWhiteColor()]),
         UIColor.init(gradientStyle: .TopToBottom, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatOrangeColor(), UIColor.flatSandColor()]),
         UIColor.init(gradientStyle: .LeftToRight, withFrame: UIScreen.mainScreen().bounds, andColors: [UIColor.flatWatermelonColor(), UIColor.flatPowderBlueColor()])
     ]
+    
+    /// DZNEmptyDataSet title's foreground color
     static var EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+    
+    /// Colors indicating whether the question is answered correctly/wrongly
     static var QuestionCorrectTableViewTitleColor = UIColor(red: 228.0 / 255.0, green: 250.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)
     static var QuestionWrongTableViewTitleColor = UIColor(red: 246.0 / 255.0, green: 225.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
+    
+    /// Developers' homepage links in 'About us'
     static let HomePageLinks = [
         "http://net.pku.edu.cn",
-        "https://www.facebook.com/profile.php?id=100008570011089",
+        "https://www.facebook.com/profile.php?id=100008570011089", // zp
         "http://net.pku.edu.cn",
-        "http://www.pixiv.net/member.php?id=4007606",
+        "http://www.pixiv.net/member.php?id=4007606",  // cx
         "http://net.pku.edu.cn/mobile"
     ]
+    
+    /// Error propmts for each case
+    /// Note: We may refer to it later as localization
     static let InputFormatErrorPrompt         = "格式有误，请检查您的输入"
     static let PasswordWrongPrompt            = "您的用户名或密码有误"
     static let DuplicateUserName              = "此用户名已被注册，请重新输入"
@@ -60,12 +73,4 @@ struct GlobalConstants {
     static func NetworkErrorPrompt(prompt: String) -> String {
         return "网络错误，\(prompt)"
     }
-}
-
-enum GroupStatus: Int {
-    
-    case Pending = 0
-    case Accept  = 1
-    case Decline = 2
-    
 }

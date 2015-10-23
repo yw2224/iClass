@@ -114,7 +114,7 @@
                                     <outlet property="deadlineLabel" destination="YIh-SP-ldL" id="pTH-l8-4YM"/>
                                     <outlet property="percentageView" destination="0zB-Xl-G7C" id="LoU-SI-kHx"/>
                                     <outlet property="testNameLabel" destination="pUo-Br-9VD" id="tqP-om-nak"/>
-                                    <segue destination="OCj-EE-zcE" kind="show" identifier="Show Quiz Detail Segue" id="Xu3-5W-Z8K"/>
+                                    <segue destination="OCj-EE-zcE" kind="show" id="xdP-Wp-pia"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

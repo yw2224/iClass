@@ -25,7 +25,6 @@ class CourseOverviewController: UIViewController {
 
     // MARK: Inited in the prepare for segue
 	var courseID: String!
-    var course: Course!
     
     @IBOutlet weak var courseOverviewTableview: UITableView! {
         didSet {
@@ -51,13 +50,13 @@ class CourseOverviewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        course = CoreDataManager.sharedInstance.course(courseID)
         retrieveSigninInfo()
     }
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let dest = segue.destinationViewController 
+        let dest = segue.destinationViewController
+        let course = CoreDataManager.sharedInstance.course(courseID)
         if let cdvc = dest as? CourseDescriptionViewController {
             cdvc.text = course.introduction
         } else if let cccvc = dest as? CourseCalendarContainerViewController {
@@ -66,7 +65,7 @@ class CourseOverviewController: UIViewController {
     }
     
     func retrieveSigninInfo() {
-        ContentManager.sharedInstance.signinInfo(course.course_id) {
+        ContentManager.sharedInstance.signinInfo(courseID) {
             (uuid, enable, total, user, signinID, error) in
             if let error = error {
                 if case .NetworkUnauthenticated = error {
@@ -93,7 +92,7 @@ class CourseOverviewController: UIViewController {
         guard isSigninEnabled && isBeaconFound && signinID != nil && uuid != nil else
         {SVProgressHUD.showErrorWithStatus(GlobalConstants.SignInRetrieveErrorPrompt); return;}
         
-        ContentManager.sharedInstance.submitSignIn(course.course_id, signinID: signinID, uuid: uuid, deviceID: deviceID) {
+        ContentManager.sharedInstance.submitSignIn(courseID, signinID: signinID, uuid: uuid, deviceID: deviceID) {
             error in
             if error == nil {
                 self.retrieveSigninInfo()
@@ -135,6 +134,7 @@ extension CourseOverviewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let course = CoreDataManager.sharedInstance.course(courseID)
         switch indexPath.row {
         case Constants.Header.0:
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Header.1) as! HeaderTableViewCell

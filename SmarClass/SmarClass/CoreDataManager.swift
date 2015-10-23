@@ -13,6 +13,7 @@ import MagicalRecord
 
 class CoreDataManager: NSObject {
     
+    // MARK: Singleton
     static let sharedInstance = CoreDataManager()
     
     static func config() {
@@ -34,6 +35,9 @@ class CoreDataManager: NSObject {
         NSManagedObjectContext.MR_defaultContext().MR_saveOnlySelfAndWait()
     }
     
+    /**
+     Methods retrieving data from local data base (Core Data)
+     */
     func answerList(quizID: String) -> [Answer] {
         return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
     }
@@ -96,6 +100,10 @@ class CoreDataManager: NSObject {
         return Group.MR_findAllSortedBy("name", ascending: true, withPredicate: predicate) as! [Group]
     }
     
+    /**
+     Methods deleting data from local data base (Core Data)
+     */
+    
     func deleteQuestions(quizID: String) {
         let predicate = NSPredicate(format: "quiz_id = %@", quizID)
         Question.MR_deleteAllMatchingPredicate(predicate)
@@ -141,6 +149,10 @@ class CoreDataManager: NSObject {
     func cachedAnswerForQuiz(quizID: String) -> [Answer] {
         return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
     }
+    
+    /**
+     Truncate all data
+     */
     
     func truncateData() {
         User.MR_truncateAll()

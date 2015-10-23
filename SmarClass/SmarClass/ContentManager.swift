@@ -13,14 +13,17 @@ import CocoaLumberjack
 
 class ContentManager: NSObject {
     
+    // MARK: Singleton
     static let sharedInstance = ContentManager()
     
+    // MARK: Key chain
     private static let keychain: Keychain = {
         let bundle = NSBundle.mainBundle()
         let bundleIdentifier = bundle.bundleIdentifier!
         return Keychain(service: bundleIdentifier)
     }()
     
+    // UserID, Token, and Password can identify an unique user
     private static var UserID: String? {
         get {
             return try? keychain.getString("_id") ?? ""
@@ -51,6 +54,7 @@ class ContentManager: NSObject {
     private class func setKeyChainItem(item: String?, forKey key: String) {
         guard let string = item else { return }
         do {
+            try keychain.remove(key)
             try keychain.set(string, key: key)
         } catch let error {
             DDLogError("Key chain save error: \(error)")

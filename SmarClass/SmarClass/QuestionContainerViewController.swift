@@ -18,7 +18,6 @@ enum EditType {
 
 class QuestionContainerViewController: UIViewController {
     
-    var quiz: Quiz!
     var answerDict = NSMutableDictionary()
     
     private struct Constants {
@@ -33,11 +32,10 @@ class QuestionContainerViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        quiz = CoreDataManager.sharedInstance.quiz(quizID)
         if editType == .Edit {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAnswers")
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "submitAnswers")
-            let answerArray = CoreDataManager.sharedInstance.cachedAnswerForQuiz(quiz.quiz_id)
+            let answerArray = CoreDataManager.sharedInstance.cachedAnswerForQuiz(quizID)
             for answer in answerArray {
                 answerDict[answer.question_id] = answer
             }
@@ -79,6 +77,7 @@ class QuestionContainerViewController: UIViewController {
     func submitAnswers() {
         SVProgressHUD.showWithStatus(GlobalConstants.SubmittingAnswerPrompt)
         
+        let quiz = CoreDataManager.sharedInstance.quiz(quizID)
         var status = [AnswerJSON]()
         for (key, value) in answerDict {
             let answer = value as! Answer

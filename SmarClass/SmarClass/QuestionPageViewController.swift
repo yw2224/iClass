@@ -12,7 +12,6 @@ import UIKit
 
 class QuestionPageViewController: UIPageViewController {
     
-    var quiz: Quiz!
     var questionList: [Question]!
     
     // MARK: Inited in the prepareForSegue()
@@ -28,7 +27,6 @@ class QuestionPageViewController: UIPageViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        quiz = CoreDataManager.sharedInstance.quiz(quizID)
         retrieveQuizContent()
     }
 
@@ -38,6 +36,7 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveQuizContent() {
+        let quiz = CoreDataManager.sharedInstance.quiz(quizID)
         ContentManager.sharedInstance.quizContent(quiz.quiz_id) {
             (quizContent, error) in
             if let error = error {
@@ -62,6 +61,7 @@ class QuestionPageViewController: UIPageViewController {
     }
     
     func retrieveOriginAnswers() {
+        let quiz = CoreDataManager.sharedInstance.quiz(quizID)
         ContentManager.sharedInstance.originAnswer(quiz.course_id, quizID: quiz.quiz_id) {
             (answerList, error) in
             if let error = error {
@@ -95,6 +95,7 @@ class QuestionPageViewController: UIPageViewController {
     
     func questionChildViewControllerAtIndex(index: Int) -> QuestionViewController? {
         guard index >= 0 && index < questionList.count, let qvc = UIStoryboard.initViewControllerWithIdentifier(Constants.QuestionViewControllerIdentifier) as? QuestionViewController else {return nil}
+        let quiz = CoreDataManager.sharedInstance.quiz(quizID)
         qvc.index = index
         qvc.total = questionList.count
         qvc.quizName = quiz.name

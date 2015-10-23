@@ -9,6 +9,7 @@
 import UIKit
 import CocoaLumberjack
 
+/// The FileManager is for later extension dealing with avatars
 class FileManager: NSObject {
     
     private struct Constants {

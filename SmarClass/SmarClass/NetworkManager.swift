@@ -10,11 +10,12 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+/// NetworkCallbackBlock consists the data and an optional network error type for block execution
 typealias NetworkCallbackBlock = (AnyObject?, NetworkErrorType?) -> Void
 
 enum NetworkErrorType: ErrorType, CustomStringConvertible {
     
-    case NetworkUnreachable(String) // Timeout or sth.
+    case NetworkUnreachable(String) // Timeout or Unreachable
     case NetworkUnauthenticated(String) // 401 or 403
     case NetworkServerError(String) // 5XX
     case NetworkForbiddenAccess(String) // 400 or 404
@@ -43,11 +44,15 @@ class NetworkManager: NSObject {
     // MARK: Singleton
     static let sharedInstance = NetworkManager()
 
+    /**
+     *  Unique key for each network request for caching each request
+     */
     private struct Constants {
         static let BadRequestStatusCode = 400
         static let UnauthorizedStatusCode = 401
         static let ForbiddenStatusCode = 403
         static let NotFoundStatusCode = 404
+        
         static let LoginKey        = "Login"
         static let RegisterKey     = "Register"
         static let UserCourseKey   = "User's Course"
@@ -69,33 +74,54 @@ class NetworkManager: NSObject {
         static let GroupDeclineKey = "Group Decline"
     }
     
+    // Default network manager, timeout set to 10s
     private static let Manager: Alamofire.Manager = {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.timeoutIntervalForRequest = 10.0
         return Alamofire.Manager(configuration: configuration, serverTrustPolicyManager: nil)
     }()
+    
+    /**
+     Caching dictionary
+     Each network request is served as a key-value pair in the dictionary. No duplicate request would be executed until the previosus one (sharing with the same key) finished.
+     */
     private static var PendingOpDict = [String : (Request, NSDate)]()
     
+    /**
+     Execute the network request
+     
+     - parameter key:      unique string in caching dictionary
+     - parameter request:  request (or value) in caching dictionary
+     - parameter callback: a block executed when network request finished
+     */
     private class func executeRequestWithKey(key: String, request: Request, callback: NetworkCallbackBlock) {
+        // If the request is cached, do not execute the block
         if PendingOpDict[key] != nil {
             return
         }
         
+        // Add a new item in the caching dictionary
         PendingOpDict[key] = (request, NSDate())
+        // Executing request
         request.responseJSON() {
             (_, res, result) in
             let statusCode = res?.statusCode ?? 404
             var data: AnyObject?
             var error: NetworkErrorType?
+            
+            // Remove the item the caching dictionary
             PendingOpDict.removeValueForKey(key)
             
+            // Deal with statusCode and JSON from server
             if result.isSuccess && (statusCode >= 200 && statusCode < 300) {
                 data = result.value
             } else {
                 if result.isFailure {
                     error = NetworkErrorType.NetworkUnreachable("\(result.error)")
                 } else if let value = result.value {
+                    // Retrieve error message, pls refer to 'API.md' for details
                     let message = JSON(value)["message"].string
+                    
                     if statusCode == Constants.ForbiddenStatusCode || statusCode == Constants.UnauthorizedStatusCode {
                         error = NetworkErrorType.NetworkUnauthenticated(message ?? "Unauthenticated access")
                     } else if statusCode == Constants.BadRequestStatusCode || statusCode == Constants.NotFoundStatusCode {
@@ -107,6 +133,7 @@ class NetworkManager: NSObject {
                     }
                 }
             }
+            // execute the block
             callback(data, error)
         }
     }
@@ -114,10 +141,13 @@ class NetworkManager: NSObject {
 
 extension NetworkManager {
     
+    // Router is a factory for producing network request
     private enum Router: URLRequestConvertible {
         
+        // Server URL
         static let baseURLString = "http://162.105.146.125:3000/api"
         
+        // Different types of network request
         case Login(String, String)
         case Register(String, String, String)
         case UserCourse(String, String)
@@ -138,7 +168,10 @@ extension NetworkManager {
         case GroupAccept(String, String, String, String)
         case GroupDecline(String, String, String, String)
         
+        
         var URLRequest: NSMutableURLRequest {
+            
+            // 1. Set the properties for the request, including URL, HTTP Method, and its parameters
             var (path, method, parameters): (String, Alamofire.Method, [String: AnyObject]) = {
                 switch self {
                 case .Login(let name, let password):
@@ -201,12 +234,12 @@ extension NetworkManager {
                 }
             }()
             
+            // 2. Add HTTP headers
             let URLRequest: NSMutableURLRequest = {
                 (inout parameters: [String: AnyObject]) in
                 let URL = NSURL(string: Router.baseURLString)!
                 let request = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
                 
-                // MARK: version number
                 let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
                 request.setValue("\(buildVersion)", forHTTPHeaderField: "x-build-version")
                 
@@ -217,6 +250,7 @@ extension NetworkManager {
                 return request
             }(&parameters)
             
+            // 3. Encode the network request
             if method == Method.GET {
                 return ParameterEncoding.URL.encode(URLRequest, parameters: parameters).0
             }
@@ -224,6 +258,12 @@ extension NetworkManager {
         }
     }
     
+    /** 4. From now on, each network access only require two lines of code
+        *   4.1 Retrieve the network request
+        *   4.2 Execute the request
+        *   Note: each method recieve similar parameters, that is, the nessesary parameter mentioned in 'API.md' and a block executing when network request finished.
+    */
+
     func login(name: String, password: String, callback: NetworkCallbackBlock) {
         let request = NetworkManager.Manager.request(Router.Login(name, password))
         NetworkManager.executeRequestWithKey(Constants.LoginKey, request: request, callback: callback)

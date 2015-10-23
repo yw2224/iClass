@@ -44,7 +44,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        var course = CoreDataManager.sharedInstance.course(courseID)
+        let course = CoreDataManager.sharedInstance.course(courseID)
         firstDate = course.startDate
         lastDate = course.endDate
         lectureTime = course.lectureTime.allObjects as! [LectureTime]
