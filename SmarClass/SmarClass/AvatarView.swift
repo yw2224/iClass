@@ -100,6 +100,8 @@ class AvatarView: UIView {
     func setup() {
         layer.cornerRadius = CGRectGetWidth(frame) / 2.0
         layer.masksToBounds = true
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.mainScreen().scale
         
         backgroundColor = UIColor.randomFlatColor()
     }

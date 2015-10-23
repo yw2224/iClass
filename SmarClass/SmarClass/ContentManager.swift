@@ -51,16 +51,25 @@ class ContentManager: NSObject {
         }
     }
     
+    /**
+     Note: iOS 9 Security.framework bug! We need to first remove and then set the item instead of 
+     update the existing item in the key chain.
+     */
     private class func setKeyChainItem(item: String?, forKey key: String) {
         guard let string = item else { return }
         do {
-            try keychain.remove(key)
+            try keychain.remove(key) // Dealing with iOS 9 Security.framework bug!
             try keychain.set(string, key: key)
         } catch let error {
             DDLogError("Key chain save error: \(error)")
         }
     }
     
+    /**
+     Each method correspond to some kinds of data retrieval operation.
+     Basically, we first ask NetworkManager to require data from network, however it fails, we 
+     will query the local database, and the callback block will be executed.
+     */
     func login(name: String, password: String, block: ((error: NetworkErrorType?) -> Void)?) {
         NetworkManager.sharedInstance.login(name, password: password) {
             (data, error) in
@@ -95,20 +104,33 @@ class ContentManager: NSObject {
         }
     }
 
+    /**
+     Retrieve course list
+     
+     - parameter block: executing after retrieving the data
+     - parameter courseList: the course list either from network or core data
+     - parameter error: network error
+     */
     func courseList(block: ((courseList: [Course], error: NetworkErrorType?) -> Void)?) {
         NetworkManager.sharedInstance.courseList(ContentManager.UserID, token: ContentManager.Token) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    // network success
                     DDLogInfo("Querying course list success")
-                    CoreDataManager.sharedInstance.deleteAllCourses()
+                    // 0. update local database
+                    CoreDataManager.sharedInstance.deleteAllCourses() // 1. delete the existing ones
                     
+                    // 2. parse the json from server, and insert them into local database
                     let json = JSON(data)
                     let courseList = Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course]
+                    // 3. execute the block after sorting
                     block?(courseList: courseList.sort{return $0.name < $1.name},
                         error: error)
                 } else {
+                    // network failed
                     DDLogInfo("Querying course list failed: \(error)")
+                    // fetch from core data and execute the block
                     block?(courseList: CoreDataManager.sharedInstance.courseList(),
                         error: error)
                 }
