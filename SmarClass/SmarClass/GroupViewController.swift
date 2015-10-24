@@ -16,7 +16,7 @@ enum GroupStatus: Int {
     case Pending = 0
     case Accept  = 1
     case Decline = 2
-    
+    case Locked  = 3
 }
 
 class GroupViewController: CloudAnimateTableViewController {
@@ -81,12 +81,12 @@ class GroupViewController: CloudAnimateTableViewController {
     func retrieveGroupList(projectID: String) {
         let cmp: (Group, Group) -> Bool = {
             if $0.status != $1.status {
-                // Whatever group is accepted, put it up front
-                let accept = GroupStatus.Accept.rawValue
-                if $0.status == accept || $1.status == accept {
-                    return $0.status == accept
+                // Rank as: Accept -> Pending -> Locked -> Decline
+                var map = [1 : 0, 0 : 1, 3 : 2, 2 : 3]
+                if let r1 = map[$0.status.integerValue], r2 = map[$1.status.integerValue] {
+                    return r1 < r2
                 }
-                return $0.status < $1.status
+                return true
             } else {
                 if $0.name != $1.name {
                     return $0.name < $1.name
@@ -161,12 +161,14 @@ extension GroupViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifer) as! GroupTableViewCell
         let group = indexPath.section == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
-        cell.setupCellWithProjectName(group.name, creator: group.creator, members: group.members.allObjects as! [Member])
+        cell.setupCellWithProjectName(group.name, creator: group.creator, members: group.members.allObjects.sort{return $0.name < $1.name} as! [Member])
         switch group.status {
-        case 1:
+        case GroupStatus.Accept.rawValue:
             cell.accessoryView = UIImageView(image: UIImage(named: "Accept"))
-        case 2:
+        case GroupStatus.Decline.rawValue:
             cell.accessoryView = UIImageView(image: UIImage(named: "Decline"))
+        case GroupStatus.Locked.rawValue:
+            cell.accessoryView = UIImageView(image: UIImage(named: "Locked"))
         default:
             cell.accessoryView = UIImageView(image: UIImage(named: "Idle"))
         }
@@ -194,7 +196,7 @@ extension GroupViewController: MGSwipeTableCellDelegate {
     
     func swipeTableCell(cell: MGSwipeTableCell!, tappedButtonAtIndex index: Int, direction: MGSwipeDirection, fromExpansion: Bool) -> Bool {
         guard let indexPath = tableView.indexPathForCell(cell) else {return false}
-        let group = indexPath.section  == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
+        let group = indexPath.section == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
         let block: (NetworkErrorType?) -> Void = {
             error in
             if let error = error {
@@ -207,8 +209,12 @@ extension GroupViewController: MGSwipeTableCellDelegate {
                 }
             }
             // Acts as refresing
+            self.createdGroupList.removeAll()
+            self.invitedGroupList.removeAll()
+            self.tableView.reloadData()
             self.retrieveGroupList(self.projectID)
         }
+        cell.rightButtons.removeAll()
         if index == 0 { // Accept some group
             ContentManager.sharedInstance.groupAccept(projectID, groupID: group.group_id, block: block)
         } else if index == 1 { // Decline some group
