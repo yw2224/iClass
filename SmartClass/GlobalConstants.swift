@@ -54,6 +54,7 @@ struct GlobalConstants {
     static let InvitingGroupPropmt            = "组队中，请稍候"
     static let LoginPrompt                    = "登录中，请稍候"
     static let GroupOperationSuccessPrompt    = "小组操作成功"
+
     static let LoginOrRegisterErrorPrompt        = GlobalConstants.NetworkErrorPrompt("登录/注册失败")
     static let DataInconsistentErrorPrompt       = GlobalConstants.NetworkErrorPrompt("请刷新重试")
     static let CourseListRetrieveErrorPrompt     = GlobalConstants.NetworkErrorPrompt("获取课程列表失败")
@@ -71,7 +72,13 @@ struct GlobalConstants {
     static let GroupOperationErrorPrompt         = GlobalConstants.NetworkErrorPrompt("小组操作失败")
     static let ServerErrorPrompt                 = GlobalConstants.NetworkErrorPrompt("请稍后重试")
     static let RetrieveErrorPrompt               = GlobalConstants.NetworkErrorPrompt("请检查您的网络设置")
+    
+    static let GroupOperationPendingPrompt    = GlobalConstants.PendingPrompt("小组操作中")
+    
     static func NetworkErrorPrompt(prompt: String) -> String {
         return "网络错误，\(prompt)"
+    }
+    static func PendingPrompt(prompt: String) -> String {
+        return "\(prompt)，请稍候"
     }
 }

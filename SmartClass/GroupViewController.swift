@@ -199,6 +199,7 @@ extension GroupViewController: MGSwipeTableCellDelegate {
         let group = indexPath.section == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
         let block: (NetworkErrorType?) -> Void = {
             error in
+            SVProgressHUD.popActivity()
             if let error = error {
                 if case .NetworkUnauthenticated = error {
                     self.promptLoginViewController()
@@ -217,6 +218,7 @@ extension GroupViewController: MGSwipeTableCellDelegate {
             self.retrieveGroupList(self.projectID)
         }
         cell.rightButtons.removeAll()
+        SVProgressHUD.showWithStatus(GlobalConstants.GroupOperationPendingPrompt)
         if index == 0 { // Accept some group
             ContentManager.sharedInstance.groupAccept(projectID, groupID: group.group_id, block: block)
         } else if index == 1 { // Decline some group
