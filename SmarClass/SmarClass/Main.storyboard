@@ -674,8 +674,8 @@
                                                                     </mask>
                                                                 </variation>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBH-s7-FW5">
-                                                                <rect key="frame" x="29" y="105" width="71" height="14.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBH-s7-FW5">
+                                                                <rect key="frame" x="0.0" y="105" width="100" height="14.5"/>
                                                                 <animations/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
@@ -700,10 +700,12 @@
                                                         <constraint firstItem="OBH-s7-FW5" firstAttribute="leading" secondItem="dUC-Pe-hrM" secondAttribute="leading" id="cpl-EZ-oaB"/>
                                                         <constraint firstItem="Ukv-Mr-Bs1" firstAttribute="top" secondItem="BWR-o5-zBW" secondAttribute="top" id="dCy-BV-Hpd"/>
                                                         <constraint firstItem="OBH-s7-FW5" firstAttribute="top" secondItem="Kwe-qd-cOR" secondAttribute="bottom" constant="8" symbolic="YES" id="m7u-Yk-hyb"/>
+                                                        <constraint firstItem="OBH-s7-FW5" firstAttribute="leading" secondItem="BWR-o5-zBW" secondAttribute="leading" id="xqd-Mi-1yY"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="Hkh-yX-aaM"/>
+                                                            <exclude reference="IkJ-65-2FH"/>
                                                             <exclude reference="cpl-EZ-oaB"/>
                                                         </mask>
                                                     </variation>
