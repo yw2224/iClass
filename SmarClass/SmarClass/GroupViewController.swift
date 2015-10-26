@@ -203,10 +203,12 @@ extension GroupViewController: MGSwipeTableCellDelegate {
                 if case .NetworkUnauthenticated = error {
                     self.promptLoginViewController()
                 } else if case .NetworkForbiddenAccess = error {
-                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupOperationRetrieveErrorPrompt)
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupOperationErrorPrompt)
                 } else {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
                 }
+            } else {
+                SVProgressHUD.showSuccessWithStatus(GlobalConstants.GroupOperationSuccessPrompt)
             }
             // Acts as refresing
             self.createdGroupList.removeAll()

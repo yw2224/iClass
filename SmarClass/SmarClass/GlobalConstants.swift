@@ -53,6 +53,7 @@ struct GlobalConstants {
     static let SubmittingAnswerPrompt         = "提交中，请稍候"
     static let InvitingGroupPropmt            = "组队中，请稍候"
     static let LoginPrompt                    = "登录中，请稍候"
+    static let GroupOperationSuccessPrompt    = "小组操作成功"
     static let LoginOrRegisterErrorPrompt        = GlobalConstants.NetworkErrorPrompt("登录/注册失败")
     static let DataInconsistentErrorPrompt       = GlobalConstants.NetworkErrorPrompt("请刷新重试")
     static let CourseListRetrieveErrorPrompt     = GlobalConstants.NetworkErrorPrompt("获取课程列表失败")
@@ -66,8 +67,8 @@ struct GlobalConstants {
     static let ProjectListRetrieveErrorPrompt    = GlobalConstants.NetworkErrorPrompt("获取项目列表失败")
     static let GroupListRetrieveErrorPrompt      = GlobalConstants.NetworkErrorPrompt("获取小组邀请失败")
     static let ProblemListRetrieveErrorPrompt    = GlobalConstants.NetworkErrorPrompt("获取题目失败")
-    static let GroupInvitionRetrieveErrorPrompt  = GlobalConstants.NetworkErrorPrompt("小组邀请失败")
-    static let GroupOperationRetrieveErrorPrompt = GlobalConstants.NetworkErrorPrompt("小组操作失败")
+    static let GroupInvitionErrorPrompt          = GlobalConstants.NetworkErrorPrompt("小组邀请失败")
+    static let GroupOperationErrorPrompt         = GlobalConstants.NetworkErrorPrompt("小组操作失败")
     static let ServerErrorPrompt                 = GlobalConstants.NetworkErrorPrompt("请稍后重试")
     static let RetrieveErrorPrompt               = GlobalConstants.NetworkErrorPrompt("请检查您的网络设置")
     static func NetworkErrorPrompt(prompt: String) -> String {

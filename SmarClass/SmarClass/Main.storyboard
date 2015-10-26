@@ -647,14 +647,14 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ukv-Mr-Bs1" customClass="AvatarView" customModule="SmarClass" customModuleProvider="target">
-                                                                <rect key="frame" x="13" y="0.0" width="74" height="74"/>
+                                                                <rect key="frame" x="13" y="0.0" width="74.5" height="74.5"/>
                                                                 <animations/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Ukv-Mr-Bs1" secondAttribute="height" id="Lej-3i-THe"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" text="一二三四" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwe-qd-cOR">
-                                                                <rect key="frame" x="29" y="82" width="71" height="14.5"/>
+                                                                <rect key="frame" x="29" y="83" width="71" height="14.5"/>
                                                                 <animations/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
@@ -675,7 +675,7 @@
                                                                 </variation>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBH-s7-FW5">
-                                                                <rect key="frame" x="0.0" y="105" width="100" height="15"/>
+                                                                <rect key="frame" x="29" y="105" width="71" height="14.5"/>
                                                                 <animations/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
@@ -692,6 +692,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="OBH-s7-FW5" secondAttribute="bottom" id="6uj-uJ-AeX"/>
                                                         <constraint firstItem="OBH-s7-FW5" firstAttribute="leading" secondItem="BWR-o5-zBW" secondAttribute="leading" id="Hkh-yX-aaM"/>
                                                         <constraint firstItem="Kwe-qd-cOR" firstAttribute="centerY" secondItem="dUC-Pe-hrM" secondAttribute="centerY" id="Hot-fa-YFE"/>
+                                                        <constraint firstItem="OBH-s7-FW5" firstAttribute="leading" secondItem="Kwe-qd-cOR" secondAttribute="leading" id="IkJ-65-2FH"/>
                                                         <constraint firstAttribute="trailing" secondItem="Kwe-qd-cOR" secondAttribute="trailing" id="KqH-Hd-67g"/>
                                                         <constraint firstItem="Ukv-Mr-Bs1" firstAttribute="centerX" secondItem="BWR-o5-zBW" secondAttribute="centerX" id="NJw-v5-1Nf"/>
                                                         <constraint firstItem="Kwe-qd-cOR" firstAttribute="top" secondItem="Ukv-Mr-Bs1" secondAttribute="bottom" constant="8" symbolic="YES" id="RQK-WU-llN"/>
@@ -702,6 +703,7 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
+                                                            <exclude reference="Hkh-yX-aaM"/>
                                                             <exclude reference="cpl-EZ-oaB"/>
                                                         </mask>
                                                     </variation>
@@ -1280,11 +1282,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPd-bc-C7S" customClass="ChoiceView" customModule="SmarClass" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="20" width="26" height="26"/>
+                                                    <rect key="frame" x="20" y="15" width="36" height="36"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" priority="750" constant="36" id="HjF-7J-pwp"/>
+                                                        <constraint firstAttribute="width" constant="36" id="HjF-7J-pwp"/>
                                                         <constraint firstAttribute="width" constant="36" id="Qoh-o7-iMF"/>
                                                         <constraint firstAttribute="width" secondItem="fPd-bc-C7S" secondAttribute="height" id="lln-pX-VHN"/>
                                                     </constraints>
@@ -1303,8 +1305,11 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x33-9d-Wis">
-                                                    <rect key="frame" x="66" y="0.0" width="514" height="65"/>
+                                                    <rect key="frame" x="76" y="0.0" width="504" height="65"/>
                                                     <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="65" id="aNK-J8-Q3f"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.42655369640000002" green="0.475846082" blue="0.4802647531" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1318,12 +1323,20 @@
                                                 <constraint firstAttribute="bottom" secondItem="fPd-bc-C7S" secondAttribute="bottom" constant="20" symbolic="YES" id="GYF-Td-GjI"/>
                                                 <constraint firstItem="kPa-IN-NXp" firstAttribute="top" secondItem="x33-9d-Wis" secondAttribute="bottom" id="Ioc-xC-sEa"/>
                                                 <constraint firstItem="x33-9d-Wis" firstAttribute="leading" secondItem="fPd-bc-C7S" secondAttribute="trailing" constant="20" id="RLq-YE-WPH"/>
+                                                <constraint firstItem="fPd-bc-C7S" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7kV-TU-nvG" secondAttribute="top" constant="20" symbolic="YES" id="ZcS-Jc-NRD"/>
                                                 <constraint firstAttribute="bottom" secondItem="kPa-IN-NXp" secondAttribute="bottom" id="bI8-xP-7qE"/>
                                                 <constraint firstItem="fPd-bc-C7S" firstAttribute="top" secondItem="7kV-TU-nvG" secondAttribute="top" constant="20" symbolic="YES" id="nws-uU-a52"/>
                                                 <constraint firstItem="x33-9d-Wis" firstAttribute="top" secondItem="7kV-TU-nvG" secondAttribute="top" id="qk8-sJ-wmx"/>
                                                 <constraint firstAttribute="centerY" secondItem="fPd-bc-C7S" secondAttribute="centerY" id="su5-ga-Pne"/>
                                                 <constraint firstAttribute="trailing" secondItem="kPa-IN-NXp" secondAttribute="trailing" constant="20" symbolic="YES" id="wjB-vB-nHS"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="GYF-Td-GjI"/>
+                                                    <exclude reference="ZcS-Jc-NRD"/>
+                                                    <exclude reference="nws-uU-a52"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

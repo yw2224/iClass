@@ -138,7 +138,7 @@ class InvitationContainerViewController: UIViewController {
                 if case .NetworkUnauthenticated = error! {
                     self.promptLoginViewController()
                 } else if case .NetworkForbiddenAccess = error! {
-                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupInvitionRetrieveErrorPrompt)
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.GroupInvitionErrorPrompt)
                 } else {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
                 }
