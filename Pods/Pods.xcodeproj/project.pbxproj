@@ -187,8 +187,8 @@
 		F566D0607C3179B8154FA19EC61C8EB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8708133EC4DB4032EFF2519247300C60 /* Foundation.framework */; };
 		F65103CDA9B85AD1A8C7626EFD6D64A3 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 30F38276F3CBE0A994AFE4986D06D1EF /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F7AD57DE80413718802FA09525C0A299 /* MagicalRecord+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ADBF982C7A89664C6439E18113C1010 /* MagicalRecord+Options.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F86CB08C1BDDE544007CDD44 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745096F350ACEE8F148FF4EDBBC38A89 /* CocoaLumberjack.framework */; };
-		F86CB0931BDDE620007CDD44 /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86CB0921BDDE620007CDD44 /* CocoaLumberjack.swift */; };
+		F8ABF1FD1BDE155B00AE051C /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745096F350ACEE8F148FF4EDBBC38A89 /* CocoaLumberjack.framework */; };
+		F8ABF1FF1BDE157200AE051C /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ABF1FE1BDE157200AE051C /* CocoaLumberjack.swift */; };
 		FA4A7DAD6081898231A3A481E06D16E6 /* NSManagedObjectContext+MagicalThreading.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E5DD0FF71617711B99A7FE504B23D5 /* NSManagedObjectContext+MagicalThreading.m */; };
 		FADE62114F717424D38B6D64E592A55F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8708133EC4DB4032EFF2519247300C60 /* Foundation.framework */; };
 		FE1F95F519342B9266EB69B23B4336CF /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3398F02DB079EF6E69D5460828B9477 /* Error.swift */; };
@@ -495,7 +495,7 @@
 		F4E793A1390FDE93379CB38A24EFC573 /* ChameleonFramework.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ChameleonFramework.xcconfig; sourceTree = "<group>"; };
 		F5BED7CADFD6ACEF3496FDCD4AF515AC /* NSArray+Chameleon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+Chameleon.h"; path = "Pod/Classes/Objective-C/NSArray+Chameleon.h"; sourceTree = "<group>"; };
 		F767A4C5C90AD9F80436A36F4087A785 /* KeychainAccess-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KeychainAccess-prefix.pch"; sourceTree = "<group>"; };
-		F86CB0921BDDE620007CDD44 /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = Classes/CocoaLumberjack.swift; sourceTree = "<group>"; };
+		F8ABF1FE1BDE157200AE051C /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = Classes/CocoaLumberjack.swift; sourceTree = "<group>"; };
 		F8F20B2D545E8AEE4A7985C364530890 /* NSManagedObjectContext+MagicalChainSave.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+MagicalChainSave.m"; path = "MagicalRecord/Categories/NSManagedObjectContext/NSManagedObjectContext+MagicalChainSave.m"; sourceTree = "<group>"; };
 		F9D083B24F7D43C7E01807FCF650943E /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Source/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		F9FADFA4C6298522C9CCA14584D7A2C4 /* UINavigationController+Chameleon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+Chameleon.h"; path = "Pod/Classes/Objective-C/UINavigationController+Chameleon.h"; sourceTree = "<group>"; };
@@ -523,7 +523,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86CB08C1BDDE544007CDD44 /* CocoaLumberjack.framework in Frameworks */,
+				F8ABF1FD1BDE155B00AE051C /* CocoaLumberjack.framework in Frameworks */,
 				8BA6BBC0D270167CB88EB3EC83B98C70 /* CoreData.framework in Frameworks */,
 				FADE62114F717424D38B6D64E592A55F /* Foundation.framework in Frameworks */,
 			);
@@ -754,6 +754,7 @@
 		6944DE14993708CD837DA8E5F8DEF192 /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
+				F8ABF1FE1BDE157200AE051C /* CocoaLumberjack.swift */,
 				BCE6CD3D5511EFEC0096BB1E3EF8D1A5 /* Core */,
 				B3BFF20D2C4BBE97898206683641D299 /* Default */,
 				5958D0B170B88FC06EED821113DC2EE4 /* Extensions */,
@@ -938,7 +939,6 @@
 		BCE6CD3D5511EFEC0096BB1E3EF8D1A5 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				F86CB0921BDDE620007CDD44 /* CocoaLumberjack.swift */,
 				810956785EE9B94E29DFC31888719EA6 /* DDAbstractDatabaseLogger.h */,
 				5CA1BE9186EF81142C1360927E037964 /* DDAbstractDatabaseLogger.m */,
 				3A5FD612FCE5FD7FE2A1D169C23D8D2B /* DDASLLogCapture.h */,
@@ -1617,7 +1617,7 @@
 				65BC6590E68D69B14D820E12A6DFF25C /* DDDispatchQueueLogFormatter.m in Sources */,
 				1F49E397D7E2D6F0F2FA74A38A1822F1 /* DDFileLogger.m in Sources */,
 				6CCB8891EC5DECF019E81CB8FFB4F00B /* DDLog.m in Sources */,
-				F86CB0931BDDE620007CDD44 /* CocoaLumberjack.swift in Sources */,
+				F8ABF1FF1BDE157200AE051C /* CocoaLumberjack.swift in Sources */,
 				38F6CEBD348505552B59EAF29CFE4C9D /* DDMultiFormatter.m in Sources */,
 				069D640D4A5573C4DD5FA65A3F7AB12E /* DDTTYLogger.m in Sources */,
 			);

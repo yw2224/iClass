@@ -17,4 +17,4 @@ pod 'Alamofire', '~> 2.0'
 
 # Utility
 pod 'CocoaLumberjack'
-pod 'KeychainAccess'
+pod 'KeychainAccess', :git => 'https://github.com/kishikawakatsumi/KeychainAccess.git'

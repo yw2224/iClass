@@ -12,7 +12,7 @@ PODS:
   - CocoaLumberjack/Extensions (2.1.0):
     - CocoaLumberjack/Default
   - DZNEmptyDataSet (1.7.1)
-  - KeychainAccess (1.2.1)
+  - KeychainAccess (2.2.1)
   - MagicalRecord (2.3.0)
   - MGSwipeTableCell (1.5.1)
   - PDTSimpleCalendar (0.9.1)
@@ -24,7 +24,7 @@ DEPENDENCIES:
   - ChameleonFramework
   - CocoaLumberjack
   - DZNEmptyDataSet
-  - KeychainAccess
+  - KeychainAccess (from `https://github.com/kishikawakatsumi/KeychainAccess.git`)
   - MagicalRecord
   - MGSwipeTableCell
   - PDTSimpleCalendar (~> 0.9.1)
@@ -32,10 +32,15 @@ DEPENDENCIES:
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
+  KeychainAccess:
+    :git: https://github.com/kishikawakatsumi/KeychainAccess.git
   SwiftyJSON:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  KeychainAccess:
+    :commit: 71c3acdead0cb63e8a027b65149934b7a5701343
+    :git: https://github.com/kishikawakatsumi/KeychainAccess.git
   SwiftyJSON:
     :commit: 3b5d0d4e0c19173b1bf0dc823bde25ad870f70c0
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
@@ -45,7 +50,7 @@ SPEC CHECKSUMS:
   ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
   CocoaLumberjack: d6627e7ad42e14d41a4fa2e6c7ae42489d5f3e8b
   DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
-  KeychainAccess: 3d7922baf90762a976adb7f6030d74c1a4110a1d
+  KeychainAccess: 3b13c8264b5985dbaeaaf019a7941a912b5690c2
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   MGSwipeTableCell: a51fa670c01f0aa048f12af040acebf315223137
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
