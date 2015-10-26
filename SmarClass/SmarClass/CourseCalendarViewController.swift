@@ -21,7 +21,7 @@ class CourseCalendarViewController: PDTSimpleCalendarViewController {
     var lectureTime = [LectureTime]() {
         didSet {
             lectureTime.sortInPlace() {
-                return $0.weekday < $1.weekday
+                return $0.weekday.integerValue < $1.weekday.integerValue
             }
         }
     }
