@@ -167,12 +167,7 @@ extension GroupViewController {
             cell.accessoryView = UIImageView(image: UIImage(named: "Accept"))
         case GroupStatus.Decline.rawValue:
             cell.accessoryView = UIImageView(image: UIImage(named: "Decline"))
-        case GroupStatus.Locked.rawValue:
-            cell.accessoryView = UIImageView(image: UIImage(named: "Locked"))
-        default:
-            cell.accessoryView = UIImageView(image: UIImage(named: "Idle"))
-        }
-        if GroupStatus(rawValue: group.status.integerValue) == .Pending && indexPath.section == 1 {
+        case GroupStatus.Pending.rawValue where indexPath.section == 1:
             let acceptButton = MGSwipeButton(title: "接受", icon: nil, backgroundColor: UIColor.flatLimeColor(), padding: 20)
             let declineButton = MGSwipeButton(title: "拒绝", icon: nil, backgroundColor: UIColor.flatRedColor(), padding: 20)
             let settings = MGSwipeExpansionSettings()
@@ -182,6 +177,9 @@ extension GroupViewController {
             cell.rightSwipeSettings.transition = .Drag
             cell.rightExpansion = settings
             cell.delegate = self
+            cell.accessoryView = UIImageView(image: UIImage(named: "Idle"))
+        default:
+            cell.accessoryView = UIImageView(image: UIImage(named: "Locked"))
         }
         return cell
     }
