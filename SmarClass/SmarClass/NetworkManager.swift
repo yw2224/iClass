@@ -95,11 +95,6 @@ class NetworkManager: NSObject {
      - parameter callback: a block executed when network request finished
      */
     private class func executeRequestWithKey(key: String, request: Request, callback: NetworkCallbackBlock) {
-        // If the request is cached, do not execute the block
-        if PendingOpDict[key] != nil {
-            return
-        }
-        
         // Add a new item in the caching dictionary
         PendingOpDict[key] = (request, NSDate())
         // Executing request
@@ -136,6 +131,10 @@ class NetworkManager: NSObject {
             // execute the block
             callback(data, error)
         }
+    }
+    
+    class func existPendingOperation(key: String) -> Bool {
+        return PendingOpDict[key] != nil
     }
 }
 
@@ -259,102 +258,122 @@ extension NetworkManager {
     }
     
     /** 4. From now on, each network access only require two lines of code
+        *   4.0 Make sure there is no pending network operations
         *   4.1 Retrieve the network request
         *   4.2 Execute the request
         *   Note: each method recieve similar parameters, that is, the nessesary parameter mentioned in 'API.md' and a block executing when network request finished.
     */
 
     func login(name: String, password: String, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.LoginKey) else {return}
         let request = NetworkManager.Manager.request(Router.Login(name, password))
         NetworkManager.executeRequestWithKey(Constants.LoginKey, request: request, callback: callback)
     }
     
     func register(name: String, realName: String, password: String, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.RegisterKey) else {return}
         let request = NetworkManager.Manager.request(Router.Register(name, realName, password))
         NetworkManager.executeRequestWithKey(Constants.RegisterKey, request: request, callback: callback)
     }
     
     func courseList(userID: String?, token: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.UserCourseKey) else {return}
         let request = NetworkManager.Manager.request(Router.UserCourse(userID ?? "", token ?? ""))
         NetworkManager.executeRequestWithKey(Constants.UserCourseKey, request: request, callback: callback)
     }
     
     func quizList(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.QuizListKey) else {return}
         let request = NetworkManager.Manager.request(Router.QuizList(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.QuizListKey, request: request, callback: callback)
     }
     
     func quizContent(userID: String?, token: String?, quizID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.QuizContentKey) else {return}
         let request = NetworkManager.Manager.request(Router.QuizContent(userID ?? "", token ?? "", quizID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.QuizContentKey, request: request, callback: callback)
     }
     
     func signinInfo(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.SigninInfoKey) else {return}
         let request = NetworkManager.Manager.request(Router.SigninInfo(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.SigninInfoKey, request: request, callback: callback)
     }
     
     func originAnswer(userID: String?, token: String?, courseID: String?, quizID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.OriginAnswerKey) else {return}
         let request = NetworkManager.Manager.request(Router.OriginAnswer(userID ?? "", token ?? "", courseID ?? "", quizID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.OriginAnswerKey, request: request, callback: callback)
     }
     
     func submitAnswer(userID: String?, token: String?, courseID: String?, quizID: String?, status: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.SubmitAnswerKey) else {return}
         let request = NetworkManager.Manager.request(Router.SubmitAnswer(userID ?? "", token ?? "", courseID ?? "", quizID ?? "", status ?? ""))
         NetworkManager.executeRequestWithKey(Constants.SubmitAnswerKey, request: request, callback: callback)
     }
     
     func submitSignIn(userID: String?, token: String?, courseID: String?, signinID: String?, uuid: String?, deviceID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.SubmitSignInKey) else {return}
         let request = NetworkManager.Manager.request(Router.SubmitSignIn(userID ?? "", token ?? "", courseID ?? "", signinID ?? "", uuid ?? "", deviceID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.SubmitSignInKey, request: request, callback: callback)
     }
     
     func attendCourse(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.AttendCourseKey) else {return}
         let request = NetworkManager.Manager.request(Router.AttendCourse(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.AttendCourseKey, request: request, callback: callback)
     }
     
     func quitCourse(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.QuitCourseKey) else {return}
         let request = NetworkManager.Manager.request(Router.QuitCourse(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.QuitCourseKey, request: request, callback: callback)
     }
     
     func allCourse(userID: String?, token: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.AllCourseKey) else {return}
         let request = NetworkManager.Manager.request(Router.AllCourse(userID ?? "", token ?? ""))
         NetworkManager.executeRequestWithKey(Constants.AllCourseKey, request: request, callback: callback)
     }
     
     func projectList(userID: String?, token: String?, courseID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.ProjectListKey) else {return}
         let request = NetworkManager.Manager.request(Router.ProjectList(userID ?? "", token ?? "", courseID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.ProjectListKey, request: request, callback: callback)
     }
     
     func groupList(userID: String?, token: String?, projectID: String, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.GroupListKey) else {return}
         let request = NetworkManager.Manager.request(Router.GroupList(userID ?? "", token ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.GroupListKey, request: request, callback: callback)
     }
     
     func problemList(userID: String?, token: String?, projectID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.ProblemListKey) else {return}
         let request = NetworkManager.Manager.request(Router.ProlemList(userID ?? "", token ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.ProblemListKey, request: request, callback: callback)
     }
     
     func teammateList(userID: String?, token: String?, courseID: String?, projectID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.TeammateListKey) else {return}
         let request = NetworkManager.Manager.request(Router.TeammateList(userID ?? "", token ?? "", courseID ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.TeammateListKey, request: request, callback: callback)
     }
     
     func groupInvite(userID: String?, token: String?, projectID: String?, problemID: String?, members: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.GroupInviteKey) else {return}
         let request  = NetworkManager.Manager.request(Router.GroupInvite(userID ?? "", token ?? "", projectID ?? "", problemID ?? "", members ?? ""))
         NetworkManager.executeRequestWithKey(Constants.GroupInviteKey, request: request, callback: callback)
     }
     
     func groupAccept(userID: String?, token: String?, projectID: String?, groupID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.GroupAcceptKey) else {return}
         let request = NetworkManager.Manager.request(Router.GroupAccept(userID ?? "", token ?? "", projectID ?? "", groupID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.GroupAcceptKey, request: request, callback: callback)
     }
     
     func groupDecline(userID: String?, token: String?, projectID: String?, groupID: String?, callback: NetworkCallbackBlock) {
+        guard !NetworkManager.existPendingOperation(Constants.GroupDeclineKey) else {return}
         let request = NetworkManager.Manager.request(Router.GroupDecline(userID ?? "", token ?? "", projectID ?? "", groupID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.GroupDeclineKey, request: request, callback: callback)
     }
