@@ -89,6 +89,9 @@ class LoginViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tapGesture)
         view.addGestureRecognizer(panGesture)
+        
+        SNSCollectionView.dataSource = self
+        SNSCollectionView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
