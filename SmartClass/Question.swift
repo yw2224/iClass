@@ -1,6 +1,6 @@
 //
 //  Question.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/9/7.
 //  Copyright (c) 2015年 PKU. All rights reserved.

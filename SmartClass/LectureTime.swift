@@ -1,6 +1,6 @@
 //
 //  LectureTime.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/10/5.
 //  Copyright © 2015年 PKU. All rights reserved.

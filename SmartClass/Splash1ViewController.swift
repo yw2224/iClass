@@ -1,6 +1,6 @@
 //
 //  Splash1ViewController.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/8/22.
 //  Copyright (c) 2015年 PKU. All rights reserved.

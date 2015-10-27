@@ -1,6 +1,6 @@
 //
 //  LectureTime+CoreDataProperties.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/10/22.
 //  Copyright © 2015年 PKU. All rights reserved.

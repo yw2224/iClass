@@ -1,6 +1,6 @@
 //
 //  GroupViewController.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/9/28.
 //  Copyright © 2015年 PKU. All rights reserved.
@@ -162,6 +162,7 @@ extension GroupViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellIdentifer) as! GroupTableViewCell
         let group = indexPath.section == 0 ? createdGroupList[indexPath.row] : invitedGroupList[indexPath.row]
         cell.setupCellWithProjectName(group.name, creator: group.creator, members: group.members.allObjects.sort{return $0.name < $1.name} as! [Member])
+        cell.rightButtons.removeAll()
         switch group.status {
         case GroupStatus.Accept.rawValue:
             cell.accessoryView = UIImageView(image: UIImage(named: "Accept"))

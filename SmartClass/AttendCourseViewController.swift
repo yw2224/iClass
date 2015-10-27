@@ -1,6 +1,6 @@
 //
 //  AttendCourseViewController.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/9/16.
 //  Copyright (c) 2015年 PKU. All rights reserved.

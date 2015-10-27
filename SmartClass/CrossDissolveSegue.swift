@@ -1,6 +1,6 @@
 //
 //  CrossDissolve.swift
-//  SmarClass
+//  SmartClass
 //
 //  Created by PengZhao on 15/7/21.
 //  Copyright (c) 2015年 PKU. All rights reserved.
