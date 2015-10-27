@@ -616,6 +616,7 @@
 		F86CB0BC1BDDEB83007CDD44 /* Side panel */ = {
 			isa = PBXGroup;
 			children = (
+				F82377541BDDE1AB0062603F /* AttendCourseViewController.swift */,
 				F823779D1BDDE1AB0062603F /* SidePanelViewController.swift */,
 				F82377501BDDE1AB0062603F /* AboutUsViewController.swift */,
 			);
@@ -628,7 +629,6 @@
 				F86CB0BC1BDDEB83007CDD44 /* Side panel */,
 				F82377651BDDE1AB0062603F /* ContainerViewController.swift */,
 				F82377821BDDE1AB0062603F /* MainHomeViewController.swift */,
-				F82377541BDDE1AB0062603F /* AttendCourseViewController.swift */,
 			);
 			name = "Home page";
 			sourceTree = "<group>";
