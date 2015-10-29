@@ -23,8 +23,17 @@ class ContentManager: NSObject {
         return Keychain(service: bundleIdentifier)
     }()
     
-    // UserID, Token, and Password can identify an unique user
-    private static var UserID: String? {
+    // UserName, UserID, Token, and Password can identify an unique user
+    static var UserName: String? {
+        get {
+            return try? keychain.getString("name") ?? ""
+        }
+        set {
+            setKeyChainItem(newValue, forKey: "name")
+        }
+    }
+    
+    static var UserID: String? {
         get {
             return try? keychain.getString("_id") ?? ""
         }
@@ -33,7 +42,7 @@ class ContentManager: NSObject {
         }
     }
     
-    private static var Token: String? {
+    static var Token: String? {
         get {
             return try? keychain.getString("token") ?? ""
         }
@@ -42,9 +51,9 @@ class ContentManager: NSObject {
         }
     }
     
-    private static var Password: String? {
+    static var Password: String? {
         get {
-            return try? keychain.getString("token") ?? ""
+            return try? keychain.getString("password") ?? ""
         }
         set {
             setKeyChainItem(newValue, forKey: "password")
@@ -78,7 +87,7 @@ class ContentManager: NSObject {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Login success")
                     let json = JSON(data)
-                    self?.saveConfidential(json["_id"].stringValue, token: json["token"].stringValue, password: password)
+                    self?.saveConfidential(name, userID: json["_id"].stringValue, token: json["token"].stringValue, password: password)
                 } else {
                     DDLogInfo("Login failed: \(error)")
                 }
@@ -95,7 +104,7 @@ class ContentManager: NSObject {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Register success")
                     let json = JSON(data)
-                    self?.saveConfidential(json["_id"].stringValue, token: json["token"].stringValue, password: password)
+                    self?.saveConfidential(name, userID: json["_id"].stringValue, token: json["token"].stringValue, password: password)
                 } else {
                     DDLogInfo("Register failed: \(error)")
                 }
@@ -473,10 +482,11 @@ class ContentManager: NSObject {
         CoreDataManager.sharedInstance.truncateData()
     }
     
-    private func saveConfidential(userID: String, token: String, password: String) {
+    private func saveConfidential(name: String, userID: String, token: String, password: String) {
         if let id = ContentManager.UserID where id != userID {
             truncateData()
         }
+        ContentManager.UserName = name
         ContentManager.UserID = userID
         ContentManager.Token = token
         ContentManager.Password = password

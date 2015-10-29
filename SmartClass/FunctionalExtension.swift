@@ -35,8 +35,8 @@ extension UIViewController {
     }
     
     func promptLoginViewController() {
-        let loginViewController = UIStoryboard.initViewControllerWithIdentifier("Login View Controller") as! LoginViewController
-        loginViewController.initFromStoryboard = true
+        let loginViewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginViewControllerIdentifier) as! LoginViewController
+        loginViewController.isRuntimeInit = true
         presentViewController(loginViewController, animated: true) {
             SVProgressHUD.showErrorWithStatus(GlobalConstants.UserTokenExpiredErrorPrompt)
         }

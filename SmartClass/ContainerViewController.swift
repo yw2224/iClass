@@ -59,6 +59,9 @@ class ContainerViewController: UIViewController {
         static let LandscapeScaleRatio: CGFloat    = 0.85
         static let OriginAlpha: CGFloat            = 0.20
         static let OriginBackgroundColor: CGFloat  = 0.40
+        
+        static let AboutUsCellIndexPathRow         = 4
+        static let LogoutCellIndexPathRow          = 5
     }
     
     // MARK: Life cycle
@@ -203,9 +206,9 @@ extension ContainerViewController: SidePanelDelegate {
     
     func sidePanelTappedAtRow(row: Int, sender: AnyObject) {
         animateLeftPanel(shouldExpand: false, animate: true) {
-            if row == 4 {
+            if row == Constants.AboutUsCellIndexPathRow {
                 self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)
-            } else if row == 5 {
+            } else if row == Constants.LogoutCellIndexPathRow {
                 self.mainHomeViewController.performSegueWithIdentifier(Constants.UnwindToLoginSegueIdentifier, sender: sender)
             }
         }

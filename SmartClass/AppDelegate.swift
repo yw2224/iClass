@@ -40,10 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         )
         
-        // MARK: This for Core-Data-Editor Debug use, pls feel free to comment it out.
+        // MARK: This for Core-Data-Editor Debug use, pls. feel free to comment it out.
         let path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first!
         print(path)
         
+        guard let userName = ContentManager.UserName where userName != "",
+            let password = ContentManager.Password where password != "" else {return true}
+        let viewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginViewControllerIdentifier) as! LoginViewController
+        viewController.shouldAutoLogin = true
+        window?.rootViewController = viewController
         return true
     }
 

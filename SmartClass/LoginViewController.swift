@@ -37,7 +37,6 @@ class LoginViewController: UIViewController {
     var animationLeft = true
     var keyboardAppeared = false {
         didSet {
-            // Value changed this time
             guard (oldValue != keyboardAppeared) else {return}
             var offset = loginTableView.contentOffset
             offset.y = keyboardAppeared ? Constants.HeaderHeight : 0
@@ -54,7 +53,8 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    var initFromStoryboard = false
+    var isRuntimeInit = false
+    var shouldAutoLogin = false
     
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
@@ -101,6 +101,16 @@ class LoginViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "scrollDownTableView", name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // MARK: Auto login
+        if shouldAutoLogin {
+            shouldAutoLogin = false // Only auto login for at most 1 time
+            loginAction(loginButton)
+        }
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -119,10 +129,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func unwindToLogin(segue: UIStoryboardSegue) {
-        for i in 0...loginTableView.numberOfRowsInSection(0) {
-            guard let cell = loginTableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as? LoginTableViewCell else {continue}
-            cell.textField.text = nil
-        }
+        loginTableView.reloadData()
     }
     
     func setupButton() {
@@ -181,10 +188,18 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
     }
     
-	@IBAction func loginAction(sender: UIButton) {
+	@IBAction func loginAction(sender: UIButton!) {
         let input = checkInput()
         if !input.0 {
-            SVProgressHUD.showErrorWithStatus(GlobalConstants.InputFormatErrorPrompt)
+            let indexPath = cellIndexes[status]!["password"]!, indexPath2 = cellIndexes[status]!["name"]!
+            let cell = loginTableView.cellForRowAtIndexPath(indexPath) as! LoginTableViewCell
+            let cell2 = loginTableView.cellForRowAtIndexPath(indexPath2) as! LoginTableViewCell
+            let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            animation.duration = 0.6
+            animation.values = [(-20), (20), (-20), (20), (-10), (10), (-5), (5), (0)]
+            cell.textField.layer.addAnimation(animation, forKey: "shake")
+            cell2.textField.layer.addAnimation(animation, forKey: "shake")
             return
         }
         
@@ -200,7 +215,7 @@ class LoginViewController: UIViewController {
             
             self.enableLoginButton()
             if error == nil {
-                if !self.initFromStoryboard {
+                if !self.isRuntimeInit {
                     self.performSegueWithIdentifier(Constants.LoginToMainHomeSegueIdentifier, sender: sender)
                 } else {
                     self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
@@ -281,16 +296,25 @@ extension LoginViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let (cellID, text): (String, String) = {
+        let (cellID, placeholder): (String, String) = {
             if let content = self.rowIdentifiers[self.status]?[indexPath.row] {
                 return (content == "Empty" ? content : "Text", content)
             }
             return ("Empty", "")
         }()
+        var text: String? = nil
+        if status == .Login && !isRuntimeInit {
+            if placeholder == "学号" {
+                text = ContentManager.UserName
+            } else if placeholder == "密码" {
+                text = ContentManager.Password
+            }
+        }
         let cell = tableView.dequeueReusableCellWithIdentifier(cellID) ?? UITableViewCell()
         if cellID != "Empty", let cell = cell as? LoginTableViewCell {
-            cell.configureCellWithPlaceHolder(text)
+            cell.configureCellWithPlaceHolder(placeholder, text: text)
         }
+        
         return cell
     }
 }
@@ -377,17 +401,17 @@ class LoginTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
     
-    func configureCellWithPlaceHolder(text: String) {
-        textField.text = ""
-        textField.placeholder = text
+    func configureCellWithPlaceHolder(placeholder: String, text: String? = nil) {
+        textField.text = text
+        textField.placeholder = placeholder
         textField.keyboardType = .Default
         textField.returnKeyType = .Done
         textField.secureTextEntry = false
         textField.clearsOnBeginEditing = false
         textField.clearButtonMode = .Never
-        if text == "学号" {
+        if placeholder == "学号" {
             textField.keyboardType = .NumberPad
-        } else if text == "密码" {
+        } else if placeholder == "密码" {
             textField.secureTextEntry = true
             textField.clearsOnBeginEditing = true
             textField.clearButtonMode = .WhileEditing
