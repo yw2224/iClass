@@ -6,14 +6,12 @@
 //  Copyright © 2015年 PKU. All rights reserved.
 //
 
+import SVProgressHUD
 import UIKit
 
 class PreferenceViewController: ProblemViewController {
     
     var previousIndexPath: NSIndexPath?
-    
-    // MARK: Inited in the prepareForSegue()
-    weak var icvc: InvitationContainerViewController!
     
     override var problemList: [Problem] {
         didSet {
@@ -21,8 +19,30 @@ class PreferenceViewController: ProblemViewController {
         }
     }
     
+    // MARK: Inited in the prepareForSegue()
+    weak var icvc: InvitationContainerViewController!
+    
     private struct Constants {
         static let CellIdentifier = "Problem Cell"
+    }
+    
+    override func retrieveProblemList() {
+        ContentManager.sharedInstance.problemList(projectID) {
+            (problemList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    self.promptLoginViewController()
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.ProblemListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
+            self.problemList = problemList
+                .filter({$0.current < $0.maxGroupNum})
+                .sort{$0.name < $1.name}
+            self.animationDidEnd()
+        }
     }
 }
 
