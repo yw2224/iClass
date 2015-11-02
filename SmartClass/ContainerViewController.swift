@@ -60,8 +60,8 @@ class ContainerViewController: UIViewController {
         static let OriginAlpha: CGFloat            = 0.20
         static let OriginBackgroundColor: CGFloat  = 0.40
         
-        static let AboutUsCellIndexPathRow         = 4
-        static let LogoutCellIndexPathRow          = 5
+        static let AboutUsCellIndexPathRow         = 0
+        static let LogoutCellIndexPathRow          = 1
     }
     
     // MARK: Life cycle
