@@ -65,10 +65,11 @@ class ContentManager: NSObject {
      update the existing item in the key chain.
      */
     private class func setKeyChainItem(item: String?, forKey key: String) {
-        guard let string = item else { return }
         do {
             try keychain.remove(key) // Dealing with iOS 9 Security.framework bug!
-            try keychain.set(string, key: key)
+            if let string = item {
+                try keychain.set(string, key: key)
+            }
         } catch let error {
             DDLogError("Key chain save error: \(error)")
         }
@@ -479,6 +480,7 @@ class ContentManager: NSObject {
     }
     
     func truncateData() {
+        clearConfidential()
         CoreDataManager.sharedInstance.truncateData()
     }
     
@@ -490,5 +492,12 @@ class ContentManager: NSObject {
         ContentManager.UserID = userID
         ContentManager.Token = token
         ContentManager.Password = password
+    }
+    
+    private func clearConfidential() {
+        ContentManager.UserName = nil
+        ContentManager.UserID = nil
+        ContentManager.Token = nil
+        ContentManager.Password = nil
     }
 }

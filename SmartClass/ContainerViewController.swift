@@ -209,6 +209,7 @@ extension ContainerViewController: SidePanelDelegate {
             if row == Constants.AboutUsCellIndexPathRow {
                 self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)
             } else if row == Constants.LogoutCellIndexPathRow {
+                ContentManager.sharedInstance.truncateData()
                 self.mainHomeViewController.performSegueWithIdentifier(Constants.UnwindToLoginSegueIdentifier, sender: sender)
             }
         }
