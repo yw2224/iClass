@@ -16,7 +16,8 @@ import ChameleonFramework
 struct GlobalConstants {
     
     // Login view controller identifier in storyboard
-    static let LoginViewControllerIdentifier = "Login View Controller"
+    static let LoginViewControllerIdentifier          = "Login View Controller"
+    static let LoginContainerViewControllerIdentifier = "Login Container View Controller"
     
     /// Navigation bar's foreground color
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)

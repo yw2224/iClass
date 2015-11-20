@@ -7,6 +7,7 @@
 //
 
 import ChameleonFramework
+import CocoaLumberjack
 import CoreData
 import CoreLocation
 import SVProgressHUD
@@ -41,14 +42,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         // MARK: This for Core-Data-Editor Debug use, pls. feel free to comment it out.
-        let path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first!
-        print(path)
+        let path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first
+        DDLogWarn(path ?? "Not exist")
         
-        guard let userName = ContentManager.UserName where userName != "",
-            let password = ContentManager.Password where password != "" else {return true}
-        let viewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginViewControllerIdentifier) as! LoginViewController
-        viewController.shouldAutoLogin = true
-        window?.rootViewController = viewController
+        if  let userName = ContentManager.UserName where !userName.isEmpty,
+            let password = ContentManager.Password where !password.isEmpty {
+            let viewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginViewControllerIdentifier) as! LoginViewController
+            viewController.shouldAutoLogin = true
+            window?.rootViewController = viewController
+        } else {
+            let viewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginContainerViewControllerIdentifier) as! LoginContainerViewController
+            window?.rootViewController = viewController
+        }
+
         return true
     }
 

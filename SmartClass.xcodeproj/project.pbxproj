@@ -747,7 +747,7 @@
 				TargetAttributes = {
 					F8FEFE031B56479C004FA01C = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 2ZC6KG8JJ9;
+						DevelopmentTeam = Y5NE6X87LM;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
@@ -1083,7 +1083,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/SmartClass/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.pku.netlab.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.pku.netlab.SmartClass;
 				PRODUCT_NAME = SmartClass;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartClass/SmartClass-Bridging-Header.h";
@@ -1104,7 +1104,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/SmartClass/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.pku.netlab.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.pku.netlab.SmartClass;
 				PRODUCT_NAME = SmartClass;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmartClass/SmartClass-Bridging-Header.h";
