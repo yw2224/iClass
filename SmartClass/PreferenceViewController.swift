@@ -39,7 +39,7 @@ class PreferenceViewController: ProblemViewController {
                 }
             }
             self.problemList = problemList
-                .filter({$0.current < $0.maxGroupNum})
+                .filter({$0.current.integerValue < $0.maxGroupNum.integerValue})
                 .sort{$0.name < $1.name}
             self.animationDidEnd()
         }

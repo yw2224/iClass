@@ -98,8 +98,7 @@ class NetworkManager: NSObject {
         // Add a new item in the caching dictionary
         PendingOpDict[key] = (request, NSDate())
         // Executing request
-        request.responseJSON() {
-            (_, res, result) in
+        request.responseJSON { (_, res, result) -> Void in
             let statusCode = res?.statusCode ?? 404
             var data: AnyObject?
             var error: NetworkErrorType?
@@ -144,7 +143,7 @@ extension NetworkManager {
     private enum Router: URLRequestConvertible {
         
         // Server URL
-        static let baseURLString = "http://162.105.146.125:3000/api"
+        static let baseURLString = ""
         
         // Different types of network request
         case Login(String, String)
