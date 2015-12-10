@@ -143,7 +143,7 @@ extension NetworkManager {
     private enum Router: URLRequestConvertible {
         
         // Server URL
-        static let baseURLString = ""
+        static let baseURLString = "http://162.105.146.125:3000/api"
         
         // Different types of network request
         case Login(String, String)

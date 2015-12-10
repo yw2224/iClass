@@ -4,7 +4,7 @@
 <dict>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)edu.pku.netlab.SmartClass</string>
+		<string>$(AppIdentifierPrefix)cn.edu.pku.netlab.SmartClass</string>
 	</array>
 </dict>
 </plist>

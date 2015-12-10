@@ -197,7 +197,7 @@ extension CourseOverviewController: UITableViewDelegate {
 extension CourseOverviewController : CLLocationManagerDelegate {
     
     func setupLocationManager() {
-        guard !isSigninEnabled, let _ = signinID, uuid = uuid else {return}
+        guard isSigninEnabled, let _ = signinID, uuid = uuid else {return}
         
         let beaconUUID   = NSUUID(UUIDString: uuid)!
         let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
