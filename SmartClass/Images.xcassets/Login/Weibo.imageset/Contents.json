@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "weibo-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "weibo-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "weibo.png"
+      "filename" : "weibo.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

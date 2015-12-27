@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "PlusOrMinus-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "PlusOrMinus-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "PlusOrMinus.png"
+      "filename" : "PlusOrMinus.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

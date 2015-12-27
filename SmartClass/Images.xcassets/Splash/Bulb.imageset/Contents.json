@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "Bulb-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Bulb-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Bulb.png"
+      "filename" : "Bulb.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

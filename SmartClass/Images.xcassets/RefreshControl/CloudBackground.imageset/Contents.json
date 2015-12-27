@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "CloudBackground-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "CloudBackground-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "CloudBackground.png"
+      "filename" : "CloudBackground.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

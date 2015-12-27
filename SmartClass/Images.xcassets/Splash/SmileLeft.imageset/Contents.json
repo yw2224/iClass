@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "SmileLeft-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "SmileLeft-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "SmileLeft.png"
+      "filename" : "SmileLeft.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
