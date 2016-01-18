@@ -65,7 +65,6 @@ class LoginViewController: UIViewController {
     
     private struct Constants {
         static let LoginToMainHomeSegueIdentifier             = "Login To MainHome Segue"
-        static let SecretSegueIdentifier                      = "secret segue"
         static let HeaderHeight: CGFloat                      = 100.0
         static let FooterHeight: CGFloat                      = 72.0
         static let LoginTableViewHeight: CGFloat              = 304
@@ -255,18 +254,7 @@ class LoginViewController: UIViewController {
         if status == LoginStatus.Register {
             status = LoginStatus.Login
         } else {
-            let alertController = UIAlertController(title: "提示", message: "请仔细阅读用户隐私协议之后再进行注册哦~", preferredStyle: UIAlertControllerStyle.Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.Cancel, handler: {
-                (UIAlertAction) -> Void in
-                //self.status = LoginStatus.Login
-            })
-            let okAction = UIAlertAction(title: "好的", style: UIAlertActionStyle.Default, handler: {
-                (UIAlertAction) -> Void in
-                self.performSegueWithIdentifier(Constants.SecretSegueIdentifier, sender: sender)
-            })
-            alertController.addAction(okAction)
-            alertController.addAction(cancelAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            status = LoginStatus.Register
         }
     }
     
