@@ -6,10 +6,10 @@ pod 'PDTSimpleCalendar', '~> 0.9.1'
 pod 'DZNEmptyDataSet'
 pod 'ChameleonFramework'
 pod 'MGSwipeTableCell'
-pod 'SVProgressHUD', :head
+pod 'SVProgressHUD', '1.1.3'
 
 # Modal related
-pod 'MagicalRecord'
+pod 'MagicalRecord', '2.3.0'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 
 # Network

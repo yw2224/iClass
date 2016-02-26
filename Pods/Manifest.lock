@@ -1,23 +1,23 @@
 PODS:
-  - Alamofire (2.0.1)
-  - ChameleonFramework (2.0.4):
-    - ChameleonFramework/Default (= 2.0.4)
-  - ChameleonFramework/Default (2.0.4)
-  - CocoaLumberjack (2.1.0):
-    - CocoaLumberjack/Default (= 2.1.0)
-    - CocoaLumberjack/Extensions (= 2.1.0)
-  - CocoaLumberjack/Core (2.1.0)
-  - CocoaLumberjack/Default (2.1.0):
+  - Alamofire (2.0.2)
+  - ChameleonFramework (2.1.0):
+    - ChameleonFramework/Default (= 2.1.0)
+  - ChameleonFramework/Default (2.1.0)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.1.0):
+  - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - DZNEmptyDataSet (1.7.1)
-  - KeychainAccess (2.2.1)
+  - DZNEmptyDataSet (1.7.3)
+  - KeychainAccess (2.3.3)
   - MagicalRecord (2.3.0)
-  - MGSwipeTableCell (1.5.1)
+  - MGSwipeTableCell (1.5.3)
   - PDTSimpleCalendar (0.9.1)
-  - SVProgressHUD (HEAD based on 1.1.3)
-  - SwiftyJSON (2.3.0)
+  - SVProgressHUD (1.1.3)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
@@ -25,10 +25,10 @@ DEPENDENCIES:
   - CocoaLumberjack
   - DZNEmptyDataSet
   - KeychainAccess (from `https://github.com/kishikawakatsumi/KeychainAccess.git`)
-  - MagicalRecord
+  - MagicalRecord (= 2.3.0)
   - MGSwipeTableCell
   - PDTSimpleCalendar (~> 0.9.1)
-  - SVProgressHUD (HEAD)
+  - SVProgressHUD (= 1.1.3)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -39,22 +39,22 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   KeychainAccess:
-    :commit: 71c3acdead0cb63e8a027b65149934b7a5701343
+    :commit: 2b3a8e359a4880909caac1aced70e53ed4e39fc9
     :git: https://github.com/kishikawakatsumi/KeychainAccess.git
   SwiftyJSON:
-    :commit: 3b5d0d4e0c19173b1bf0dc823bde25ad870f70c0
+    :commit: 42bdb102d2624b143c07850ebdc1537d5b6579b6
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 1d8e208d616fbbfd2391b15eae766d07c96cdc49
-  ChameleonFramework: 5abe69b1f2a6cc79c3c435fcd9d3d855748225ee
-  CocoaLumberjack: d6627e7ad42e14d41a4fa2e6c7ae42489d5f3e8b
-  DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
-  KeychainAccess: 3b13c8264b5985dbaeaaf019a7941a912b5690c2
+  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  DZNEmptyDataSet: dd7cca17c1d07dfa78956859b1e70a52505678ef
+  KeychainAccess: 9b7e49e48277e329b1b3195e54697ed313d30acf
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
-  MGSwipeTableCell: a51fa670c01f0aa048f12af040acebf315223137
+  MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
-  SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

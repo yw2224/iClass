@@ -197,7 +197,7 @@ extension ContainerViewController: CenteralViewDelegate {
         let scaleTransform = CGAffineTransformMakeScale(viewScaleRatio, viewScaleRatio)
         let translationTransform = CGAffineTransformMakeTranslation(targetPosition * ratio, 0)
         centerNavigationController.view.transform = CGAffineTransformConcat(translationTransform, scaleTransform)
-        userSidebarViewController.view.alpha = Constants.OriginAlpha + (1 - Constants.OriginAlpha) * ratio
+        userSidebarViewController?.view.alpha = Constants.OriginAlpha + (1 - Constants.OriginAlpha) * ratio
         view.backgroundColor = UIColor(white: Constants.OriginBackgroundColor + (1 - Constants.OriginBackgroundColor) * ratio, alpha: 1.0)
     }
 }
