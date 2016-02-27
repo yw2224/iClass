@@ -14,12 +14,12 @@ import CoreData
 
 extension Question {
 
-    @NSManaged var content: String!
-    @NSManaged var no: NSNumber!
-    @NSManaged var question_id: String!
-    @NSManaged var quiz_id: String!
-    @NSManaged var type: String!
-    @NSManaged var correctAnswer: NSSet!
-    @NSManaged var options: NSSet!
+    @NSManaged var content: String
+    @NSManaged var no: NSNumber
+    @NSManaged var question_id: String
+    @NSManaged var quiz_id: String
+    @NSManaged var type: String
+    @NSManaged var correctAnswer: NSSet
+    @NSManaged var options: NSSet
 
 }

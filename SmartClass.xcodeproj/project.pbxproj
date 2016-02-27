@@ -20,7 +20,6 @@
 		F82377BA1BDDE1AB0062603F /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377571BDDE1AB0062603F /* AvatarView.swift */; };
 		F82377BB1BDDE1AB0062603F /* AvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F82377581BDDE1AB0062603F /* AvatarView.xib */; };
 		F82377BC1BDDE1AB0062603F /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377591BDDE1AB0062603F /* BadgeView.swift */; };
-		F82377BD1BDDE1AB0062603F /* BadgeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F823775A1BDDE1AB0062603F /* BadgeView.xib */; };
 		F82377BE1BDDE1AB0062603F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F823775C1BDDE1AB0062603F /* LaunchScreen.xib */; };
 		F82377BF1BDDE1AB0062603F /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823775E1BDDE1AB0062603F /* Choice.swift */; };
 		F82377C01BDDE1AB0062603F /* Choice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823775F1BDDE1AB0062603F /* Choice+CoreDataProperties.swift */; };
@@ -40,8 +39,6 @@
 		F82377CE1BDDE1AB0062603F /* CourseOverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823776D1BDDE1AB0062603F /* CourseOverviewController.swift */; };
 		F82377CF1BDDE1AB0062603F /* CrossDissolveSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823776E1BDDE1AB0062603F /* CrossDissolveSegue.swift */; };
 		F82377D01BDDE1AB0062603F /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823776F1BDDE1AB0062603F /* Empty.swift */; };
-		F82377D11BDDE1AB0062603F /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377701BDDE1AB0062603F /* FileManager.swift */; };
-		F82377D21BDDE1AB0062603F /* FunctionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377711BDDE1AB0062603F /* FunctionalExtension.swift */; };
 		F82377D31BDDE1AB0062603F /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377721BDDE1AB0062603F /* GlobalConstants.swift */; };
 		F82377D41BDDE1AB0062603F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377731BDDE1AB0062603F /* Group.swift */; };
 		F82377D51BDDE1AB0062603F /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377741BDDE1AB0062603F /* Group+CoreDataProperties.swift */; };
@@ -52,7 +49,7 @@
 		F82377DB1BDDE1AC0062603F /* InvitationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777A1BDDE1AB0062603F /* InvitationPageViewController.swift */; };
 		F82377DC1BDDE1AC0062603F /* LectureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777B1BDDE1AB0062603F /* LectureTime.swift */; };
 		F82377DD1BDDE1AC0062603F /* LectureTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777C1BDDE1AB0062603F /* LectureTime+CoreDataProperties.swift */; };
-		F82377DE1BDDE1AC0062603F /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777D1BDDE1AB0062603F /* Log.swift */; };
+		F82377DE1BDDE1AC0062603F /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777D1BDDE1AB0062603F /* CocoaLumberjack.swift */; };
 		F82377DF1BDDE1AC0062603F /* LoginContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777E1BDDE1AB0062603F /* LoginContainerViewController.swift */; };
 		F82377E01BDDE1AC0062603F /* LoginPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F823777F1BDDE1AB0062603F /* LoginPanelViewController.swift */; };
 		F82377E11BDDE1AC0062603F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377801BDDE1AB0062603F /* LoginViewController.swift */; };
@@ -91,15 +88,29 @@
 		F82378041BDDE1AC0062603F /* Splash3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377A51BDDE1AB0062603F /* Splash3ViewController.swift */; };
 		F82378051BDDE1AC0062603F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377A61BDDE1AB0062603F /* SplashViewController.swift */; };
 		F82378061BDDE1AC0062603F /* SwitcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377A71BDDE1AB0062603F /* SwitcherViewController.swift */; };
-		F82378071BDDE1AC0062603F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377A81BDDE1AB0062603F /* TabBarController.swift */; };
-		F82378081BDDE1AC0062603F /* TeacherNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377A91BDDE1AB0062603F /* TeacherNames.swift */; };
-		F82378091BDDE1AC0062603F /* TeacherNames+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377AA1BDDE1AB0062603F /* TeacherNames+CoreDataProperties.swift */; };
+		F82378081BDDE1AC0062603F /* TeacherName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377A91BDDE1AB0062603F /* TeacherName.swift */; };
+		F82378091BDDE1AC0062603F /* TeacherName+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377AA1BDDE1AB0062603F /* TeacherName+CoreDataProperties.swift */; };
 		F823780A1BDDE1AC0062603F /* Teammate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377AB1BDDE1AB0062603F /* Teammate.swift */; };
 		F823780B1BDDE1AC0062603F /* Teammate+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377AC1BDDE1AB0062603F /* Teammate+CoreDataProperties.swift */; };
 		F823780C1BDDE1AC0062603F /* TeammateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377AD1BDDE1AB0062603F /* TeammateViewController.swift */; };
 		F823780D1BDDE1AC0062603F /* tos_beep.caf in Resources */ = {isa = PBXBuildFile; fileRef = F82377AE1BDDE1AB0062603F /* tos_beep.caf */; };
 		F823780E1BDDE1AC0062603F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377AF1BDDE1AB0062603F /* User.swift */; };
 		F823780F1BDDE1AC0062603F /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82377B01BDDE1AB0062603F /* User+CoreDataProperties.swift */; };
+		F83E6C061C81BD8E007AD7D1 /* SVProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C051C81BD8E007AD7D1 /* SVProgressHUD.swift */; };
+		F83E6C081C81BD93007AD7D1 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C071C81BD93007AD7D1 /* UIStoryboard.swift */; };
+		F83E6C0B1C81BD9C007AD7D1 /* UITabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C091C81BD9C007AD7D1 /* UITabBarItem.swift */; };
+		F83E6C0C1C81BD9C007AD7D1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C0A1C81BD9C007AD7D1 /* UIView.swift */; };
+		F83E6C101C81BDC3007AD7D1 /* SDWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C0F1C81BDC3007AD7D1 /* SDWebImage.swift */; };
+		F83E6C121C81BDE2007AD7D1 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C111C81BDE2007AD7D1 /* CGFloat.swift */; };
+		F83E6C141C81BDE6007AD7D1 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C131C81BDE6007AD7D1 /* Character.swift */; };
+		F83E6C161C81BDF7007AD7D1 /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C151C81BDF7007AD7D1 /* NSDateFormatter.swift */; };
+		F83E6C181C81BE00007AD7D1 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C171C81BE00007AD7D1 /* String.swift */; };
+		F83E6C1A1C81BE16007AD7D1 /* PDTSimpleCalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C191C81BE16007AD7D1 /* PDTSimpleCalendarViewCell.swift */; };
+		F83E6C1C1C81BE3A007AD7D1 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C1B1C81BE3A007AD7D1 /* UIViewController.swift */; };
+		F83E6C211C81C46F007AD7D1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C201C81C46F007AD7D1 /* TabBarController.swift */; };
+		F83E6C231C81C4A3007AD7D1 /* JSONConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C221C81C4A3007AD7D1 /* JSONConvertible.swift */; };
+		F83E6C261C81DDF1007AD7D1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C251C81DDF1007AD7D1 /* Login.swift */; };
+		F83E6C2B1C81E5F8007AD7D1 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C2A1C81E5F8007AD7D1 /* TextCell.swift */; };
 		F86CB0911BDDE5FD007CDD44 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86CB0901BDDE5FD007CDD44 /* iCarousel.m */; };
 		F86CB0B61BDDEACD007CDD44 /* SmartClass.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F86CB0B41BDDEACD007CDD44 /* SmartClass.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -130,7 +141,6 @@
 		F82377571BDDE1AB0062603F /* AvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AvatarView.swift; path = SmartClass/AvatarView.swift; sourceTree = "<group>"; };
 		F82377581BDDE1AB0062603F /* AvatarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AvatarView.xib; path = SmartClass/AvatarView.xib; sourceTree = "<group>"; };
 		F82377591BDDE1AB0062603F /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeView.swift; path = SmartClass/BadgeView.swift; sourceTree = "<group>"; };
-		F823775A1BDDE1AB0062603F /* BadgeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BadgeView.xib; path = SmartClass/BadgeView.xib; sourceTree = "<group>"; };
 		F823775D1BDDE1AB0062603F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		F823775E1BDDE1AB0062603F /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Choice.swift; path = SmartClass/Choice.swift; sourceTree = "<group>"; };
 		F823775F1BDDE1AB0062603F /* Choice+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Choice+CoreDataProperties.swift"; path = "SmartClass/Choice+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -150,8 +160,6 @@
 		F823776D1BDDE1AB0062603F /* CourseOverviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CourseOverviewController.swift; path = SmartClass/CourseOverviewController.swift; sourceTree = "<group>"; };
 		F823776E1BDDE1AB0062603F /* CrossDissolveSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CrossDissolveSegue.swift; path = SmartClass/CrossDissolveSegue.swift; sourceTree = "<group>"; };
 		F823776F1BDDE1AB0062603F /* Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Empty.swift; path = SmartClass/Empty.swift; sourceTree = "<group>"; };
-		F82377701BDDE1AB0062603F /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = SmartClass/FileManager.swift; sourceTree = "<group>"; };
-		F82377711BDDE1AB0062603F /* FunctionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FunctionalExtension.swift; path = SmartClass/FunctionalExtension.swift; sourceTree = "<group>"; };
 		F82377721BDDE1AB0062603F /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConstants.swift; path = SmartClass/GlobalConstants.swift; sourceTree = "<group>"; };
 		F82377731BDDE1AB0062603F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = SmartClass/Group.swift; sourceTree = "<group>"; };
 		F82377741BDDE1AB0062603F /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Group+CoreDataProperties.swift"; path = "SmartClass/Group+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -163,7 +171,7 @@
 		F823777A1BDDE1AB0062603F /* InvitationPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InvitationPageViewController.swift; path = SmartClass/InvitationPageViewController.swift; sourceTree = "<group>"; };
 		F823777B1BDDE1AB0062603F /* LectureTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LectureTime.swift; path = SmartClass/LectureTime.swift; sourceTree = "<group>"; };
 		F823777C1BDDE1AB0062603F /* LectureTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LectureTime+CoreDataProperties.swift"; path = "SmartClass/LectureTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F823777D1BDDE1AB0062603F /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = SmartClass/Log.swift; sourceTree = "<group>"; };
+		F823777D1BDDE1AB0062603F /* CocoaLumberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = SmartClass/CocoaLumberjack.swift; sourceTree = "<group>"; };
 		F823777E1BDDE1AB0062603F /* LoginContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginContainerViewController.swift; path = SmartClass/LoginContainerViewController.swift; sourceTree = "<group>"; };
 		F823777F1BDDE1AB0062603F /* LoginPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginPanelViewController.swift; path = SmartClass/LoginPanelViewController.swift; sourceTree = "<group>"; };
 		F82377801BDDE1AB0062603F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = SmartClass/LoginViewController.swift; sourceTree = "<group>"; };
@@ -202,9 +210,8 @@
 		F82377A51BDDE1AB0062603F /* Splash3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Splash3ViewController.swift; path = SmartClass/Splash3ViewController.swift; sourceTree = "<group>"; };
 		F82377A61BDDE1AB0062603F /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = SmartClass/SplashViewController.swift; sourceTree = "<group>"; };
 		F82377A71BDDE1AB0062603F /* SwitcherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwitcherViewController.swift; path = SmartClass/SwitcherViewController.swift; sourceTree = "<group>"; };
-		F82377A81BDDE1AB0062603F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = SmartClass/TabBarController.swift; sourceTree = "<group>"; };
-		F82377A91BDDE1AB0062603F /* TeacherNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeacherNames.swift; path = SmartClass/TeacherNames.swift; sourceTree = "<group>"; };
-		F82377AA1BDDE1AB0062603F /* TeacherNames+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TeacherNames+CoreDataProperties.swift"; path = "SmartClass/TeacherNames+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F82377A91BDDE1AB0062603F /* TeacherName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeacherName.swift; path = SmartClass/TeacherName.swift; sourceTree = "<group>"; };
+		F82377AA1BDDE1AB0062603F /* TeacherName+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "TeacherName+CoreDataProperties.swift"; path = "SmartClass/TeacherName+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F82377AB1BDDE1AB0062603F /* Teammate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Teammate.swift; path = SmartClass/Teammate.swift; sourceTree = "<group>"; };
 		F82377AC1BDDE1AB0062603F /* Teammate+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Teammate+CoreDataProperties.swift"; path = "SmartClass/Teammate+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F82377AD1BDDE1AB0062603F /* TeammateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeammateViewController.swift; path = SmartClass/TeammateViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +221,21 @@
 		F82378101BDDE1DC0062603F /* SmartClass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartClass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82378111BDDE1DF0062603F /* SmartClass.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartClass.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F823781A1BDDE2C60062603F /* SmartClass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = SmartClass.entitlements; path = SmartClass/SmartClass.entitlements; sourceTree = "<group>"; };
+		F83E6C051C81BD8E007AD7D1 /* SVProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SVProgressHUD.swift; path = SmartClass/SVProgressHUD.swift; sourceTree = "<group>"; };
+		F83E6C071C81BD93007AD7D1 /* UIStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIStoryboard.swift; path = SmartClass/UIStoryboard.swift; sourceTree = "<group>"; };
+		F83E6C091C81BD9C007AD7D1 /* UITabBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITabBarItem.swift; path = SmartClass/UITabBarItem.swift; sourceTree = "<group>"; };
+		F83E6C0A1C81BD9C007AD7D1 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIView.swift; path = SmartClass/UIView.swift; sourceTree = "<group>"; };
+		F83E6C0F1C81BDC3007AD7D1 /* SDWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SDWebImage.swift; path = SmartClass/SDWebImage.swift; sourceTree = "<group>"; };
+		F83E6C111C81BDE2007AD7D1 /* CGFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGFloat.swift; path = SmartClass/CGFloat.swift; sourceTree = "<group>"; };
+		F83E6C131C81BDE6007AD7D1 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Character.swift; path = SmartClass/Character.swift; sourceTree = "<group>"; };
+		F83E6C151C81BDF7007AD7D1 /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDateFormatter.swift; path = SmartClass/NSDateFormatter.swift; sourceTree = "<group>"; };
+		F83E6C171C81BE00007AD7D1 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = SmartClass/String.swift; sourceTree = "<group>"; };
+		F83E6C191C81BE16007AD7D1 /* PDTSimpleCalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDTSimpleCalendarViewCell.swift; path = SmartClass/PDTSimpleCalendarViewCell.swift; sourceTree = "<group>"; };
+		F83E6C1B1C81BE3A007AD7D1 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewController.swift; path = SmartClass/UIViewController.swift; sourceTree = "<group>"; };
+		F83E6C201C81C46F007AD7D1 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = SmartClass/TabBarController.swift; sourceTree = "<group>"; };
+		F83E6C221C81C4A3007AD7D1 /* JSONConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONConvertible.swift; path = SmartClass/JSONConvertible.swift; sourceTree = "<group>"; };
+		F83E6C251C81DDF1007AD7D1 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Login.swift; path = SmartClass/Login.swift; sourceTree = "<group>"; };
+		F83E6C2A1C81E5F8007AD7D1 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextCell.swift; path = SmartClass/TextCell.swift; sourceTree = "<group>"; };
 		F86CB08E1BDDE5E4007CDD44 /* SmartClass-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SmartClass-Bridging-Header.h"; path = "SmartClass/SmartClass-Bridging-Header.h"; sourceTree = "<group>"; };
 		F86CB08F1BDDE5FD007CDD44 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		F86CB0901BDDE5FD007CDD44 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
@@ -263,6 +285,42 @@
 			);
 			name = Base.lproj;
 			path = SmartClass/Base.lproj;
+			sourceTree = "<group>";
+		};
+		F83E6C021C81BA9D007AD7D1 /* Wrapper */ = {
+			isa = PBXGroup;
+			children = (
+				F83E6C111C81BDE2007AD7D1 /* CGFloat.swift */,
+				F83E6C131C81BDE6007AD7D1 /* Character.swift */,
+				F823777D1BDDE1AB0062603F /* CocoaLumberjack.swift */,
+				F83E6C151C81BDF7007AD7D1 /* NSDateFormatter.swift */,
+				F83E6C171C81BE00007AD7D1 /* String.swift */,
+				F83E6C0F1C81BDC3007AD7D1 /* SDWebImage.swift */,
+				F83E6C051C81BD8E007AD7D1 /* SVProgressHUD.swift */,
+				F83E6C191C81BE16007AD7D1 /* PDTSimpleCalendarViewCell.swift */,
+				F83E6C071C81BD93007AD7D1 /* UIStoryboard.swift */,
+				F83E6C091C81BD9C007AD7D1 /* UITabBarItem.swift */,
+				F83E6C0A1C81BD9C007AD7D1 /* UIView.swift */,
+				F83E6C1B1C81BE3A007AD7D1 /* UIViewController.swift */,
+				F83E6C221C81C4A3007AD7D1 /* JSONConvertible.swift */,
+			);
+			name = Wrapper;
+			sourceTree = "<group>";
+		};
+		F83E6C241C81DD91007AD7D1 /* View Controller Model */ = {
+			isa = PBXGroup;
+			children = (
+				F83E6C251C81DDF1007AD7D1 /* Login.swift */,
+			);
+			name = "View Controller Model";
+			sourceTree = "<group>";
+		};
+		F83E6C291C81E412007AD7D1 /* Reusable Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F83E6C2A1C81E5F8007AD7D1 /* TextCell.swift */,
+			);
+			name = "Reusable Cell";
 			sourceTree = "<group>";
 		};
 		F86CB0941BDDE6B0007CDD44 /* Supporting files */ = {
@@ -335,10 +393,10 @@
 			isa = PBXGroup;
 			children = (
 				F86CB0B71BDDEB2B007CDD44 /* Helper */,
-				F86CB0BB1BDDEB78007CDD44 /* Quiz */,
-				F86CB0BD1BDDEBA3007CDD44 /* Home page */,
 				F86CB0B81BDDEB3F007CDD44 /* Login */,
+				F86CB0BD1BDDEBA3007CDD44 /* Home page */,
 				F86CB0BE1BDDEBB9007CDD44 /* Course */,
+				F86CB0BB1BDDEB78007CDD44 /* Quiz */,
 				F86CB0C11BDDEBF5007CDD44 /* Project */,
 			);
 			name = "View controllers";
@@ -347,6 +405,7 @@
 		F86CB09B1BDDE745007CDD44 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F83E6C241C81DD91007AD7D1 /* View Controller Model */,
 				F86CB0A71BDDE889007CDD44 /* Quiz */,
 				F86CB0A61BDDE876007CDD44 /* Project */,
 				F86CB0A41BDDE84C007CDD44 /* User */,
@@ -368,7 +427,6 @@
 			isa = PBXGroup;
 			children = (
 				F82377591BDDE1AB0062603F /* BadgeView.swift */,
-				F823775A1BDDE1AB0062603F /* BadgeView.xib */,
 			);
 			name = "Badge view";
 			sourceTree = "<group>";
@@ -395,8 +453,8 @@
 			isa = PBXGroup;
 			children = (
 				F82377721BDDE1AB0062603F /* GlobalConstants.swift */,
-				F823777D1BDDE1AB0062603F /* Log.swift */,
 				F86CB0B01BDDE952007CDD44 /* Content manager */,
+				F83E6C021C81BA9D007AD7D1 /* Wrapper */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -487,8 +545,8 @@
 		F86CB0A91BDDE8AE007CDD44 /* Teacher name */ = {
 			isa = PBXGroup;
 			children = (
-				F82377A91BDDE1AB0062603F /* TeacherNames.swift */,
-				F82377AA1BDDE1AB0062603F /* TeacherNames+CoreDataProperties.swift */,
+				F82377A91BDDE1AB0062603F /* TeacherName.swift */,
+				F82377AA1BDDE1AB0062603F /* TeacherName+CoreDataProperties.swift */,
 			);
 			name = "Teacher name";
 			sourceTree = "<group>";
@@ -551,7 +609,6 @@
 			children = (
 				F82377661BDDE1AB0062603F /* ContentManager.swift */,
 				F82377671BDDE1AB0062603F /* CoreDataManager.swift */,
-				F82377701BDDE1AB0062603F /* FileManager.swift */,
 				F82377861BDDE1AB0062603F /* NetworkManager.swift */,
 			);
 			name = "Content manager";
@@ -560,13 +617,13 @@
 		F86CB0B71BDDEB2B007CDD44 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				F82377711BDDE1AB0062603F /* FunctionalExtension.swift */,
+				F83E6C291C81E412007AD7D1 /* Reusable Cell */,
 				F82377A71BDDE1AB0062603F /* SwitcherViewController.swift */,
-				F82377A81BDDE1AB0062603F /* TabBarController.swift */,
 				F82377771BDDE1AB0062603F /* IndexViewController.swift */,
 				F82377621BDDE1AB0062603F /* CloudAnimateCollectionViewController.swift */,
 				F82377631BDDE1AB0062603F /* CloudAnimateTableViewController.swift */,
 				F82377851BDDE1AB0062603F /* NavigationController.swift */,
+				F83E6C201C81C46F007AD7D1 /* TabBarController.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -799,7 +856,6 @@
 				F82377BE1BDDE1AB0062603F /* LaunchScreen.xib in Resources */,
 				F82377B21BDDE1AB0062603F /* AboutUsView.xib in Resources */,
 				F82377FD1BDDE1AC0062603F /* RefreshContents.xib in Resources */,
-				F82377BD1BDDE1AB0062603F /* BadgeView.xib in Resources */,
 				F82377E21BDDE1AC0062603F /* Main.storyboard in Resources */,
 				F82377D71BDDE1AB0062603F /* Images.xcassets in Resources */,
 				F82377BB1BDDE1AB0062603F /* AvatarView.xib in Resources */,
@@ -879,8 +935,12 @@
 				F82377B61BDDE1AB0062603F /* AppDelegate.swift in Sources */,
 				F82378041BDDE1AC0062603F /* Splash3ViewController.swift in Sources */,
 				F82377E41BDDE1AC0062603F /* Member.swift in Sources */,
+				F83E6C121C81BDE2007AD7D1 /* CGFloat.swift in Sources */,
 				F82377CB1BDDE1AB0062603F /* CourseCalendarContainerViewController.swift in Sources */,
+				F83E6C141C81BDE6007AD7D1 /* Character.swift in Sources */,
 				F82377F81BDDE1AC0062603F /* QuestionViewController.swift in Sources */,
+				F83E6C101C81BDC3007AD7D1 /* SDWebImage.swift in Sources */,
+				F83E6C1C1C81BE3A007AD7D1 /* UIViewController.swift in Sources */,
 				F82378011BDDE1AC0062603F /* Splash0ViewController.swift in Sources */,
 				F82377D01BDDE1AB0062603F /* Empty.swift in Sources */,
 				F823780F1BDDE1AC0062603F /* User+CoreDataProperties.swift in Sources */,
@@ -890,9 +950,12 @@
 				F82377FA1BDDE1AC0062603F /* Quiz+CoreDataProperties.swift in Sources */,
 				F82377E61BDDE1AC0062603F /* NavigationController.swift in Sources */,
 				F82377B11BDDE1AB0062603F /* AboutUsView.swift in Sources */,
+				F83E6C231C81C4A3007AD7D1 /* JSONConvertible.swift in Sources */,
+				F83E6C081C81BD93007AD7D1 /* UIStoryboard.swift in Sources */,
 				F82377CD1BDDE1AB0062603F /* CourseDescriptionViewController.swift in Sources */,
 				F823780E1BDDE1AC0062603F /* User.swift in Sources */,
 				F82378061BDDE1AC0062603F /* SwitcherViewController.swift in Sources */,
+				F83E6C0C1C81BD9C007AD7D1 /* UIView.swift in Sources */,
 				F82378021BDDE1AC0062603F /* Splash1ViewController.swift in Sources */,
 				F82377C71BDDE1AB0062603F /* ContentManager.swift in Sources */,
 				F82377DD1BDDE1AC0062603F /* LectureTime+CoreDataProperties.swift in Sources */,
@@ -902,33 +965,39 @@
 				F82377CA1BDDE1AB0062603F /* Course+CoreDataProperties.swift in Sources */,
 				F823780C1BDDE1AC0062603F /* TeammateViewController.swift in Sources */,
 				F82377F61BDDE1AC0062603F /* QuestionContainerViewController.swift in Sources */,
-				F82378091BDDE1AC0062603F /* TeacherNames+CoreDataProperties.swift in Sources */,
-				F82378071BDDE1AC0062603F /* TabBarController.swift in Sources */,
+				F82378091BDDE1AC0062603F /* TeacherName+CoreDataProperties.swift in Sources */,
 				F86CB0911BDDE5FD007CDD44 /* iCarousel.m in Sources */,
-				F82377D11BDDE1AB0062603F /* FileManager.swift in Sources */,
 				F82377D31BDDE1AB0062603F /* GlobalConstants.swift in Sources */,
 				F82377F31BDDE1AC0062603F /* ProjectViewController.swift in Sources */,
 				F82377C11BDDE1AB0062603F /* ChoiceView.swift in Sources */,
 				F82377B31BDDE1AB0062603F /* AboutUsViewController.swift in Sources */,
 				F82377F01BDDE1AC0062603F /* Project+CoreDataProperties.swift in Sources */,
 				F82377DA1BDDE1AC0062603F /* InvitationContainerViewController.swift in Sources */,
+				F83E6C181C81BE00007AD7D1 /* String.swift in Sources */,
 				F82377DF1BDDE1AC0062603F /* LoginContainerViewController.swift in Sources */,
+				F83E6C211C81C46F007AD7D1 /* TabBarController.swift in Sources */,
 				F82377BA1BDDE1AB0062603F /* AvatarView.swift in Sources */,
 				F82377F51BDDE1AC0062603F /* Question+CoreDataProperties.swift in Sources */,
 				F82377FE1BDDE1AC0062603F /* SidePanelViewController.swift in Sources */,
 				F82377F71BDDE1AC0062603F /* QuestionPageViewController.swift in Sources */,
 				F82377F41BDDE1AC0062603F /* Question.swift in Sources */,
+				F83E6C2B1C81E5F8007AD7D1 /* TextCell.swift in Sources */,
 				F82377FC1BDDE1AC0062603F /* RefreshContents.swift in Sources */,
+				F83E6C161C81BDF7007AD7D1 /* NSDateFormatter.swift in Sources */,
 				F82377D81BDDE1AB0062603F /* IndexViewController.swift in Sources */,
+				F83E6C0B1C81BD9C007AD7D1 /* UITabBarItem.swift in Sources */,
+				F83E6C061C81BD8E007AD7D1 /* SVProgressHUD.swift in Sources */,
 				F82377FB1BDDE1AC0062603F /* QuizViewController.swift in Sources */,
 				F82377E01BDDE1AC0062603F /* LoginPanelViewController.swift in Sources */,
-				F82377DE1BDDE1AC0062603F /* Log.swift in Sources */,
+				F82377DE1BDDE1AC0062603F /* CocoaLumberjack.swift in Sources */,
+				F83E6C261C81DDF1007AD7D1 /* Login.swift in Sources */,
+				F83E6C1A1C81BE16007AD7D1 /* PDTSimpleCalendarViewCell.swift in Sources */,
 				F82377EE1BDDE1AC0062603F /* ProblemViewController.swift in Sources */,
 				F82377BF1BDDE1AB0062603F /* Choice.swift in Sources */,
 				F82377EC1BDDE1AC0062603F /* Problem.swift in Sources */,
 				F82377B71BDDE1AB0062603F /* AttendCourseViewController.swift in Sources */,
 				F82377D41BDDE1AB0062603F /* Group.swift in Sources */,
-				F82378081BDDE1AC0062603F /* TeacherNames.swift in Sources */,
+				F82378081BDDE1AC0062603F /* TeacherName.swift in Sources */,
 				F82377B51BDDE1AB0062603F /* Answer+CoreDataProperties.swift in Sources */,
 				F82377B91BDDE1AB0062603F /* Avatar+CoreDataProperties.swift in Sources */,
 				F82377C01BDDE1AB0062603F /* Choice+CoreDataProperties.swift in Sources */,
@@ -949,7 +1018,6 @@
 				F82377E81BDDE1AC0062603F /* Option.swift in Sources */,
 				F82377C81BDDE1AB0062603F /* CoreDataManager.swift in Sources */,
 				F82377E91BDDE1AC0062603F /* Option+CoreDataProperties.swift in Sources */,
-				F82377D21BDDE1AB0062603F /* FunctionalExtension.swift in Sources */,
 				F82378051BDDE1AC0062603F /* SplashViewController.swift in Sources */,
 				F82377F91BDDE1AC0062603F /* Quiz.swift in Sources */,
 				F82377DB1BDDE1AC0062603F /* InvitationPageViewController.swift in Sources */,

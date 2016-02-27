@@ -8,18 +8,7 @@
 
 import UIKit
 
-class LoginPanelViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+class LoginPanelViewController: UIViewController {    
 
     // MARK: - Navigation
 
@@ -30,11 +19,8 @@ class LoginPanelViewController: UIViewController {
         guard
             let dest = segue.destinationViewController as? LoginViewController,
             let button = sender as? UIButton else {return}
-        if button.tag == 0 {
-            dest.status = .Register
-        } else {
-            dest.status = .Login
-        }
+        
+        dest.status = LoginStatus(booleanLiteral: button.tag != 0)
     }
 
 }

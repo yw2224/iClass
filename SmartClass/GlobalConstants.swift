@@ -17,7 +17,6 @@ struct GlobalConstants {
     
     // Login view controller identifier in storyboard
     static let LoginViewControllerIdentifier          = "Login View Controller"
-    static let LoginContainerViewControllerIdentifier = "Login Container View Controller"
     
     /// Navigation bar's foreground color
     static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
@@ -31,7 +30,8 @@ struct GlobalConstants {
     ]
     
     /// DZNEmptyDataSet title's foreground color
-    static var EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+    static let EmptyTitleTintColor = UIColor(red: 225.0 / 255.0, green: 225.0 / 255.0, blue: 236.0 / 255.0, alpha: 1.0)
+    static let EmptyTitleFontSize  = UIFont.boldSystemFontOfSize(18.0)
     
     /// Colors indicating whether the question is answered correctly/wrongly
     static var QuestionCorrectTableViewTitleColor = UIColor(red: 228.0 / 255.0, green: 250.0 / 255.0, blue: 237.0 / 255.0, alpha: 1.0)

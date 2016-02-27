@@ -9,21 +9,30 @@
 
 import UIKit
 
-class AboutUsView: UIView {
+class AboutUsView: CustomView {
 
-    var view: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
     
     private struct Constants {
         static let CardBackgroundColor: [UIColor] = {
-            let arrayOf4Color = [UIColor.flatWatermelonColor(), UIColor.flatYellowColor(), UIColor.flatLimeColor(), UIColor.flatPowderBlueColor(), UIColor.flatSandColor()]
-            let anotherOf4Color = [UIColor.flatRedColor(), UIColor.flatOrangeColor(), UIColor.flatGreenColor(), UIColor.flatSkyBlueColor(), UIColor.flatCoffeeColor()]
-            var gradientColorArray = [UIColor]()
-            for (index, color) in arrayOf4Color.enumerate() {
-                gradientColorArray.append(UIColor(gradientStyle: .Radial, withFrame: UIScreen.mainScreen().bounds, andColors: [color, anotherOf4Color[index]]))
+            let colors = [
+                UIColor.flatWatermelonColor(),
+                UIColor.flatYellowColor(),
+                UIColor.flatLimeColor(),
+                UIColor.flatPowderBlueColor(),
+                UIColor.flatSandColor()
+            ]
+            let colors2 = [
+                UIColor.flatRedColor(),
+                UIColor.flatOrangeColor(),
+                UIColor.flatGreenColor(),
+                UIColor.flatSkyBlueColor(),
+                UIColor.flatCoffeeColor()
+            ]
+            return zip(colors, colors).map {
+                UIColor(gradientStyle: .Radial, withFrame: UIScreen.mainScreen().bounds, andColors: [$0.0, $0.1])
             }
-            return gradientColorArray
         }()
         static let texts = [
             "课堂助手 —— 让课堂学习更贴心 v1.0.0",
@@ -55,18 +64,6 @@ class AboutUsView: UIView {
         layerSetup()
     }
     
-    func xibSetup() {
-        view = loadViewFromNib()
-        
-        // use bounds not frame or it'll be offset
-        view.frame = bounds
-        
-        // Make the view stretch with containing view
-        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        
-        // Adding custom subview on top of our view (over any custom drawing > see note below)
-        addSubview(view)
-    }
     
     func layerSetup() {
         view.layer.cornerRadius  = 3.0
@@ -80,28 +77,10 @@ class AboutUsView: UIView {
         textLabel.startGlow(UIColor.flatYellowColor())
     }
     
-    func loadViewFromNib() -> UIView {
-        let bundle = NSBundle.mainBundle()
-        let nib = UINib(nibName: "AboutUsView", bundle: bundle)
-        
-        // Assumes UIView is top level and only object in CustomView.xib file
-        let view = nib.instantiateWithOwner(self, options: nil).first as! UIView
-        return view
-    }
-    
     func setupWithIndex(index: Int) {
-        let index = min(max(index, 0), 4)
+        let index = min(max(index, 0), Constants.CardBackgroundColor.count - 1)
         view.backgroundColor = Constants.CardBackgroundColor[index]
         textLabel.text = Constants.texts[index]
         imageView.image = UIImage(named: Constants.imageNames[index])
     }
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-    
-    // If you add custom drawing, it'll be behind any view loaded from XIB
-    }
-    */
 }

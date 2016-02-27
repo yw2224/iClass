@@ -6,12 +6,11 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 import SwiftyJSON
 
 /// NetworkCallbackBlock consists the data and an optional network error type for block execution
-typealias NetworkCallbackBlock = (AnyObject?, NetworkErrorType?) -> Void
+typealias NetworkCallbackBlock = (JSON?, NetworkErrorType?) -> Void
 
 enum NetworkErrorType: ErrorType, CustomStringConvertible {
     
@@ -98,9 +97,9 @@ class NetworkManager: NSObject {
         // Add a new item in the caching dictionary
         PendingOpDict[key] = (request, NSDate())
         // Executing request
-        request.responseJSON { (_, res, result) -> Void in
+        request.responseJSON { (_, res, result) in
             let statusCode = res?.statusCode ?? 404
-            var data: AnyObject?
+            var data: JSON?
             var error: NetworkErrorType?
             
             // Remove the item the caching dictionary
@@ -108,7 +107,7 @@ class NetworkManager: NSObject {
             
             // Deal with statusCode and JSON from server
             if result.isSuccess && (statusCode >= 200 && statusCode < 300) {
-                data = result.value
+                data = JSON(result.value)
             } else {
                 if result.isFailure {
                     error = NetworkErrorType.NetworkUnreachable("\(result.error)")
@@ -143,7 +142,7 @@ extension NetworkManager {
     private enum Router: URLRequestConvertible {
         
         // Server URL
-        static let baseURLString = "http://162.105.146.125:3000/api"
+        static let baseURLString = "http://smartclass.zakelly.com:3000"
         
         // Different types of network request
         case Login(String, String)
@@ -153,7 +152,7 @@ extension NetworkManager {
         case QuizContent(String, String, String)
         case SigninInfo(String, String, String)
         case OriginAnswer(String, String, String, String)
-        case SubmitAnswer(String, String, String, String, String)
+        case SubmitAnswer(String, String, String, String, [[String: AnyObject]])
         case SubmitSignIn(String, String, String, String, String, String)
         case AttendCourse(String, String, String)
         case QuitCourse(String, String, String)
@@ -180,34 +179,34 @@ extension NetworkManager {
                     return ("/user/register", Method.POST, params)
                 case .UserCourse(let id, let token):
                     let params = ["_id": id, "token": token]
-                    return ("/user/courses", Method.GET, params)
+                    return ("/user/me/course", Method.GET, params)
                 case .QuizList(let id, let token, let courseID):
-                    let params = ["_id": id, "token": token, "course_id": courseID]
-                    return ("/quiz/list", Method.GET, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/course/\(courseID)/quiz/", Method.GET, params)
                 case .QuizContent(let id, let token, let quizID):
-                    let params = ["_id": id, "token": token, "quiz_id": quizID]
-                    return ("/quiz/content", Method.GET, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/quiz/\(quizID)", Method.GET, params)
                 case .SigninInfo(let id, let token, let courseID):
-                    let params = ["_id": id, "token": token, "course_id": courseID]
-                    return ("/signin/info", Method.GET, params)
-                case .OriginAnswer(let id, let token, let courseID, let quizID):
-                    let params = ["_id": id, "token": token, "course_id": courseID, "quiz_id": quizID]
-                    return ("/answer/quiz/info", Method.GET, params)
-                case .SubmitAnswer(let id, let token, let courseID, let quizID, let status):
-                    let params = ["_id": id, "token": token, "course_id": courseID, "quiz_id": quizID, "status": status]
-                    return ("/answer/submit", Method.POST, params)
-                case .SubmitSignIn(let id, let token, let courseID, let signinID, let uuid, let deviceID):
-                    let params = ["_id": id, "token": token, "course_id": courseID, "signin_id": signinID, "uuid": uuid, "device_id": deviceID]
-                    return ("/signin/submit", Method.POST, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/course/\(courseID)", Method.GET, params)
+                case .OriginAnswer(let id, let token, _, let quizID):
+                    let params = ["_id": id, "token": token]
+                    return ("/quiz/\(quizID)/answer", Method.GET, params)
+                case .SubmitAnswer(let id, let token, _, let quizID, let status):
+                    let params = ["_id": id, "token": token, "details": status]
+                    return ("/quiz/\(quizID)/answer", Method.POST, params as! [String : AnyObject])
+                case .SubmitSignIn(let id, let token, let courseID, let signinID, _, let deviceID):
+                    let params = ["_id": id, "token": token, "device_id": deviceID]
+                    return ("/course/\(courseID)/signin/\(signinID)/sign", Method.POST, params)
                 case .AttendCourse(let id, let token, let courseID):
-                    let params = ["_id": id, "token": token, "course_id": courseID]
-                    return ("/user/attend", Method.POST, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/course/\(courseID)/join", Method.POST, params)
                 case .QuitCourse(let id, let token, let courseID):
-                    let params = ["_id": id, "token": token, "course_id": courseID]
-                    return ("/user/quit", Method.PUT, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/course/\(courseID)/quit", Method.POST, params)
                 case .AllCourse(let id, let token):
                     let params = ["_id": id, "token": token]
-                    return ("/course/all", Method.GET, params)
+                    return ("/course/list", Method.GET, params)
                 case .ProjectList(let id, let token, let courseID):
                     let params = ["_id": id, "token": token, "course_id": courseID]
                     return ("/project/info", Method.GET, params)
@@ -305,9 +304,9 @@ extension NetworkManager {
         NetworkManager.executeRequestWithKey(Constants.OriginAnswerKey, request: request, callback: callback)
     }
     
-    func submitAnswer(userID: String?, token: String?, courseID: String?, quizID: String?, status: String?, callback: NetworkCallbackBlock) {
+    func submitAnswer(userID: String?, token: String?, courseID: String?, quizID: String?, status: [[String: AnyObject]]?, callback: NetworkCallbackBlock) {
         guard !NetworkManager.existPendingOperation(Constants.SubmitAnswerKey) else {return}
-        let request = NetworkManager.Manager.request(Router.SubmitAnswer(userID ?? "", token ?? "", courseID ?? "", quizID ?? "", status ?? ""))
+        let request = NetworkManager.Manager.request(Router.SubmitAnswer(userID ?? "", token ?? "", courseID ?? "", quizID ?? "", status ?? []))
         NetworkManager.executeRequestWithKey(Constants.SubmitAnswerKey, request: request, callback: callback)
     }
     

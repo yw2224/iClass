@@ -14,17 +14,17 @@ import CoreData
 
 extension Course {
 
-    @NSManaged var course_id: String!
-    @NSManaged var endDate: NSDate!
-    @NSManaged var finalExam: NSDate!
-    @NSManaged var introduction: String!
-    @NSManaged var maxStudentsNumber: NSNumber!
-    @NSManaged var midterm: NSDate!
-    @NSManaged var name: String!
-    @NSManaged var startDate: NSDate!
-    @NSManaged var students: NSNumber!
-    @NSManaged var term: String!
-    @NSManaged var lectureTime: NSSet!
-    @NSManaged var teacherNames: NSSet!
+    @NSManaged var course_id: String
+    @NSManaged var endDate: NSDate
+    @NSManaged var finalExam: NSDate
+    @NSManaged var introduction: String
+    @NSManaged var maxStudentsNumber: NSNumber
+    @NSManaged var midterm: NSDate
+    @NSManaged var name: String
+    @NSManaged var startDate: NSDate
+    @NSManaged var students: NSNumber
+    @NSManaged var term: String
+    @NSManaged var lectureTime: NSSet
+    @NSManaged var teacherName: NSSet
 
 }

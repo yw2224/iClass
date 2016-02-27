@@ -14,7 +14,7 @@ import CoreData
 
 extension Option {
 
-    @NSManaged var content: String!
-    @NSManaged var no: NSNumber!
+    @NSManaged var content: String
+    @NSManaged var no: NSNumber
 
 }

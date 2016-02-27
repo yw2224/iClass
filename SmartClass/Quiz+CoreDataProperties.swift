@@ -14,13 +14,14 @@ import CoreData
 
 extension Quiz {
 
-    @NSManaged var correct: NSNumber!
-    @NSManaged var course_id: String!
-    @NSManaged var createDate: NSDate!
-    @NSManaged var from: NSDate!
-    @NSManaged var name: String!
-    @NSManaged var quiz_id: String!
-    @NSManaged var to: NSDate!
-    @NSManaged var total: NSNumber!
+    @NSManaged var answered: NSNumber
+    @NSManaged var correct: NSNumber
+    @NSManaged var course_id: String
+    @NSManaged var createDate: NSDate
+    @NSManaged var from: NSDate
+    @NSManaged var name: String
+    @NSManaged var quiz_id: String
+    @NSManaged var to: NSDate
+    @NSManaged var total: NSNumber
 
 }

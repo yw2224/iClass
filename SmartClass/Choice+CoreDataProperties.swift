@@ -14,6 +14,6 @@ import CoreData
 
 extension Choice {
 
-    @NSManaged var content: String!
+    @NSManaged var content: String
 
 }

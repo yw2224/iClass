@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol SwitchChildViewController {
+protocol Switcher {
     var childViewControllerSegueIdentifier: [String] {get set}
     var currentViewController: UIViewController? {get}
     func switchChildViewControllerAtIndex(index: Int)
 }
 
 protocol SwitcherAnimationDelegate: class {
-    func animationDidStop()
+    func animationDidEnd()
 }
 
 class SwitcherViewController: UIViewController {
 
-    var segueIdentifiers = [String]()
+    var childViewControllerSegueIdentifier = [String]()
     var currentIndex = 0
     weak var delegate: SwitcherAnimationDelegate?
     
@@ -28,13 +28,8 @@ class SwitcherViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        guard let identifier = segueIdentifiers.first else {return}
+        guard let identifier = childViewControllerSegueIdentifier.first else {return}
         performSegueWithIdentifier(identifier, sender: self)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
@@ -53,7 +48,6 @@ class SwitcherViewController: UIViewController {
             dest.view.frame = view.frame
             view.addSubview(dest.view)
             dest.didMoveToParentViewController(self)
-            
         }
     }
     
@@ -68,23 +62,14 @@ class SwitcherViewController: UIViewController {
             if $0 {
                 fromViewController.removeFromParentViewController()
                 toViewController.didMoveToParentViewController(self)
-                self?.delegate?.animationDidStop()
+                self?.delegate?.animationDidEnd()
             }
         }
     }
 
 }
 
-extension SwitcherViewController: SwitchChildViewController {
-    
-    var childViewControllerSegueIdentifier: [String] {
-        get {
-            return segueIdentifiers
-        }
-        set {
-            segueIdentifiers = childViewControllerSegueIdentifier
-        }
-    }
+extension SwitcherViewController: Switcher {
     
     var currentViewController: UIViewController? {
         get {
@@ -93,9 +78,10 @@ extension SwitcherViewController: SwitchChildViewController {
     }
     
     func switchChildViewControllerAtIndex(index: Int) {
-        if index >= 0 && index < childViewControllerSegueIdentifier.count && currentIndex != index {
-            performSegueWithIdentifier(childViewControllerSegueIdentifier[index], sender: self)
-            currentIndex = index
-        }
+        guard index >= 0
+            && index < childViewControllerSegueIdentifier.count
+            && currentIndex != index else {return}
+        performSegueWithIdentifier(childViewControllerSegueIdentifier[index], sender: self)
+        currentIndex = index
     }
 }

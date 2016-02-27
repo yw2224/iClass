@@ -12,8 +12,8 @@
 import Foundation
 import CoreData
 
-extension TeacherNames {
+extension TeacherName {
 
-    @NSManaged var name: String!
+    @NSManaged var name: String
 
 }

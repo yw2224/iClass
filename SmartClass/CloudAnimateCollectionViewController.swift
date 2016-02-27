@@ -30,12 +30,6 @@ class CloudAnimateCollectionViewController: UICollectionViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         setupRefreshControl()
         collectionView!.emptyDataSetSource = self
         collectionView!.emptyDataSetDelegate = self
@@ -43,24 +37,9 @@ class CloudAnimateCollectionViewController: UICollectionViewController  {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        
         resetAnimiation()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     func setupRefreshControl() {
         refreshControl = UIRefreshControl()
@@ -109,7 +88,7 @@ class CloudAnimateCollectionViewController: UICollectionViewController  {
 }
 
 
-extension CloudAnimateCollectionViewController: RefreshControlHook {
+extension CloudAnimateCollectionViewController: RefreshControlAnimationDelegate {
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         // Get the current size of the refresh controller
@@ -163,12 +142,12 @@ extension CloudAnimateCollectionViewController: RefreshControlHook {
 extension CloudAnimateCollectionViewController: DZNEmptyDataSetSource {
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "EmptyDataSetBackground")!
+        return UIImage(named: "EmptyDataSetBackground")
     }
     
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let attributes = [
-            NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+            NSFontAttributeName: GlobalConstants.EmptyTitleFontSize,
             NSForegroundColorAttributeName: GlobalConstants.EmptyTitleTintColor
         ]
         return NSAttributedString(string: emptyTitle, attributes: attributes)
@@ -187,16 +166,5 @@ extension CloudAnimateCollectionViewController: DZNEmptyDataSetDelegate {
 }
 
 class IndexCloudAnimateCollectionViewController: CloudAnimateCollectionViewController {
-    var _index = 0
-}
-
-extension IndexCloudAnimateCollectionViewController: IndexObject {
-    var index: Int {
-        get {
-            return _index
-        }
-        set {
-            _index = newValue
-        }
-    }
+    var index = 0
 }

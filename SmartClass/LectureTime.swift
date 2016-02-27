@@ -13,8 +13,14 @@ import SwiftyJSON
 @objc(LectureTime)
 class LectureTime: NSManagedObject, JSONConvertible {
     
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let lectureTime       = LectureTime.MR_createEntity()
+    override func awakeFromInsert() {
+        endTime = 0
+        startTime = 0
+        weekday = 0
+    }
+    
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let lectureTime = LectureTime.MR_createEntity() else {return nil}
         lectureTime.startTime = json["startTime"].int ?? 0
         lectureTime.endTime   = json["endTime"].int ?? 0
         lectureTime.weekday   = json["weekday"].int ?? 0

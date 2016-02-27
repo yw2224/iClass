@@ -13,32 +13,47 @@ import SwiftyJSON
 @objc(Course)
 class Course: NSManagedObject {
 
-    var teacherNameString: String {
+    var teacherNames: String {
         get {
-            guard let teacherNames = teacherNames?.allObjects as? [TeacherNames] where teacherNames.count > 0 else {return "无"}
-            return teacherNames.map{return $0.name ?? ""}.sort(<).joinWithSeparator("\t")
+            guard let teacherNames = teacherName.allObjects as? [TeacherName] where teacherNames.count > 0 else {return "无"}
+            return teacherNames.map{ $0.name }.sort(<).joinWithSeparator(" ")
         }
     }
 }
 
 extension Course: JSONConvertible {
     
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let course               = Course.MR_createEntity()
-        course.course_id         = json["course_id"].string ?? ""
+    override func awakeFromInsert() {
+        course_id = ""
+        endDate = NSDate()
+        finalExam = NSDate()
+        introduction = ""
+        maxStudentsNumber = ""
+        midterm = NSDate()
+        name = ""
+        startDate = NSDate()
+        students = 0
+        term = ""
+        lectureTime = NSSet()
+        teacherName = NSSet()
+    }
+    
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let course = Course.MR_createEntity() else {return nil}
+        course.course_id         = json["_id"].string ?? ""
         course.name              = json["name"].string ?? ""
         course.introduction      = json["introduction"].string ?? ""
         course.midterm           = NSDate(timeIntervalSince1970: (json["midterm"].double ?? 0) / 1000.0)
         course.finalExam         = NSDate(timeIntervalSince1970: (json["finalExam"].double ?? 0) / 1000.0)
         course.maxStudentsNumber = json["maxStudentsNumber"].int ?? 0
-        course.students          = json["students"].int ?? 0
+        course.students          = json["studentCount"].int ?? 0
         course.term              = json["term"].string ?? ""
         course.startDate         = NSDate(timeIntervalSince1970: (json["startDate"].double ?? 0) / 1000.0)
         course.endDate           = NSDate(timeIntervalSince1970: (json["endDate"].double ?? 0) / 1000.0)
         course.lectureTime       = NSSet(array:
-            LectureTime.objectFromJSONArray(json["lectureTime"].arrayValue))
-        course.teacherNames      = NSSet(array:
-            TeacherNames.objectFromJSONArray(json["teacherNames"].arrayValue))
+            LectureTime.convertWithJSONArray(json["lectureTime"].arrayValue))
+        course.teacherName      = NSSet(array:
+            TeacherName.convertWithJSONArray(json["teacherNames"].arrayValue))
         return course
     }
 }

@@ -14,12 +14,12 @@ import CoreData
 
 extension Problem {
 
-    @NSManaged var current: NSNumber!
-    @NSManaged var deskription: String!
-    @NSManaged var groupSize: NSNumber!
-    @NSManaged var maxGroupNum: NSNumber!
-    @NSManaged var name: String!
-    @NSManaged var problem_id: String!
-    @NSManaged var project_id: String!
+    @NSManaged var current: NSNumber
+    @NSManaged var deskription: String
+    @NSManaged var groupSize: NSNumber
+    @NSManaged var maxGroupNum: NSNumber
+    @NSManaged var name: String
+    @NSManaged var problem_id: String
+    @NSManaged var project_id: String
 
 }

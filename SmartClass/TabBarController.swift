@@ -10,11 +10,16 @@ import UIKit
 
 class TabBarController: UITabBarController {
     var courseID: String!
+    
+    override func awakeFromNib() {
+        delegate = self
+    }
 }
 
 extension TabBarController: UITabBarControllerDelegate {
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    // MARK: rewrite this
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         let dest = viewController.contentViewController()
         
         if let qvc = dest as? QuizViewController {
@@ -22,6 +27,7 @@ extension TabBarController: UITabBarControllerDelegate {
         } else if let pvc = dest as? ProjectViewController {
             pvc.courseID = courseID
         }
+        return true
     }
     
 }

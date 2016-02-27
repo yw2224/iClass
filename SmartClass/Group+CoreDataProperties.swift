@@ -14,12 +14,12 @@ import CoreData
 
 extension Group {
 
-    @NSManaged var created: NSNumber!
-    @NSManaged var group_id: String!
-    @NSManaged var name: String!
-    @NSManaged var project_id: String!
-    @NSManaged var status: NSNumber!
-    @NSManaged var creator: Member!
-    @NSManaged var members: NSSet!
+    @NSManaged var created: NSNumber
+    @NSManaged var group_id: String
+    @NSManaged var name: String
+    @NSManaged var project_id: String
+    @NSManaged var status: NSNumber
+    @NSManaged var creator: Member
+    @NSManaged var members: NSSet
 
 }

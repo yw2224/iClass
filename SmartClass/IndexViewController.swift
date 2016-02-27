@@ -10,48 +10,14 @@ protocol IndexObject : class {
     var index: Int {get set}
 }
 
-class IndexViewController: UIViewController {
-    
-    var _index = 0
+class IndexViewController: UIViewController, IndexObject {
+    var index = 0
 }
 
-extension IndexViewController: IndexObject {
-    var index : Int {
-        get {
-            return _index
-        }
-        set {
-            _index = newValue
-        }
-    }
+class IndexTableViewController: UITableViewController, IndexObject {
+    var index = 0
 }
 
-class IndexTableViewController: UITableViewController {
-    var _index = 0
-}
-
-extension IndexTableViewController: IndexObject {
-    var index : Int {
-        get {
-            return _index
-        }
-        set {
-            _index = newValue
-        }
-    }
-}
-
-class IndexCollectionViewController: UICollectionViewController {
-    var _index = 0
-}
-
-extension IndexCollectionViewController: IndexObject {
-    var index: Int {
-        get {
-            return _index
-        }
-        set {
-            _index = newValue
-        }
-    }
+class IndexCollectionViewController: UICollectionViewController, IndexObject {
+    var index = 0
 }

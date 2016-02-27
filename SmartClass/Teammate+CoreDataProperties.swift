@@ -14,9 +14,9 @@ import CoreData
 
 extension Teammate {
 
-    @NSManaged var name: String!
-    @NSManaged var realName: String!
-    @NSManaged var encypted_id: String!
-    @NSManaged var course_id: String!
+    @NSManaged var name: String
+    @NSManaged var realName: String
+    @NSManaged var encypted_id: String
+    @NSManaged var course_id: String
 
 }

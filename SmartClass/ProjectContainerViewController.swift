@@ -78,7 +78,7 @@ class ProjectContainerViewController: UIViewController {
 }
 
 extension ProjectContainerViewController: SwitcherAnimationDelegate {
-    func animationDidStop() {
+    func animationDidEnd() {
         segmentControl.userInteractionEnabled = true
     }
 }

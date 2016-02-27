@@ -13,8 +13,13 @@ import SwiftyJSON
 @objc(Option)
 class Option: NSManagedObject, JSONConvertible {
     
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let option     = Option.MR_createEntity()
+    override func awakeFromInsert() {
+        content = ""
+        no = 0
+    }
+    
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let option = Option.MR_createEntity() else {return nil}
         option.no      = json["no"].int ?? -1
         option.content = json["content"].string ?? ""
         return option

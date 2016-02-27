@@ -14,8 +14,8 @@ import CoreData
 
 extension Member {
 
-    @NSManaged var name: String!
-    @NSManaged var realName: String!
-    @NSManaged var status: NSNumber!
+    @NSManaged var name: String
+    @NSManaged var realName: String
+    @NSManaged var status: NSNumber
 
 }

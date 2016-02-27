@@ -14,10 +14,10 @@ import CoreData
 
 extension Project {
 
-    @NSManaged var course_id: String!
-    @NSManaged var from: NSDate!
-    @NSManaged var name: String!
-    @NSManaged var project_id: String!
-    @NSManaged var to: NSDate!
+    @NSManaged var course_id: String
+    @NSManaged var from: NSDate
+    @NSManaged var name: String
+    @NSManaged var project_id: String
+    @NSManaged var to: NSDate
 
 }

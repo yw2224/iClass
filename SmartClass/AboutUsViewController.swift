@@ -82,7 +82,6 @@ extension AboutUsViewController: iCarouselDelegate {
     
     func carousel(carousel: iCarousel, didSelectItemAtIndex index: Int) {
         // Open his/her homepage
-        
         UIApplication.sharedApplication().openURL(NSURL(string:
             GlobalConstants.HomePageLinks[min(max(index, 0), 4)])!)
     }

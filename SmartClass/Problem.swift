@@ -14,8 +14,18 @@ import SwiftyJSON
 class Problem: NSManagedObject, JSONConvertible {
 
 // Insert code here to add functionality to your managed object subclass
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let problem = Problem.MR_createEntity()
+    override func awakeFromInsert() {
+        current = 0
+        deskription = ""
+        groupSize = 0
+        maxGroupNum = 0
+        name = ""
+        problem_id = ""
+        project_id = ""
+    }
+    
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let problem = Problem.MR_createEntity() else {return nil}
         problem.problem_id = json["problem_id"].string ?? ""
         problem.name = json["name"].string ?? ""
         problem.deskription = json["description"].string ?? ""

@@ -14,9 +14,9 @@ import CoreData
 
 extension Answer {
 
-    @NSManaged var question_id: String!
-    @NSManaged var quiz_id: String!
-    @NSManaged var score: NSNumber!
-    @NSManaged var originAnswer: NSSet!
+    @NSManaged var question_id: String
+    @NSManaged var quiz_id: String
+    @NSManaged var score: NSNumber
+    @NSManaged var originAnswer: NSSet
 
 }

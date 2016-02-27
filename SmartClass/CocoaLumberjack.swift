@@ -6,18 +6,13 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import Foundation
 import CocoaLumberjack
 
 /// Logging related functions
-class Log: NSObject {
-    
-    /**
-     Setup the config of logging related functions
-     */
+class CocoaLumberjack {
     static func config() {
         DDLog.addLogger(DDASLLogger.sharedInstance())   // Apple system logs
-        // Xcode terminal loger in different color
+        
         DDTTYLogger.sharedInstance().colorsEnabled = true
         DDTTYLogger.sharedInstance().setForegroundColor(UIColor.flatRedColor(), backgroundColor: nil, forFlag: .Error)
         DDTTYLogger.sharedInstance().setForegroundColor(UIColor.flatOrangeColor(), backgroundColor: nil, forFlag: .Warning)
@@ -32,14 +27,4 @@ class Log: NSObject {
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
         DDLog.addLogger(fileLogger)
     }
-    
-    /**
-     Logging the loc in code for debug use
-     */
-    class func debugLog(filePath : String = __FILE__, functionName : String = __FUNCTION__, line : Int = __LINE__){
-        let url = NSURL(fileURLWithPath: filePath)
-        let fileName = url.lastPathComponent
-        DDLogDebug("\(fileName) \(functionName) [Line \(line)]")
-    }
-
 }

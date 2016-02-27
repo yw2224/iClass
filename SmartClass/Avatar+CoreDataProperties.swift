@@ -14,6 +14,6 @@ import CoreData
 
 extension Avatar {
 
-    @NSManaged var name: String!
+    @NSManaged var name: String
 
 }

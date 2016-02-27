@@ -12,13 +12,20 @@ import SwiftyJSON
 
 @objc(Answer)
 class Answer: NSManagedObject, JSONConvertible {
+    
+    override func awakeFromInsert() {
+        question_id = ""
+        quiz_id = ""
+        score = 0
+        originAnswer = NSSet()
+    }
 
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let answer          = Answer.MR_createEntity()
-        answer.question_id  = json["question_id"].string ?? json["_id"].string ?? ""
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let answer = Answer.MR_createEntity() else {return nil}
+        answer.question_id  = json["question"].string ?? json["_id"].string ?? ""
         answer.score        = json["score"].int ?? 0
         answer.originAnswer = NSSet(array:
-            Choice.objectFromJSONArray(json["originAnswer"].arrayValue))
+            Choice.convertWithJSONArray(json["originAnswer"].arrayValue))
         return answer
     }
     

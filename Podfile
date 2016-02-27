@@ -1,20 +1,21 @@
-platform :ios, "8.3"
+platform :ios, "9.0"
 use_frameworks!
 
 # UI related
-pod 'PDTSimpleCalendar', '~> 0.9.1'
+pod 'PDTSimpleCalendar'
 pod 'DZNEmptyDataSet'
 pod 'ChameleonFramework'
 pod 'MGSwipeTableCell'
-pod 'SVProgressHUD', '1.1.3'
+pod 'SVProgressHUD'
 
 # Modal related
-pod 'MagicalRecord', '2.3.0'
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+pod 'MagicalRecord'
+pod 'SwiftyJSON'
 
 # Network
 pod 'Alamofire', '~> 2.0'
+pod 'SDWebImage'
 
 # Utility
 pod 'CocoaLumberjack'
-pod 'KeychainAccess', :git => 'https://github.com/kishikawakatsumi/KeychainAccess.git'
+pod 'KeychainAccess'

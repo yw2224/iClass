@@ -9,7 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 
-protocol RefreshControlHook: class {
+protocol RefreshControlAnimationDelegate : class {
     func animationDidStart()
     func animationDidEnd()
 }
@@ -33,12 +33,6 @@ class CloudAnimateTableViewController: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         setupRefreshControl()
         tableView.emptyDataSetSource = self
@@ -49,22 +43,6 @@ class CloudAnimateTableViewController: UITableViewController  {
         super.viewDidDisappear(animated)
         resetAnimiation()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     func setupRefreshControl() {
         refreshControl = UIRefreshControl()
@@ -112,7 +90,7 @@ class CloudAnimateTableViewController: UITableViewController  {
 }
 
 
-extension CloudAnimateTableViewController: RefreshControlHook {
+extension CloudAnimateTableViewController: RefreshControlAnimationDelegate {
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         // Get the current size of the refresh controller
@@ -142,7 +120,7 @@ extension CloudAnimateTableViewController: RefreshControlHook {
         rotate.toValue = M_PI * 2
         rotate.duration  = 0.9
         rotate.cumulative = true;
-        rotate.repeatCount = 1e7;
+        rotate.repeatCount = FLT_MAX;
         
         cloudRefresh.refreshingImageView.layer.addAnimation(rotate, forKey: "rotate")
     }
@@ -166,12 +144,12 @@ extension CloudAnimateTableViewController: RefreshControlHook {
 extension CloudAnimateTableViewController: DZNEmptyDataSetSource {
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "EmptyDataSetBackground")!
+        return UIImage(named: "EmptyDataSetBackground")
     }
     
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let attributes = [
-            NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+            NSFontAttributeName: GlobalConstants.EmptyTitleFontSize,
             NSForegroundColorAttributeName: GlobalConstants.EmptyTitleTintColor
         ]
         return NSAttributedString(string: emptyTitle, attributes: attributes)
@@ -190,16 +168,5 @@ extension CloudAnimateTableViewController: DZNEmptyDataSetDelegate {
 }
 
 class IndexCloudAnimateTableViewController: CloudAnimateTableViewController {
-    var _index = 0
-}
-
-extension IndexCloudAnimateTableViewController: IndexObject {
-    var index: Int {
-        get {
-            return _index
-        }
-        set {
-            _index = newValue
-        }
-    }
+    var index = 0
 }

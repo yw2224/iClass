@@ -6,34 +6,23 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import ChameleonFramework
-import CocoaLumberjack
-import CoreData
-import CoreLocation
-import SVProgressHUD
 import UIKit
+import PDTSimpleCalendar
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        Log.config()
+        CocoaLumberjack.config()
         CoreDataManager.config()
+        SVProgressHUD.config()
+        PDTSimpleCalendarViewCell.config()
+        UITabBarItem.config()
         
-        SVProgressHUD.setDefaultMaskType(.Black)
-//        SVProgressHUD.setDefaultStyle(.Custom)
-        SVProgressHUD.setBackgroundColor(UIColor.flatWhiteColor())
-        SVProgressHUD.setForegroundColor(UIColor.flatGrayColorDark().darkenByPercentage(0.3))
-        SVProgressHUD.setFont(UIFont.systemFontOfSize(14.0))
-        SVProgressHUD.setErrorImage(UIImage(named: "Error"))
-        SVProgressHUD.setSuccessImage(UIImage(named: "Success"))
-        SVProgressHUD.setRingThickness(5.0)
-        
-        application.statusBarStyle = .LightContent
         application.registerUserNotificationSettings(
             UIUserNotificationSettings(
                 forTypes: [.Alert, .Sound],
@@ -42,16 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         // MARK: This for Core-Data-Editor Debug use, pls. feel free to comment it out.
-        let path = (NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first
-        DDLogWarn(path ?? "Not exist")
+        print((NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)).first)
         
         if  let userName = ContentManager.UserName where !userName.isEmpty,
             let password = ContentManager.Password where !password.isEmpty {
             let viewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginViewControllerIdentifier) as! LoginViewController
             viewController.shouldAutoLogin = true
-            window?.rootViewController = viewController
-        } else {
-            let viewController = UIStoryboard.initViewControllerWithIdentifier(GlobalConstants.LoginContainerViewControllerIdentifier) as! LoginContainerViewController
             window?.rootViewController = viewController
         }
 

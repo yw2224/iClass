@@ -43,15 +43,7 @@ class LoginContainerViewController: UIViewController {
         addChildViewController(splashPageViewController)
         view.insertSubview(splashPageViewController.view, atIndex: 0)
         splashPageViewController.didMoveToParentViewController(self)
-        
-        // This is the hackery method to disable bounce effect in UIPageViewControllers.
-        // It's no longer effective in iOS8
-//        for subView in splashPageViewController.view.subviews {
-//            if let theSubView = subView as? UIScrollView {
-//                theSubView.bounces = false
-//                break
-//            }
-//        }
+
     }
     
     func splashChildViewControllerAtIndex(index: Int) -> SplashViewController? {
@@ -63,11 +55,6 @@ class LoginContainerViewController: UIViewController {
         return svc
     }
     
-    // MARK: Navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//    }
-    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
@@ -76,12 +63,12 @@ class LoginContainerViewController: UIViewController {
 extension LoginContainerViewController: UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard let svc = viewController as? IndexObject else {return nil}
+        guard let svc = viewController as? IndexObject else { return nil }
         return splashChildViewControllerAtIndex(svc.index - 1)
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard let svc = viewController as? IndexObject else {return nil}
+        guard let svc = viewController as? IndexObject else { return nil }
         return splashChildViewControllerAtIndex(svc.index + 1)
     }
 }
@@ -90,7 +77,7 @@ extension LoginContainerViewController: UIPageViewControllerDelegate {
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard completed,
-            let current = pageViewController.viewControllers?.first as? SplashViewController where (current.index >= 0 && current.index < Constants.NumOfPages) else {return}
+            let current = pageViewController.viewControllers?.first as? SplashViewController else { return }
         pageControl.currentPage = current.index
     }
 }

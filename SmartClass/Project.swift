@@ -13,8 +13,16 @@ import SwiftyJSON
 @objc(Project)
 class Project: NSManagedObject, JSONConvertible {
 
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let project = Project.MR_createEntity()
+    override func awakeFromInsert() {
+        course_id = ""
+        from = NSDate()
+        name = ""
+        project_id = ""
+        to = NSDate()
+    }
+    
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let project = Project.MR_createEntity() else {return nil}
         project.project_id = json["project_id"].string ?? ""
         project.name = json["name"].string ?? ""
         project.from = NSDate(timeIntervalSince1970: (json["from"].double ?? 0) / 1000.0)

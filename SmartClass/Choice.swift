@@ -13,19 +13,27 @@ import SwiftyJSON
 @objc(Choice)
 class Choice: NSManagedObject {
     
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [Choice] {
-        return jsonArray.map {
-            let choice = Choice.MR_createEntity()
-            choice.content = $0.description
-            return choice
-        }
+    override func awakeFromInsert() {
+        content = ""
     }
     
-    static func objectFromStringArray(strArray: [String]) -> [Choice] {
-        return strArray.map {
-            let choice = Choice.MR_createEntity()
-            choice.content = $0
-            return choice
+    static func convertWithJSONArray(jsonArray: [JSON]) -> [Choice] {
+        var ret = [Choice]()
+        for json in jsonArray {
+            guard let choice = Choice.MR_createEntity() else {continue}
+            choice.content = json.description
+            ret.append(choice)
         }
+        return ret
+    }
+    
+    static func convertWithStringArray(strArray: [String]) -> [Choice] {
+        var ret = [Choice]()
+        for str in strArray {
+            guard let choice = Choice.MR_createEntity() else {continue}
+            choice.content = str
+            ret.append(choice)
+        }
+        return ret
     }
 }

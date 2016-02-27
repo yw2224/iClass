@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "static Quiz.objectFromJSONObject(JSON) -&gt; NSManagedObject?:Quiz.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;correct&quot;].intValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContainerViewController.partialAnimation(CGFloat) -&gt; ():ContainerViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userSidebarViewController == nil">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

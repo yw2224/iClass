@@ -14,8 +14,8 @@ class CrossDissolveSegue: UIStoryboardSegue {
     
     override func perform() {
         
-        let svc = sourceViewController 
-        let dvc = destinationViewController 
+        let svc = sourceViewController
+        let dvc = destinationViewController
         
         let popOverView: UIImageView = {
             let length = min(CGRectGetWidth(svc.view.frame), CGRectGetHeight(svc.view.frame))
@@ -25,7 +25,7 @@ class CrossDissolveSegue: UIStoryboardSegue {
             popOverView.center = center
             popOverView.contentMode = .ScaleAspectFit
             popOverView.alpha = 0.5
-            popOverView.image = self.image ?? UIImage(named: "DefaultBookCover")
+            popOverView.image = image
             return popOverView
         }()
         svc.view.addSubview(popOverView)
@@ -45,6 +45,6 @@ class CrossDissolveSegue: UIStoryboardSegue {
                         popOverView.removeFromSuperview()
                     }
                 }
-            }
+        }
     }
 }

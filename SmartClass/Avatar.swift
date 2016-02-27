@@ -12,5 +12,7 @@ import CoreData
 class Avatar: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-
+    override func awakeFromInsert() {
+        name = ""
+    }
 }

@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 PKU. All rights reserved.
 //
 
-import Foundation
 import SwiftyJSON
 import KeychainAccess
 import CocoaLumberjack
@@ -159,15 +158,6 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteQuizWithinPredicate(predicate)
 
                     let quizList = Quiz.objectFromJSONArray(json["quizzes"].arrayValue) as! [Quiz]
-                    for answer in json["answers"].arrayValue {
-                        let quizID = answer["quiz_id"].stringValue
-                        let correct = answer["total"].intValue
-                        // the quiz_id should be unique, so search can be stopped when finding one candidate
-                        for quiz in quizList where quiz.quiz_id == quizID {
-                            quiz.correct = NSNumber(integer: correct)
-                            break
-                        }
-                    }
                     block?(quizList: quizList.sort {return $0.to.compare($1.to) == .OrderedDescending}, error: error)
                 } else {
                     DDLogInfo("Querying quiz list failed: \(error)")
@@ -208,10 +198,15 @@ class ContentManager: NSObject {
                 dispatch_async(dispatch_get_main_queue()) {
                     if error == nil, let data = data where JSON(data)["success"].boolValue {
                         DDLogInfo("Querying sign info success")
-                        let json = JSON(data)
-                        block?(uuid: json["uuid"].stringValue, enable: json["enable"].boolValue,
-                            total: json["total"].intValue, user: json["user"].intValue,
-                            signinID: json["signin_id"].string, error: error)
+                        let json = JSON(data)["signIn"]
+                        let enable = json["enable"].boolValue
+                        let uuid = json["last", "uuid"].string ?? ""
+                        let signinID = json["last", "_id"].string ?? ""
+                        let total = json["total"].intValue
+                        
+                        block?(uuid: uuid, enable: enable,
+                            total: total, user: 0,
+                            signinID: signinID, error: error)
                     } else {
                         DDLogInfo("Querying sign info failed: \(error)")
                         block?(uuid: "", enable: false, total: 0, user: 0, signinID: nil, error: error)
@@ -224,12 +219,12 @@ class ContentManager: NSObject {
         NetworkManager.sharedInstance.originAnswer(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, quizID: quizID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
-                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                if error == nil, let   data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying answer list success")
                     CoreDataManager.sharedInstance.deleteAnswers(quizID)
                     
                     let json = JSON(data)
-                    let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
+                    let answerList = Answer.objectFromJSONArray(json["details"].arrayValue) as! [Answer]
                     for answer in answerList {
                         answer.quiz_id = quizID
                     }
@@ -244,15 +239,14 @@ class ContentManager: NSObject {
     }
     
     func submitAnswer(courseID: String, quizID: String, status: [AnswerJSON], block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
-        let array: [String] = status.map {
-            let element = JSON([
-                "question_id": $0.question_id,
-                "originAnswer": JSON($0.originAnswer).description
-            ])
-            return element.description
+        let array: [[String: AnyObject]] = status.map {
+            var element = [String: AnyObject]()
+            element["question"] = $0.question_id
+            element["originAnswer"] = $0.originAnswer
+            return element
         }
         
-        NetworkManager.sharedInstance.submitAnswer(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, quizID: quizID, status: JSON(array).description) {
+        NetworkManager.sharedInstance.submitAnswer(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, quizID: quizID, status: array) {
             (data, error) in
             if error == nil, let data = data where JSON(data)["success"].boolValue {
                 DDLogInfo("Submit answer success")

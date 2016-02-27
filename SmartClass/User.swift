@@ -11,5 +11,11 @@ import CoreData
 
 @objc(User)
 class User: NSManagedObject {
-
+    override func awakeFromInsert() {
+        email = ""
+        name = ""
+        phone = ""
+        realName = ""
+        avatars = NSSet()
+    }
 }

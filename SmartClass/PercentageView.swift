@@ -13,41 +13,29 @@ class PercentageView: UIView {
     var arc1: CAShapeLayer!
     var arc2: CAShapeLayer!
     var percentageLabel: UILabel!
+    
     var percentage: CGFloat = Constants.Pending {
         didSet {
-            if percentage != Constants.Pending {
-                arc1.hidden = false
-                arc2.hidden = false
-                percentageLabel.hidden = false
-                let text = String(format: "%.0f", min(max(round(percentage * 100), 0), 100))
-                percentageLabel.text = "\(text)%"
-                setNeedsDisplay()
-            }
+            percentageLabel.hidden = percentage == Constants.Pending
+            percentageLabel.text = "\(min(max(percentage * 100, 0), 100).format(".0f"))"
+            setNeedsDisplay()
         }
     }
     
     private struct Constants {
         static let Pending: CGFloat = -1.0
     }
-
+    
     override init(frame: CGRect) {
-        // 1. setup any properties here
-        
-        // 2. call super.init(frame:)
         super.init(frame: frame)
         
-        // 3. Setup view from .xib file
         labelSetup()
         layerSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        // 1. setup any properties here
-        
-        // 2. call super.init(coder:)
         super.init(coder: aDecoder)
         
-        // 3. Setup view from .xib file
         labelSetup()
         layerSetup()
     }
@@ -67,43 +55,35 @@ class PercentageView: UIView {
     func layerSetup() {
         arc1?.removeFromSuperlayer()
         arc2?.removeFromSuperlayer()
-
+        
         let radius     = min(CGRectGetWidth(frame), CGRectGetHeight(frame)) / 2.0
         let center     = CGPointMake(radius, radius)
         var startAngle = -CGFloat(M_PI_2)
         let endAngle   = CGFloat(2.0 * M_PI) * percentage + startAngle
         var path       = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        
         arc1             = CAShapeLayer()
         arc1.path        = path.CGPath
         arc1.fillColor   = UIColor.clearColor().CGColor
         arc1.strokeColor = circleColor(percentage).CGColor
         arc1.lineWidth   = 4
         
-        if fabs(endAngle - startAngle) <= 1e-9 {
+        if fabs(endAngle - startAngle) <= 1e-10 {
             startAngle += CGFloat(2 * M_PI)
         }
         path = UIBezierPath(arcCenter: center, radius: radius, startAngle: endAngle, endAngle: startAngle, clockwise: true)
+        
         arc2             = CAShapeLayer()
         arc2.path        = path.CGPath
         arc2.fillColor   = UIColor.clearColor().CGColor
         arc2.strokeColor = UIColor.flatWhiteColorDark().CGColor
         arc2.lineWidth   = 4
         
-        arc1.hidden            = percentage == Constants.Pending
-        arc2.hidden            = percentage == Constants.Pending
-        percentageLabel.hidden = percentage == Constants.Pending
+        arc1.hidden = percentage == Constants.Pending
+        arc2.hidden = percentage == Constants.Pending
         
         layer.addSublayer(arc1)
         layer.addSublayer(arc2)
-        
-        //        layer.cornerRadius = frame.width / 2.0
-        //        layer.backgroundColor = UIColor.clearColor().CGColor
-        //        layer.shadowOpacity = 0.7
-        //        layer.shadowColor = UIColor.blackColor().CGColor
-        //        layer.shadowOffset = CGSizeMake(0.0, 2.0)
-        //        layer.shadowRadius = 2.0
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
     }
     
     // Only override drawRect: if you perform custom drawing.

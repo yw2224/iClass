@@ -13,23 +13,34 @@ import SwiftyJSON
 @objc(Question)
 class Question: NSManagedObject, JSONConvertible {
     
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
-        let question           = Question.MR_createEntity()
+    override func awakeFromInsert() {
+        content = ""
+        no = 0
+        question_id = ""
+        quiz_id = ""
+        type = ""
+        correctAnswer = NSSet()
+        options = NSSet()
+    }
+    
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
+        guard let question = Question.MR_createEntity() else {return nil}
         question.question_id   = json["_id"].string ?? ""
         question.content       = json["content"].string ?? ""
         question.type          = json["type"].string ?? ""
         question.options       = NSSet(array:
-            Option.objectFromJSONArray(json["options"].arrayValue))
+            Option.convertWithJSONArray(json["options"].arrayValue))
         question.correctAnswer = NSSet(array:
-            Choice.objectFromJSONArray(json["correctAnswer"].arrayValue))
+            Choice.convertWithJSONArray(json["correctAnswer"].arrayValue))
         return question
     }
     
     static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
         var ret = [Question]()
-        for (index, json) in jsonArray.enumerate() {
-            let question = objectFromJSONObject(json) as! Question
-            question.no = index
+        var cnt = 0
+        for json in jsonArray {
+            guard let question = convertWithJSON(json) as? Question else {continue}
+            question.no = cnt++
             ret.append(question)
         }
         return ret
