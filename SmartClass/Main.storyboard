@@ -1936,7 +1936,7 @@
         <scene sceneID="TpV-zI-dUF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZPv-eI-CBn" customClass="NavigationController" customModule="SmartClass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="课程" id="xOf-bL-vnK"/>
+                    <tabBarItem key="tabBarItem" title="课程" image="Course2" id="xOf-bL-vnK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xNj-Ab-dBb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1963,7 +1963,7 @@
         <scene sceneID="jJ3-vw-Dxn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ukZ-Mu-vYH" customClass="NavigationController" customModule="SmartClass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="测验" id="2Xt-bx-UA0"/>
+                    <tabBarItem key="tabBarItem" title="测验" image="Test2" id="2Xt-bx-UA0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="teV-h4-vVm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2686,7 +2686,7 @@
         <scene sceneID="X7x-j2-GHr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hys-r0-kce" customClass="NavigationController" customModule="SmartClass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="项目" id="arM-FH-Wp8"/>
+                    <tabBarItem key="tabBarItem" title="项目" image="Project2" id="arM-FH-Wp8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BLI-sb-FYk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

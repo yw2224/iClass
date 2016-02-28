@@ -6,8 +6,15 @@
 //  Copyright (c) 2015年 PKU netlab. All rights reserved.
 //
 
-import SVProgressHUD
 import UIKit
+
+
+
+
+
+
+
+import SVProgressHUD
 
 class MainHomeViewController: CloudAnimateTableViewController {
     
@@ -181,8 +188,9 @@ extension MainHomeViewController {
 // MARK: UITableViewDelegate
 extension MainHomeViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!
         disableTableView()
+        
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
         performSegueWithIdentifier(Constants.CourseOverviewSegueIdentifier, sender: cell)
     }
 }

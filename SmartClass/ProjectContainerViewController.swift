@@ -16,30 +16,14 @@ class ProjectContainerViewController: UIViewController {
     private struct Constants {
         static let GroupViewControllerSegueIdentifier = "Group View Controller Segue"
         static let ProblemViewControllerSegueIdentifier = "Problem View Controller Segue"
-        
     }
     
     // MARK: Inited in the prepareForSegue()
     var projectID: String!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         CoreDataManager.sharedInstance.saveInBackground()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func switchChildViewController(sender: UISegmentedControl) {

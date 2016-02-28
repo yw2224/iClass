@@ -17,7 +17,7 @@ class PercentageView: UIView {
     var percentage: CGFloat = Constants.Pending {
         didSet {
             percentageLabel.hidden = percentage == Constants.Pending
-            percentageLabel.text = "\(min(max(percentage * 100, 0), 100).format(".0f"))"
+            percentageLabel.text = "\(min(max(percentage * 100, 0), 100).format(".0"))%"
             setNeedsDisplay()
         }
     }

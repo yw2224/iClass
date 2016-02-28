@@ -200,10 +200,10 @@ extension NetworkManager {
                     return ("/course/\(courseID)/signin/\(signinID)/sign", Method.POST, params)
                 case .AttendCourse(let id, let token, let courseID):
                     let params = ["_id": id, "token": token]
-                    return ("/course/\(courseID)/join", Method.POST, params)
+                    return ("/course/\(courseID)/join", Method.PUT, params)
                 case .QuitCourse(let id, let token, let courseID):
                     let params = ["_id": id, "token": token]
-                    return ("/course/\(courseID)/quit", Method.POST, params)
+                    return ("/course/\(courseID)/quit", Method.PUT, params)
                 case .AllCourse(let id, let token):
                     let params = ["_id": id, "token": token]
                     return ("/course/list", Method.GET, params)

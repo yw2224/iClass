@@ -199,13 +199,15 @@ class ContentManager: NSObject {
                     if error == nil, let data = data where JSON(data)["success"].boolValue {
                         DDLogInfo("Querying sign info success")
                         let json = JSON(data)["signIn"]
+                        let total = json["total"].intValue
+                        let user = json["self"].intValue
                         let enable = json["enable"].boolValue
+                        
                         let uuid = json["last", "uuid"].string ?? ""
                         let signinID = json["last", "_id"].string ?? ""
-                        let total = json["total"].intValue
                         
                         block?(uuid: uuid, enable: enable,
-                            total: total, user: 0,
+                            total: total, user: user,
                             signinID: signinID, error: error)
                     } else {
                         DDLogInfo("Querying sign info failed: \(error)")
