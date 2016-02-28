@@ -40,6 +40,7 @@ class AvatarView: CustomView {
     }
     var capital: String = "N / A" {
         didSet {
+            guard !capital.isEmpty else { return }
             let string = CFStringCreateMutableCopy(nil, 0, capital)
             CFStringTransform(string, nil, kCFStringTransformToLatin, false)
             CFStringTransform(string, nil, kCFStringTransformStripCombiningMarks, false)

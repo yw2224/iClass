@@ -177,7 +177,7 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteQuestions(quizID)
                     
                     let json = JSON(data)
-                    let quizContent = Question.objectFromJSONArray(json["questions"].arrayValue) as! [Question]
+                    let quizContent = Question.convertWithJSONArray(json["questions"].arrayValue) as! [Question]
                     for question in quizContent {
                         question.quiz_id = quizID
                     }
@@ -369,7 +369,7 @@ class ContentManager: NSObject {
                         $0.project_id = projectID
                         $0.created = true
                     }
-                    let members = Group.convertWithJSONArray(json["member"].arrayValue) as! [Group]
+                    let members = Group.convertWithJSONArray(json["groups"].arrayValue) as! [Group]
                     members.forEach() {
                         $0.project_id = projectID
                         $0.created = false
@@ -422,7 +422,7 @@ class ContentManager: NSObject {
                     teammateList.forEach {
                         $0.course_id = courseID
                     }
-                    block?(teammateList: teammateList.sort{return $0.name < $1.name}, error: error)
+                    block?(teammateList: teammateList.sort{ $0.name < $1.name }, error: error)
                 } else {
                     DDLogInfo("Querying teammate list failed: \(error)")
                     block?(teammateList: CoreDataManager.sharedInstance.teammateList(courseID), error: error)

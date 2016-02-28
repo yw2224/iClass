@@ -381,12 +381,12 @@
 		F86CB0991BDDE722007CDD44 /* Custom views */ = {
 			isa = PBXGroup;
 			children = (
+				F86CB09C1BDDE769007CDD44 /* Avatar view */,
+				F86CB09D1BDDE78C007CDD44 /* Badge view */,
+				F86CB09F1BDDE7AF007CDD44 /* Choice view */,
 				F86CB0AF1BDDE93B007CDD44 /* Percentage view */,
 				F86CB0A81BDDE8A3007CDD44 /* Refresh content */,
 				F86CB0A21BDDE817007CDD44 /* Segue */,
-				F86CB09F1BDDE7AF007CDD44 /* Choice view */,
-				F86CB09D1BDDE78C007CDD44 /* Badge view */,
-				F86CB09C1BDDE769007CDD44 /* Avatar view */,
 				F86CB0961BDDE6EC007CDD44 /* iCarousel view */,
 			);
 			name = "Custom views";

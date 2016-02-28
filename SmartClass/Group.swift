@@ -20,13 +20,13 @@ class Group: NSManagedObject, JSONConvertible {
         name = ""
         project_id = ""
         status = GroupStatus.Pending.rawValue
-        creator = Member()
+        creator = nil
         members = NSSet()
     }
     
     static func convertWithJSON(json: JSON) -> NSManagedObject? {
         guard let group = Group.MR_createEntity() else {return nil}
-        group.group_id = json["group_id"].string ?? ""
+        group.group_id = json["_id"].string ?? ""
         if let creator = Member.MR_createEntity() {
             creator.name = json["creator", "name"].string ?? ""
             creator.realName = json["creator", "realName"].string ?? ""
@@ -35,9 +35,13 @@ class Group: NSManagedObject, JSONConvertible {
         }
         var members = [Member]()
         json["members"].arrayValue.forEach {
+            if $0["role"].stringValue == "creator" {
+                return
+            }
+            
             if let member = Member.MR_createEntity() {
-                member.name = ($0)["name"].string ?? ""
-                member.realName = ($0)["realName"].string ?? ""
+                member.name = ($0)["student", "name"].string ?? ""
+                member.realName = ($0)["student", "realName"].string ?? ""
                 member.status = ($0)["status"].int ?? GroupStatus.Pending.rawValue
                 members.append(member)
             }

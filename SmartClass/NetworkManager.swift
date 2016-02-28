@@ -159,7 +159,7 @@ extension NetworkManager {
         case AllCourse(String, String)
         case ProjectList(String, String, String)
         case GroupList(String, String, String)
-        case ProlemList(String, String, String)
+        case ProblemList(String, String, String)
         case TeammateList(String, String, String, String)
         case GroupInvite(String, String, String, String, String)
         case GroupAccept(String, String, String, String)
@@ -208,26 +208,26 @@ extension NetworkManager {
                     let params = ["_id": id, "token": token]
                     return ("/course/list", Method.GET, params)
                 case .ProjectList(let id, let token, let courseID):
-                    let params = ["_id": id, "token": token, "course_id": courseID]
-                    return ("/project/info", Method.GET, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/course/\(courseID)/project", Method.GET, params)
                 case .GroupList(let id, let token, let projectID):
-                    let params = ["_id": id, "token": token, "project_id": projectID]
-                    return ("/project/group/info", Method.GET, params)
-                case .ProlemList(let id, let token, let projectID):
-                    let params = ["_id": id, "token": token, "project_id": projectID]
-                    return ("/project/problem/info", Method.GET, params)
-                case .TeammateList(let id, let token, let courseID, let projectID):
-                    let params = ["_id": id, "token": token, "course_id": courseID, "project_id": projectID]
-                    return ("/project/students", Method.GET, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/project/\(projectID)/group", Method.GET, params)
+                case .ProblemList(let id, let token, let projectID):
+                    let params = ["_id": id, "token": token]
+                    return ("/project/\(projectID)/problem", Method.GET, params)
+                case .TeammateList(let id, let token, _, let projectID):
+                    let params = ["_id": id, "token": token]
+                    return ("/project/\(projectID)/students", Method.GET, params)
                 case .GroupInvite(let id, let token, let projectID, let problemID, let members):
-                    let params = ["_id": id, "token": token, "project_id": projectID, "problem_id": problemID, "members": members]
-                    return ("/project/group/invite", Method.POST, params)
+                    let params = ["_id": id, "token": token, "members": members]
+                    return ("/project/\(projectID)/problem/\(problemID)/group", Method.POST, params)
                 case .GroupAccept(let id, let token, let projectID, let groupID):
-                    let params = ["_id": id, "token": token, "project_id": projectID, "group_id": groupID]
-                    return ("/project/group/accept", Method.PUT, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/project/\(projectID)/group/\(groupID)/accept", Method.POST, params)
                 case .GroupDecline(let id, let token, let projectID, let groupID):
-                    let params = ["_id": id, "token": token, "project_id": projectID, "group_id": groupID]
-                    return ("/project/group/decline", Method.PUT, params)
+                    let params = ["_id": id, "token": token]
+                    return ("/project/\(projectID)/group/\(groupID)/decline", Method.POST, params)
                 }
             }()
             
@@ -348,7 +348,7 @@ extension NetworkManager {
     
     func problemList(userID: String?, token: String?, projectID: String?, callback: NetworkCallbackBlock) {
         guard !NetworkManager.existPendingOperation(Constants.ProblemListKey) else {return}
-        let request = NetworkManager.Manager.request(Router.ProlemList(userID ?? "", token ?? "", projectID ?? ""))
+        let request = NetworkManager.Manager.request(Router.ProblemList(userID ?? "", token ?? "", projectID ?? ""))
         NetworkManager.executeRequestWithKey(Constants.ProblemListKey, request: request, callback: callback)
     }
     

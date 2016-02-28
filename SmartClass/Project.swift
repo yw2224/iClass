@@ -23,7 +23,7 @@ class Project: NSManagedObject, JSONConvertible {
     
     static func convertWithJSON(json: JSON) -> NSManagedObject? {
         guard let project = Project.MR_createEntity() else {return nil}
-        project.project_id = json["project_id"].string ?? ""
+        project.project_id = json["_id"].string ?? ""
         project.name = json["name"].string ?? ""
         project.from = NSDate(timeIntervalSince1970: (json["from"].double ?? 0) / 1000.0)
         project.to   = NSDate(timeIntervalSince1970: (json["to"].double ?? 0) / 1000.0)

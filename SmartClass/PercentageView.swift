@@ -82,8 +82,8 @@ class PercentageView: UIView {
         arc1.hidden = percentage == Constants.Pending
         arc2.hidden = percentage == Constants.Pending
         
-        layer.addSublayer(arc1)
         layer.addSublayer(arc2)
+        layer.addSublayer(arc1)
     }
     
     // Only override drawRect: if you perform custom drawing.

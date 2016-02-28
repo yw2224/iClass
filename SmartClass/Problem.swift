@@ -26,7 +26,7 @@ class Problem: NSManagedObject, JSONConvertible {
     
     static func convertWithJSON(json: JSON) -> NSManagedObject? {
         guard let problem = Problem.MR_createEntity() else {return nil}
-        problem.problem_id = json["problem_id"].string ?? ""
+        problem.problem_id = json["_id"].string ?? ""
         problem.name = json["name"].string ?? ""
         problem.deskription = json["description"].string ?? ""
         problem.maxGroupNum = json["maxGroupNum"].int ?? 0

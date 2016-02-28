@@ -30,7 +30,7 @@
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Refresh" translatesAutoresizingMaskIntoConstraints="NO" id="ITU-tp-Cou">
-                    <rect key="frame" x="291" y="281.5" width="20" height="39"/>
+                    <rect key="frame" x="291" y="281" width="20" height="39"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="2LG-Bu-1vZ"/>
                         <constraint firstAttribute="width" secondItem="ITU-tp-Cou" secondAttribute="height" multiplier="10:11" id="96d-qq-EDs"/>

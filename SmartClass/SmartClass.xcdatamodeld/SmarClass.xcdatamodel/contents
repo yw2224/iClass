@@ -35,7 +35,7 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="project_id" attributeType="String" syncable="YES"/>
         <attribute name="status" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="creator" maxCount="1" deletionRule="Cascade" destinationEntity="Member" inverseName="group" inverseEntity="Member" syncable="YES"/>
+        <relationship name="creator" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Member" inverseName="group" inverseEntity="Member" syncable="YES"/>
         <relationship name="members" toMany="YES" deletionRule="Cascade" destinationEntity="Member" inverseName="group2" inverseEntity="Member" syncable="YES"/>
     </entity>
     <entity name="LectureTime" representedClassName="LectureTime" syncable="YES">

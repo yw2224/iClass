@@ -178,7 +178,7 @@ extension MainHomeViewController {
             "Computer Networks",
             courseTitle: course.name,
             teacherName: course.teacherNames,
-            badgeNum: 100
+            badgeNum: 0
         )
         return cell
     }

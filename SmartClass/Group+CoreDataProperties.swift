@@ -19,7 +19,7 @@ extension Group {
     @NSManaged var name: String
     @NSManaged var project_id: String
     @NSManaged var status: NSNumber
-    @NSManaged var creator: Member
+    @NSManaged var creator: Member!
     @NSManaged var members: NSSet
 
 }

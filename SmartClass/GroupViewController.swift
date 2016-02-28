@@ -153,7 +153,7 @@ extension GroupViewController {
         if section == 0 && createdGroupList.count > 0 {
             return "我创建的小组"
         } else if section == 1 && invitedGroupList.count > 0 {
-            return "邀请我的小组"
+            return "小组列表"
         }
         return nil
     }

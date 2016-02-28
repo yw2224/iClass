@@ -35,7 +35,7 @@ class Question: NSManagedObject, JSONConvertible {
         return question
     }
     
-    static func objectFromJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
+    static func convertWithJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
         var ret = [Question]()
         var cnt = 0
         for json in jsonArray {
