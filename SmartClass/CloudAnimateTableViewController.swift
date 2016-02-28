@@ -9,7 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 
-protocol RefreshControlAnimationDelegate : class {
+protocol RefreshControlAnimationDelegate {
     func animationDidStart()
     func animationDidEnd()
 }

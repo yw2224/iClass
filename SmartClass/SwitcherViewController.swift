@@ -28,7 +28,7 @@ class SwitcherViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        guard let identifier = childViewControllerSegueIdentifier.first else {return}
+        guard let identifier = childViewControllerSegueIdentifier.first else { return }
         performSegueWithIdentifier(identifier, sender: self)
     }
     
@@ -39,10 +39,14 @@ class SwitcherViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        guard let index = childViewControllerSegueIdentifier.indexOf(segue.identifier ?? "") else {return}
+        guard
+            let id = segue.identifier,
+            let index = childViewControllerSegueIdentifier.indexOf(id)
+        else { return }
+        
         let dest = segue.destinationViewController
-        if childViewControllers.count > 0 {
-            swapFromViewController(childViewControllers.first!, toViewController: dest, atIndex: index)
+        if let first = childViewControllers.first {
+            swapFromViewController(first, toViewController: dest, atIndex: index)
         } else {
             addChildViewController(dest)
             dest.view.frame = view.frame
@@ -80,7 +84,7 @@ extension SwitcherViewController: Switcher {
     func switchChildViewControllerAtIndex(index: Int) {
         guard index >= 0
             && index < childViewControllerSegueIdentifier.count
-            && currentIndex != index else {return}
+            && currentIndex != index else { return }
         performSegueWithIdentifier(childViewControllerSegueIdentifier[index], sender: self)
         currentIndex = index
     }

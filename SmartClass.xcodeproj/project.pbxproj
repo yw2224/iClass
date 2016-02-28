@@ -111,6 +111,7 @@
 		F83E6C231C81C4A3007AD7D1 /* JSONConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C221C81C4A3007AD7D1 /* JSONConvertible.swift */; };
 		F83E6C261C81DDF1007AD7D1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C251C81DDF1007AD7D1 /* Login.swift */; };
 		F83E6C2B1C81E5F8007AD7D1 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83E6C2A1C81E5F8007AD7D1 /* TextCell.swift */; };
+		F8568BF11C82847D00827CBB /* SidePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8568BF01C82847D00827CBB /* SidePanel.swift */; };
 		F86CB0911BDDE5FD007CDD44 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = F86CB0901BDDE5FD007CDD44 /* iCarousel.m */; };
 		F86CB0B61BDDEACD007CDD44 /* SmartClass.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F86CB0B41BDDEACD007CDD44 /* SmartClass.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -236,6 +237,7 @@
 		F83E6C221C81C4A3007AD7D1 /* JSONConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONConvertible.swift; path = SmartClass/JSONConvertible.swift; sourceTree = "<group>"; };
 		F83E6C251C81DDF1007AD7D1 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Login.swift; path = SmartClass/Login.swift; sourceTree = "<group>"; };
 		F83E6C2A1C81E5F8007AD7D1 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextCell.swift; path = SmartClass/TextCell.swift; sourceTree = "<group>"; };
+		F8568BF01C82847D00827CBB /* SidePanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SidePanel.swift; path = SmartClass/SidePanel.swift; sourceTree = "<group>"; };
 		F86CB08E1BDDE5E4007CDD44 /* SmartClass-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SmartClass-Bridging-Header.h"; path = "SmartClass/SmartClass-Bridging-Header.h"; sourceTree = "<group>"; };
 		F86CB08F1BDDE5FD007CDD44 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		F86CB0901BDDE5FD007CDD44 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				F83E6C251C81DDF1007AD7D1 /* Login.swift */,
+				F8568BF01C82847D00827CBB /* SidePanel.swift */,
 			);
 			name = "View Controller Model";
 			sourceTree = "<group>";
@@ -955,6 +958,7 @@
 				F82377CD1BDDE1AB0062603F /* CourseDescriptionViewController.swift in Sources */,
 				F823780E1BDDE1AC0062603F /* User.swift in Sources */,
 				F82378061BDDE1AC0062603F /* SwitcherViewController.swift in Sources */,
+				F8568BF11C82847D00827CBB /* SidePanel.swift in Sources */,
 				F83E6C0C1C81BD9C007AD7D1 /* UIView.swift in Sources */,
 				F82378021BDDE1AC0062603F /* Splash1ViewController.swift in Sources */,
 				F82377C71BDDE1AB0062603F /* ContentManager.swift in Sources */,

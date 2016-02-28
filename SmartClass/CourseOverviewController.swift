@@ -141,7 +141,7 @@ extension CourseOverviewController: UITableViewDataSource {
             cell.setupWithImage(
                 "Computer Networks",
                 title: course.name,
-                teacherNames: course.teacherNameString,
+                teacherNames: course.teacherNames,
                 term: course.term)
             return cell
         case Constants.SignIn.0:

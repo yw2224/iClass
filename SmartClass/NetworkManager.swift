@@ -10,7 +10,7 @@ import Alamofire
 import SwiftyJSON
 
 /// NetworkCallbackBlock consists the data and an optional network error type for block execution
-typealias NetworkCallbackBlock = (JSON?, NetworkErrorType?) -> Void
+typealias NetworkCallbackBlock = (AnyObject?, NetworkErrorType?) -> Void
 
 enum NetworkErrorType: ErrorType, CustomStringConvertible {
     
@@ -99,7 +99,7 @@ class NetworkManager: NSObject {
         // Executing request
         request.responseJSON { (_, res, result) in
             let statusCode = res?.statusCode ?? 404
-            var data: JSON?
+            var data: AnyObject?
             var error: NetworkErrorType?
             
             // Remove the item the caching dictionary
@@ -107,7 +107,7 @@ class NetworkManager: NSObject {
             
             // Deal with statusCode and JSON from server
             if result.isSuccess && (statusCode >= 200 && statusCode < 300) {
-                data = JSON(result.value)
+                data = result.value
             } else {
                 if result.isFailure {
                     error = NetworkErrorType.NetworkUnreachable("\(result.error)")

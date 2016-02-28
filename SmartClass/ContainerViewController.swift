@@ -22,8 +22,20 @@ protocol CenteralViewDelegate: class {
 
 class ContainerViewController: UIViewController {
     
-    var targetPosition: CGFloat!
     var isAnimating = false
+    var gestureDisabled = false
+    
+    var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    var centerNavigationController: NavigationController!
+    var mainHomeViewController: MainHomeViewController!
+    var userSidebarViewController: SidePanelViewController!
+
+    var targetPosition: CGFloat {
+        get {
+            return CGRectGetWidth(view.frame) * Constants.SidePanelOffsetRatio
+        }
+    }
     var scaleRatio: CGFloat {
         get {
             return UIDevice.currentDevice().orientation.isPortrait.boolValue ?
@@ -31,7 +43,7 @@ class ContainerViewController: UIViewController {
                 Constants.LandscapeScaleRatio
         }
     }
-    var currentState: SlideOutState = .BothCollapsed {
+    var currentState = SlideOutState.BothCollapsed {
         didSet {
             showShadowForMainHomeViewController(currentState != .BothCollapsed)
             if currentState == .BothCollapsed {
@@ -42,12 +54,6 @@ class ContainerViewController: UIViewController {
             }
         }
     }
-    var centerNavigationController: NavigationController!
-    var mainHomeViewController: MainHomeViewController!
-    var userSidebarViewController: SidePanelViewController!
-    
-    var panGestureRecognizer: UIPanGestureRecognizer!
-    var gestureDisabled = false
     
     private struct Constants {
         static let NavigationControllerIdentifier  = "Course Navigation View Controller"
@@ -64,11 +70,9 @@ class ContainerViewController: UIViewController {
         static let LogoutCellIndexPathRow          = 1
     }
     
-    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        targetPosition = CGRectGetWidth(view.frame) * Constants.SidePanelOffsetRatio
         centerNavigationController = UIStoryboard.initViewControllerWithIdentifier(Constants.NavigationControllerIdentifier) as! NavigationController
         mainHomeViewController = centerNavigationController.viewControllers[0] as! MainHomeViewController
         mainHomeViewController.delegate = self
@@ -123,11 +127,9 @@ extension ContainerViewController: CenteralViewDelegate {
         if currentState == .LeftPanelExpanded {
             toggleLeftPanel(false)
         }
-        // Safe Code
         // animateLeftPanel(shouldExpand: false, animate: false)
     }
     
-    // Helpers
     func addLeftPanelViewController() {
         if userSidebarViewController == nil {
             userSidebarViewController = UIStoryboard.initViewControllerWithIdentifier(Constants.SidebarViewControllerIdentifier) as! SidePanelViewController
@@ -152,23 +154,13 @@ extension ContainerViewController: CenteralViewDelegate {
         gestureDisabled = true
         if (shouldExpand) {
             currentState = .LeftPanelExpanded
-            animateCenterPanelXPosition(ratio: 1.0, animate: animate) {
-                [weak self] in
-                if $0 {
-                    self?.isAnimating = false
-                    self?.gestureDisabled = false
-                    block?()
-                }
-            }
-        } else {
-            animateCenterPanelXPosition(ratio: 0, animate: animate) {
-                [weak self] in
-                if $0 {
-                    self?.currentState = .BothCollapsed
-                    self?.isAnimating = false
-                    self?.gestureDisabled = false
-                    block?()
-                }
+        }
+        animateCenterPanelXPosition(ratio: shouldExpand ? 1.0 : 0, animate: animate) {
+            [weak self] in
+            if $0 {
+                self?.isAnimating = false
+                self?.gestureDisabled = false
+                block?()
             }
         }
     }
@@ -197,7 +189,7 @@ extension ContainerViewController: CenteralViewDelegate {
         let scaleTransform = CGAffineTransformMakeScale(viewScaleRatio, viewScaleRatio)
         let translationTransform = CGAffineTransformMakeTranslation(targetPosition * ratio, 0)
         centerNavigationController.view.transform = CGAffineTransformConcat(translationTransform, scaleTransform)
-        userSidebarViewController?.view.alpha = Constants.OriginAlpha + (1 - Constants.OriginAlpha) * ratio
+        userSidebarViewController.view.alpha = Constants.OriginAlpha + (1 - Constants.OriginAlpha) * ratio
         view.backgroundColor = UIColor(white: Constants.OriginBackgroundColor + (1 - Constants.OriginBackgroundColor) * ratio, alpha: 1.0)
     }
 }
@@ -220,18 +212,19 @@ extension ContainerViewController: SidePanelDelegate {
 extension ContainerViewController: UIGestureRecognizerDelegate {
     
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        let left2Right = (recognizer.velocityInView(view).x > 0)
+        let left2Right = recognizer.velocityInView(view).x > 0
         let x = centerNavigationController.view.frame.origin.x
         let ratio: CGFloat = {
-            let moveX = recognizer.translationInView(self.view).x
-            let offset = self.currentState == .BothCollapsed ? moveX : -moveX
-            let progress = max(min(offset, self.targetPosition), 0) / self.targetPosition
-            return self.currentState == .BothCollapsed ? progress : 1 - progress
+            let moveX = recognizer.translationInView(view).x
+            let offset = currentState == .BothCollapsed ? moveX : -moveX
+            let progress = max(min(offset, targetPosition), 0) / targetPosition
+            return currentState == .BothCollapsed ? progress : 1 - progress
         }()
-
+        
         if (x >= targetPosition && left2Right && currentState == .LeftPanelExpanded)
             || (x <= 0 && !left2Right && currentState == .BothCollapsed)
-            || gestureDisabled {
+            || gestureDisabled
+            || (recognizer.state != .Began && !isAnimating){
             return
         }
         

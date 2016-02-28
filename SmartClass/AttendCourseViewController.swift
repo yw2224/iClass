@@ -193,7 +193,7 @@ extension AttendCourseViewController {
         cell.setupUIWithImage(
             "Computer Networks",
             courseTitle: course.name,
-            teacherName: course.teacherNameString)
+            teacherName: course.teacherNames)
         return cell
     }
     

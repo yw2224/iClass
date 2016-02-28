@@ -10,18 +10,18 @@ import Foundation
 
 extension NSDateFormatter {
     
-    class func yearFormatter() -> NSDateFormatter {
-        return formatter("yyyy-MM-dd")
+    func yearFormatter() -> NSDateFormatter {
+        return defaultFormatter("yyyy-MM-dd")
     }
     
-    class func monthFormmatter() -> NSDateFormatter {
-        return formatter("MM-dd")
+    func monthFormmatter() -> NSDateFormatter {
+        return defaultFormatter("MM-dd")
     }
     
-    private func formatter(format: String) -> NSDateFormatter {
-        let formatter = NSDateFormatter()
-        formatter.locale = NSCalendar.currentCalendar().locale
-        formatter.dateFormat = format
-        return fommatter
+    private func defaultFormatter(format: String) -> NSDateFormatter {
+        let f = NSDateFormatter()
+        f.locale = NSCalendar.currentCalendar().locale
+        f.dateFormat = format
+        return f
     }
 }

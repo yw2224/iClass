@@ -64,8 +64,8 @@ struct Login {
     ]
     
     private let placeholders = [
-        LoginStatus.Register: ["请输入您的学号", "请输入您的用户名", "请输入密码"],
-        LoginStatus.Login: ["", "请输入学号", "请输入密码"]
+        LoginStatus.Register: ["学号", "用户名", "密码"],
+        LoginStatus.Login: ["", "学号", "密码"]
     ]
     
     private let contents = [
@@ -78,8 +78,10 @@ struct Login {
     ]
     
     private let keyboardType = [
-        LoginStatus.Register: [UIKeyboardType.NumberPad, UIKeyboardType.Default, UIKeyboardType.Default],
-        LoginStatus.Login: [UIKeyboardType.Default, UIKeyboardType.NumberPad, UIKeyboardType.Default],
+        LoginStatus.Register:
+            [UIKeyboardType.NumberPad, UIKeyboardType.Default, UIKeyboardType.Default],
+        LoginStatus.Login:
+            [UIKeyboardType.Default, UIKeyboardType.NumberPad, UIKeyboardType.Default],
     ]
     
     private let indexes = [
@@ -113,7 +115,7 @@ struct Login {
             let content = contents[status]?[indexPath.row],
             let keyboardType = keyboardType[status]?[indexPath.row]
             where indexPath.row < isSecure.count
-            else {return nil}
+        else { return nil }
         return (cellID, placeholder, content, isSecure[indexPath.row], keyboardType)
     }
     
@@ -122,12 +124,12 @@ struct Login {
     }
     
     func validate(status: LoginStatus, tableView: UITableView) throws -> (String, String, String) {
-        guard let validators = validators[status], indexes = indexes[status] where validators.count == indexes.count else {throw LoginErrorType.UnknownError}
+        guard let validators = validators[status], indexes = indexes[status] where validators.count == indexes.count else { throw LoginErrorType.UnknownError }
         
         var result = [String]()
         for (i, v) in validators.enumerate() {
-            guard let textSetup = tableView.cellForRowAtIndexPath(indexes[i]) as? TextSetup
-                else {throw LoginErrorType.UnknownError}
+            guard let textSetup = tableView.cellForRowAtIndexPath(indexes[i]) as? TextCellSetup
+                else { throw LoginErrorType.UnknownError }
             
             let content = textSetup.content.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             if content.isEmpty {

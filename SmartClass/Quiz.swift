@@ -13,7 +13,7 @@ import SwiftyJSON
 @objc(Quiz)
 class Quiz: NSManagedObject, JSONConvertible {
     
-    static func objectFromJSONObject(json: JSON) -> NSManagedObject? {
+    static func convertWithJSON(json: JSON) -> NSManagedObject? {
         guard let quiz = Quiz.MR_createEntity() else {return nil}
         quiz.course_id  = json["course_id"].string ?? ""
         quiz.quiz_id    = json["_id"].string ?? ""

@@ -63,7 +63,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        tableView.userInteractionEnabled = true
+        enableTableView()
         attendOrQuitCourse.startGlow(UIColor.flatYellowColor())
     }
     
@@ -73,17 +73,6 @@ class MainHomeViewController: CloudAnimateTableViewController {
         CoreDataManager.sharedInstance.saveInBackground()
         attendOrQuitCourse.stopGlow()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: Navigations
-//    override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
-//        let crossDisappearSegue = CrossDisappear(identifier: identifier, source: fromViewController, destination: toViewController)
-//        return  crossDisappearSegue
-//    }
     
     @IBAction func unwindToHomePage(segue: UIStoryboardSegue) {
         // Force refresh the data
@@ -115,17 +104,8 @@ class MainHomeViewController: CloudAnimateTableViewController {
         }
 	}
     
-    // MARK: Actions
     @IBAction func toggleLeftPanel(sender: UIBarButtonItem) {
         delegate?.toggleLeftPanel(true)
-    }
-    
-    func disableTableView() {
-        tableView.userInteractionEnabled = false
-    }
-    
-    func enableTableView() {
-        tableView.userInteractionEnabled = true
     }
     
     func retrieveCourseList() {
@@ -145,12 +125,19 @@ class MainHomeViewController: CloudAnimateTableViewController {
         }
     }
     
+    func disableTableView() {
+        tableView.userInteractionEnabled = false
+    }
+    
+    func enableTableView() {
+        tableView.userInteractionEnabled = true
+    }
+    
     func attendCourseButtonTapped(sender: UIButton) {
         performSegueWithIdentifier(Constants.AttendCourseSegueIdentifier, sender: sender)
     }
 }
 
-// MARK: RefreshControlHook
 extension MainHomeViewController {
     
     override func animationDidStart() {
@@ -183,8 +170,8 @@ extension MainHomeViewController {
         cell.setupWithImage(
             "Computer Networks",
             courseTitle: course.name,
-            teacherName: course.teacherNameString,
-            badgeNum: 0
+            teacherName: course.teacherNames,
+            badgeNum: 100
         )
         return cell
     }
@@ -195,7 +182,7 @@ extension MainHomeViewController {
 extension MainHomeViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)!
-        tableView.userInteractionEnabled = false
+        disableTableView()
         performSegueWithIdentifier(Constants.CourseOverviewSegueIdentifier, sender: cell)
     }
 }

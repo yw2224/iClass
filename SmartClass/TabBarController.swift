@@ -18,7 +18,6 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     
-    // MARK: rewrite this
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         let dest = viewController.contentViewController()
         

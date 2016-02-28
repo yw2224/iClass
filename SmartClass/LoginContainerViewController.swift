@@ -27,11 +27,9 @@ class LoginContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up page view controller
         setupSplashViewController()
     }
     
-    // MARK: Addtional UI elements & helpers
     func setupSplashViewController() {
         splashPageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         splashPageViewController.dataSource = self
@@ -77,7 +75,8 @@ extension LoginContainerViewController: UIPageViewControllerDelegate {
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard completed,
-            let current = pageViewController.viewControllers?.first as? SplashViewController else { return }
+            let current = pageViewController.viewControllers?.first as? SplashViewController
+        else { return }
         pageControl.currentPage = current.index
     }
 }

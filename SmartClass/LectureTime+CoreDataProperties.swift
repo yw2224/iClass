@@ -14,8 +14,8 @@ import CoreData
 
 extension LectureTime {
 
-    @NSManaged var endTime: NSNumber!
-    @NSManaged var startTime: NSNumber!
-    @NSManaged var weekday: NSNumber!
+    @NSManaged var endTime: NSNumber
+    @NSManaged var startTime: NSNumber
+    @NSManaged var weekday: NSNumber
 
 }

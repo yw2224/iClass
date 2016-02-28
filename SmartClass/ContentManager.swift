@@ -132,7 +132,7 @@ class ContentManager: NSObject {
                     
                     // 2. parse the json from server, and insert them into local database
                     let json = JSON(data)
-                    let courseList = Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course]
+                    let courseList = Course.convertWithJSONArray(json["courses"].arrayValue) as! [Course]
                     // 3. execute the block after sorting
                     block?(courseList: courseList.sort{return $0.name < $1.name},
                         error: error)
@@ -157,7 +157,7 @@ class ContentManager: NSObject {
                     let predicate = NSPredicate(format: "course_id = %@", courseID)
                     CoreDataManager.sharedInstance.deleteQuizWithinPredicate(predicate)
 
-                    let quizList = Quiz.objectFromJSONArray(json["quizzes"].arrayValue) as! [Quiz]
+                    let quizList = Quiz.convertWithJSONArray(json["quizzes"].arrayValue) as! [Quiz]
                     block?(quizList: quizList.sort {return $0.to.compare($1.to) == .OrderedDescending}, error: error)
                 } else {
                     DDLogInfo("Querying quiz list failed: \(error)")
@@ -224,7 +224,7 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteAnswers(quizID)
                     
                     let json = JSON(data)
-                    let answerList = Answer.objectFromJSONArray(json["details"].arrayValue) as! [Answer]
+                    let answerList = Answer.convertWithJSONArray(json["details"].arrayValue) as! [Answer]
                     for answer in answerList {
                         answer.quiz_id = quizID
                     }
@@ -253,7 +253,7 @@ class ContentManager: NSObject {
                 CoreDataManager.sharedInstance.deleteAnswers(quizID)
                 
                 let json = JSON(data)
-                let answerList = Answer.objectFromJSONArray(json["status"].arrayValue) as! [Answer]
+                let answerList = Answer.convertWithJSONArray(json["status"].arrayValue) as! [Answer]
                 for answer in answerList {
                     answer.quiz_id = quizID
                 }
@@ -318,7 +318,7 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteAllCourses()
                     
                     let json = JSON(data)
-                    let courseList = Course.objectFromJSONArray(json["courses"].arrayValue) as! [Course]
+                    let courseList = Course.convertWithJSONArray(json["courses"].arrayValue) as! [Course]
                     block?(courseList: courseList.sort{return $0.name < $1.name},
                         error: error)
                 } else {
@@ -339,7 +339,7 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteProjectList(courseID)
                     
                     let json = JSON(data)
-                    let projectList = Project.objectFromJSONArray(json["projects"].arrayValue) as! [Project]
+                    let projectList = Project.convertWithJSONArray(json["projects"].arrayValue) as! [Project]
                     projectList.forEach {
                         $0.course_id = courseID
                     }
@@ -362,12 +362,12 @@ class ContentManager: NSObject {
                     
                     let json = JSON(data)
                     let groupID = json["group_id"].string
-                    let creator = Group.objectFromJSONArray(json["creator"].arrayValue) as! [Group]
+                    let creator = Group.convertWithJSONArray(json["creator"].arrayValue) as! [Group]
                     creator.forEach() {
                         $0.project_id = projectID
                         $0.created = true
                     }
-                    let members = Group.objectFromJSONArray(json["member"].arrayValue) as! [Group]
+                    let members = Group.convertWithJSONArray(json["member"].arrayValue) as! [Group]
                     members.forEach() {
                         $0.project_id = projectID
                         $0.created = false
@@ -394,7 +394,7 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteProblemList(projectID)
                     
                     let json = JSON(data)
-                    let problemList = Problem.objectFromJSONArray(json["problems"].arrayValue) as! [Problem]
+                    let problemList = Problem.convertWithJSONArray(json["problems"].arrayValue) as! [Problem]
                     problemList.forEach {
                         $0.project_id = projectID
                     }
@@ -416,7 +416,7 @@ class ContentManager: NSObject {
                     CoreDataManager.sharedInstance.deleteTeammateList(courseID)
                     
                     let json = JSON(data)
-                    let teammateList = Teammate.objectFromJSONArray(json["students"].arrayValue) as! [Teammate]
+                    let teammateList = Teammate.convertWithJSONArray(json["students"].arrayValue) as! [Teammate]
                     teammateList.forEach {
                         $0.course_id = courseID
                     }

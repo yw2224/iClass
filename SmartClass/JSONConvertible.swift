@@ -18,11 +18,10 @@ extension JSONConvertible {
     
     static func convertWithJSONArray(jsonArray: [JSON]) -> [NSManagedObject] {
         var ret = [NSManagedObject]()
-        jsonArray.map({ convertWithJSON($0) }).forEach({
+        jsonArray.map{ convertWithJSON($0) }.forEach{
             guard let obj = $0 else {return}
             ret.append(obj)
-        })
-        
+        }
         return ret
     }
     

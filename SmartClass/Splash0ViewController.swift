@@ -27,7 +27,6 @@ class Splash0ViewController: SplashViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         appendTopSpaceLayoutConstraint(imageViewTop)
     }
     
@@ -43,14 +42,9 @@ class Splash0ViewController: SplashViewController {
         clockWidth.constant = Constants.widthRatio * imageBounds.width
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 
-// AnimationControl 
+// MARK: AnimationControl 
 extension Splash0ViewController {
     override func setupAnimation() {
         let leftBorder = NSValue(CATransform3D: CATransform3DMakeRotation(-CGFloat(M_PI) / 10, 0, 0, 1))

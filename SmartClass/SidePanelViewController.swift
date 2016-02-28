@@ -15,57 +15,34 @@ import UIKit
 
 class SidePanelViewController: UIViewController {
     
-    @IBOutlet weak var personalSettingsTableView: UITableView! {
+    var sidePanel = SidePanel()
+    weak var delegate: SidePanelDelegate?
+    
+    @IBOutlet weak var tableView: UITableView! {
         didSet {
-            personalSettingsTableView.tableFooterView = UIView(frame: CGRectZero)
+            tableView.tableFooterView = UIView(frame: CGRectZero)
         }
     }
     
-    private struct Constants {
-        static let settingsTableViewText = [
-//            "个人中心", "清理缓存", "夜间模式", "意见反馈",
-            "关于", "注销账户"
-        ]
-        static let settingsTableViewIcon = [
-//            "PersonalCenter", "CleanCache", "NightMode", "Feedback",
-            "About", "Logout"
-        ]
-        static let CellHeight: CGFloat                     = 40.0
-        static let PersonalSettingsTableViewCellIdentifier = "SettingsCell"
-    }
-    
-    // MARK: Inited in the prepareForSegue()
-    weak var delegate: SidePanelDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 }
 
 extension SidePanelViewController: UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  Constants.settingsTableViewText.count
+        return sidePanel.count()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.PersonalSettingsTableViewCellIdentifier) as! PersonalSettingsTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(sidePanel.cellID) as! PersonalSettingsTableViewCell
         
-        cell.configureWithImage(Constants.settingsTableViewIcon[indexPath.row], settingLabelText: Constants.settingsTableViewText[indexPath.row])
+        cell.configureWithImageName(sidePanel.iconName(indexPath.row),
+            text: sidePanel.text(indexPath.row))
         return cell
     }
     
 }
 
 extension SidePanelViewController: UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return Constants.CellHeight
-    }
     
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)!
@@ -78,8 +55,8 @@ class PersonalSettingsTableViewCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var settingLabel: UILabel!
     
-    func configureWithImage(image: String, settingLabelText: String) {
-        iconImageView.image = UIImage(named: image)
-        settingLabel.text = settingLabelText
+    func configureWithImageName(name: String, text: String) {
+        iconImageView.image = UIImage(named: name)
+        settingLabel.text = text
     }
 }

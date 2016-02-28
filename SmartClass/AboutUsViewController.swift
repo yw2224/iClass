@@ -12,41 +12,27 @@ class AboutUsViewController: UIViewController {
 
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var carousel: iCarousel!
+    
+    private struct Constants {
+        static let Items = 5
+        static func index(x : Int) -> Int {
+            return max(min(x, Items), Items - 1)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         carousel.type = .Rotary
         carousel.pagingEnabled = true
         carousel.bounces = false
     }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
 extension AboutUsViewController: iCarouselDataSource {
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
-        return 5
+        return Constants.Items
     }
     
     func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView
@@ -61,15 +47,15 @@ extension AboutUsViewController: iCarouselDataSource {
                 CGRectGetHeight(self.view.frame) * 0.70))
 
         }
-        retView.setupWithIndex(min(max(index, 0), 4))
+        retView.setupWithIndex(Constants.index(index))
         return retView
     }
 }
 
 extension AboutUsViewController: iCarouselDelegate {
-    func carousel(carousel: iCarousel, valueForOption option: iCarouselOption, withDefault value: CGFloat) -> CGFloat
-    {
-        if (option == .Spacing) {
+    
+    func carousel(carousel: iCarousel, valueForOption option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
+        if option == .Spacing {
             return value * 1.3
         }
         return value
@@ -77,13 +63,13 @@ extension AboutUsViewController: iCarouselDelegate {
     
     
     func carouselDidEndScrollingAnimation(carousel: iCarousel) {
-        pageControl.currentPage = min(max(carousel.currentItemIndex, 0), 4)
+        pageControl.currentPage = Constants.index(carousel.currentItemIndex)
     }
     
     func carousel(carousel: iCarousel, didSelectItemAtIndex index: Int) {
         // Open his/her homepage
         UIApplication.sharedApplication().openURL(NSURL(string:
-            GlobalConstants.HomePageLinks[min(max(index, 0), 4)])!)
+            GlobalConstants.HomePageLinks[Constants.index(index)])!)
     }
     
 }

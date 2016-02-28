@@ -15,7 +15,9 @@ class Course: NSManagedObject {
 
     var teacherNames: String {
         get {
-            guard let teacherNames = teacherName.allObjects as? [TeacherName] where teacherNames.count > 0 else {return "无"}
+            guard let teacherNames = teacherName.allObjects as? [TeacherName]
+                where teacherNames.count > 0
+            else { return "无" }
             return teacherNames.map{ $0.name }.sort(<).joinWithSeparator(" ")
         }
     }
@@ -28,7 +30,7 @@ extension Course: JSONConvertible {
         endDate = NSDate()
         finalExam = NSDate()
         introduction = ""
-        maxStudentsNumber = ""
+        maxStudentsNumber = 0
         midterm = NSDate()
         name = ""
         startDate = NSDate()

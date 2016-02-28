@@ -65,7 +65,7 @@ class ProjectContainerViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if let switcher = segue.destinationViewController as? ProjectSwitcherViewController {
             switcherViewController = switcher
-            switcherViewController.segueIdentifiers = [
+            switcherViewController.childViewControllerSegueIdentifier = [
                 Constants.GroupViewControllerSegueIdentifier,
                 Constants.ProblemViewControllerSegueIdentifier
             ]

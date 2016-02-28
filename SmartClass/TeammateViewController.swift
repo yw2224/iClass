@@ -140,7 +140,7 @@ extension TeammateViewController {
             }
         } else {
             guard
-                icvc.teammates.indexOf({return $0.encryptID == teammate.encypted_id}) == nil,
+                icvc.teammates.indexOf({ $0.encryptID == teammate.encypted_id }) == nil,
                 let groupSize = icvc.groupSize where groupSize > icvc.teammates.count
             else {return}
             icvc.teammates.append((teammate.name, teammate.realName, teammate.encypted_id))

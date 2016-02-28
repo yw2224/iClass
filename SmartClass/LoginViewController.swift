@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     let loginModel = Login()
     var keyboardAppeared = false {
         didSet {
-            guard (oldValue != keyboardAppeared) else {return}
+            guard (oldValue != keyboardAppeared) else { return }
             var offset = loginTableView.contentOffset
             offset.y = keyboardAppeared ? Constants.HeaderHeight : 0
             loginTableView.setContentOffset(offset, animated: true)
@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     }
     var status = LoginStatus.Login {
         didSet {
-            loginTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: oldValue ? .Left : .Right)
+            loginTableView?.reloadSections(NSIndexSet(index: 0), withRowAnimation: oldValue ? .Left : .Right)
             setupButton()
         }
     }
@@ -38,13 +38,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var blankViewHeight: NSLayoutConstraint!
     
     private struct Constants {
-        static let LoginToMainHomeSegueIdentifier             = "Login To MainHome Segue"
-        static let HeaderHeight: CGFloat                      = 100.0
-        static let FooterHeight: CGFloat                      = 72.0
-        static let LoginTableViewHeight: CGFloat              = 304
-        static let LoginButtonHeight: CGFloat                 = 34.0
-        static let StatusBarHeight: CGFloat                   = 20.0
-        static let SpaceRatio: CGFloat                        = 2.5
+        static let CourseListSegueIdentifier     = "Course List Segue"
+        static let HeaderHeight: CGFloat         = 100.0
+        static let FooterHeight: CGFloat         = 72.0
+        static let LoginTableViewHeight: CGFloat = 304
+        static let LoginButtonHeight: CGFloat    = 34.0
+        static let StatusBarHeight: CGFloat      = 20.0
+        static let SpaceRatio: CGFloat           = 2.5
     }
     
     override func viewDidLoad() {
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController {
         
         // MARK: Auto login
         if shouldAutoLogin {
-            shouldAutoLogin = false // Only auto login for at most 1 time
+            shouldAutoLogin = false // Only auto login for at most one time
             loginAction(loginButton)
         }
     }
@@ -93,8 +93,8 @@ class LoginViewController: UIViewController {
     }
     
     func setupButton() {
-        loginButton.setTitle("\(status)", forState: .Normal)
-        toggleButton.setTitle("课堂助手账号\(!status)", forState: .Normal)
+        loginButton?.setTitle("\(status)", forState: .Normal)
+        toggleButton?.setTitle("课堂助手账号\(!status)", forState: .Normal)
     }
     
     func scrollUpTableView() {
@@ -122,25 +122,15 @@ class LoginViewController: UIViewController {
         do {
             let tuple =  try loginModel.validate(status, tableView: loginTableView)
             
-            view.endEditing(true)
+            dismissKeyboard()
             disableLoginButton()
             let block: (NetworkErrorType?) -> Void = {
                 (error) in
                 
                 self.enableLoginButton()
-                if let error = error {
-                    if case .NetworkForbiddenAccess = error {
-                        if self.status == LoginStatus.Login {
-                            SVProgressHUD.showErrorWithStatus(GlobalConstants.PasswordWrongPrompt)
-                        } else {
-                            SVProgressHUD.showErrorWithStatus(GlobalConstants.DuplicateUserName)
-                        }
-                    } else if case .NetworkUnreachable = error {
-                        SVProgressHUD.showErrorWithStatus(GlobalConstants.LoginOrRegisterErrorPrompt)
-                    } else {
-                        SVProgressHUD.showErrorWithStatus(GlobalConstants.ServerErrorPrompt)
-                    }
-                } else {
+                self.errorHandler(error, serverErrorPrompt: GlobalConstants.ServerErrorPrompt, forbiddenAccessPrompt: self.status ? GlobalConstants.PasswordWrongPrompt : GlobalConstants.DuplicateUserName)
+                
+                if error == nil {
                     if self.isRuntimeInit {
                         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                     } else {
@@ -183,7 +173,6 @@ class LoginViewController: UIViewController {
     }
 }
 
-// MARK: tableview datasource & delegate
 extension LoginViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

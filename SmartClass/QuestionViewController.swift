@@ -241,7 +241,7 @@ extension QuestionViewController: UITableViewDelegate {
             if let answer = self.answerDict[questionID] as? Answer {
                 return answer
             }
-            let answer = Answer.MR_createEntity()
+            let answer = Answer.MR_createEntity()!
             answer.quiz_id = quizID
             answer.question_id = questionID
             return answer
@@ -251,7 +251,7 @@ extension QuestionViewController: UITableViewDelegate {
         case .BlankFilling, .ShortAnswer:
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? TextTableViewCell {
                 answerEntity.originAnswer = NSSet(array:
-                    Choice.objectFromStringArray([cell.textField.text ?? ""]))
+                    Choice.convertWithStringArray([cell.textField.text ?? ""]))
             }
         case .SingleChoice, .TrueFalse, .MultipleChoice:
             var array = [String]()
@@ -263,7 +263,7 @@ extension QuestionViewController: UITableViewDelegate {
                 }
             }
             answerEntity.originAnswer = NSSet(array:
-                Choice.objectFromStringArray(array))
+                Choice.convertWithStringArray(array))
         }
         answerDict[questionID] = answerEntity
     }
