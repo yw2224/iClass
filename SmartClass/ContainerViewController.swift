@@ -8,10 +8,29 @@
 
 import UIKit
 
-enum SlideOutState {
+enum SlideOutState : BooleanType, BooleanLiteralConvertible {
     
     case BothCollapsed
     case LeftPanelExpanded
+    
+    init(booleanLiteral value: Bool) {
+        if value {
+            self = .LeftPanelExpanded
+        } else {
+            self = .BothCollapsed
+        }
+    }
+
+    var boolValue : Bool {
+        get {
+            switch self {
+            case .LeftPanelExpanded:
+                return true
+            case .BothCollapsed:
+                return false
+            }
+        }
+    }
 }
 
 protocol CenteralViewDelegate: class {
@@ -43,14 +62,17 @@ class ContainerViewController: UIViewController {
                 Constants.LandscapeScaleRatio
         }
     }
+    
+    // set this var to be true before sliding out the side panel,
+    // and set this var to be false after sliding out the side panel.
     var currentState = SlideOutState.BothCollapsed {
         didSet {
-            showShadowForMainHomeViewController(currentState != .BothCollapsed)
-            if currentState == .BothCollapsed {
+            showShadowForMainHomeViewController(currentState.boolValue)
+            if currentState {
+                mainHomeViewController.disableTableView()
+            } else {
                 removeLeftPanelViewController()
                 mainHomeViewController.enableTableView()
-            } else {
-                mainHomeViewController.disableTableView()
             }
         }
     }
@@ -114,7 +136,7 @@ class ContainerViewController: UIViewController {
 extension ContainerViewController: CenteralViewDelegate {
     
     func toggleLeftPanel(animate: Bool) {
-        let notAlreadyExpanded = (currentState != .LeftPanelExpanded)
+        let notAlreadyExpanded = !(currentState)
         
         if notAlreadyExpanded {
             addLeftPanelViewController()
@@ -124,7 +146,7 @@ extension ContainerViewController: CenteralViewDelegate {
     }
     
     func collapseLeftPanel() {
-        if currentState == .LeftPanelExpanded {
+        if currentState {
             toggleLeftPanel(false)
         }
         // animateLeftPanel(shouldExpand: false, animate: false)
@@ -153,11 +175,14 @@ extension ContainerViewController: CenteralViewDelegate {
         isAnimating = true
         gestureDisabled = true
         if (shouldExpand) {
-            currentState = .LeftPanelExpanded
+            currentState = true
         }
         animateCenterPanelXPosition(ratio: shouldExpand ? 1.0 : 0, animate: animate) {
             [weak self] in
             if $0 {
+                if !shouldExpand {
+                    self?.currentState = false
+                }
                 self?.isAnimating = false
                 self?.gestureDisabled = false
                 block?()
@@ -177,11 +202,7 @@ extension ContainerViewController: CenteralViewDelegate {
     }
     
     func showShadowForMainHomeViewController(shouldShowShadow: Bool) {
-        if shouldShowShadow {
-            centerNavigationController.view.layer.shadowOpacity = 0.8
-        } else {
-            centerNavigationController.view.layer.shadowOpacity = 0.0
-        }
+        centerNavigationController.view.layer.shadowOpacity = shouldShowShadow ? 0.8 : 0
     }
     
     func partialAnimation(ratio: CGFloat) {
@@ -216,13 +237,13 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
         let x = centerNavigationController.view.frame.origin.x
         let ratio: CGFloat = {
             let moveX = recognizer.translationInView(view).x
-            let offset = currentState == .BothCollapsed ? moveX : -moveX
+            let offset = currentState ? -moveX : moveX
             let progress = max(min(offset, targetPosition), 0) / targetPosition
-            return currentState == .BothCollapsed ? progress : 1 - progress
+            return currentState ? 1 - progress : progress
         }()
         
-        if (x >= targetPosition && left2Right && currentState == .LeftPanelExpanded)
-            || (x <= 0 && !left2Right && currentState == .BothCollapsed)
+        if (x >= targetPosition && left2Right && currentState)
+            || (x <= 0 && !left2Right && !currentState)
             || gestureDisabled
             || (recognizer.state != .Began && !isAnimating){
             return
@@ -231,14 +252,14 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
         switch recognizer.state {
         case .Began:
             isAnimating = true
-            if currentState == .BothCollapsed && left2Right {
+            if !currentState && left2Right {
                 addLeftPanelViewController()
                 showShadowForMainHomeViewController(true)
             }
         case .Changed:
             partialAnimation(ratio)
         case .Ended:
-            if currentState == .BothCollapsed {
+            if !currentState {
                 if ratio > 0.5 {
                     proceedCenteralViewControllerOffset()
                 } else {
@@ -259,51 +280,30 @@ extension ContainerViewController: UIGestureRecognizerDelegate {
     
     func proceedCenteralViewControllerOffset() {
         gestureDisabled = true
-        if currentState == .BothCollapsed {
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
-                self.partialAnimation(1.0)
-                }) { [weak self] in
-                    if $0 {
-                        self?.currentState = .LeftPanelExpanded
-                        self?.gestureDisabled = false
-                        self?.isAnimating = false
-                    }
-            }
-        } else {
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
-                self.partialAnimation(0)
-                }) { [weak self] in
-                    if $0 {
-                        self?.currentState = .BothCollapsed
-                        self?.gestureDisabled = false
-                        self?.isAnimating = false
-                    }
-            }
+        let ratio : CGFloat = currentState ? 0 : 1.0
+        let state = SlideOutState(booleanLiteral: !currentState)
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
+            self.partialAnimation(ratio)
+            }) { [weak self] in
+                if $0 {
+                    self?.currentState = state
+                    self?.gestureDisabled = false
+                    self?.isAnimating = false
+                }
         }
     }
 
     func restoreCenteralViewControllerState() {
         gestureDisabled = true
-        if currentState == .BothCollapsed {
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
-                self.partialAnimation(0)
+        let ratio : CGFloat = currentState ? 1.0 : 0
+        let state = SlideOutState(booleanLiteral: currentState.boolValue)
+        UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
+            self.partialAnimation(ratio)
             }) { [weak self] in
                 if $0 {
-                    self?.currentState = .BothCollapsed
+                    self?.currentState = state
                     self?.gestureDisabled = false
                     self?.isAnimating = false
                 }
-            }
-        } else {
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8,initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
-                self.partialAnimation(1.0)
-            }) { [weak self] in
-                if $0 {
-                    self?.currentState = .LeftPanelExpanded
-                    self?.gestureDisabled = false
-                    self?.isAnimating = false
-                }
-            }
-        }
-    }
+        }    }
 }

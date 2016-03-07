@@ -16,7 +16,7 @@ class AboutUsViewController: UIViewController {
     private struct Constants {
         static let Items = 5
         static func index(x : Int) -> Int {
-            return max(min(x, Items), Items - 1)
+            return max(min(x, Items), 0)
         }
     }
     

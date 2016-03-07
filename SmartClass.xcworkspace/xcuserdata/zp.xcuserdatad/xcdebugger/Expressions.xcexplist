@@ -3,6 +3,22 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "AboutUsViewController.carousel(iCarousel, viewForItemAtIndex : Int, reusingView : UIView?) -&gt; UIView:AboutUsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Constants.index(index)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Quiz.objectFromJSONObject(JSON) -&gt; NSManagedObject?:Quiz.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json[&quot;correct&quot;].intValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ContainerViewController.partialAnimation(CGFloat) -&gt; ():ContainerViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -15,14 +31,6 @@
          <PersistentStrings>
             <PersistentString
                value = "group.creator">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static Quiz.objectFromJSONObject(JSON) -&gt; NSManagedObject?:Quiz.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "json[&quot;correct&quot;].intValue">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
