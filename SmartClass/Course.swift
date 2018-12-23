@@ -42,7 +42,7 @@ extension Course: JSONConvertible {
     
     static func convertWithJSON(json: JSON) -> NSManagedObject? {
         guard let course = Course.MR_createEntity() else {return nil}
-        course.course_id         = json["_id"].string ?? ""
+        course.course_id         = json["course_id"].string ?? ""
         course.name              = json["name"].string ?? ""
         course.introduction      = json["introduction"].string ?? ""
         course.midterm           = NSDate(timeIntervalSince1970: (json["midterm"].double ?? 0) / 1000.0)
@@ -56,6 +56,7 @@ extension Course: JSONConvertible {
             LectureTime.convertWithJSONArray(json["lectureTime"].arrayValue))
         course.teacherName      = NSSet(array:
             TeacherName.convertWithJSONArray(json["teacherNames"].arrayValue))
+        course.joinedaGroup = false
         return course
     }
 }

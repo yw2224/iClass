@@ -24,6 +24,14 @@ class SidePanelViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var userName: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        userName.text = "用户名：" + ContentManager.UserName!
+        userName.layer.borderColor = UIColor.whiteColor().CGColor
+        userName.layer.cornerRadius = 6
+    }
 }
 
 extension SidePanelViewController: UITableViewDataSource {

@@ -80,7 +80,7 @@ class ProjectViewController: CloudAnimateTableViewController {
                     SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
                 }
             }
-            self.projectList = projectList
+            //self.projectList = projectList//????
             self.animationDidEnd()
         }
     }

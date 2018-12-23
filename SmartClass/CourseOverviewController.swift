@@ -1,11 +1,3 @@
-//
-//  CourseOverviewController.swift
-//  SmartClass
-//
-//  Created by PengZhao on 15/4/21.
-//  Copyright (c) 2015年 PKU netlab. All rights reserved.
-//
-
 import CocoaLumberjack
 import CoreBluetooth
 import CoreLocation
@@ -22,16 +14,16 @@ class CourseOverviewController: UIViewController {
     var signinID: String!
     var isSigninEnabled = false
     var isBeaconFound = false
-
+    
     // MARK: Inited in the prepare for segue
-	var courseID: String!
+    var courseID: String!
     
     @IBOutlet weak var courseOverviewTableview: UITableView! {
         didSet {
             courseOverviewTableview.tableFooterView = UIView(frame: CGRectZero)
         }
     }
-	
+    
     private struct Constants {
         static let Header = (0, "Header Cell")
         static let SignIn = (1, "SignIn Cell")
@@ -114,7 +106,7 @@ class CourseOverviewController: UIViewController {
         guard let cell = courseOverviewTableview.cellForRowAtIndexPath(Constants.SignInCellIndexPath) as? SignInTableViewCell else {return}
         cell.activityIndicator.startAnimating()
         cell.signInButton.enabled = false
-            
+        
         if cell.tag == Constants.RefreshTag {
             retrieveSigninInfo()
         } else {
@@ -201,7 +193,7 @@ extension CourseOverviewController : CLLocationManagerDelegate {
         
         let beaconUUID   = NSUUID(UUIDString: uuid)!
         let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
-            identifier: beaconIdentifier)
+                                          identifier: beaconIdentifier)
         beaconRegion.notifyEntryStateOnDisplay = true
         
         locationManager = CLLocationManager()
@@ -228,31 +220,31 @@ extension CourseOverviewController : CLLocationManagerDelegate {
         }
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
     }
-        
+    
     func locationManager(manager: CLLocationManager,
-            didRangeBeacons beacons: [CLBeacon],
-            inRegion region: CLBeaconRegion) {
-                guard let beacon = beacons.first where
-                    (beacon.proximity != .Unknown && beacon.proximity != lastProximity)
-                    else {lastProximity = .Unknown; return;}
-                DDLogInfo("Beacon found")
-                isBeaconFound = true
-                lastProximity = beacon.proximity
+                         didRangeBeacons beacons: [CLBeacon],
+                                         inRegion region: CLBeaconRegion) {
+        guard let beacon = beacons.first where
+            (beacon.proximity != .Unknown && beacon.proximity != lastProximity)
+            else {lastProximity = .Unknown; return;}
+        DDLogInfo("Beacon found")
+        isBeaconFound = true
+        lastProximity = beacon.proximity
     }
     
     func locationManager(manager: CLLocationManager,
-        didEnterRegion region: CLRegion) {
-            DDLogInfo("Enter region")
-            manager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
-            manager.startUpdatingLocation()
-            sendLocalNotificationWithMessage("发现iBeacon，快打开App签到吧~", playSound: false)
+                         didEnterRegion region: CLRegion) {
+        DDLogInfo("Enter region")
+        manager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
+        manager.startUpdatingLocation()
+        sendLocalNotificationWithMessage("发现iBeacon，快打开App签到吧~", playSound: false)
     }
-        
+    
     func locationManager(manager: CLLocationManager,
-            didExitRegion region: CLRegion) {
-            DDLogInfo("Exit region")
-            manager.stopRangingBeaconsInRegion(region as! CLBeaconRegion)
-            manager.stopUpdatingLocation()
+                         didExitRegion region: CLRegion) {
+        DDLogInfo("Exit region")
+        manager.stopRangingBeaconsInRegion(region as! CLBeaconRegion)
+        manager.stopUpdatingLocation()
     }
 }
 
@@ -264,9 +256,9 @@ class HeaderTableViewCell: UITableViewCell {
     @IBOutlet weak var termLabel: UILabel!
     
     func setupWithImage(imageName: String? = "DefaultBookCover",
-        title: String,
-        teacherNames: String,
-        term: String) {
+                        title: String,
+                        teacherNames: String,
+                        term: String) {
         bookCover.image = UIImage(named: imageName ?? "DefaultBookCover")
         titleLabel.text = title
         teacherNameLabel.text = teacherNames
@@ -303,7 +295,7 @@ class SignInTableViewCell: UITableViewCell {
 }
 
 class OverviewTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var overviewLabel: UILabel!
     
     func setupWithText(text: String) {
@@ -313,18 +305,18 @@ class OverviewTableViewCell: UITableViewCell {
 
 class ExaminationTableViewCell: UITableViewCell {
     
-	@IBOutlet weak var midTermLabel: UILabel!
+    @IBOutlet weak var midTermLabel: UILabel!
     @IBOutlet weak var finalExamLabel: UILabel!
     
-	func setupCell(midterm: NSDate, finalExam: NSDate){
+    func setupCell(midterm: NSDate, finalExam: NSDate){
         let timeFormatter: NSDateFormatter = {
             let f = NSDateFormatter()
             f.locale = NSLocale(localeIdentifier: "zh_CN")
             f.dateFormat = "yyyy-MM-dd"
             return f
         }()
-
-		midTermLabel.text = "期中考试： " + timeFormatter.stringFromDate(midterm)
-		finalExamLabel.text = "期末考试： " + timeFormatter.stringFromDate(finalExam)
-	}
+        
+        midTermLabel.text = "期中考试： " + timeFormatter.stringFromDate(midterm)
+        finalExamLabel.text = "期末考试： " + timeFormatter.stringFromDate(finalExam)
+    }
 }

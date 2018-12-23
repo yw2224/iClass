@@ -11,7 +11,7 @@ import CoreData
 import SwiftyJSON
 
 @objc(Project)
-class Project: NSManagedObject, JSONConvertible {
+class Project: NSManagedObject {
 
     override func awakeFromInsert() {
         course_id = ""
@@ -21,13 +21,20 @@ class Project: NSManagedObject, JSONConvertible {
         to = NSDate()
     }
     
-    static func convertWithJSON(json: JSON) -> NSManagedObject? {
-        guard let project = Project.MR_createEntity() else {return nil}
-        project.project_id = json["_id"].string ?? ""
-        project.name = json["name"].string ?? ""
-        project.from = NSDate(timeIntervalSince1970: (json["from"].double ?? 0) / 1000.0)
-        project.to   = NSDate(timeIntervalSince1970: (json["to"].double ?? 0) / 1000.0)
-        return project
+    static func convertWithJSON(jsonArray: [JSON]) -> [Project] {
+        
+        var ret = [Project]()
+        for json in jsonArray {
+            guard let project = Project.MR_createEntity() else {continue}
+            project.project_id = json["_id"].string ?? ""
+            project.name = json["name"].string ?? ""
+            project.from = NSDate(timeIntervalSince1970: (json["from"].double ?? 0) / 1000.0)
+            project.to   = NSDate(timeIntervalSince1970: (json["to"].double ?? 0) / 1000.0)
+            ret.append(project)
+        }
+        
+        return ret
+
     }
     
 }

@@ -24,9 +24,17 @@ class NavigationController: UINavigationController {
         }
         
         navigationBar.barTintColor = GlobalConstants.BarTintColor
+        navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+}
+
+extension UINavigationController {
+    override public func awakeFromNib() {
+        navigationBar.barTintColor = GlobalConstants.BarTintColor
+        navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
     }
 }

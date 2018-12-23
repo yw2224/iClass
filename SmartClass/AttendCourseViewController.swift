@@ -31,7 +31,6 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         
         if let superView = navigationController?.view {
@@ -49,7 +48,7 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = Constants.CourseCellHeight
         tableView.setEditing(true, animated: true)
-        
+       
         retrieveCourseList()
     }
     
@@ -72,9 +71,19 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     
     @IBAction func attendCourse(sender: UIBarButtonItem) {
         SVProgressHUD.showWithStatus(GlobalConstants.AttendingCoursePrompt)
+        print("print!")
+        attendCourseAtSection(0, row: 0)
+        self.navigationController?.popViewControllerAnimated(true)
+        //performSegueWithIdentifier("SegueToMainHomeTabBarPage", sender: UIBarButtonItem.self)
+        SVProgressHUD.dismiss()
+        //self.dismissViewControllerAnimated(true, completion: nil)
+    }/*
+    @IBAction func attendCourse(sender: UIBarButtonItem) {
+        SVProgressHUD.showWithStatus(GlobalConstants.AttendingCoursePrompt)
+        print("print!")
         attendCourseAtSection(0, row: 0)
         
-    }
+    }*/
     
     func attendCourseAtSection(section: Int, row: Int) {
         if section >= 2 {
@@ -87,7 +96,8 @@ class AttendCourseViewController: CloudAnimateTableViewController {
             attendCourseAtSection(section + 1, row: 0)
             return
         }
-        
+        print("print!")
+        print(courseList)
         let block: (NetworkErrorType?) -> Void = {
             error in
             if error == nil {
@@ -109,12 +119,14 @@ class AttendCourseViewController: CloudAnimateTableViewController {
         }
         if section == 0 {
             let course = attendCourse[row]
-            ContentManager.sharedInstance.attendCourse(course.course_id, block: block)
-        } else if section == 1 {
+            
+            ContentManager.sharedInstance.attendCourse(course.course_id, userName: ContentManager.UserName!, block: block)
+            return
+        } /*else if section == 1 {
             let course = courseList[row]
             ContentManager.sharedInstance.quitCourse(course.course_id, block: block)
-        }
-        
+        }*/
+        return
     }
     
     // MARK: - Navigation
@@ -122,7 +134,8 @@ class AttendCourseViewController: CloudAnimateTableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Navigation back
-        if let _ = segue.destinationViewController as? MainHomeViewController {
+        print("reach here! preparing for segue...")
+        if let _ = segue.destinationViewController as? mainHomeTabBarViewController {//???MainHomeViewController
             courseList.forEach { // Delete extra entities
                 $0.MR_deleteEntity()
             }
@@ -199,7 +212,7 @@ extension AttendCourseViewController {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "已选课程"
+            return "新增课程"
         } else if section == 1 {
             return "备选课程"
         }
@@ -225,6 +238,7 @@ extension AttendCourseViewController {
         destinationIndexPath.section == 0 ? attendCourse.insert(course, atIndex: destinationIndexPath.row) : courseList.insert(course, atIndex: destinationIndexPath.row)
         
         tableView.reloadData()
+        
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

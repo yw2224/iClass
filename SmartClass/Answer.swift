@@ -22,10 +22,12 @@ class Answer: NSManagedObject, JSONConvertible {
 
     static func convertWithJSON(json: JSON) -> NSManagedObject? {
         guard let answer = Answer.MR_createEntity() else {return nil}
-        answer.question_id  = json["question"].string ?? json["_id"].string ?? ""
+        answer.question_id  = json["question"].string ?? json["_id"].string ?? "" //???
         answer.score        = json["score"].int ?? 0
         answer.originAnswer = NSSet(array:
             Choice.convertWithJSONArray(json["originAnswer"].arrayValue))
+        print(answer)
+        print("reach here!")
         return answer
     }
     
@@ -34,9 +36,10 @@ class Answer: NSManagedObject, JSONConvertible {
 class AnswerJSON {
     var question_id  = ""
     var originAnswer = [String]()
-    
-    init (question_id: String, originAnswer: [String]) {
+    var score = 0 //??
+    init (question_id: String, originAnswer: [String], score: Int) {
         self.question_id  = question_id
         self.originAnswer = originAnswer
+        self.score = score
     }
 }

@@ -11,7 +11,8 @@ import ChameleonFramework
 extension UITabBarItem {
     
     class func config() {
-        UITabBarItem.appearance().setTitleTextAttributes([                NSForegroundColorAttributeName : UIColor.flatWatermelonColor()
+        UITabBarItem.appearance().setTitleTextAttributes([                NSForegroundColorAttributeName : UIColor.flatForestGreenColor()
         ], forState: .Selected)
     }
 }
+

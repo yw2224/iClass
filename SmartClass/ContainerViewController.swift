@@ -47,7 +47,8 @@ class ContainerViewController: UIViewController {
     var panGestureRecognizer: UIPanGestureRecognizer!
     
     var centerNavigationController: NavigationController!
-    var mainHomeViewController: MainHomeViewController!
+    //var mainHomeViewController: MainHomeViewController!
+    var mainHomeViewController: mainHomeTabBarViewController!
     var userSidebarViewController: SidePanelViewController!
 
     var targetPosition: CGFloat {
@@ -82,6 +83,7 @@ class ContainerViewController: UIViewController {
         static let SidebarViewControllerIdentifier = "User Siddebar View Controller"
         static let AboutUsSegueIdentifier          = "About Us Segue"
         static let UnwindToLoginSegueIdentifier    = "Unwind to Login Segue"
+        static let PersonalSegueIdentifier         = "Personal Center Segue"
         static let SidePanelOffsetRatio: CGFloat   = 0.46
         static let PortraitScaleRatio: CGFloat     = 0.90
         static let LandscapeScaleRatio: CGFloat    = 0.85
@@ -89,15 +91,16 @@ class ContainerViewController: UIViewController {
         static let OriginBackgroundColor: CGFloat  = 0.40
         
         static let AboutUsCellIndexPathRow         = 0
-        static let LogoutCellIndexPathRow          = 1
+        static let PersonalCenterIndenxPathRow     = 1
+        static let LogoutCellIndexPathRow          = 2
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         centerNavigationController = UIStoryboard.initViewControllerWithIdentifier(Constants.NavigationControllerIdentifier) as! NavigationController
-        mainHomeViewController = centerNavigationController.viewControllers[0] as! MainHomeViewController
-        mainHomeViewController.delegate = self
+        mainHomeViewController = centerNavigationController.viewControllers[0] as! mainHomeTabBarViewController //!!
+        //mainHomeViewController.delegate = self
         
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
@@ -157,7 +160,7 @@ extension ContainerViewController: CenteralViewDelegate {
             userSidebarViewController = UIStoryboard.initViewControllerWithIdentifier(Constants.SidebarViewControllerIdentifier) as! SidePanelViewController
             userSidebarViewController.delegate = self
             
-            userSidebarViewController.view.backgroundColor = UIColor.clearColor()
+            //userSidebarViewController.view.backgroundColor = UIColor.clearColor()
             view.insertSubview(userSidebarViewController!.view, atIndex: 0)
             addChildViewController(userSidebarViewController!)
             userSidebarViewController.didMoveToParentViewController(self)
@@ -220,10 +223,12 @@ extension ContainerViewController: SidePanelDelegate {
     func sidePanelTappedAtRow(row: Int, sender: AnyObject) {
         animateLeftPanel(shouldExpand: false, animate: true) {
             if row == Constants.AboutUsCellIndexPathRow {
-                self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)
+                /*self.mainHomeViewController.performSegueWithIdentifier(Constants.AboutUsSegueIdentifier, sender: sender)*/
             } else if row == Constants.LogoutCellIndexPathRow {
                 ContentManager.sharedInstance.truncateData()
                 self.mainHomeViewController.performSegueWithIdentifier(Constants.UnwindToLoginSegueIdentifier, sender: sender)
+            } else if row == Constants.PersonalCenterIndenxPathRow {//??
+                self.mainHomeViewController.performSegueWithIdentifier(Constants.PersonalSegueIdentifier, sender: sender)
             }
         }
     }

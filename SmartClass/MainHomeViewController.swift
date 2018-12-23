@@ -7,14 +7,8 @@
 //
 
 import UIKit
-
-
-
-
-
-
-
 import SVProgressHUD
+//class MainHomeViewController{}
 
 class MainHomeViewController: CloudAnimateTableViewController {
     
@@ -24,7 +18,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
         didSet {
             courseID = courseList.map {
                 return $0.course_id
-            }
+            }//把courseList中每个元素的.course_id赋给courseID对应的项
             tableView.reloadData()
         }
     }
@@ -116,6 +110,7 @@ class MainHomeViewController: CloudAnimateTableViewController {
     }
     
     func retrieveCourseList() {
+        print("1")
         ContentManager.sharedInstance.courseList {
             (courseList, error) in
             if let error = error {
@@ -130,6 +125,25 @@ class MainHomeViewController: CloudAnimateTableViewController {
             self.courseList = courseList
             self.animationDidEnd()
         }
+        
+        print("2")
+        ContentManager.sharedInstance.studentinfo (ContentManager.UserID,block: {
+            (userInfoList, error) in
+            if let error = error {
+                if case .NetworkUnauthenticated = error {
+                    self.promptLoginViewController()
+                } else if case .NetworkServerError = error {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.CourseListRetrieveErrorPrompt)
+                } else {
+                    SVProgressHUD.showErrorWithStatus(GlobalConstants.RetrieveErrorPrompt)
+                }
+            }
+            //self.userInfoList = userInfoList
+            self.animationDidEnd()
+            
+            
+        })
+        print("3")
     }
     
     func disableTableView() {

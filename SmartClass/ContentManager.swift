@@ -50,6 +50,15 @@ class ContentManager: NSObject {
         }
     }
     
+    static var realName: String? {
+        get {
+            return try? keychain.getString("realName") ?? ""
+        }
+        set {
+            setKeyChainItem(newValue, forKey: "realName")
+        }
+    }
+    
     static var Password: String? {
         get {
             return try? keychain.getString("password") ?? ""
@@ -87,7 +96,7 @@ class ContentManager: NSObject {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Login success")
                     let json = JSON(data)
-                    self?.saveConfidential(name, userID: json["_id"].stringValue, token: json["token"].stringValue, password: password)
+                    self?.saveConfidential(name, userID: json["_id"].stringValue, token: json["token"].stringValue, password: password,realName: ContentManager.realName!)
                 } else {
                     DDLogInfo("Login failed: \(error)")
                 }
@@ -104,7 +113,7 @@ class ContentManager: NSObject {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Register success")
                     let json = JSON(data)
-                    self?.saveConfidential(name, userID: json["_id"].stringValue, token: json["token"].stringValue, password: password)
+                    self?.saveConfidential(name, userID: json["_id"].stringValue, token: json["token"].stringValue, password: password,realName: realName)
                 } else {
                     DDLogInfo("Register failed: \(error)")
                 }
@@ -112,10 +121,320 @@ class ContentManager: NSObject {
             }
         }
     }
+    
+    
+    func studentinfo(userID: String?,block:((userInfoList: [User],error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.studentInfo(ContentManager.UserID,token:ContentManager.Token) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("student info list success:\(data)")
+                    let json = JSON(data)
+                    self.saveConfidential(json["name"].stringValue, userID: json["_id"].stringValue, token: ContentManager.Token!, password:ContentManager.Password!,realName: json["realName"].stringValue)
+                    
+                } else {
+                    DDLogInfo("student info list failed: \(error)")
+                    
+                }
+                
+            }
+        }
+    }
+    /*
+    func showGroup(groupID: String?, block:((myGroup: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.showGroup(ContentManager.UserID, token: ContentManager.Token, groupID: groupID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("show group success:\(data)")
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(myGroup: json, error: error)
+                    
+                } else {
+                    DDLogInfo("show group failed: \(error)")
+                    
+                    block?(myGroup: "", error: error)
+                }
+            }
+        }
+    }*/
+    
+    
+    func showRequest(courseID: String?, block:((myGroup: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.showRequest(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data //where JSON(data)["success"].boolValue
+                {
+                    DDLogInfo("show request success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(myGroup: json, error: error)
+                    
+                } else {
+                    DDLogInfo("show request failed: \(error)")
+                    block?(myGroup: "", error: error)
+                }
+            }
+        }
+    }
+    
+    func showGroup(userID: String?, token: String?, groupID: String?, block:((myGroup: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.showGroup(ContentManager.UserID, token: ContentManager.Token, groupID: groupID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data //where JSON(data)["success"].boolValue
+                {
+                    DDLogInfo("show group success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(myGroup: json, error: error)
+                    
+                } else {
+                    DDLogInfo("show group failed: \(error)")
+                    block?(myGroup: "", error: error)
+                }
+            }
+        }
+    }
+
+    
+    func applyGroup(groupID: String?, block:((newGroup: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.applyGroup(ContentManager.UserID, token: ContentManager.Token, groupID: groupID, memberName: ContentManager.UserName) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data// where JSON(data)["success"].boolValue
+                {
+                    DDLogInfo("apply group success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(newGroup: json, error: error)
+                    
+                } else {
+                    DDLogInfo("apply group failed: \(error)")
+                    
+                    block?(newGroup: "", error: error)
+                }
+            }
+        }
+    }
+
+    
+    func createGroup(userID: String?, token: String?, courseID: String?, leaderName: String?, groupName: String?, block:((newGroup: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.createGroup(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, leaderName: leaderName, groupName: groupName) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("create group success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(newGroup: json, error: error)
+                    
+                } else {
+                    DDLogInfo("create group failed: \(error)")
+                    block?(newGroup: "", error: error)
+                }
+            }
+        }
+    }
+    
+    func newPost(userID: String?, token: String?, name: String?, courseID: String?, title: String?, content: String?, postType: String?, img:String?, block:((newPost: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.newPost(ContentManager.UserID, token: ContentManager.Token, name: name, courseID: courseID, title: title, content: content, postType: postType,img:img) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("post detail success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(newPost: json, error: error)
+                    
+                } else {
+                    DDLogInfo("post detail failed: \(error)")
+                    block?(newPost: "", error: error)
+                }
+            }
+        }
+    }
+    
+    func postDetail(userID: String?, token: String?, postID: String?, block:((postDetail: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.postDetail(userID, token: token, postID: postID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("post detail success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(postDetail: json, error: error)
+                    
+                } else {
+                    DDLogInfo("post detail failed: \(error)")
+                    block?(postDetail: "", error: error)
+                }
+            }
+        }
+    }
+    
+    func exList(userID: String?, token: String?, courseID: String?, type: String?, page: NSNumber?, block:((exList: [EX], error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.exList(userID, token: token, courseID: courseID, type: type, page: page) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("forum-ex list success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    
+                    let exList = EX.convertWithJSON(json["postings"].arrayValue) as! [EX]
+                    //print("lessonList:")
+                    //print(lessonList)
+                    exList.forEach {
+                        $0.courseID = courseID
+                    }
+                    print(CoreDataManager.sharedInstance.exList(courseID!))
+                    block?(exList: exList, error: error)
+                    
+                } else {
+                    DDLogInfo("forum-ex list failed: \(error)")
+                    block?(exList: CoreDataManager.sharedInstance.exList(courseID!), error: error)
+                }
+            }
+        }
+        
+    }
+
+    
+    func notificationList(userID: String?, token: String?, page: NSNumber?, courseID: String?, block:((notificationList: [Notification], error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.notificationList(userID, token: token, page: page, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("lesson info list success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    
+                    let notificationList = Notification.convertWithJSON(json["notifications"].arrayValue) as! [Notification]
+                    //print("lessonList:")
+                    //print(lessonList)
+                    notificationList.forEach {
+                        $0.courseID = courseID
+                    }
+                    print(CoreDataManager.sharedInstance.notificationList(courseID!))
+                    block?(notificationList: notificationList, error: error)
+                    
+                } else {
+                    DDLogInfo("lesson info list failed: \(error)")
+                    block?(notificationList: CoreDataManager.sharedInstance.notificationList(courseID!), error: error)
+                }
+            }
+        }
+
+    }
+    
+    func lessonInfo(userID: String?, token: String?, courseID: String?,block:((lessonList: [Lesson], error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.lessonInfo(userID, token: token, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("lesson info list success:\(data)")
+                    CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    //print("lesson: ")
+                    //print(json)
+                    let lessonList = Lesson.convertWithJSON(json["lessons"].arrayValue) as! [Lesson]
+                    //print("lessonList:")
+                    //print(lessonList)
+                    lessonList.forEach {
+                        $0.courseID = courseID
+                    }
+                    //print(CoreDataManager.sharedInstance.lessonList(courseID!))
+                    block?(lessonList: lessonList.sort{return $0.lessonID?.intValue < $1.lessonID?.intValue}, error: error)
+                    print("here:")
+                    print(lessonList)
+                   // block?(error: error)
+                    //self.saveConfidential(json["name"].stringValue, userID: json["_id"].stringValue, token: ContentManager.Token!, password:ContentManager.Password!,realName: json["realName"].stringValue)
+                    
+                } else {
+                    DDLogInfo("lesson info list failed: \(error)")
+                    block?(lessonList: CoreDataManager.sharedInstance.lessonList(courseID!), error: error)
+                }
+            }
+        }
+    }
+    
+    func lessonFileInfo(userID: String?, token: String?, courseID: String?, lessonID: String?, lessonName: String?, block:((lessonFileList: [File], error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.lessonFileInfo(userID, token: token, courseID: courseID, lessonID: lessonID, lessonName: lessonName) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("lesson file info list success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonFileList(lessonName!)
+                    
+                    let json = JSON(data)
+                    //print("lessonFile: ")
+                    //print(json)
+                    let lessonFileList = File.convertWithJSON(json["files"].arrayValue) as! [File]
+                    print("lessonFileList:")
+                    print(lessonFileList)
+                    lessonFileList.forEach {
+                        $0.lessonName = lessonName
+                    }
+                    print("coredata:")
+                    print(CoreDataManager.sharedInstance.lessonFileList(lessonName!))
+                    block?(lessonFileList: lessonFileList, error: error)
+                    
+                } else {
+                    DDLogInfo("lesson file info list failed: \(error)")
+                    //block?(lessonFileList: CoreDataManager.sharedInstance.lessonFileList(lessonName!), error: error)
+                }
+            }
+        }
+    }
+    
+    func userInfo(name: String, password: String, block: ((error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.userInfo(ContentManager.UserID, token: ContentManager.Token, name: name, password: password) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                [weak self] in
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Change information success")
+                    let json = JSON(data)
+                    print(json["name"].stringValue)
+                    self?.saveConfidential(json["name"].stringValue, userID: json["_id"].stringValue, token: ContentManager.Token!, password: password,realName: name)
+                    
+                } else {
+                    DDLogInfo("Change information failed: \(error)")
+                }
+                block?(error: error)
+            }
+        }
+    }//??
 
     /**
      Retrieve course list
-     
+ 
      - parameter block: executing after retrieving the data
      - parameter courseList: the course list either from network or core data
      - parameter error: network error
@@ -152,7 +471,7 @@ class ContentManager: NSObject {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
-                    DDLogInfo("Querying quiz list success")
+                    DDLogInfo("Querying quiz list success\(data)")
                     let json = JSON(data)
                     let predicate = NSPredicate(format: "course_id = %@", courseID)
                     CoreDataManager.sharedInstance.deleteQuizWithinPredicate(predicate)
@@ -197,14 +516,14 @@ class ContentManager: NSObject {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
                     if error == nil, let data = data where JSON(data)["success"].boolValue {
-                        DDLogInfo("Querying sign info success")
-                        let json = JSON(data)["signIn"]
+                        DDLogInfo("Querying sign info success\(data)")
+                        let json = JSON(data)
                         let total = json["total"].intValue
-                        let user = json["self"].intValue
+                        let user = json["user"].intValue
                         let enable = json["enable"].boolValue
                         
-                        let uuid = json["last", "uuid"].string ?? ""
-                        let signinID = json["last", "_id"].string ?? ""
+                        let uuid = json["uuid"].string ?? ""
+                        let signinID = json["signin_id"].string ?? ""
                         
                         block?(uuid: uuid, enable: enable,
                             total: total, user: user,
@@ -222,7 +541,7 @@ class ContentManager: NSObject {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let   data = data where JSON(data)["success"].boolValue {
-                    DDLogInfo("Querying answer list success")
+                    DDLogInfo("Querying answer list success:\(data)")
                     CoreDataManager.sharedInstance.deleteAnswers(quizID)
                     
                     let json = JSON(data)
@@ -243,13 +562,15 @@ class ContentManager: NSObject {
     func submitAnswer(courseID: String, quizID: String, status: [AnswerJSON], block: ((answerList: [Answer], error: NetworkErrorType?) -> Void)?) {
         let array: [[String: AnyObject]] = status.map {
             var element = [String: AnyObject]()
-            element["question"] = $0.question_id
+            element["question_id"] = $0.question_id
             element["originAnswer"] = $0.originAnswer
+            element["score"] = $0.score//??
             return element
         }
         
         NetworkManager.sharedInstance.submitAnswer(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, quizID: quizID, status: array) {
             (data, error) in
+            
             if error == nil, let data = data where JSON(data)["success"].boolValue {
                 DDLogInfo("Submit answer success")
                 CoreDataManager.sharedInstance.deleteAnswers(quizID)
@@ -273,8 +594,9 @@ class ContentManager: NSObject {
             courseID: courseID, signinID: signinID, uuid: uuid, deviceID: deviceID) {
                 (data, error) in
                 dispatch_async(dispatch_get_main_queue()) {
-                    if error == nil, let data = data where JSON(data)["success"].boolValue {
-                        DDLogInfo("Submit sign in success")
+                    if error == nil, let data = data where JSON(data)["success"].boolValue
+                    {
+                        DDLogInfo("Submit sign in success\(data)")
                     } else {
                         DDLogInfo("Submit sign in failed: \(error)")
                     }
@@ -283,8 +605,8 @@ class ContentManager: NSObject {
         }
     }
     
-    func attendCourse(courseID: String, block: ((error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.attendCourse(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
+    func attendCourse(courseID: String, userName: String,  block: ((error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.attendCourse(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, userName: userName) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
@@ -331,106 +653,125 @@ class ContentManager: NSObject {
         }
     }
     
-    func projectList(courseID: String, block: ((projectList: [Project], error: NetworkErrorType?) -> Void)?) {
+    func dealGroup(groupID: String?, courseID: String?, type: String?, memberID: String?, memberName: String?, block:((error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.dealGroup(ContentManager.UserID, token: ContentManager.Token, groupID: groupID, courseID: courseID, type: type, memberID: memberID, memberName: memberName) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data //where JSON(data)["success"].boolValue
+                {
+                    DDLogInfo("deal group success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(error: error)
+                    
+                } else {
+                    DDLogInfo("deal group failed: \(error)")
+                    block?(error: error)
+                }
+            }
+        }
+    }
+    
+    //这个记得改！
+    func saveWish(courseID: String, target: [GroupMember], block: ((error: NetworkErrorType?) -> Void)?) {
+        let array: [[String: AnyObject]] = target.map {
+            var element = [String: AnyObject]()
+            element["member_id"] = $0.memberID
+            element["member_name"] = $0.memberName
+            return element
+        }
+        
+        NetworkManager.sharedInstance.saveWish(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, name: ContentManager.UserName, target: array) {
+            (data, error) in
+            
+            if error == nil, let data = data //where JSON(data)["success"].boolValue
+            {
+                DDLogInfo("save wish success")
+                
+                let json = JSON(data)
+                
+                block?(error: error)
+            } else {
+                DDLogInfo("save wish failed: \(error)")
+                block?(error: error)
+            }
+        }
+    }
+
+    
+    //这个记得改！
+    func getNoGroup(courseID: String?, block:((noGroup: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.getNoGroup(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data //where JSON(data)["success"].boolValue
+                {
+                    DDLogInfo("get no group success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(noGroup: json, error: error)
+                    
+                } else {
+                    DDLogInfo("get no group failed: \(error)")
+                    block?(noGroup: "", error: error)
+                }
+            }
+        }
+    }
+
+    
+    func groupQuery(courseID: String, block: ((group: JSON, error: NetworkErrorType?) -> Void)?) {
+        NetworkManager.sharedInstance.queryGroup(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("Querying group success")
+                    let json = JSON(data)
+                    
+                    print(json)
+                    block?(group: json, error: error)
+                    
+                } else {
+                    DDLogInfo("Querying project list failed: \(error)")
+                    block?(group: "", error: error)
+                }
+            }
+        }
+    }
+    
+    func projectList(courseID: String, block: ((groups: JSON, error: NetworkErrorType?) -> Void)?) {
         NetworkManager.sharedInstance.projectList(ContentManager.UserID, token: ContentManager.Token, courseID: courseID) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
                 if error == nil, let data = data where JSON(data)["success"].boolValue {
                     DDLogInfo("Querying project list success")
                     
-                    CoreDataManager.sharedInstance.deleteProjectList(courseID)
+                    //CoreDataManager.sharedInstance.deleteProjectList(courseID)
                     
                     let json = JSON(data)
-                    let projectList = Project.convertWithJSONArray(json["projects"].arrayValue) as! [Project]
+                   /* let projectList = Project.convertWithJSON(json["group"].arrayValue) as! [Project]
                     projectList.forEach {
                         $0.course_id = courseID
-                    }
-                    block?(projectList: projectList.sort{return $0.to.compare($1.to) == .OrderedDescending}, error: error)
+                    }*/
+                    print(json)
+                    block?(groups: json, error: error)
+                    //block?(projectList: projectList.sort{return $0.to.compare($1.to) == .OrderedDescending}, error: error)
                 } else {
                     DDLogInfo("Querying project list failed: \(error)")
-                    block?(projectList: CoreDataManager.sharedInstance.projectList(courseID), error: error)
+                    block?(groups: "", error: error)
                 }
             }
         }
     }
    
-    func groupList(projectID: String, block: ((groupID: String?, creatorList: [Group], memberList: [Group], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.groupList(ContentManager.UserID, token: ContentManager.Token, projectID: projectID) {
-            (data, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if error == nil, let data = data where JSON(data)["success"].boolValue {
-                    DDLogInfo("Querying group list success")
-                    CoreDataManager.sharedInstance.deleteGroupList(projectID)
-                    
-                    let json = JSON(data)
-                    let groupID = json["group_id"].string
-                    let creator = Group.convertWithJSONArray(json["creator"].arrayValue) as! [Group]
-                    creator.forEach() {
-                        $0.project_id = projectID
-                        $0.created = true
-                    }
-                    let members = Group.convertWithJSONArray(json["groups"].arrayValue) as! [Group]
-                    members.forEach() {
-                        $0.project_id = projectID
-                        $0.created = false
-                    }
-                    
-                    block?(groupID: groupID, creatorList: creator.sort{return $0.name < $1.name}, memberList: members.sort{return $0.name < $1.name}, error: error)
-                } else {
-                    DDLogInfo("Querying project list failed: \(error)")
-                    block?(groupID: nil,
-                        creatorList: CoreDataManager.sharedInstance.creatorList(projectID),
-                        memberList: CoreDataManager.sharedInstance.memberList(projectID),
-                        error: error)
-                }
-            }
-        }
-    }
     
-    func problemList(projectID: String, block: ((problemList: [Problem], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.problemList(ContentManager.UserID, token: ContentManager.Token, projectID: projectID) {
-            (data, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if error == nil, let data = data where JSON(data)["success"].boolValue {
-                    DDLogInfo("Querying problem list success")
-                    CoreDataManager.sharedInstance.deleteProblemList(projectID)
-                    
-                    let json = JSON(data)
-                    let problemList = Problem.convertWithJSONArray(json["problems"].arrayValue) as! [Problem]
-                    problemList.forEach {
-                        $0.project_id = projectID
-                    }
-                    block?(problemList: problemList.sort{return $0.name < $1.name}, error: error)
-                } else {
-                    DDLogInfo("Querying probem list failed: \(error)")
-                    block?(problemList: CoreDataManager.sharedInstance.problemList(projectID), error: error)
-                }
-            }
-        }
-    }
-    
-    func teammateList(courseID: String, projectID: String, block: ((teammateList: [Teammate], error: NetworkErrorType?) -> Void)?) {
-        NetworkManager.sharedInstance.teammateList(ContentManager.UserID, token: ContentManager.Token, courseID: courseID, projectID: projectID){
-            (data, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if error == nil, let data = data where JSON(data)["success"].boolValue {
-                    DDLogInfo("Querying teammate list success")
-                    CoreDataManager.sharedInstance.deleteTeammateList(courseID)
-                    
-                    let json = JSON(data)
-                    let teammateList = Teammate.convertWithJSONArray(json["students"].arrayValue) as! [Teammate]
-                    teammateList.forEach {
-                        $0.course_id = courseID
-                    }
-                    block?(teammateList: teammateList.sort{ $0.name < $1.name }, error: error)
-                } else {
-                    DDLogInfo("Querying teammate list failed: \(error)")
-                    block?(teammateList: CoreDataManager.sharedInstance.teammateList(courseID), error: error)
-                }
-            }
-        }
-    }
-    
+       
     func groupInvite(projectID: String, problemID: String, members: [String], block: ((error: NetworkErrorType?) -> Void)?) {
         let json = JSON(members)
         
@@ -461,6 +802,54 @@ class ContentManager: NSObject {
         }
     }
     
+    
+    
+    func Replyposting(userID: String?, token: String?, postingID: String?, content: String? ,block:((newReply: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.ReplyPosting(ContentManager.UserID, token: ContentManager.Token, postingID: postingID, content: content) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("reply success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(newReply: json, error: error)
+                    
+                } else {
+                    DDLogInfo("post detail failed: \(error)")
+                    block?(newReply: "", error: error)
+                }
+            }
+        }
+    }
+    
+    
+    
+    func ShowMyLove(userID: String?, token: String?, postuser: String? , courseID: String?, postingID: String?, type: String? ,block:((like: JSON, error: NetworkErrorType?)->Void)?) {
+        NetworkManager.sharedInstance.ShowMyLove(ContentManager.UserID, token: ContentManager.Token, postuser:postuser, courseID: courseID, postingID: postingID, type: type) {
+            (data, error) in
+            dispatch_async(dispatch_get_main_queue()) {
+                if error == nil, let data = data where JSON(data)["success"].boolValue {
+                    DDLogInfo("like success:\(data)")
+                    //CoreDataManager.sharedInstance.deleteLessonList(courseID!)
+                    
+                    let json = JSON(data)
+                    print("json here:")
+                    print(json)
+                    block?(like: json, error: error)
+                    
+                } else {
+                    DDLogInfo("post like failed: \(error)")
+                    block?(like: "", error: error)
+                }
+            }
+        }
+    }
+    
+
+    
     func groupDecline(projectID: String, groupID: String, block: ((error: NetworkErrorType?) -> Void)?) {
         NetworkManager.sharedInstance.groupDecline(ContentManager.UserID, token: ContentManager.Token, projectID: projectID, groupID: groupID) {
             (data, error) in
@@ -480,7 +869,7 @@ class ContentManager: NSObject {
         CoreDataManager.sharedInstance.truncateData()
     }
     
-    private func saveConfidential(name: String, userID: String, token: String, password: String) {
+    private func saveConfidential(name: String, userID: String, token: String, password: String,realName:String) {
         if let id = ContentManager.UserID where id != userID {
             truncateData()
         }
@@ -488,6 +877,7 @@ class ContentManager: NSObject {
         ContentManager.UserID = userID
         ContentManager.Token = token
         ContentManager.Password = password
+        ContentManager.realName = realName
     }
     
     private func clearConfidential() {
@@ -495,5 +885,6 @@ class ContentManager: NSObject {
         ContentManager.UserID = nil
         ContentManager.Token = nil
         ContentManager.Password = nil
+        ContentManager.realName = nil
     }
 }

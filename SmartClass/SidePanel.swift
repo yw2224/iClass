@@ -12,11 +12,11 @@ struct SidePanel {
     
     let texts = [
         //            "个人中心", "清理缓存", "夜间模式", "意见反馈",
-        "关于", "注销账户"
+        "", "个人中心", "注销账户"
     ]
     let icons = [
         //            "PersonalCenter", "CleanCache", "NightMode", "Feedback",
-        "About", "Logout"
+        "", "PersonalCenter", "Logout"
     ]
     let cellID = "SettingsCell"
     

@@ -84,8 +84,10 @@ class QuestionContainerViewController: UIViewController {
             let originAnswer: [String] = answer.originAnswer.allObjects.map {
                 return ($0 as! Choice).content
             }
-            status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer))
+            let score = answer.score.integerValue //??
+            status.append(AnswerJSON(question_id: key as! String, originAnswer: originAnswer,score:score))
         }
+        
         ContentManager.sharedInstance.submitAnswer(quiz.course_id, quizID: quiz.quiz_id, status: status) {
             (answerList, error) in
             SVProgressHUD.popActivity()

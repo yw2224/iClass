@@ -19,7 +19,8 @@ struct GlobalConstants {
     static let LoginViewControllerIdentifier          = "Login View Controller"
     
     /// Navigation bar's foreground color
-    static var BarTintColor = UIColor(red: 246.0 / 255.0, green: 46.0 / 255.0, blue: 56.0 / 255.0, alpha: 1.0)
+    static var BarTintColor = UIColor(red: 156.0 / 255.0, green: 0.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
+    
     
     /// Splash screens' background gradient color
     static var SplashPagesBackgroundColor = [

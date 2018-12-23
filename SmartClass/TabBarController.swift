@@ -23,8 +23,6 @@ extension TabBarController: UITabBarControllerDelegate {
         
         if let qvc = dest as? QuizViewController {
             qvc.courseID = courseID
-        } else if let pvc = dest as? ProjectViewController {
-            pvc.courseID = courseID
         }
         return true
     }

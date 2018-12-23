@@ -79,9 +79,9 @@ struct Login {
     
     private let keyboardType = [
         LoginStatus.Register:
-            [UIKeyboardType.NumberPad, UIKeyboardType.Default, UIKeyboardType.Default],
+            [UIKeyboardType.Default, UIKeyboardType.Default, UIKeyboardType.Default],
         LoginStatus.Login:
-            [UIKeyboardType.Default, UIKeyboardType.NumberPad, UIKeyboardType.Default],
+            [UIKeyboardType.Default, UIKeyboardType.Default, UIKeyboardType.Default],
     ]
     
     private let indexes = [
@@ -136,10 +136,10 @@ struct Login {
                 throw LoginErrorType.FieldEmpty(indexes[i])
             }
             
-            if !v(content)() {
+           /* if !v(content)() {
                 throw LoginErrorType.FieldInvalid(indexes[i])
             }
-            
+            */
             result.append(content)
         }
         

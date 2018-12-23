@@ -35,6 +35,24 @@ class CoreDataManager: NSObject {
 //    /**
 //     Methods retrieving data from local data base (Core Data)
 //     */
+   /*func lessonList(courseID: String) -> [Lesson] {
+        
+    }*/
+    func notificationList(courseID: String) -> [Notification] {
+        return Notification.MR_findByAttribute("courseID", withValue: courseID) as! [Notification]
+    }
+    
+    func exList(courseID: String) -> [EX] {
+        return EX.MR_findByAttribute("courseID", withValue: courseID) as! [EX]
+    }
+    
+    func lessonList(courseID: String) -> [Lesson] {
+        return Lesson.MR_findByAttribute("courseID", withValue: courseID) as! [Lesson]
+    }//??
+    func lessonFileList(lessonName: String) -> [File] {
+        return File.MR_findByAttribute("lessonName", withValue: lessonName) as! [File]
+    }//??
+    
     func answerList(quizID: String) -> [Answer] {
         return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
     }
@@ -71,31 +89,7 @@ class CoreDataManager: NSObject {
         return Question.MR_findByAttribute("quiz_id", withValue: quizID, andOrderBy: "no", ascending: true) as! [Question]
     }
     
-    func project(projectID: String) -> Project {
-        return Project.MR_findFirstByAttribute("project_id", withValue: projectID)!
-    }
-    
-    func problemList(projectID: String) -> [Problem] {
-        return Problem.MR_findByAttribute("project_id", withValue: projectID, andOrderBy: "name", ascending: true) as! [Problem]
-    }
-    
-    func projectList(courseID: String) -> [Project] {
-        return Project.MR_findByAttribute("course_id", withValue: courseID, andOrderBy: "to", ascending: false) as! [Project]
-    }
-    
-    func teammateList(courseID: String) -> [Teammate] {
-        return Teammate.MR_findByAttribute("course_id", withValue: courseID, andOrderBy: "name", ascending: true) as! [Teammate]
-    }
-    
-    func creatorList(projectID: String) -> [Group] {
-        let predicate = NSPredicate(format: "project_id = %@ && created = %@", projectID, true)
-        return Group.MR_findAllSortedBy("name", ascending: true, withPredicate: predicate) as! [Group]
-    }
-    
-    func memberList(projectID: String) -> [Group] {
-        let predicate = NSPredicate(format: "project_id = %@ && created = %@", projectID, false)
-        return Group.MR_findAllSortedBy("name", ascending: true, withPredicate: predicate) as! [Group]
-    }
+
     
     /**
      Methods deleting data from local data base (Core Data)
@@ -121,21 +115,11 @@ class CoreDataManager: NSObject {
         Course.MR_truncateAll()
     }
     
-    func deleteProjectList(courseID: String) {
-        Project.MR_deleteAllMatchingPredicate(NSPredicate(format: "course_id = %@", courseID))
-    }
+   
+    func deleteLessonList(courseID: String) {
+        Lesson.MR_deleteAllMatchingPredicate(NSPredicate(format: "courseID = %@", courseID))
+    }//??
     
-    func deleteGroupList(projectID: String) {
-        Group.MR_deleteAllMatchingPredicate(NSPredicate(format: "project_id = %@", projectID))
-    }
-    
-    func deleteProblemList(projectID: String) {
-        Problem.MR_deleteAllMatchingPredicate(NSPredicate(format: "project_id = %@", projectID))
-    }
-    
-    func deleteTeammateList(courseID: String) {
-        Teammate.MR_deleteAllMatchingPredicate(NSPredicate(format: "course_id = %@", courseID))
-    }
     
     func cachedAnswerForQuiz(quizID: String) -> [Answer] {
         return Answer.MR_findByAttribute("quiz_id", withValue: quizID) as! [Answer]
@@ -149,11 +133,8 @@ class CoreDataManager: NSObject {
         User.MR_truncateAll()
         Course.MR_truncateAll()
         Quiz.MR_truncateAll()
-        Group.MR_truncateAll()
-        Project.MR_truncateAll()
-        Teammate.MR_truncateAll()
-        Problem.MR_truncateAll()
         Question.MR_truncateAll()
         Answer.MR_truncateAll()
+        Lesson.MR_truncateAll() //??
     }
 }
